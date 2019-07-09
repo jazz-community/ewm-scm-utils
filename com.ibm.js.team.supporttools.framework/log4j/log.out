@@ -1,0 +1,1880 @@
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportImportTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/ce39ce74-06d7-4442-896f-1028457bc2ff'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-166a7f72_16832b3b7c2_-78be"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/09 14:10:25 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_7XbtkBQPEemS375tSczVhQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+
+java.lang.NullPointerException
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.initialize(Changeset.java:147)
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.create(Changeset.java:234)
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.<init>(Changeset.java:201)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ImportTypeSystemCmd.execute(ImportTypeSystemCmd.java:163)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:113)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_test.csv'
+File not found 'c:\Temp\exportImportTag_test.csv'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/13f9c8c1-9070-43cd-acf3-6e5389ea6c76'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-38e26560_1683be82627_-7b2c"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/11 08:59:21 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_2yQ8IBV2EemBH9V6euA71g' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+Unsupported command name 'sampleCommand' 
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+Failed.
+Failed.
+
+TypeSystemManager Version: 1.0
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_test.csv'
+File not found 'c:\Temp\exportImportTag_test.csv'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportImportTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/53aa6f81-45d2-4fd3-8785-2b09fb207594'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-7c1a"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:15:58 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/ffb8cb63-af6d-48c7-b287-3a3c9d8a026b'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-79ce"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:18:34 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Result 'No data found'
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_sUb5wB4mEemlXO5HdTHYbQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/24b17f45-9cd9-4a7a-8a2e-272316ba417d'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-783a"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:19:26 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_0KIqsB4mEemlXO5HdTHYbQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/1f456657-43df-4531-adba-f73c67b4d41b'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-5e67"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:33:09 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_u0bfYB4oEemlXO5HdTHYbQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/6ba90162-9d73-426b-96e8-256388fc8618'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-5d45"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:33:31 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/5a17ba42-66d4-4c17-ac53-51c458befb29'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-5adf"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:34:33 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_7U7LgR4oEemlXO5HdTHYbQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/8c7c2cc9-4f3c-4412-8c63-e5ab415af8b0'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-59f2"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:34:47 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/bc61f007-9597-4e52-8300-b0b615448378'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-561d"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 10:36:24 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_L3atcB4pEemlXO5HdTHYbQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportDeliverTag_all.csv'
+-----------------------------------------------------------------------------
+Deliver '' from 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportDeliverTag_all.csv'
+-----------------------------------------------------------------------------
+Deliver '' from 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/ee8f24e8-f6f8-4e61-af6d-a9b509b1896e'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-6128d3df_16874d2a8fc_-26d8"}]{ Commit delivery session }'
+Delivery Session from 'Type System Delivery Source' to the configuration 'Type System Delivery Target' failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsByDescription.execute(ExportConfigurationsByDescription.java:176)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:113)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+A javax.ws.rs.ext.MessageBodyReader implementation was not found for class org.eclipse.lyo.oslc4j.core.model.ServiceProviderCatalog type and text/html;charset=ISO-8859-1 media type.  Verify that all entity providers are correctly registered.  Add a custom javax.ws.rs.ext.MessageBodyReader provider to handle the type and media type if a JAX-RS entity provider does not currently exist.
+java.lang.RuntimeException: A javax.ws.rs.ext.MessageBodyReader implementation was not found for class org.eclipse.lyo.oslc4j.core.model.ServiceProviderCatalog type and text/html;charset=ISO-8859-1 media type.  Verify that all entity providers are correctly registered.  Add a custom javax.ws.rs.ext.MessageBodyReader provider to handle the type and media type if a JAX-RS entity provider does not currently exist.
+	at org.apache.wink.client.internal.handlers.ClientResponseImpl.readEntity(ClientResponseImpl.java:122)
+	at org.apache.wink.client.internal.handlers.ClientResponseImpl.getEntity(ClientResponseImpl.java:65)
+	at org.apache.wink.client.internal.handlers.ClientResponseImpl.getEntity(ClientResponseImpl.java:52)
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:472)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsByDescription.execute(ExportConfigurationsByDescription.java:176)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:113)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsByDescription.execute(ExportConfigurationsByDescription.java:176)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:113)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/2339bc8f-9687-4175-b0a9-4fd345e8914e'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-5846df43_1687505b76e_-4d29"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/01/22 11:37:14 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_r7sooB4xEemt2aSDkSxUpg' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsCmd.execute(ExportConfigurationsCmd.java:155)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:113)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Streams
+Exporting data to file 'c:\Temp\exportPa.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportImportTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_test.csv'
+File not found 'c:\Temp\exportImportTag_test.csv'
+Failed.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+Success.
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/b30eb6e0-5201-4482-a46e-84968b946e6b'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:6884dd60_1692e853c80_-7c14"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/02/27 11:40:42 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+
+TypeSystemManager Version: 1.0
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\exportImportTag_all.csv'
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/a2bcd415-14f3-4e45-818b-1ee352ee65f3'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:6884dd60_1692e853c80_-7990"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/02/27 11:42:52 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Component:
+ null
+
+TypeSystemManager Version: 1.1
+Unsupported command name 'unsupportedCommand' 
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+importConfigurationsByDescription
+	Syntax : -command importConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command importConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+deliverConfigurationsByDescription
+	Syntax : -command deliverConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+Failed.
+Failed.
+
+TypeSystemManager Version: 1.1
+Unsupported command name 'unsupportedCommand' 
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+importConfigurationsByDescription
+	Syntax : -command importConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command importConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+deliverConfigurationsByDescription
+	Syntax : -command deliverConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverConfigurationsByDescription
+	Syntax : -command deliverConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverConfigurationsByDescription
+	Syntax : -command deliverConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverConfigurationsByDescription
+	Syntax : -command deliverConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Unexpected return code. Session 'https://clm.example.com:9443/rm/oslc_config'.
+
+java.lang.NullPointerException
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.DngCmUtil.getCmOslcLDPComponentCreationFactories(DngCmUtil.java:130)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.DngCmUtil.getRmCmOslcLDPComponentFactories(DngCmUtil.java:260)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.DngCmUtil.getComponentsForAllProjectAreas(DngCmUtil.java:531)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationMappingBydescriptionTag(ConfigurationMappingUtil.java:75)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.DeliverTypeSystemByDescriptionCmd.execute(DeliverTypeSystemByDescriptionCmd.java:128)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Deliver '' from 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Deliver 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/0a920cff-7899-47d4-b6c0-de8834554531'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-4889d1f0_16949c5b7c1_-7ba6"}]{ Commit delivery session }'
+Delivery Session from 'Type System Delivery Source' to the configuration 'Type System Delivery Target' failed.
+The delivery has failed or there were no differences to deliver!
+Failed.
+
+TypeSystemManager Version: 1.1
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+Failed.
+
+TypeSystemManager Version: 1.1
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+Failed.
+
+TypeSystemManager Version: 1.1
+
+TypeSystemManager Version: 1.1
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Import '' from 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/be7d2985-2fa5-4087-a75d-0640521f4166'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-4889d1f0_16949c5b7c1_-70ec"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/03/04 18:48:37 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_vXP1UD6lEemK5YV_HgVU8Q' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Import from '' to 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/ceff7282-417c-4fca-995f-4ef329fe1551'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-4889d1f0_16949c5b7c1_-6cfc"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/03/04 18:50:30 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_ALP-AT6mEemK5YV_HgVU8Q' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.1
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {}
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+Failed.
+
+TypeSystemManager Version: 1.1
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+Failed.
+
+TypeSystemManager Version: 1.1
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -{} {} -{} {} [ -{} {} ]
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -{} {} -{} {}
+Failed.
+
+TypeSystemManager Version: 1.1
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+Uses a string to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character" [ -{} {} ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv" -{} {}
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Uses a string to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" -csvDelimiter "character"
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Reads a CSV file with a source to target mapping of configurations. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Uses a string to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Uses a string to identify a source stream and one or many target streams. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+	Uses a string to identify a source stream and one or many target streams in to create a mapping and exports the information into a CSV file.
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+	Uses a string to identify a source stream and one or many target streams. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+	Finds all editable configurations of a project area and exports the information into a CSV file.
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+	Uses a string to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+	Reads a CSV file with a source to target mapping of configurations. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+
+	Uses a string to identify a source stream and one or many target streams in to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+
+	Uses a string to identify a source stream and one or many target streams. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+
+	Finds all editable configurations of a project area and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+
+	Uses a string to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+
+	Uses a string to identify a source stream and one or many target streams in a project area to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams in to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+
+	Finds all editable configurations of a project area and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams in a project area to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Unexpected return code. Session 'https://clm.example.com:9443/rm/oslc_config'.
+
+java.lang.NullPointerException
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.DngCmUtil.getCmOslcLDPComponentCreationFactories(DngCmUtil.java:130)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.DngCmUtil.getRmCmOslcLDPComponentFactories(DngCmUtil.java:260)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.DngCmUtil.getComponentsForAllProjectAreas(DngCmUtil.java:531)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationMappingBydescriptionTag(ConfigurationMappingUtil.java:75)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.DeliverTypeSystemByDescriptionCmd.execute(DeliverTypeSystemByDescriptionCmd.java:134)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Deliver from 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/9a113f89-d98a-4186-a9f6-723a6f1558ec'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-63efddfa_169582fd9a3_-7e62"}]{ Commit delivery session }'
+Delivery Session from 'Type System Delivery Source' to the configuration 'Type System Delivery Target' failed.
+The delivery has failed or there were no differences to deliver!
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\TypeSystemDelivery.csv'
+File not found 'c:\Temp\TypeSystemDelivery.csv'
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\TypeSystemDelivery.csv'
+File not found 'c:\Temp\TypeSystemDelivery.csv'
+Failed.
+
+TypeSystemManager Version: 1.1
+Using csv file 'c:\Temp\TypeSystemDelivery.csv'
+File not found 'c:\Temp\TypeSystemDelivery.csv'
+Failed.
+
+TypeSystemManager Version: 1.1
+Using csv file 'c:\Temp\TypeSystemDelivery.csv'
+File not found 'c:\Temp\TypeSystemDelivery.csv'
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationMappingForProjectAreaByDescriptionTag(ConfigurationMappingUtil.java:170)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsByDescriptionCmd.execute(ExportConfigurationsByDescriptionCmd.java:161)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM2 (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM2 (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationMappingForProjectAreaByDescriptionTag(ConfigurationMappingUtil.java:170)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsByDescriptionCmd.execute(ExportConfigurationsByDescriptionCmd.java:161)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Streams
+Exporting data to file 'c:\Temp\exportPa.csv'.
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Deliver from 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/7f64e20f-308b-4b43-8531-0a53da6b4c33'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-63efddfa_169582fd9a3_-4d67"}]{ Commit delivery session }'
+Delivery Session from 'Type System Delivery Source' to the configuration 'Type System Delivery Target' failed.
+The delivery has failed or there were no differences to deliver!
+Failed.
+
+TypeSystemManager Version: 1.1
+Using csv file 'c:\Temp\exportDeliverTag_all.csv'
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+-----------------------------------------------------------------------------
+Deliver from 'https://clm.example.com:9443/rm/cm/stream/_Ga-3gPoaEei1heqPanuHaQ' to 'https://clm.example.com:9443/rm/cm/stream/_U5fvgPoaEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/83942def-2b26-49dd-8785-7a207d588ad6'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-63efddfa_169582fd9a3_-4c4d"}]{ Commit delivery session }'
+Delivery Session from 'Type System Delivery Source' to the configuration 'Type System Delivery Target' failed.
+The delivery has failed or there were no differences to deliver!
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+Exporting data to file 'c:\Temp\exportDeliverTag_all.csv'.
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Streams
+Exporting data to file 'c:\Temp\exportPa.csv'.
+Success.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+-----------------------------------------------------------------------------
+Import from '' to 'https://clm.example.com:9443/rm/cm/stream/_qPpqMPoZEei1heqPanuHaQ' 
+The configuration update has failed or there were no differences to deliver!
+The tracker reports an error 'Tracker: 'https://clm.example.com:9443/rm/taskTracker/c3b91c67-04cc-477c-8aae-ad4cb8f6a131'state: http://open-services.net/ns/auto#complete verdict: http://open-services.net/ns/auto#complete[{"type":"bnode","value":"_:-63efddfa_169582fd9a3_-4863"}]{ Commit delivery session }'
+Delivery Session from 'Import-Type-System-CS-2019/03/07 14:21:10 MEZ' to the configuration 'Type System Import Target Stream' failed.
+The delivery has failed or there were no differences to deliver!
+Failed to deliver change set 'https://clm.example.com:9443/rm/cm/changeset/_36MvoEDbEemYnscPWCiQdQ' to stream. 'https://clm.example.com:9443/rm/cm/stream/_8HxiUPoZEei1heqPanuHaQ'. Changeset discarded: 'true'
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\TypeSystemImport.csv'
+File not found 'c:\Temp\TypeSystemImport.csv'
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\TypeSystemImport.csv'
+-----------------------------------------------------------------------------
+Import from 'null' to 'null' 
+
+java.lang.NullPointerException
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.initialize(Changeset.java:147)
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.create(Changeset.java:249)
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.<init>(Changeset.java:201)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.importConfigurations(ConfigurationMappingUtil.java:330)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ImportTypeSystemCmd.execute(ImportTypeSystemCmd.java:152)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Using csv file 'c:\Temp\TypeSystemImport.csv'
+-----------------------------------------------------------------------------
+Import from 'null' to 'null' 
+
+java.lang.NullPointerException
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.initialize(Changeset.java:147)
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.create(Changeset.java:249)
+	at com.ibm.requirement.typemanagement.oslc.client.resources.Changeset.<init>(Changeset.java:201)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.importConfigurations(ConfigurationMappingUtil.java:330)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ImportTypeSystemCmd.execute(ImportTypeSystemCmd.java:152)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams in to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+
+	Finds all editable configurations of a project area and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams in a project area to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+Missing command 
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportAllConfigurationsByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams in to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportAllConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportAllConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+
+	Syntax : -command deliverTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command deliverTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystemByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command importTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurations
+
+	Finds all editable configurations of a project area and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurations -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurations -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+deliverTypeSystemByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams. Delivers the type system of the source stream to all target streams.
+
+	Syntax : -command deliverTypeSystemByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -sourceTag <tag> -targetTag <tag>
+	Example: -command deliverTypeSystemByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -sourceTag TSSource_TS1 -targetTag TSTarget_TS1
+
+
+exportConfigurationsByDescription
+
+	Uses string tags in the description to identify a source stream and one or many target streams in a project area to create a mapping and exports the information into a CSV file.
+
+	Syntax : -command exportConfigurationsByDescription -url https://<server>:port/<context>/ -user <userId> -password <password> -project "<project_area>" -sourceTag <tag> -targetTag <tag> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command exportConfigurationsByDescription -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -project "JKE Banking (Requirements Management)" -sourceTag TSSource_TS1 -targetTag TSTarget_TS1 -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+importTypeSystem
+
+	Reads a CSV file with a source to target mapping of configurations. For each target stream, it imports the type system changes of the source stream into a new changes set and delivers the change to the target streams.
+
+	Syntax : -command importTypeSystem -url https://<server>:port/<context>/ -user <userId> -password <password> -csvfile "<csv_file_path>" [ -csvDelimiter "character" ]
+	Example: -command importTypeSystem -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -csvfile "..\example.csv"
+	Optional parameter: -csvDelimiter "character"
+	Example optional parameter: -csvDelimiter ";"
+
+
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM 2 (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM 2 (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationsForProjectArea(ConfigurationMappingUtil.java:266)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsCmd.execute(ExportConfigurationsCmd.java:146)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+Filtering for Configurations
+No match for source.
+No valid configuration data found.
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM 2 (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM 2 (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationsForProjectArea(ConfigurationMappingUtil.java:266)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsCmd.execute(ExportConfigurationsCmd.java:148)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: GC JKE Banking (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationsForProjectArea(ConfigurationMappingUtil.java:266)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsCmd.execute(ExportConfigurationsCmd.java:148)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.
+
+TypeSystemManager Version: 1.1
+[line: 41, col: 82] {W107} Bad URI: <https://clm.example.com:9443/clmhelp> Code: 8/NON_INITIAL_DOT_SEGMENT in PATH: The path contains a segment /../ not at the beginning of a relative reference, or it contains a /./ These should be removed.
+Invalid cookie header: "Set-Cookie: WASReqURL=""; Expires=Thu, 01 Dec 1994 16:00:00 GMT; Path=/; Secure; HttpOnly". Invalid 'expires' attribute: Thu, 01 Dec 1994 16:00:00 GMT
+Getting Configurations
+OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM 2 (Requirements Management).
+org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The requested resource could not be found.  Resource: https://clm.example.com:9443/rm/oslc_rm/catalog  Value: CM 2 (Requirements Management).
+	at org.eclipse.lyo.client.oslc.OslcClient.lookupServiceProviderUrl(OslcClient.java:485)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ProjectAreaOslcServiceProvider.findProjectAreaOslcServiceProvider(ProjectAreaOslcServiceProvider.java:109)
+	at com.ibm.requirement.typemanagement.oslc.client.dngcm.ConfigurationMappingUtil.getEditableConfigurationsForProjectArea(ConfigurationMappingUtil.java:266)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.commands.ExportConfigurationsCmd.execute(ExportConfigurationsCmd.java:148)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.framework.AbstractCommand.run(AbstractCommand.java:79)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
+	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
+Failed.

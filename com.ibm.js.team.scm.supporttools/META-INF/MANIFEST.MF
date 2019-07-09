@@ -1,9 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jazz SCM Support Tools
-Bundle-SymbolicName: com.ibm.js.team.scm.supporttools
+Bundle-SymbolicName: com.ibm.js.team.supporttools.scm
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: IBM
 Automatic-Module-Name: com.ibm.js.team.scm.supporttools
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8,
  JavaSE-1.7
+Require-Bundle: org.eclipse.core.runtime,
+ com.ibm.team.scm.common,
+ com.ibm.team.scm.client,
+ com.ibm.team.filesystem.client,
+ com.ibm.team.filesystem.common
