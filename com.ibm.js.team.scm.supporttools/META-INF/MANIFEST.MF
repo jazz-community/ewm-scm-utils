@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jazz SCM Support Tools
+Bundle-SymbolicName: com.ibm.js.team.scm.supporttools
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: IBM
+Automatic-Module-Name: com.ibm.js.team.scm.supporttools
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8,
+ JavaSE-1.7
