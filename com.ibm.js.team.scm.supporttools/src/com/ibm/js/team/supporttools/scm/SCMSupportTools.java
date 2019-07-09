@@ -3,11 +3,15 @@ package com.ibm.js.team.supporttools.scm;
 import java.net.URISyntaxException;
 
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.framework.AbstractSupportToolsFramework;
 import com.ibm.js.team.supporttools.framework.commands.ICommandFactory;
 
 public class SCMSupportTools extends AbstractSupportToolsFramework {
+
+	public static final Logger logger = LoggerFactory.getLogger(SCMSupportTools.class);
 
 	public SCMSupportTools(ICommandFactory commandFactory) {
 		super(commandFactory);
@@ -21,7 +25,7 @@ public class SCMSupportTools extends AbstractSupportToolsFramework {
 	 * @throws ParseException
 	 * @throws URISyntaxException
 	 */
-	public static void main(String[] args) throws URISyntaxException, ParseException {
+	public static void main(String[] args) throws ParseException {
 
 		logger.info("\nSCMSupportTools Version: {}", "1.0");
 		boolean result=false;
@@ -34,6 +38,4 @@ public class SCMSupportTools extends AbstractSupportToolsFramework {
 			System.exit(1);
 		}
 	}
-
-
 }

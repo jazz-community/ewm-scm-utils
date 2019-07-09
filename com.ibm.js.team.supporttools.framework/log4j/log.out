@@ -1878,3 +1878,4 @@ org.eclipse.lyo.client.exception.ResourceNotFoundException: OSLCC004: The reques
 	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.execute(DngTypeSystemManagement.java:111)
 	at com.ibm.requirement.typemanagement.oslc.client.automation.DngTypeSystemManagement.main(DngTypeSystemManagement.java:55)
 Failed.
+Test

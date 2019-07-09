@@ -1,0 +1,19 @@
+Test
+
+SCMSupportTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+sampleCommand
+
+	A sample command that can be used as template for adding custom commands.
+
+	Syntax : -command sampleCommand -mandatorySampleOption <mandatoryOptionValue> [ -optionalSampleOption <optionalOptionValue> ]
+	Example: -command sampleCommand -mandatorySampleOption "mandatory value"
+	Optional parameter: -optionalSampleOption <optionalOptionValue>
+	Example optional parameter: -optionalSampleOption "optional value"
+
+
+Failed.
