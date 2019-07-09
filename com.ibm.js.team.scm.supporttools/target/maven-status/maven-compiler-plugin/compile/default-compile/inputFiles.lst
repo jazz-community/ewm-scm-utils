@@ -1,11 +1,4 @@
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\compression\SCMToolsRuntimeException.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\Unzip.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\FileUtil.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\AbstractUnzip.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\compression\Unzip.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\compression\SCMToolsException.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\compression\Zip.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\Zip.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\AbstractZip.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\UserIO.java
-C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\scm\supporttools\utils\OSConstants.java
+C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\supporttools\scm\SCMSupportTools.java
+C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\supporttools\scm\SCMSupportToolsCommandFactory.java
+C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\supporttools\scm\compression\Zip.java
+C:\Users\RalphSchoon\git\jazz-scm-content-obfuscator\com.ibm.js.team.scm.supporttools\src\com\ibm\js\team\supporttools\scm\compression\Unzip.java

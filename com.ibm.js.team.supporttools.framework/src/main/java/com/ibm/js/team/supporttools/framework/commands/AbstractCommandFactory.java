@@ -13,7 +13,7 @@
  *
  *    Ralph Schoon - Initial implementation
  *******************************************************************************/
-package com.ibm.js.team.supporttools.scm;
+package com.ibm.js.team.supporttools.framework.commands;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,7 +21,6 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.framework.commands.SampleCommandCmd;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 
 /**
@@ -29,16 +28,17 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
  * constructor.
  *
  */
-public class CommandFactory {
+public abstract class AbstractCommandFactory implements ICommandFactory {
 
-	public static final Logger logger = LoggerFactory.getLogger(CommandFactory.class);
+	public static final Logger logger = LoggerFactory.getLogger(AbstractCommandFactory.class);
 	private HashMap<String, ICommand> commandMap = new HashMap<String, ICommand>();
 
 	/**
 	 * Creates the list of supported commands
 	 */
-	private CommandFactory() {
+	public AbstractCommandFactory() {
 		super();
+		setAvailableCommands();
 //		put(new ExportConfigurationsCmd());
 //		put(new ExportConfigurationsByDescriptionCmd());
 //		put(new ExportAllConfigurationsByDescriptionCmd());
@@ -47,22 +47,17 @@ public class CommandFactory {
 //		put(new ImportTypeSystemByDescriptionCmd());
 //		put(new DeliverTypeSystemByDescriptionCmd());
 		// Enable sample command
-		put(new SampleCommandCmd());
+//		put(new SampleCommandCmd());
 	}
-
-	/**
-	 * @return the factory
-	 */
-	public static CommandFactory INSTANCE() {
-		return new CommandFactory();
-	}
+	
+	public abstract void setAvailableCommands();
 
 	/**
 	 * Add a command to the list of supported commands
 	 * 
 	 * @param cmd
 	 */
-	private void put(final ICommand cmd) {
+	public void put(final ICommand cmd) {
 		commandMap.put(cmd.getCommandName(), cmd);
 	}
 

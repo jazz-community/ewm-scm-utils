@@ -1,0 +1,4 @@
+com\ibm\js\team\supporttools\scm\SCMSupportToolsCommandFactory.class
+com\ibm\js\team\supporttools\scm\SCMSupportTools.class
+com\ibm\js\team\supporttools\scm\compression\Unzip.class
+com\ibm\js\team\supporttools\scm\compression\Zip.class

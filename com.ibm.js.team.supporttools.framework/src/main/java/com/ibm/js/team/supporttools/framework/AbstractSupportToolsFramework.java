@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.framework;
 
-import java.net.URISyntaxException;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -27,7 +25,7 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.framework.commands.CommandFactory;
+import com.ibm.js.team.supporttools.framework.commands.ICommandFactory;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 
 /**
@@ -36,29 +34,15 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
  * @see https://jazz.net/wiki/bin/view/Main/DNGServerAPI
  *
  */
-public class SupportToolsFramework {
+public abstract class AbstractSupportToolsFramework {
 
-	public static final Logger logger = LoggerFactory.getLogger(SupportToolsFramework.class);
+	public static final Logger logger = LoggerFactory.getLogger(AbstractSupportToolsFramework.class);
+	
+	ICommandFactory commandFactory = null;
 
-	/**
-	 * Main entry point for the application. Gets and performs the command.
-	 * 
-	 * @param args
-	 * @throws ParseException
-	 * @throws URISyntaxException
-	 */
-	public static void main(String[] args) throws URISyntaxException, ParseException {
-
-		logger.info("\nTypeSystemManager Version: {}", SupportToolsFrameworkConstants.VERSIONINFO);
-		SupportToolsFramework tsm = new SupportToolsFramework();
-
-		boolean result = tsm.execute(args);
-		if (result) {
-			logger.info("Success.");
-		} else {
-			logger.info("Failed.");
-			System.exit(1);
-		}
+public AbstractSupportToolsFramework(ICommandFactory commandFactory) {
+		super();
+		this.commandFactory = commandFactory;
 	}
 
 	/**
@@ -100,7 +84,7 @@ public class SupportToolsFramework {
 		}
 
 		// get the class to execute
-		ICommand execCommand = CommandFactory.INSTANCE().getCommandMap().get(command);
+		ICommand execCommand = getCommandFactory().getCommandMap().get(command);
 		if (execCommand == null) {
 			logger.error("Unsupported command name '{}' \n", command);
 			printSupportedCommands();
@@ -117,6 +101,10 @@ public class SupportToolsFramework {
 	 */
 	public void printSupportedCommands() {
 		logger.error("Available commands: \n");
-		CommandFactory.INSTANCE().printCommandSyntax();
+		getCommandFactory().printCommandSyntax();
+	}
+	
+	public ICommandFactory getCommandFactory() {
+		return commandFactory;
 	}
 }
