@@ -17,3 +17,125 @@ sampleCommand
 
 
 Failed.
+
+SCMSupportTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+sampleCommand
+
+	A sample command that can be used as template for adding custom commands.
+
+	Syntax : -command sampleCommand -mandatorySampleOption <mandatoryOptionValue> [ -optionalSampleOption <optionalOptionValue> ]
+	Example: -command sampleCommand -mandatorySampleOption "mandatory value"
+	Optional parameter: -optionalSampleOption <optionalOptionValue>
+	Example optional parameter: -optionalSampleOption "optional value"
+
+
+Failed.
+
+SCMSupportTools Version: 1.0
+Failed.
+
+SCMSupportTools Version: 1.0
+Failed.
+
+SCMSupportTools Version: 1.0
+Failed.
+
+SCMSupportTools Version: 1.0
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command sampleCommand
+Success.
+
+SCMSupportTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+sampleCommand
+
+	A sample command that can be used as template for adding custom commands.
+
+	Syntax : -command sampleCommand -mandatorySampleOption <mandatoryOptionValue> [ -optionalSampleOption <optionalOptionValue> ]
+	Example: -command sampleCommand -mandatorySampleOption "mandatory value"
+	Optional parameter: -optionalSampleOption <optionalOptionValue>
+	Example optional parameter: -optionalSampleOption "optional value"
+
+
+Failed.
+
+SCMSupportTools Version: 1.0
+Unsupported command name 'exportWorkspace' 
+
+Available commands: 
+
+sampleCommand
+
+	A sample command that can be used as template for adding custom commands.
+
+	Syntax : -command sampleCommand -mandatorySampleOption <mandatoryOptionValue> [ -optionalSampleOption <optionalOptionValue> ]
+	Example: -command sampleCommand -mandatorySampleOption "mandatory value"
+	Optional parameter: -optionalSampleOption <optionalOptionValue>
+	Example optional parameter: -optionalSampleOption "optional value"
+
+
+Failed.
+
+SCMSupportTools Version: 1.0
+Unsupported command name 'exportWorkspace' 
+
+Available commands: 
+
+exportScmWorkspace
+
+	Reads a CSV file with a source to target mapping of configurations. Delivers the type system of the source configurations to the target configuration.
+
+	Syntax : -command exportScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -workspace <workspaceNameOrId> [ -outputFolder <outputFolderPath> ]
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspace "Debs JKE Banking Integration Stream Workspace"
+	Optional parameter: -{} {}
+	Example optional parameter: -{} {}
+
+
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Error: Outputfolder C:\temp\ScmExport does not exist.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Error: Outputfolder C:\temp\ScmExport is not a directory.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Success.

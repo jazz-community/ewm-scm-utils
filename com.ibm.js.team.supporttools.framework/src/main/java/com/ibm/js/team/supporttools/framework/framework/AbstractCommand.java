@@ -73,9 +73,9 @@ public abstract class AbstractCommand implements ICommand {
 			}
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// System.exit is done outside.
 		return execute();
 	}
 

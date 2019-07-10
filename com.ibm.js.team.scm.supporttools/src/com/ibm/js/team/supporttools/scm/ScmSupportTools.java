@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 import com.ibm.js.team.supporttools.framework.AbstractSupportToolsFramework;
 import com.ibm.js.team.supporttools.framework.commands.ICommandFactory;
 
-public class SCMSupportTools extends AbstractSupportToolsFramework {
+public class ScmSupportTools extends AbstractSupportToolsFramework {
 
-	public static final Logger logger = LoggerFactory.getLogger(SCMSupportTools.class);
+	public static final Logger logger = LoggerFactory.getLogger(ScmSupportTools.class);
 
-	public SCMSupportTools(ICommandFactory commandFactory) {
+	public ScmSupportTools(ICommandFactory commandFactory) {
 		super(commandFactory);
 	}
 	
@@ -29,7 +29,7 @@ public class SCMSupportTools extends AbstractSupportToolsFramework {
 
 		logger.info("\nSCMSupportTools Version: {}", "1.0");
 		boolean result=false;
-		AbstractSupportToolsFramework scmTools= new SCMSupportTools(new SCMSupportToolsCommandFactory());
+		AbstractSupportToolsFramework scmTools= new ScmSupportTools(new ScmSupportToolsCommandFactory());
 		result = scmTools.execute(args);
 		if (result) {
 			logger.info("Success.");

@@ -17,24 +17,20 @@ package com.ibm.js.team.supporttools.scm;
 
 import com.ibm.js.team.supporttools.framework.commands.AbstractCommandFactory;
 import com.ibm.js.team.supporttools.framework.commands.SampleCommandCmd;
+import com.ibm.js.team.supporttools.scm.commands.ExportRepositoryWorkspace;
 
 /**
  * Factory class dealing with commands. A new command has to be added to the
  * constructor.
  *
  */
-public class SCMSupportToolsCommandFactory extends AbstractCommandFactory{
+public class ScmSupportToolsCommandFactory extends AbstractCommandFactory{
 
 	@Override
 	public void setAvailableCommands() {
-	//	put(new ExportConfigurationsCmd());
-	//	put(new ExportConfigurationsByDescriptionCmd());
-	//	put(new ExportAllConfigurationsByDescriptionCmd());
-	//	put(new ImportTypeSystemCmd());
-	//	put(new DeliverTypeSystemCmd());
-	//	put(new ImportTypeSystemByDescriptionCmd());
-	//	put(new DeliverTypeSystemByDescriptionCmd());
-		// Enable sample command
-		put(new SampleCommandCmd());
+	put(new ExportRepositoryWorkspace());
+
+	// Enable sample command
+	// put(new SampleCommandCmd());
 	}
 }

@@ -37,10 +37,10 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 public abstract class AbstractSupportToolsFramework {
 
 	public static final Logger logger = LoggerFactory.getLogger(AbstractSupportToolsFramework.class);
-	
+
 	ICommandFactory commandFactory = null;
 
-public AbstractSupportToolsFramework(ICommandFactory commandFactory) {
+	public AbstractSupportToolsFramework(ICommandFactory commandFactory) {
 		super();
 		this.commandFactory = commandFactory;
 	}
@@ -52,6 +52,7 @@ public AbstractSupportToolsFramework(ICommandFactory commandFactory) {
 	 * @throws ParseException
 	 */
 	public boolean execute(final String[] args) throws ParseException {
+		
 		boolean result = false;
 		CommandLine cmd = null;
 		Options options = new Options();
@@ -103,7 +104,7 @@ public AbstractSupportToolsFramework(ICommandFactory commandFactory) {
 		logger.error("Available commands: \n");
 		getCommandFactory().printCommandSyntax();
 	}
-	
+
 	public ICommandFactory getCommandFactory() {
 		return commandFactory;
 	}

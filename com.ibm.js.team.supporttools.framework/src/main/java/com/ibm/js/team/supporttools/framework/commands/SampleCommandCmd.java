@@ -17,6 +17,7 @@ package com.ibm.js.team.supporttools.framework.commands;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.apache.jena.sparql.function.library.leviathan.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,8 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 
 /**
+ * TODO update documentation
+ * 
  * This class represents a minimal sample for a custom command.
  * 
  * To extend the tool with a new command, you must implement {@link ICommand }.
@@ -118,6 +121,7 @@ public class SampleCommandCmd extends AbstractCommand implements ICommand {
 	@SuppressWarnings("unused")
 	@Override
 	public boolean execute() {
+		logger.info("Executing Command {}" , this.getCommandName());
 		boolean result = false;
 		// Execute the code
 		// Get all the option values
@@ -128,7 +132,8 @@ public class SampleCommandCmd extends AbstractCommand implements ICommand {
 		 * TODO: Your code goes here
 		 * 
 		 */
-
+		result=true;
+		
 		return result;
 	}
 }
