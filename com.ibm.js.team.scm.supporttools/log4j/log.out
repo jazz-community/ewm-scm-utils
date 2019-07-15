@@ -139,3 +139,446 @@ Executing Command exportScmWorkspace
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
 Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+IOException: duplicate entry: ComboBox.js
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+IOException: C:\temp\ScmExport\Web UI.zip (The process cannot access the file because it is being used by another process)
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Banking Logic'
+Component Name 'Prerequisites'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Error: WorkspaceConnection 'Hierarchical JKE Banking Stream' not found.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI'
+Component Name 'Prerequisites'
+Component Name 'Banking Logic'
+Component Name 'C# UI'
+Component Name 'Java UI'
+Component Name 'Mobile'
+Component Name 'Database'
+Component Name 'Build'
+Component Name 'Top'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI' UUID '[UUID _ekb_BqVQEeiCt9y1kOVIWQ]'
+Component Name 'Prerequisites' UUID '[UUID _ekJrIKVQEeiCt9y1kOVIWQ]'
+Component Name 'Banking Logic' UUID '[UUID _egLKEKVQEeiCt9y1kOVIWQ]'
+Component Name 'C# UI' UUID '[UUID _ejvbcKVQEeiCt9y1kOVIWQ]'
+Component Name 'Java UI' UUID '[UUID _ekBIQKVQEeiCt9y1kOVIWQ]'
+Component Name 'Mobile' UUID '[UUID _ekr2oKVQEeiCt9y1kOVIWQ]'
+Component Name 'Database' UUID '[UUID _ej3-UKVQEeiCt9y1kOVIWQ]'
+Component Name 'Build' UUID '[UUID _ejNP8KVQEeiCt9y1kOVIWQ]'
+Component Name 'Top' UUID '[UUID _7Vl8IaO6EemfKrzDOqP0IQ]'
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Component Name 'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Component Name 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Component Name 'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Component Name 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Component Name 'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Component Name 'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Component Name 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Component Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component Name 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Component Name 'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Component Name 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Component Name 'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Component Name 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Component Name 'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Component Name 'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Component Name 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Component Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Root Node Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Root Node Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Packing component'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Packing component'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Packing component'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Packing component'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Packing component'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Packing component'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Packing component'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Packing component'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Packing component'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Root Node Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root Node Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root Node Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root Node Name 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Hierarchy...
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+TeamRepositoryException: CRJAZ1371E The following URL cannot be reached: /ccm/versionCompatibility?clientVersion=6.0.6. The server cannot be reached. The network could not connect to the server. Error details: Connect to localhost:9443 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect. 
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Hierarchy...
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Hierarchy...
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Components...
+'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Roots...
+Root 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Hierarchy...
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Hierarchy...
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Map 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ' 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Hierarchy...
+Ramdomizing Components...
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Hierarchy...
+Ramdomizing Components...
+Packing component'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Packing component'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Packing component'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Packing component'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Packing component'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Packing component'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Packing component'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Packing component'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Packing component'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Success.
