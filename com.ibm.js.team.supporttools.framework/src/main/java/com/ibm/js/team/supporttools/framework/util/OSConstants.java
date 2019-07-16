@@ -18,9 +18,8 @@ public class OSConstants {
 	 * Set to <code>true</code> when running on MS Windows, <code>false</code>
 	 * otherwise.
 	 */
-	public final static boolean ON_WINDOWS = System
-			.getProperty("os.name").toLowerCase().contains("windows"); //$NON-NLS-1$//$NON-NLS-2$
+	public final static boolean ON_WINDOWS = System.getProperty("os.name").toLowerCase().contains("windows"); //$NON-NLS-1$//$NON-NLS-2$
 
-	public final static String OSNAME = System.getProperty("os.name"); //$NON-NLS-1$//$NON-NLS-2$
+	public final static String OSNAME = System.getProperty("os.name"); //$NON-NLS-1$ //$NON-NLS-2$
 
 }

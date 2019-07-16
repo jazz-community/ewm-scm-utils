@@ -17,7 +17,6 @@ package com.ibm.js.team.supporttools.framework.commands;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.apache.jena.sparql.function.library.leviathan.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,8 +109,7 @@ public class SampleCommandCmd extends AbstractCommand implements ICommand {
 				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_EXAMPLE);
 		logger.info("\tOptional parameter: -{} {}", SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT,
 				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT_PROTOTYPE);
-		logger.info("\tExample optional parameter: -{} {}",
-				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT,
+		logger.info("\tExample optional parameter: -{} {}", SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT,
 				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT_EXAMPLE);
 	}
 
@@ -121,7 +119,7 @@ public class SampleCommandCmd extends AbstractCommand implements ICommand {
 	@SuppressWarnings("unused")
 	@Override
 	public boolean execute() {
-		logger.info("Executing Command {}" , this.getCommandName());
+		logger.info("Executing Command {}", this.getCommandName());
 		boolean result = false;
 		// Execute the code
 		// Get all the option values
@@ -132,8 +130,8 @@ public class SampleCommandCmd extends AbstractCommand implements ICommand {
 		 * TODO: Your code goes here
 		 * 
 		 */
-		result=true;
-		
+		result = true;
+
 		return result;
 	}
 }

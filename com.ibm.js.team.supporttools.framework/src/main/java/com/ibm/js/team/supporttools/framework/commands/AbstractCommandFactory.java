@@ -49,7 +49,7 @@ public abstract class AbstractCommandFactory implements ICommandFactory {
 		// Enable sample command
 //		put(new SampleCommandCmd());
 	}
-	
+
 	public abstract void setAvailableCommands();
 
 	/**

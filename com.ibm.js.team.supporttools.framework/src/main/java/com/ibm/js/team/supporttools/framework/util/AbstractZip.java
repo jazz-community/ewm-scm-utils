@@ -92,8 +92,7 @@ public abstract class AbstractZip {
 		}
 
 		if (!folderToZip.isDirectory()) {
-			log("Add directory: " + folderToZip.getAbsolutePath()
-					+ " is not a directory!!!" + zipRoot.getAbsolutePath()
+			log("Add directory: " + folderToZip.getAbsolutePath() + " is not a directory!!!" + zipRoot.getAbsolutePath()
 					+ " !!!!!\n");
 			return false;
 		}
@@ -125,8 +124,7 @@ public abstract class AbstractZip {
 	 */
 	public boolean addFile(File fileToZip) {
 		try {
-			log("Add file: " + fileToZip.getAbsolutePath() + " Root "
-					+ zipRoot.getAbsolutePath());
+			log("Add file: " + fileToZip.getAbsolutePath() + " Root " + zipRoot.getAbsolutePath());
 			if (!isChild(fileToZip))
 				return false;
 			if (!fileToZip.exists())
@@ -142,8 +140,7 @@ public abstract class AbstractZip {
 					long length = entry.getSize();
 					long bytesCopied = 0;
 					while (bytesCopied < length) {
-						bytesCopied += inputChannel.transferTo(bytesCopied,
-								length - bytesCopied, zipChannel);
+						bytesCopied += inputChannel.transferTo(bytesCopied, length - bytesCopied, zipChannel);
 					}
 				} finally {
 					inputChannel.close();
@@ -162,16 +159,14 @@ public abstract class AbstractZip {
 	}
 
 	private ZipEntry createEntry(File fileToZip) {
-		String relativePath = fileToZip.getAbsolutePath().substring(
-				zipRoot.getAbsolutePath().length());
+		String relativePath = fileToZip.getAbsolutePath().substring(zipRoot.getAbsolutePath().length());
 
 		if (relativePath.startsWith(File.separator)) {
 			relativePath = relativePath.substring(1);
 		}
 		// change path separators in UNIX format to avoid issues on UNIX
 		// operating systems
-		String filename = relativePath.replace(WIN_PATH_SEPARATOR,
-				PATH_SEPARATOR);
+		String filename = relativePath.replace(WIN_PATH_SEPARATOR, PATH_SEPARATOR);
 		if (fileToZip.isDirectory()) {
 			filename = filename + "/";
 		}
@@ -199,16 +194,14 @@ public abstract class AbstractZip {
 	}
 
 	/**
-	 * Make sure the file to be zipped is in the hierarchy underneath the
-	 * zipRoot
+	 * Make sure the file to be zipped is in the hierarchy underneath the zipRoot
 	 * 
 	 * @param fileToZip
 	 * @return
 	 */
 	private boolean isChild(File fileToZip) {
 		if (!fileToZip.getAbsolutePath().startsWith(zipRoot.getAbsolutePath())) {
-			log("Waring" + fileToZip.getAbsolutePath() + " is not in rootpath "
-					+ zipRoot.getAbsolutePath());
+			log("Waring" + fileToZip.getAbsolutePath() + " is not in rootpath " + zipRoot.getAbsolutePath());
 			return false;
 		}
 		return true;

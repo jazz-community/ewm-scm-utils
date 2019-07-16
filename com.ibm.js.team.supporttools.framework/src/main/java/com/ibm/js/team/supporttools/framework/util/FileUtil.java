@@ -29,16 +29,15 @@ public class FileUtil {
 
 	/**
 	 * Copy a file and don't complain if the source File does not exist. This
-	 * operation fails if the parent folder of the destination file does not
-	 * exist. Returns false in case the source file does not exist;
+	 * operation fails if the parent folder of the destination file does not exist.
+	 * Returns false in case the source file does not exist;
 	 * 
 	 * @param srcFile
 	 * @param destFile
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unused")
-	private static boolean copyFileIfExists(File srcFile, File destFile)
-			throws IOException {
+	private static boolean copyFileIfExists(File srcFile, File destFile) throws IOException {
 		if (!srcFile.exists()) {
 			return false;
 		}
@@ -53,8 +52,7 @@ public class FileUtil {
 	 * @param destFile
 	 * @throws IOException
 	 */
-	public static void copyFileCreateFolder(File srcFile, File destFile)
-			throws IOException {
+	public static void copyFileCreateFolder(File srcFile, File destFile) throws IOException {
 		File targetFolder = new File(destFile.getParent());
 		createFolderWithParents(targetFolder);
 		copyFile(srcFile, destFile);
@@ -62,17 +60,15 @@ public class FileUtil {
 	}
 
 	/**
-	 * Copy a folder into another folder. Copy contents recursively The
-	 * destination folder gets created if it does not exist. If the source file
-	 * is not a folder the operation fails and returns false. Otherwise the
-	 * operation returns true.
+	 * Copy a folder into another folder. Copy contents recursively The destination
+	 * folder gets created if it does not exist. If the source file is not a folder
+	 * the operation fails and returns false. Otherwise the operation returns true.
 	 * 
 	 * @param srcFolder
 	 * @param destFolder
 	 * @throws IOException
 	 */
-	public static boolean copyFolder(File srcFolder, File destFolder)
-			throws IOException {
+	public static boolean copyFolder(File srcFolder, File destFolder) throws IOException {
 		if (!srcFolder.isDirectory())
 			return false;
 		copyFolderRecursive(srcFolder, destFolder);
@@ -97,11 +93,9 @@ public class FileUtil {
 	 * @param prompt
 	 * @throws IOException
 	 */
-	public static void eraseRecursivePrompt(File aFile, boolean prompt)
-			throws IOException {
+	public static void eraseRecursivePrompt(File aFile, boolean prompt) throws IOException {
 		if (prompt && aFile.exists() && aFile.isDirectory()) {
-			UserIO.prompt("Really delete: " + aFile.getAbsolutePath()
-					+ " ? (Y/N)");
+			UserIO.prompt("Really delete: " + aFile.getAbsolutePath() + " ? (Y/N)");
 			String choice = UserIO.userInput();
 			if (!choice.equalsIgnoreCase("y")) {
 				return;
@@ -128,8 +122,8 @@ public class FileUtil {
 	}
 
 	/**
-	 * Deletes all files and sub directories under given directory. If a
-	 * deletion fails, the method stops attempting to delete and returns false.
+	 * Deletes all files and sub directories under given directory. If a deletion
+	 * fails, the method stops attempting to delete and returns false.
 	 * 
 	 * @return -true if all deletions were successful, false otherwise
 	 */
@@ -156,11 +150,10 @@ public class FileUtil {
 	 * @param outputFile
 	 * @throws IOException
 	 * 
-	 *             From RTC3.0 SDK
+	 *                     From RTC3.0 SDK
 	 * @see com.ibm.team.filesystem.setup.junit.internal.SourceControlContribution
 	 */
-	private static void copyFile(File inputFile, File outputFile)
-			throws IOException {
+	private static void copyFile(File inputFile, File outputFile) throws IOException {
 		// get channels
 		FileInputStream fis = new FileInputStream(inputFile);
 		FileOutputStream fos = new FileOutputStream(outputFile);
@@ -178,29 +171,26 @@ public class FileUtil {
 	}
 
 	/**
-	 * Recursively copy a folder. Automatically create the destination folder.
-	 * This operation fails if the parent of the destination directory
+	 * Recursively copy a folder. Automatically create the destination folder. This
+	 * operation fails if the parent of the destination directory
 	 * 
 	 * @param inputFile
 	 * @param outputFile
 	 * @throws IOException
 	 * 
-	 *             From RTC3.0 SDK
+	 *                     From RTC3.0 SDK
 	 * @see com.ibm.team.filesystem.setup.junit.internal.SourceControlContribution
 	 * 
 	 */
-	private static void copyFolderRecursive(File inputFile, File outputFile)
-			throws IOException {
+	private static void copyFolderRecursive(File inputFile, File outputFile) throws IOException {
 		if (!outputFile.exists()) {
 			boolean success = outputFile.mkdir();
 			if (!success) {
-				throw new IOException(
-						"Cannot create destination directory" + outputFile.getAbsolutePath()); //$NON-NLS-1$
+				throw new IOException("Cannot create destination directory" + outputFile.getAbsolutePath()); //$NON-NLS-1$
 			}
 		}
 		if (!outputFile.isDirectory()) {
-			throw new IOException(
-					"Target is not a directory" + outputFile.getAbsolutePath()); //$NON-NLS-1$  	
+			throw new IOException("Target is not a directory" + outputFile.getAbsolutePath()); //$NON-NLS-1$
 		}
 		String[] children = inputFile.list();
 		if (children != null) {
@@ -223,10 +213,9 @@ public class FileUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static File promptCreateFolder(String messagePrefix, File folder)
-			throws IOException {
-		String choice = UserIO.userChoice(messagePrefix + ": Create folder "
-				+ folder.getCanonicalPath() + "? (y/n)", "[ynYN]");
+	public static File promptCreateFolder(String messagePrefix, File folder) throws IOException {
+		String choice = UserIO.userChoice(messagePrefix + ": Create folder " + folder.getCanonicalPath() + "? (y/n)",
+				"[ynYN]");
 		if (null != choice && choice.equalsIgnoreCase("y")) {
 			createFolderWithParents(folder);
 			if (folder.exists())

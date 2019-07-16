@@ -52,7 +52,7 @@ public abstract class AbstractSupportToolsFramework {
 	 * @throws ParseException
 	 */
 	public boolean execute(final String[] args) throws ParseException {
-		
+
 		boolean result = false;
 		CommandLine cmd = null;
 		Options options = new Options();

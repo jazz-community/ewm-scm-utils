@@ -48,8 +48,7 @@ public class Unzip extends AbstractUnzip {
 	public static void main(String[] args) {
 		// Unzip unzip= new Unzip(new File ("C:/temp/ZipTest/workspaces.zip"),
 		// new File ("C:/temp/ZipTest/ws"));
-		Unzip unzip = new Unzip(new File("C:/temp/ZipTest/ccm.zip"), new File(
-				"C:/temp/ZipTest/ccm"));
+		Unzip unzip = new Unzip(new File("C:/temp/ZipTest/ccm.zip"), new File("C:/temp/ZipTest/ccm"));
 		try {
 			unzip.unZip();
 		} catch (Exception e) {

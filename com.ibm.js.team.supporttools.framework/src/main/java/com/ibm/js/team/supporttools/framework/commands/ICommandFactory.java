@@ -16,6 +16,7 @@ public interface ICommandFactory {
 	 * Print the syntax for all supported commands
 	 */
 	public void printCommandSyntax();
+
 	/**
 	 * @return the commandMap, never null
 	 */

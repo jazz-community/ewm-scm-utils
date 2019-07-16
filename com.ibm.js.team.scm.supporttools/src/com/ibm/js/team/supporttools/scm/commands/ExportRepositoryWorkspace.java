@@ -16,7 +16,6 @@
 package com.ibm.js.team.supporttools.scm.commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,11 +23,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -47,7 +44,6 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
 import com.ibm.team.filesystem.client.FileSystemCore;
-import com.ibm.team.filesystem.client.IComponentHierarchyManager;
 import com.ibm.team.filesystem.client.IFileContentManager;
 import com.ibm.team.filesystem.common.IFileItem;
 import com.ibm.team.repository.client.ITeamRepository;
@@ -57,11 +53,9 @@ import com.ibm.team.repository.common.UUID;
 import com.ibm.team.repository.common.json.JSONArray;
 import com.ibm.team.repository.common.json.JSONObject;
 import com.ibm.team.scm.client.IConfiguration;
-import com.ibm.team.scm.client.IFlowNodeConnection;
 import com.ibm.team.scm.client.IWorkspaceConnection;
 import com.ibm.team.scm.common.IComponent;
 import com.ibm.team.scm.common.IComponentHandle;
-import com.ibm.team.scm.common.IComponentHierarchyNode;
 import com.ibm.team.scm.common.IComponentHierarchyResult;
 import com.ibm.team.scm.common.IFolder;
 import com.ibm.team.scm.common.IFolderHandle;
@@ -462,36 +456,36 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		return orr;
 	}
 
-	private void writeRoots(ITeamRepository teamRepository, Collection<IComponentHierarchyNode> roots,
-			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		logger.info("Roots...");
-		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "rootcomponents.txt"));
-		try {
-			for (IComponentHierarchyNode node : roots) {
-				IComponent comp = ComponentUtil.resolveComponent(teamRepository, node.getComponentHandle(), monitor);
-				logger.info("Root '{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
-				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
-				out.write(componentInfo.getBytes("UTF-8"));
-			}
-			out.flush();
-		} finally {
-			out.close();
-		}
-	}
-
-	private void writeComponents(List<IComponent> components) throws UnsupportedEncodingException, IOException {
-		logger.info("Components...");
-		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "components.txt"));
-		try {
-			for (IComponent comp : components) {
-				logger.info("'{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
-				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
-				out.write(componentInfo.getBytes("UTF-8"));
-			}
-			out.flush();
-		} finally {
-			out.close();
-		}
-	}
+//	private void writeRoots(ITeamRepository teamRepository, Collection<IComponentHierarchyNode> roots,
+//			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
+//		logger.info("Roots...");
+//		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "rootcomponents.txt"));
+//		try {
+//			for (IComponentHierarchyNode node : roots) {
+//				IComponent comp = ComponentUtil.resolveComponent(teamRepository, node.getComponentHandle(), monitor);
+//				logger.info("Root '{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
+//				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
+//				out.write(componentInfo.getBytes("UTF-8"));
+//			}
+//			out.flush();
+//		} finally {
+//			out.close();
+//		}
+//	}
+//
+//	private void writeComponents(List<IComponent> components) throws UnsupportedEncodingException, IOException {
+//		logger.info("Components...");
+//		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "components.txt"));
+//		try {
+//			for (IComponent comp : components) {
+//				logger.info("'{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
+//				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
+//				out.write(componentInfo.getBytes("UTF-8"));
+//			}
+//			out.flush();
+//		} finally {
+//			out.close();
+//		}
+//	}
 
 }

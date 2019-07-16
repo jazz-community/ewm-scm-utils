@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
 
 import com.ibm.js.team.supporttools.framework.framework.SupportToolsRuntimeException;
 
-
 /**
  * Some operations for user I/O
  * 
@@ -29,7 +28,7 @@ public class UserIO {
 	 * read a line terminated with return
 	 * 
 	 * @return
-	 * @throws SCMToolsException 
+	 * @throws SCMToolsException
 	 */
 	public static String userInput() {
 		// open up standard input

@@ -18,27 +18,16 @@ package com.ibm.js.team.supporttools.scm.commands;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
 import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -53,36 +42,21 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
-import com.ibm.team.filesystem.client.FileSystemCore;
-import com.ibm.team.filesystem.client.IComponentHierarchyManager;
-import com.ibm.team.filesystem.client.IFileContentManager;
-import com.ibm.team.filesystem.common.IFileItem;
 import com.ibm.team.process.client.IProcessClientService;
 import com.ibm.team.process.client.IProcessItemService;
 import com.ibm.team.process.common.IProcessArea;
 import com.ibm.team.process.common.IProjectArea;
-import com.ibm.team.repository.client.IItemManager;
 import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.IAuditableHandle;
 import com.ibm.team.repository.common.TeamRepositoryException;
-import com.ibm.team.repository.common.UUID;
 import com.ibm.team.repository.common.json.JSONArray;
 import com.ibm.team.repository.common.json.JSONObject;
-import com.ibm.team.scm.client.IConfiguration;
-import com.ibm.team.scm.client.IFlowNodeConnection;
 import com.ibm.team.scm.client.IWorkspaceConnection;
 import com.ibm.team.scm.client.IWorkspaceManager;
 import com.ibm.team.scm.client.SCMPlatform;
 import com.ibm.team.scm.common.IChangeSetHandle;
-import com.ibm.team.scm.common.IComponent;
 import com.ibm.team.scm.common.IComponentHandle;
-import com.ibm.team.scm.common.IComponentHierarchyNode;
-import com.ibm.team.scm.common.IComponentHierarchyResult;
-import com.ibm.team.scm.common.IFolder;
-import com.ibm.team.scm.common.IFolderHandle;
-import com.ibm.team.scm.common.IVersionable;
-import com.ibm.team.scm.common.IVersionableHandle;
 import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
@@ -91,13 +65,33 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  */
 public class ImportRepositoryWorkspace extends AbstractCommand implements ICommand {
 
-	public final String OBFUSCATE_MODE = "obfuscate";
 	public static final Logger logger = LoggerFactory.getLogger(ImportRepositoryWorkspace.class);
-	public static final String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-	public boolean fPreserve = false;
-	private Object fConfidentialityMode;
 	private File fOutputFolder = null;
 	private IAuditableHandle fArea;
+	private String fNameModifier=null;
+
+	
+	private String modifyNameForTests(String name) {
+		if(fNameModifier!=null) {
+			return name + fNameModifier;
+		}
+		return name;	
+	}
+	
+	private String normalizeName( String name) {
+		if(fNameModifier!=null) {
+			return name.substring(0, name.length() - fNameModifier.length());
+		}
+		return name;
+	}
+	
+	public String getfNameModifier() {
+		return fNameModifier;
+	}
+
+	public void setfNameModifier(String fNameModifier) {
+		this.fNameModifier = fNameModifier;
+	}
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -266,9 +260,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 
 	private boolean importWorkspace(ITeamRepository teamRepository, String projectAreaName, String scmConnection, IProgressMonitor monitor) throws Exception {
 
-		boolean result=false;
-		String nameExt = "Test";
-		
+		setfNameModifier("Test");
 		// Find Or Create Workspace
 		
 		IWorkspaceConnection targetWorkspace=null;
@@ -300,17 +292,9 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		for (Object comp : comps) {
 			if (comp instanceof JSONObject) {
 				String componentName = null;
-				UUID compUUID = null; 
 				JSONObject jsonComp = (JSONObject) comp;
 				Object oname = jsonComp.get(ScmSupportToolsConstants.COMPONENT_NAME);
-				if (oname instanceof String) {
-					componentName = (String) oname + nameExt;
-				}
-				Object ouuid = jsonComp.get(ScmSupportToolsConstants.COMPONENT_UUID);
-				if (ouuid instanceof String) {
-					String componentUUID = (String) ouuid;
-					compUUID = UUID.valueOf(componentUUID);
-				}
+				componentName = modifyNameForTests((String) oname);
 				ArrayList<String> childrenList = new ArrayList<String>(20);
 				Object ochildren = jsonComp.get(ScmSupportToolsConstants.COMPONENT_CHILDREN);
 				if (null!=ochildren && ochildren instanceof JSONArray) {
@@ -319,12 +303,11 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 						if (ochild instanceof JSONObject) {
 							JSONObject child = (JSONObject) ochild;
 							String childname = (String)child.get(ScmSupportToolsConstants.COMPONENT_NAME);
-							childrenList.add(childname + nameExt);  
+							childrenList.add(modifyNameForTests(childname));  
 						}						
 					}
 				}
 				sourcePar2ChildMap.put(componentName, childrenList);
-				//sourceComponentMap.put(componentName, compUUID);
 				logger.info("Component -> '{}'", jsonComp.toString());		
 			}
 		}
@@ -366,7 +349,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		for (String compName : compKeys3) {
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
-			File archiveFile = new File(fOutputFolder,compName.substring(0, compName.length()-4) +".zip");
+			File archiveFile = new File(fOutputFolder, normalizeName(compName) +".zip");
 			scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle, "Source for Component", monitor);
 		}
 		

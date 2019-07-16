@@ -49,14 +49,13 @@ public abstract class AbstractUnzip {
 	/**
 	 * Unzip the archive and restore the folder modification time if this
 	 * information is available. Handles files without folder information in the
-	 * archive by creating the required parent folders. If the parent folders
-	 * have to be created, the modification time of the folders is not
-	 * preserved.
+	 * archive by creating the required parent folders. If the parent folders have
+	 * to be created, the modification time of the folders is not preserved.
 	 * 
 	 * @return
 	 * @throws Exception
 	 * 
-	 *             From RTC3.0 SDK
+	 *                   From RTC3.0 SDK
 	 * @see com.ibm.team.repository.service.tests.migration.ZipUtils
 	 */
 	public boolean unZip() throws Exception {
@@ -91,8 +90,7 @@ public abstract class AbstractUnzip {
 	}
 
 	/**
-	 * Geta the current ZipEntry, gets the next entry if there is no current
-	 * entry.
+	 * Geta the current ZipEntry, gets the next entry if there is no current entry.
 	 * 
 	 * @return An entry or null if there is no more entry
 	 * 
@@ -120,8 +118,8 @@ public abstract class AbstractUnzip {
 	 * modification times folders are delegated to uncompress in a recursive
 	 * approach.
 	 * 
-	 * @param currentFolder
-	 *            null if there is no folder, or a string with the folder name.
+	 * @param currentFolder null if there is no folder, or a string with the folder
+	 *                      name.
 	 * @throws IOException
 	 */
 	private void unZip(String currentFolder) throws IOException {
@@ -129,8 +127,7 @@ public abstract class AbstractUnzip {
 
 		while (entry != null) {
 			// Handle zip files created with windows
-			String name = entry.toString().replaceAll(WIN_PATH_SEPARATOR,
-					UX_PATH_SEPARATOR);
+			String name = entry.toString().replaceAll(WIN_PATH_SEPARATOR, UX_PATH_SEPARATOR);
 			if (null != currentFolder) {
 				// If this entry does not belong to the folder we are currently
 				// trying to compress,
@@ -167,8 +164,7 @@ public abstract class AbstractUnzip {
 		ZipEntry entry = getZipEntry();
 
 		// Handle zip files created with windows
-		String name = entry.toString().replaceAll(WIN_PATH_SEPARATOR,
-				UX_PATH_SEPARATOR);
+		String name = entry.toString().replaceAll(WIN_PATH_SEPARATOR, UX_PATH_SEPARATOR);
 		if (null != currentFolder) {
 			// A new folder is not part of this folder structure.
 			// Let this be dealt with higher up
@@ -198,8 +194,7 @@ public abstract class AbstractUnzip {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	private void unZipFile(ZipInputStream zipInStream, File targetFile)
-			throws FileNotFoundException, IOException {
+	private void unZipFile(ZipInputStream zipInStream, File targetFile) throws FileNotFoundException, IOException {
 
 		File parent = targetFile.getParentFile();
 		log("Target: " + targetFile.getAbsolutePath());

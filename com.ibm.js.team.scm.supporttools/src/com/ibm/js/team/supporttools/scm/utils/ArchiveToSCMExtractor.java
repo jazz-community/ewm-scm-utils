@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.commands.ImportRepositoryWorkspace;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
@@ -55,6 +54,8 @@ import com.ibm.team.scm.common.IVersionableHandle;
  */
 public class ArchiveToSCMExtractor {
 
+	public static final String SUBCOMPONENT_INFO = ".subcomponent_info";
+	public static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
 	public static final Logger logger = LoggerFactory.getLogger(ArchiveToSCMExtractor.class);
 	// The ZipInputStream
 	private ZipInputStream fZipInStream = null;
@@ -78,8 +79,7 @@ public class ArchiveToSCMExtractor {
 	}
 
 	/**
-	 * Extract the archive. This is basically the entry point for the
-	 * extraction.
+	 * Extract the archive. This is basically the entry point for the extraction.
 	 * 
 	 * @param zipFile
 	 * @param teamRepository
@@ -90,16 +90,14 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean extractFileToComponent(String archiveFileName,
-			IWorkspaceConnection targetWorkspace, IComponentHandle component,
-			String changeSetComment, IProgressMonitor monitor) throws Exception {
+	public boolean extractFileToComponent(String archiveFileName, IWorkspaceConnection targetWorkspace,
+			IComponentHandle component, String changeSetComment, IProgressMonitor monitor) throws Exception {
 
 		File archiveFile = new File(archiveFileName);
 		fMonitor = monitor;
 		fTeamRepository = (ITeamRepository) component.getOrigin();
 		fWorkspace = targetWorkspace;
-		fChangeSet = fWorkspace.createChangeSet(component, changeSetComment,
-				true, monitor);
+		fChangeSet = fWorkspace.createChangeSet(component, changeSetComment, true, monitor);
 		fConfiguration = fWorkspace.configuration(component);
 		logger.info("Extract: " + archiveFile.getPath());
 		try {
@@ -119,8 +117,8 @@ public class ArchiveToSCMExtractor {
 
 	/**
 	 * Extract the content of an archive to a component. This assumes that the
-	 * archive contains folders on top level. These folders can act as projects
-	 * when loading,
+	 * archive contains folders on top level. These folders can act as projects when
+	 * loading,
 	 * 
 	 * @return
 	 * @throws IOException
@@ -133,13 +131,11 @@ public class ArchiveToSCMExtractor {
 			File targetEntry = new File(entry.toString());
 			try {
 				if (entry.isDirectory()) {
-					logger.error("Extracting Folder: "
-							+ targetEntry.getPath());
+					logger.error("Extracting Folder: " + targetEntry.getPath());
 					findOrCreateFolderWithParents(targetEntry);
 
 				} else {
-					logger.info("Extracting File: "
-							+ targetEntry.getPath());
+					logger.info("Extracting File: " + targetEntry.getPath());
 					extractFile(targetEntry, entry);
 					logger.info(" OK");
 				}
@@ -159,8 +155,8 @@ public class ArchiveToSCMExtractor {
 	 * Extract a file from a ZipEntry to the Jazz SCM system. Currently only
 	 * Text/UTF8 files are supported.
 	 * 
-	 * Commit the file if there are changes because the file did not exist or
-	 * there are changes in the new content compared to the existing file.
+	 * Commit the file if there are changes because the file did not exist or there
+	 * are changes in the new content compared to the existing file.
 	 * 
 	 * @param targetFile
 	 * @param zipEntry
@@ -170,15 +166,15 @@ public class ArchiveToSCMExtractor {
 	 * @throws InterruptedException
 	 */
 	private void extractFile(File targetFile, ZipEntry zipEntry)
-			throws FileNotFoundException, IOException, TeamRepositoryException,
-			InterruptedException {
-		
-		if(".subcomponent_info".equals(targetFile.getName())){
+			throws FileNotFoundException, IOException, InterruptedException, TeamRepositoryException {
+
+		// Ignore the subcomponent.info
+		if (SUBCOMPONENT_INFO.equals(targetFile.getName())) {
+			logger.info(" " + SUBCOMPONENT_INFO);
 			return;
 		}
-		IFolder parentFolder = findOrCreateFolderWithParents(targetFile
-				.getParentFile());
-
+		
+		IFolder parentFolder = findOrCreateFolderWithParents(targetFile.getParentFile());
 		IFileItem aFile = getFile(targetFile, parentFolder);
 		if (aFile == null) {
 			aFile = createFileItem(targetFile.getName(), zipEntry, parentFolder);
@@ -186,26 +182,36 @@ public class ArchiveToSCMExtractor {
 		}
 		ByteArrayOutputStream contents = copyFileData(fZipInStream);
 		try {
-			IFileContentManager contentManager = FileSystemCore
-					.getContentManager(fTeamRepository);
-			// This is the only method that works. Creating my own provider
-			// fails with certain files.
-			IFileContent storedzipContent = contentManager.storeContent(
-					IFileContent.ENCODING_UTF_8,
-					FileLineDelimiter.LINE_DELIMITER_PLATFORM,
-					new VersionedContentManagerByteArrayInputStreamPovider(
-							contents.toByteArray()), null, fMonitor);
-
+			IFileContentManager contentManager = FileSystemCore.getContentManager(fTeamRepository);
+			FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
+			String encoding = null;
+			IFileContent filecontent = aFile.getContent();
+			if (filecontent != null) {
+				encoding = filecontent.getCharacterEncoding();
+				lineDelimiter = filecontent.getLineDelimiter();
+			}
+			String contentType = aFile.getContentType();
+			if(CONTENT_TYPE_TEXT_PLAIN.equals(contentType)) {
+				if(FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
+					lineDelimiter=FileLineDelimiter.LINE_DELIMITER_NONE;
+					encoding=IFileContent.ENCODING_US_ASCII;
+				}
+			}
+			IFileContent storedzipContent = contentManager.storeContent( encoding, lineDelimiter,
+					new VersionedContentManagerByteArrayInputStreamPovider(contents.toByteArray()),
+					null, fMonitor);
 			// Compare the files. If there is a difference, set the new content
 			// and commit the change
 			if (!storedzipContent.sameContent(aFile.getContent())) {
 				IFileItem fileWorkingCopy = (IFileItem) aFile.getWorkingCopy();
 				fileWorkingCopy.setContent(storedzipContent);
-				fWorkspace.commit(fChangeSet, Collections
-						.singletonList(fWorkspace.configurationOpFactory()
-								.save(fileWorkingCopy)), fMonitor);
+				fWorkspace.commit(fChangeSet,
+						Collections.singletonList(fWorkspace.configurationOpFactory().save(fileWorkingCopy)), fMonitor);
 				logger.info(" ... Content");
 			}
+		} catch (TeamRepositoryException e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
 			contents.close();
 		}
@@ -220,8 +226,7 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFileItem getFile(File file, IFolderHandle parentFolder)
-			throws TeamRepositoryException {
+	private IFileItem getFile(File file, IFolderHandle parentFolder) throws TeamRepositoryException {
 		IVersionable foundItem = getVersionable(file.getName(), parentFolder);
 		if (null != foundItem) {
 			if (foundItem instanceof IFileItem) {
@@ -232,8 +237,7 @@ public class ArchiveToSCMExtractor {
 	}
 
 	/**
-	 * Tries to create a IFileItem node in a given IFolder. Returns the
-	 * IFileItem.
+	 * Tries to create a IFileItem node in a given IFolder. Returns the IFileItem.
 	 * 
 	 * @param string
 	 * @param zipEntry
@@ -242,8 +246,8 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFileItem createFileItem(String name, ZipEntry zipEntry,
-			IFolder parentFolder) throws TeamRepositoryException {
+	private IFileItem createFileItem(String name, ZipEntry zipEntry, IFolder parentFolder)
+			throws TeamRepositoryException {
 		IFileItem aFile = (IFileItem) IFileItem.ITEM_TYPE.createItem();
 		aFile.setParent(parentFolder);
 		aFile.setName(name);
@@ -253,15 +257,14 @@ public class ArchiveToSCMExtractor {
 	}
 
 	/**
-	 * Copy the data from an input stream to an output stream. This is done to
-	 * avoid the Jazz SCM closing the stream that contains the original data.
+	 * Copy the data from an input stream to an output stream. This is done to avoid
+	 * the Jazz SCM closing the stream that contains the original data.
 	 * 
 	 * @param zipInStream
 	 * @return
 	 * @throws IOException
 	 */
-	private ByteArrayOutputStream copyFileData(InputStream zipInStream)
-			throws IOException {
+	private ByteArrayOutputStream copyFileData(InputStream zipInStream) throws IOException {
 		ByteArrayOutputStream contents = new ByteArrayOutputStream();
 		byte[] buf = new byte[2048];
 		int read;
@@ -281,9 +284,11 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFolder findOrCreateFolderWithParents(File folder)
-			throws TeamRepositoryException {
+	private IFolder findOrCreateFolderWithParents(File folder) throws TeamRepositoryException {
 
+		if(folder==null) {
+			return fConfiguration.completeRootFolder(fMonitor);
+		}
 		IFolder parent = null;
 		String folderName = folder.getName();
 		String parentName = folder.getParent();
@@ -308,8 +313,7 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFolder getFolder(String folderName, IFolderHandle parentFolder)
-			throws TeamRepositoryException {
+	private IFolder getFolder(String folderName, IFolderHandle parentFolder) throws TeamRepositoryException {
 
 		IVersionable foundItem = getVersionable(folderName, parentFolder);
 		if (null != foundItem) {
@@ -328,12 +332,10 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IVersionable getVersionable(String name, IFolderHandle parentFolder)
-			throws TeamRepositoryException {
+	private IVersionable getVersionable(String name, IFolderHandle parentFolder) throws TeamRepositoryException {
 		// get all the child entries
 		@SuppressWarnings("unchecked")
-		Map<String, IVersionableHandle> handles = fConfiguration.childEntries(
-				parentFolder, fMonitor);
+		Map<String, IVersionableHandle> handles = fConfiguration.childEntries(parentFolder, fMonitor);
 		// try to find an entry with the name
 		IVersionableHandle foundHandle = handles.get(name);
 		if (null != foundHandle) {
@@ -350,13 +352,12 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFolder createFolder(String folderName, IFolder parent)
-			throws TeamRepositoryException {
+	private IFolder createFolder(String folderName, IFolder parent) throws TeamRepositoryException {
 		IFolder newFolder = (IFolder) IFolder.ITEM_TYPE.createItem();
 		newFolder.setParent(parent);
 		newFolder.setName(folderName);
-		fWorkspace.commit(fChangeSet, Collections.singletonList(fWorkspace
-				.configurationOpFactory().save(newFolder)), fMonitor);
+		fWorkspace.commit(fChangeSet, Collections.singletonList(fWorkspace.configurationOpFactory().save(newFolder)),
+				fMonitor);
 		return newFolder;
 	}
 }
