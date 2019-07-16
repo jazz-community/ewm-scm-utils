@@ -72,7 +72,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
 	public static final String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 	public boolean fPreserve = false;
-	private Object fConfidentialityMode;
+	private Object fConfidentialityMode="randomize";
 	private File fOutputFolder = null;
 
 	/**
@@ -253,21 +253,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		IWorkspaceConnection workspace = connection.get(0);
 		IComponentHierarchyResult hierarchy = connection.get(0).getComponentHierarchy(new ArrayList<IComponentHandle>());
 		writeHierarchy(teamRepository, hierarchy, monitor);
-		/**
-		 * There is no out-of-the-box feature which will generate a load rule that will
-		 * load and respect the component hierarchy in the workspace.
-		 * 
-		 * You might have to write your own code to do this. The client-side API for
-		 * retrieving a component hierarchy of a particular stream or repository
-		 * workspace is: IWorkspaceConnection.getComponentHierarchy() (although
-		 * technically the method is on IFlowNodeConnection, which is the parent class
-		 * of IWorkspaceConnection). From there you would have to walk the hierarchy to
-		 * determine what you need. Note: There is no API to give the 'parents' of a
-		 * given component. A component only knows about it's children, and not the
-		 * other way around. Also be aware that a given component may appear in multiple
-		 * hierarchy branches (i.e. have multiple parents).
-		 */
-		logger.info("Ramdomizing Components...");
+		logger.info("Packaging and Ramdomizing Components...");
 		Collection<IComponentHandle> components = hierarchy.getFlattenedElementsMap().values();
 		result = packageComponentHandles(teamRepository, fOutputFolder, workspace, components, monitor);			
 		return result;
@@ -283,7 +269,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 
 	private void writeChildMap(ITeamRepository teamRepository, Map<UUID, IComponentHandle> flat,
 			Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		logger.info("Hierarchy...");
+		logger.info("Persist component hierarchy...");
 		
 		JSONArray jsonhierarchy = new JSONArray();
 

@@ -69,23 +69,22 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	public static final Logger logger = LoggerFactory.getLogger(ImportRepositoryWorkspace.class);
 	private File fOutputFolder = null;
 	private IAuditableHandle fArea;
-	private String fNameModifier=null;
+	private String fNameModifier = null;
 
-	
 	private String modifyNameForTests(String name) {
-		if(fNameModifier!=null) {
+		if (fNameModifier != null) {
 			return name + fNameModifier;
 		}
-		return name;	
+		return name;
 	}
-	
-	private String normalizeName( String name) {
-		if(fNameModifier!=null) {
+
+	private String normalizeName(String name) {
+		if (fNameModifier != null) {
 			return name.substring(0, name.length() - fNameModifier.length());
 		}
 		return name;
 	}
-	
+
 	public String getfNameModifier() {
 		return fNameModifier;
 	}
@@ -114,7 +113,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD, true,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION);
 		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA, true,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_DESCRIPTION);		
+				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
@@ -134,7 +133,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		if (!(cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_URL)
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA)				
+				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER))) {
 			isValid = false;
@@ -256,39 +255,39 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		return result;
 	}
 
-	
-	
-
-	private boolean importWorkspace(ITeamRepository teamRepository, String projectAreaName, String scmConnection, IProgressMonitor monitor) throws Exception {
+	private boolean importWorkspace(ITeamRepository teamRepository, String projectAreaName, String scmConnection,
+			IProgressMonitor monitor) throws Exception {
 
 		setfNameModifier("Test");
 		// Find Or Create Workspace
-		
-		IWorkspaceConnection targetWorkspace=null;
+
+		IWorkspaceConnection targetWorkspace = null;
 		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.WORKSPACES, monitor);
 		if (connections.size() > 0) {
 			logger.info("WorkspaceConnection '{}' already exists.", scmConnection);
-			//logger.error("WorkspaceConnection '{}' ambiguous.", scmConnection);
-			List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository, connections, monitor);
+			// logger.error("WorkspaceConnection '{}' ambiguous.", scmConnection);
+			List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
+					connections, monitor);
 			targetWorkspace = connection.get(0);
 		}
-		if(targetWorkspace==null) {
-			IWorkspaceManager wm = SCMPlatform
-					.getWorkspaceManager(teamRepository);
-			targetWorkspace = wm.createWorkspace(
-					teamRepository.loggedInContributor(), scmConnection,
-					"Testworkspace " + scmConnection, monitor);			
+		if (targetWorkspace == null) {
+			IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
+			targetWorkspace = wm.createWorkspace(teamRepository.loggedInContributor(), scmConnection,
+					"Testworkspace " + scmConnection, monitor);
 		}
 
 		// Find Project Area
-		IProcessClientService processClient = (IProcessClientService) teamRepository.getClientLibrary(IProcessClientService.class);
+		IProcessClientService processClient = (IProcessClientService) teamRepository
+				.getClientLibrary(IProcessClientService.class);
 		fArea = findProjectAreaByFQN(projectAreaName, processClient, monitor);
-		
+
 		// Get the required components
 //		HashMap<String,UUID> sourceComponentMap = new HashMap<String,UUID>(3000);
-		HashMap<String,ArrayList<String>> sourcePar2ChildMap = new HashMap<String,ArrayList<String>>(3000);
-		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fOutputFolder,ScmSupportToolsConstants.HIERARCHY_JSON_FILE)), "UTF-8")); //$NON-NLS-1$
+		HashMap<String, ArrayList<String>> sourcePar2ChildMap = new HashMap<String, ArrayList<String>>(3000);
+		Reader reader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(new File(fOutputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE)), "UTF-8")); //$NON-NLS-1$
+		logger.info("Import component Structure...");
 		JSONArray comps = JSONArray.parse(reader);
 		for (Object comp : comps) {
 			if (comp instanceof JSONObject) {
@@ -298,38 +297,45 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				componentName = modifyNameForTests((String) oname);
 				ArrayList<String> childrenList = new ArrayList<String>(20);
 				Object ochildren = jsonComp.get(ScmSupportToolsConstants.COMPONENT_CHILDREN);
-				if (null!=ochildren && ochildren instanceof JSONArray) {
+				if (null != ochildren && ochildren instanceof JSONArray) {
 					JSONArray children = (JSONArray) ochildren;
 					for (Object ochild : children) {
 						if (ochild instanceof JSONObject) {
 							JSONObject child = (JSONObject) ochild;
-							String childname = (String)child.get(ScmSupportToolsConstants.COMPONENT_NAME);
-							childrenList.add(modifyNameForTests(childname));  
-						}						
+							String childname = (String) child.get(ScmSupportToolsConstants.COMPONENT_NAME);
+							childrenList.add(modifyNameForTests(childname));
+						}
 					}
 				}
 				sourcePar2ChildMap.put(componentName, childrenList);
-				logger.info("Component -> '{}'", jsonComp.toString());		
+				logger.info("Component -> '{}' done", componentName);
 			}
 		}
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 
+		logger.info("Find or create compoents...");		
 		// Run 1 to get a map for the components needed. Find or create the components.
-		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(sourcePar2ChildMap.size());
+		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
+				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys) {
+			logger.info("  Component '{}'" , compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
-			if(foundComponent==null) {
+			if (foundComponent == null) {
 				foundComponent = createComponent(teamRepository, monitor, wm, compName);
-			}	
+			}
 			targetComponentMap.put(compName, foundComponent);
 		}
-		
+
+		logger.info("Strip workspace from components...");		
 		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
+		logger.info("Add components to workspace...");		
 		addComponentsToWorkspaceConnection(targetWorkspace, targetComponentMap, monitor);
 		// Run 2 to get the child mapping
+		logger.info("Recreate subcomponent structure in workspace...");		
 		Set<String> compKeys2 = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys2) {
+			logger.info("  Component '{}'" , compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			Collection<IComponentHandle> subcomponentsToAdd = new ArrayList<IComponentHandle>();
 			ArrayList<String> children = sourcePar2ChildMap.get(compName);
@@ -344,50 +350,50 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 						changeSet, monitor);
 			}
 		}
-		
-		// Run 3 upload the source code 
+
+		// Run 3 upload the source code
+		logger.info("Import component data...");		
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys3) {
+			logger.info("  Component '{}'" , compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
-			File archiveFile = new File(fOutputFolder, normalizeName(compName) +".zip");
-			if(!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle, "Source for Component", monitor)){
+			File archiveFile = new File(fOutputFolder, normalizeName(compName) + ".zip");
+			if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
+					"Source for Component", monitor)) {
 				throw new Exception("Exception extracting " + compName);
 			}
-			
+
 		}
-		
 
 		return true;
 	}
 
-	private IComponentHandle createComponent(ITeamRepository teamRepository, IProgressMonitor monitor, IWorkspaceManager wm,
-			String compName) throws TeamRepositoryException {
+	private IComponentHandle createComponent(ITeamRepository teamRepository, IProgressMonitor monitor,
+			IWorkspaceManager wm, String compName) throws TeamRepositoryException {
 		IComponentHandle component;
 		// Create Component
-		component = wm.createComponent(compName,
-				teamRepository.loggedInContributor(), monitor);
+		component = wm.createComponent(compName, teamRepository.loggedInContributor(), monitor);
 		wm.setComponentOwner(component, fArea, monitor);
 		return component;
 	}
 
-	private IComponentHandle findComponentByName(IWorkspaceManager wm, String compName, IProgressMonitor monitor) throws TeamRepositoryException {
-		IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY
-				.newInstance();
+	private IComponentHandle findComponentByName(IWorkspaceManager wm, String compName, IProgressMonitor monitor)
+			throws TeamRepositoryException {
+		IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY.newInstance();
 		criteria.setExactName(compName);
-		List<IComponentHandle> found = wm.findComponents(criteria,
-				Integer.MAX_VALUE, monitor);
+		List<IComponentHandle> found = wm.findComponents(criteria, Integer.MAX_VALUE, monitor);
 
 		if (found.size() > 1) {
 			logger.error("Ambiguous Component Name '{}'", compName);
-			throw new RuntimeException("Ambiguous Component Name '{"+compName+"}'");
+			throw new RuntimeException("Ambiguous Component Name '{" + compName + "}'");
 		}
-		if(found.size()<1) {
+		if (found.size() < 1) {
 			return null;
 		}
 		return found.get(0);
 	}
-	
+
 	/**
 	 * Find a ProjectArea by fully qualified name The name has to be a fully
 	 * qualified name with the full path e.g. "JKE Banking(Change
@@ -407,7 +413,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Find a ProcessArea by fully qualified name The name has to be a fully
 	 * qualified name with the full path e.g. "JKE Banking(Change
@@ -444,16 +450,15 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	 * @throws TeamRepositoryException
 	 */
 	@SuppressWarnings("rawtypes")
-	private void removeAllCompoentsFormWorkspaceConnection(
-			IWorkspaceConnection workspaceConnection, IProgressMonitor monitor)
-			throws TeamRepositoryException {
+	private void removeAllCompoentsFormWorkspaceConnection(IWorkspaceConnection workspaceConnection,
+			IProgressMonitor monitor) throws TeamRepositoryException {
 		// Remove all components
 		List wsComponents = workspaceConnection.getComponents();
 		for (Object comp : wsComponents) {
 			IComponentHandle cHandle = (IComponentHandle) comp;
-			workspaceConnection.applyComponentOperations(Collections
-					.singletonList(workspaceConnection.componentOpFactory()
-							.removeComponent(cHandle, false)), true, monitor);
+			workspaceConnection.applyComponentOperations(
+					Collections.singletonList(workspaceConnection.componentOpFactory().removeComponent(cHandle, false)),
+					true, monitor);
 		}
 	}
 
@@ -466,18 +471,16 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IWorkspaceConnection addComponentsToWorkspaceConnection(
-			IWorkspaceConnection workspaceConnection,
-			HashMap<String, IComponentHandle> extComponents,
-			IProgressMonitor monitor) throws TeamRepositoryException {
+	private IWorkspaceConnection addComponentsToWorkspaceConnection(IWorkspaceConnection workspaceConnection,
+			HashMap<String, IComponentHandle> extComponents, IProgressMonitor monitor) throws TeamRepositoryException {
 
 		// Add new components
 		Collection<IComponentHandle> components = extComponents.values();
 		for (Object comp : components) {
 			IComponentHandle cHandle = (IComponentHandle) comp;
-			workspaceConnection.applyComponentOperations(Collections
-					.singletonList(workspaceConnection.componentOpFactory()
-							.addComponent(cHandle, false)), true, monitor);
+			workspaceConnection.applyComponentOperations(
+					Collections.singletonList(workspaceConnection.componentOpFactory().addComponent(cHandle, false)),
+					true, monitor);
 		}
 		return workspaceConnection;
 	}
