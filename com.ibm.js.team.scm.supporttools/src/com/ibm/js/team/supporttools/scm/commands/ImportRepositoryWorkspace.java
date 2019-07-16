@@ -58,6 +58,7 @@ import com.ibm.team.scm.client.SCMPlatform;
 import com.ibm.team.scm.common.IChangeSetHandle;
 import com.ibm.team.scm.common.IComponentHandle;
 import com.ibm.team.scm.common.IWorkspaceHandle;
+import com.ibm.team.scm.common.dto.IChangeHistorySyncReport;
 import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
@@ -350,7 +351,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 			File archiveFile = new File(fOutputFolder, normalizeName(compName) +".zip");
-			scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle, "Source for Component", monitor);
+			if(!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle, "Source for Component", monitor)){
+				throw new Exception("Exception extracting " + compName);
+			}
+			
 		}
 		
 
