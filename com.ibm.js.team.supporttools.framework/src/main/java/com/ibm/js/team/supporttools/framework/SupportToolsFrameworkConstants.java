@@ -43,6 +43,11 @@ public interface SupportToolsFrameworkConstants {
 	public static final String PARAMETER_PASSWORD_EXAMPLE = "******";
 	public static final String PARAMETER_PASSWORD_PROTOTYPE = "<password>";
 
+	public static final String PARAMETER_PROJECT_AREA = "projectarea";
+	public static final String PARAMETER_PROJECT_AREA_DESCRIPTION = "A project Area name.";
+	public static final String PARAMETER_PROJECT_AREA_EXAMPLE = "\"JKE Banking (Requirements Management)\"";
+	public static final String PARAMETER_PROJECT_AREA_PROTOTYPE = "\"<project_area>\"";
+	
 	// Sample
 	public static final String CMD_SAMPLE = "sampleCommand";
 

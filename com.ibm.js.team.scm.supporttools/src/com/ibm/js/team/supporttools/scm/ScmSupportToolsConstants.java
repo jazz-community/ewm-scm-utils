@@ -11,9 +11,10 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_OUTPUTFOLDER_PROTOTYPE = "<outputFolderPath>";
 	public static final String PARAMETER_OUTPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
 	public static final String PARAMETER_OUTPUTFOLDER_DESCRIPTION = "The folder where the resulting data is written.";
-	String COMPONENT_CHILDREN = "Children";
-	String COMPONENT_UUID = "UUID";
-	String COMPONENT_NAME = "Name";
-	String HIERARCHY_JSON_FILE = "hierarchy.json";
+	public static final String CMD_IMPORTWORKSPACE = "importScmWorkspace";
+	public static final String COMPONENT_CHILDREN = "Children";
+	public static final String COMPONENT_UUID = "UUID";
+	public static final String COMPONENT_NAME = "Name";
+	public static final String HIERARCHY_JSON_FILE = "hierarchy.json";
 
 }

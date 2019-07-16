@@ -582,3 +582,1267 @@ Packing component'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
 Packing component'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
 Packing component'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
 Success.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+IOException: The type "class com.ibm.team.repository.common.json.JSONArray" was encountered, rather than the expected type "JSONObject"
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Error: WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Hierarchy...
+  Parent... 'Web UI'
+  Parent... 'Banking Logic'
+  Parent... 'Prerequisites'
+  Parent... 'C# UI'
+  Parent... 'Java UI'
+  Parent... 'Database'
+  Parent... 'Mobile'
+  Parent... 'Build'
+  Parent... 'Top'
+Ramdomizing Components...
+Packing component'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+Packing component'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+Packing component'Prerequisites' UUID '_ekJrIKVQEeiCt9y1kOVIWQ'
+Packing component'C# UI' UUID '_ejvbcKVQEeiCt9y1kOVIWQ'
+Packing component'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+Packing component'Database' UUID '_ej3-UKVQEeiCt9y1kOVIWQ'
+Packing component'Mobile' UUID '_ekr2oKVQEeiCt9y1kOVIWQ'
+Packing component'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
+Packing component'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Success.
+
+SCMSupportTools Version: 1.0
+Executing Command exportScmWorkspace
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Error: WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' not unique.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}' 
+
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}' 
+
+Failed.
+
+SCMSupportTools Version: 1.0
+importScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files.
+
+	Syntax : -command importScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -projectarea "<project_area>" [ -workspaceConnection <workspaceNameOrId> ]
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)"
+	Optional parameter: -{} {}
+	Example optional parameter: -{} {}
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Failed.
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+
+SCMSupportTools Version: 1.0
+Executing Command importScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Component -> '{
+    "Name": "Web UI",
+    "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Banking Logic",
+    "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Prerequisites",
+    "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "C# UI",
+    "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Java UI",
+    "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Database",
+    "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Mobile",
+    "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Name": "Build",
+    "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+}'
+Component -> '{
+    "Children": [
+        {
+            "Name": "Web UI",
+            "UUID": "_ekb_BqVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Banking Logic",
+            "UUID": "_egLKEKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Prerequisites",
+            "UUID": "_ekJrIKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "C# UI",
+            "UUID": "_ejvbcKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Java UI",
+            "UUID": "_ekBIQKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Database",
+            "UUID": "_ej3-UKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Mobile",
+            "UUID": "_ekr2oKVQEeiCt9y1kOVIWQ"
+        },
+        {
+            "Name": "Build",
+            "UUID": "_ejNP8KVQEeiCt9y1kOVIWQ"
+        }
+    ],
+    "Name": "Top",
+    "UUID": "_7Vl8IaO6EemfKrzDOqP0IQ"
+}'
+Extract: C:\temp\ScmExport\Top.zip
+Extracting File: .subcomponent_info
+ OK
+Extract: C:\temp\ScmExport\Web UI.zip
+Extracting Folder: JKEWebUI
+Extracting Folder: JKEWebUI\.apt_generated
+Extracting File: JKEWebUI\.classpath
+ ... Created
+Extract Exception: Input length = 1
+Extracting Folder: JKEWebUI\WebContent

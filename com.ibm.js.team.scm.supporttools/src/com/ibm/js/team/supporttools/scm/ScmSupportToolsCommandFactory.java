@@ -18,6 +18,7 @@ package com.ibm.js.team.supporttools.scm;
 import com.ibm.js.team.supporttools.framework.commands.AbstractCommandFactory;
 import com.ibm.js.team.supporttools.framework.commands.SampleCommandCmd;
 import com.ibm.js.team.supporttools.scm.commands.ExportRepositoryWorkspace;
+import com.ibm.js.team.supporttools.scm.commands.ImportRepositoryWorkspace;
 
 /**
  * Factory class dealing with commands. A new command has to be added to the
@@ -29,6 +30,7 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory{
 	@Override
 	public void setAvailableCommands() {
 	put(new ExportRepositoryWorkspace());
+	put(new ImportRepositoryWorkspace());
 
 	// Enable sample command
 	// put(new SampleCommandCmd());
