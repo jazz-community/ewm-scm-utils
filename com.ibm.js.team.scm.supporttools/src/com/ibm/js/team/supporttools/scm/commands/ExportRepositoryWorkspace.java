@@ -72,6 +72,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	public boolean fPreserve = false;
 	private Object fConfidentialityMode = ScmSupportToolsConstants.DEFAULT_STORAGE_MODE_RANDOMIZE;
 	private File fOutputFolder = null;
+	private int fProgress = 0;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -278,7 +279,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			UUID parent = (UUID) iterator.next();
 			IComponent parentComp = ComponentUtil.resolveComponent(teamRepository, flat.get(parent), monitor);
 			JSONObject component = new JSONObject();
-			logger.info("  Parent... '{}'", parentComp.getName());
+			logger.info("\tComponent... '{}'", parentComp.getName());
 			component.put(ScmSupportToolsConstants.COMPONENT_NAME, parentComp.getName());
 			component.put(ScmSupportToolsConstants.COMPONENT_UUID, parentComp.getItemId().getUuidValue());
 			JSONArray jsonChildren = new JSONArray();
@@ -313,7 +314,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		boolean result = true;
 
 		for (IComponent component : components) {
-			logger.info("Packing component'{}' UUID '{}'", component.getName(), component.getItemId().getUuidValue());
+			logger.info("\tPacking component'{}' UUID '{}'", component.getName(), component.getItemId().getUuidValue());
 			result &= packageComponent(teamRepository, connection, component, monitor);
 		}
 		return result;
@@ -372,6 +373,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 
 		} finally {
 			out.close();
+			System.out.println("");
 		}
 		return result;
 	}
@@ -417,6 +419,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				}
 				zos.closeEntry();
 			}
+			showProgress();
 
 		}
 	}
@@ -474,5 +477,12 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 //			out.close();
 //		}
 //	}
+	
+	private void showProgress() {
+		fProgress++;
+		if (fProgress % 10 == 9) {
+			System.out.print(".");
+		}
+	}
 
 }

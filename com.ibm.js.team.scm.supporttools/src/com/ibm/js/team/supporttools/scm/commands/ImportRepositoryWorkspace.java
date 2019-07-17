@@ -307,7 +307,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 					}
 				}
 				sourcePar2ChildMap.put(componentName, childrenList);
-				logger.info("Component -> '{}' done", componentName);
+				logger.info("\tComponent -> '{}' done", componentName);
 			}
 		}
 
@@ -318,7 +318,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys) {
-			logger.info("  Component '{}'", compName);
+			logger.info("\tComponent '{}'", compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
 			if (foundComponent == null) {
 				foundComponent = createComponent(teamRepository, monitor, wm, compName);
@@ -335,7 +335,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("Recreate subcomponent structure in workspace...");
 		Set<String> compKeys2 = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys2) {
-			logger.info("  Component '{}'", compName);
+			logger.info("\tComponent '{}'", compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			Collection<IComponentHandle> subcomponentsToAdd = new ArrayList<IComponentHandle>();
 			ArrayList<String> children = sourcePar2ChildMap.get(compName);
@@ -356,7 +356,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("Import component data...");
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys3) {
-			logger.info("Component '{}'", compName);
+			logger.info("\tComponent '{}'", compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 			File archiveFile = new File(fInputFolder, normalizeName(compName) + ".zip");

@@ -251,3 +251,24 @@ Component 'Top Test'
 Skipping .subcomponent_info
 Component 'Banking Logic Test'
 Success.
+
+SCMTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
+Anylyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
+Persist component hierarchy in 'C:\temp\ScmExport\hierarchy.json'...
+	Component... 'Web UI'
+	Component... 'Banking Logic'
+	Component... 'Java UI'
+	Component... 'Top'
+Package and Ramdomize Components...
+	Packing component'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+	Packing component'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+	Packing component'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+	Packing component'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Success.
+
+SCMTools Version: 1.0
+Executing Command exportScmWorkspace
