@@ -16,8 +16,7 @@ public class ScmSupportTools extends AbstractSupportToolsFramework {
 	public ScmSupportTools(ICommandFactory commandFactory) {
 		super(commandFactory);
 	}
-	
-	
+
 	/**
 	 * Main entry point for the application. Gets and performs the command.
 	 * 
@@ -27,9 +26,9 @@ public class ScmSupportTools extends AbstractSupportToolsFramework {
 	 */
 	public static void main(String[] args) throws ParseException {
 
-		logger.info("\nSCMSupportTools Version: {}", "1.0");
-		boolean result=false;
-		AbstractSupportToolsFramework scmTools= new ScmSupportTools(new ScmSupportToolsCommandFactory());
+		logger.info("\nSCMTools Version: {}", "1.0");
+		boolean result = false;
+		AbstractSupportToolsFramework scmTools = new ScmSupportTools(new ScmSupportToolsCommandFactory());
 		result = scmTools.execute(args);
 		if (result) {
 			logger.info("Success.");

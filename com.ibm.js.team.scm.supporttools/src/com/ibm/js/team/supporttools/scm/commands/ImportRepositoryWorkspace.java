@@ -58,7 +58,6 @@ import com.ibm.team.scm.client.SCMPlatform;
 import com.ibm.team.scm.common.IChangeSetHandle;
 import com.ibm.team.scm.common.IComponentHandle;
 import com.ibm.team.scm.common.IWorkspaceHandle;
-import com.ibm.team.scm.common.dto.IChangeHistorySyncReport;
 import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
@@ -67,7 +66,7 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 public class ImportRepositoryWorkspace extends AbstractCommand implements ICommand {
 
 	public static final Logger logger = LoggerFactory.getLogger(ImportRepositoryWorkspace.class);
-	private File fOutputFolder = null;
+	private File fInputFolder = null;
 	private IAuditableHandle fArea;
 	private String fNameModifier = null;
 
@@ -89,7 +88,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		return fNameModifier;
 	}
 
-	public void setfNameModifier(String fNameModifier) {
+	public void setComponentNameModifier(String fNameModifier) {
 		this.fNameModifier = fNameModifier;
 	}
 
@@ -116,8 +115,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER, true,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER, true,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION);
 		return options;
 	}
 
@@ -135,7 +136,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER))) {
+				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER))) {
 			isValid = false;
 		}
 		return isValid;
@@ -147,7 +148,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	@Override
 	public void printSyntax() {
 		logger.info("{}", getCommandName());
-		logger.info("\n\tExports the contents of a repository workspace into a set of zip files.");
+		logger.info(
+				"\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. ");
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} [ -{} {} ]",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
@@ -157,14 +159,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE
-//				,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH_PROTOTYPE,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_PROTOTYPE
-		);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE);
 		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
 				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
@@ -174,22 +170,19 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
-//				,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH_EXAMPLE
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE
 		);
 
 		logger.info("\tOptional parameter: -{} {}"
-//				, 
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_PROTOTYPE
+				, 
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE
 		);
 		logger.info("\tExample optional parameter: -{} {}"
-//				, 
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_EXAMPLE
+				, 
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE
 		);
 	}
 
@@ -208,8 +201,14 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String projectAreaName = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+		String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
+		String componentNameModifier = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
 
+		if(componentNameModifier!=null) {
+			logger.info("Using suffix '{}' to on component names to force creation of new components.",componentNameModifier);
+			setComponentNameModifier(componentNameModifier);
+		}
+		
 		TeamPlatform.startup();
 		try {
 			IProgressMonitor monitor = new NullProgressMonitor();
@@ -228,16 +227,16 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				}
 			});
 			teamRepository.login(monitor);
-			File outputfolder = new File(outputFolderPath);
-			if (!outputfolder.exists()) {
-				logger.error("Error: Outputfolder '{}' does not exist.", outputFolderPath);
+			File inputfolder = new File(inputFolderPath);
+			if (!inputfolder.exists()) {
+				logger.error("Error: Outputfolder '{}' does not exist.", inputFolderPath);
 				return result;
 			}
-			if (!outputfolder.isDirectory()) {
-				logger.error("Error: Outputfolder '{}' is not a directory.", outputFolderPath);
+			if (!inputfolder.isDirectory()) {
+				logger.error("Error: Outputfolder '{}' is not a directory.", inputFolderPath);
 				return result;
 			}
-			fOutputFolder = outputfolder;
+			fInputFolder = inputfolder;
 			result = importWorkspace(teamRepository, projectAreaName, scmWorkspace, monitor);
 		} catch (TeamRepositoryException e) {
 			logger.error("TeamRepositoryException: {}", e.getMessage());
@@ -258,8 +257,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	private boolean importWorkspace(ITeamRepository teamRepository, String projectAreaName, String scmConnection,
 			IProgressMonitor monitor) throws Exception {
 
-		setfNameModifier("Test");
 		// Find Or Create Workspace
+		logger.info("Find or create repository workspace '{}'...", scmConnection);
 
 		IWorkspaceConnection targetWorkspace = null;
 		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
@@ -285,9 +284,9 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		// Get the required components
 //		HashMap<String,UUID> sourceComponentMap = new HashMap<String,UUID>(3000);
 		HashMap<String, ArrayList<String>> sourcePar2ChildMap = new HashMap<String, ArrayList<String>>(3000);
-		Reader reader = new BufferedReader(new InputStreamReader(
-				new FileInputStream(new File(fOutputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE)), "UTF-8")); //$NON-NLS-1$
-		logger.info("Import component Structure...");
+		File jsonFile = new File(fInputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
+		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), "UTF-8")); //$NON-NLS-1$
+		logger.info("Reading component structure from file '{}'...", jsonFile.getAbsolutePath());
 		JSONArray comps = JSONArray.parse(reader);
 		for (Object comp : comps) {
 			if (comp instanceof JSONObject) {
@@ -311,15 +310,15 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				logger.info("Component -> '{}' done", componentName);
 			}
 		}
-		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 
-		logger.info("Find or create compoents...");		
+		logger.info("Find or create components...");
+		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 		// Run 1 to get a map for the components needed. Find or create the components.
 		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
 				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys) {
-			logger.info("  Component '{}'" , compName);
+			logger.info("  Component '{}'", compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
 			if (foundComponent == null) {
 				foundComponent = createComponent(teamRepository, monitor, wm, compName);
@@ -327,15 +326,16 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 			targetComponentMap.put(compName, foundComponent);
 		}
 
-		logger.info("Strip workspace from components...");		
+		logger.info("Strip workspace from components...");
 		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
-		logger.info("Add components to workspace...");		
+
+		logger.info("Add components to workspace...");
 		addComponentsToWorkspaceConnection(targetWorkspace, targetComponentMap, monitor);
 		// Run 2 to get the child mapping
-		logger.info("Recreate subcomponent structure in workspace...");		
+		logger.info("Recreate subcomponent structure in workspace...");
 		Set<String> compKeys2 = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys2) {
-			logger.info("  Component '{}'" , compName);
+			logger.info("  Component '{}'", compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			Collection<IComponentHandle> subcomponentsToAdd = new ArrayList<IComponentHandle>();
 			ArrayList<String> children = sourcePar2ChildMap.get(compName);
@@ -344,28 +344,29 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 					IComponentHandle childHandle = targetComponentMap.get(child);
 					subcomponentsToAdd.add(childHandle);
 				}
-				IChangeSetHandle changeSet = targetWorkspace.createChangeSet(handle, "Subcomponents for " + compName,
-						true, monitor);
+				IChangeSetHandle subComponentChangeSet = targetWorkspace.createChangeSet(handle,
+						"Subcomponents for " + compName, true, monitor);
 				targetWorkspace.updateSubcomponentData(handle, subcomponentsToAdd, new ArrayList<IComponentHandle>(),
-						changeSet, monitor);
+						subComponentChangeSet, monitor);
+				targetWorkspace.closeChangeSets(Collections.singletonList(subComponentChangeSet), monitor);
 			}
 		}
 
 		// Run 3 upload the source code
-		logger.info("Import component data...");		
+		logger.info("Import component data...");
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
 		for (String compName : compKeys3) {
-			logger.info("  Component '{}'" , compName);
+			logger.info("Component '{}'", compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
-			File archiveFile = new File(fOutputFolder, normalizeName(compName) + ".zip");
+			File archiveFile = new File(fInputFolder, normalizeName(compName) + ".zip");
 			if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
-					"Source for Component", monitor)) {
+					"Source for Component " + compName, monitor)) {
+				System.out.println();
 				throw new Exception("Exception extracting " + compName);
 			}
-
+			System.out.println();
 		}
-
 		return true;
 	}
 

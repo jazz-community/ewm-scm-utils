@@ -11,7 +11,6 @@ import java.io.File;
 
 import com.ibm.js.team.supporttools.framework.util.AbstractZip;
 
-
 /**
  * Zip and use IStatusCollector for output
  * 
@@ -31,7 +30,6 @@ public class Zip extends AbstractZip {
 		super(zipFile, zipRootFolder);
 //		this.status = status;
 	}
-
 
 	/*
 	 * (non-Javadoc)

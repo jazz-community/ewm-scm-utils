@@ -69,6 +69,7 @@ public class ArchiveToSCMExtractor {
 	private IConfiguration fConfiguration = null;
 	// The progress monitor we are using
 	private IProgressMonitor fMonitor = new NullProgressMonitor();
+	private int fProgress = 0;
 
 	/**
 	 * Simple constructor
@@ -99,7 +100,7 @@ public class ArchiveToSCMExtractor {
 		fWorkspace = targetWorkspace;
 		fChangeSet = fWorkspace.createChangeSet(component, changeSetComment, true, monitor);
 		fConfiguration = fWorkspace.configuration(component);
-		logger.info("Extract: " + archiveFile.getPath());
+		logger.trace("Extract: " + archiveFile.getPath());
 		try {
 			FileInputStream fileInputStream = new FileInputStream(archiveFile);
 			fZipInStream = new ZipInputStream(fileInputStream);
@@ -109,7 +110,7 @@ public class ArchiveToSCMExtractor {
 				fileInputStream.close();
 			}
 		} catch (Exception e) {
-			logger.error("Extract Exception: " + e.getMessage());
+			logger.error("Exception extract file '{}': {}", archiveFile.getPath(), e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -131,23 +132,24 @@ public class ArchiveToSCMExtractor {
 			File targetEntry = new File(entry.toString());
 			try {
 				if (entry.isDirectory()) {
-					logger.error("Extracting Folder: " + targetEntry.getPath());
+					logger.trace("Extracting Folder: " + targetEntry.getPath());
 					findOrCreateFolderWithParents(targetEntry);
 
 				} else {
-					logger.info("Extracting File: " + targetEntry.getPath());
+					logger.trace("Extracting File: " + targetEntry.getPath());
 					extractFile(targetEntry, entry);
-					logger.info(" OK");
 				}
 			} catch (Exception e) {
-				logger.error("Extract Exception: " + e.getMessage());
+				logger.error("Exception extract file '{}': {}", targetEntry.getPath(), e.getMessage());
 				e.printStackTrace();
 				result = false;
 			} finally {
 				fZipInStream.closeEntry();
 			}
 			entry = fZipInStream.getNextEntry();
+			showProgress();
 		}
+		fWorkspace.closeChangeSets(Collections.singletonList(fChangeSet), fMonitor);
 		return result;
 	}
 
@@ -170,15 +172,15 @@ public class ArchiveToSCMExtractor {
 
 		// Ignore the subcomponent.info
 		if (SUBCOMPONENT_INFO.equals(targetFile.getName())) {
-			logger.info(" " + SUBCOMPONENT_INFO);
+			logger.info("Skipping " + SUBCOMPONENT_INFO);
 			return;
 		}
-		
+
 		IFolder parentFolder = findOrCreateFolderWithParents(targetFile.getParentFile());
 		IFileItem aFile = getFile(targetFile, parentFolder);
 		if (aFile == null) {
 			aFile = createFileItem(targetFile.getName(), zipEntry, parentFolder);
-			logger.info(" ... Created");
+			logger.trace(" ... Created");
 		}
 		ByteArrayOutputStream contents = copyFileData(fZipInStream);
 		try {
@@ -191,15 +193,14 @@ public class ArchiveToSCMExtractor {
 				lineDelimiter = filecontent.getLineDelimiter();
 			}
 			String contentType = aFile.getContentType();
-			if(CONTENT_TYPE_TEXT_PLAIN.equals(contentType)) {
-				if(FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
-					lineDelimiter=FileLineDelimiter.LINE_DELIMITER_NONE;
-					encoding=IFileContent.ENCODING_US_ASCII;
+			if (CONTENT_TYPE_TEXT_PLAIN.equals(contentType)) {
+				if (FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
+					lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
+					encoding = IFileContent.ENCODING_US_ASCII;
 				}
 			}
-			IFileContent storedzipContent = contentManager.storeContent( encoding, lineDelimiter,
-					new VersionedContentManagerByteArrayInputStreamPovider(contents.toByteArray()),
-					null, fMonitor);
+			IFileContent storedzipContent = contentManager.storeContent(encoding, lineDelimiter,
+					new VersionedContentManagerByteArrayInputStreamPovider(contents.toByteArray()), null, fMonitor);
 			// Compare the files. If there is a difference, set the new content
 			// and commit the change
 			if (!storedzipContent.sameContent(aFile.getContent())) {
@@ -207,7 +208,7 @@ public class ArchiveToSCMExtractor {
 				fileWorkingCopy.setContent(storedzipContent);
 				fWorkspace.commit(fChangeSet,
 						Collections.singletonList(fWorkspace.configurationOpFactory().save(fileWorkingCopy)), fMonitor);
-				logger.info(" ... Content");
+				logger.trace(" ... Content");
 			}
 		} catch (TeamRepositoryException e) {
 			e.printStackTrace();
@@ -286,7 +287,7 @@ public class ArchiveToSCMExtractor {
 	 */
 	private IFolder findOrCreateFolderWithParents(File folder) throws TeamRepositoryException {
 
-		if(folder==null) {
+		if (folder == null) {
 			return fConfiguration.completeRootFolder(fMonitor);
 		}
 		IFolder parent = null;
@@ -359,5 +360,12 @@ public class ArchiveToSCMExtractor {
 		fWorkspace.commit(fChangeSet, Collections.singletonList(fWorkspace.configurationOpFactory().save(newFolder)),
 				fMonitor);
 		return newFolder;
+	}
+
+	private void showProgress() {
+		fProgress++;
+		if (fProgress % 10 == 9) {
+			System.out.print(".");
+		}
 	}
 }

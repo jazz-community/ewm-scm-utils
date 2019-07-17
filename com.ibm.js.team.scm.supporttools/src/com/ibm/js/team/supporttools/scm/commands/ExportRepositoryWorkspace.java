@@ -68,11 +68,9 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  */
 public class ExportRepositoryWorkspace extends AbstractCommand implements ICommand {
 
-	public final String OBFUSCATE_MODE = "obfuscate";
 	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
-	public static final String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 	public boolean fPreserve = false;
-	private Object fConfidentialityMode="randomize";
+	private Object fConfidentialityMode = ScmSupportToolsConstants.DEFAULT_STORAGE_MODE_RANDOMIZE;
 	private File fOutputFolder = null;
 
 	/**
@@ -126,7 +124,8 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	@Override
 	public void printSyntax() {
 		logger.info("{}", getCommandName());
-		logger.info("\n\tExports the contents of a repository workspace into a set of zip files.");
+		logger.info(
+				"\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.");
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} [ -{} {} ]",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
@@ -136,11 +135,6 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE
-//				,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH_PROTOTYPE,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_PROTOTYPE
 		);
 		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
@@ -208,7 +202,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				return result;
 			}
 			if (!outputfolder.isDirectory()) {
-				logger.error("Error: Outputfolder '{}' is not a directory.", outputFolderPath);
+				logger.error("Error: '{}' is not a directory.", outputFolderPath);
 				return result;
 			}
 			fOutputFolder = outputfolder;
@@ -239,6 +233,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			throws TeamRepositoryException, IOException {
 		boolean result = false;
 
+		logger.info("Find and open WorkspaceConnection '{}'...", scmConnection);
 		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.WORKSPACES, monitor);
 		if (connections.size() < 1) {
@@ -249,13 +244,17 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			logger.error("Error: WorkspaceConnection '{}' not unique.", scmConnection);
 			return result;
 		}
-		List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository, connections, monitor);
+		List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
+				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
-		IComponentHierarchyResult hierarchy = connection.get(0).getComponentHierarchy(new ArrayList<IComponentHandle>());
+
+		logger.info("Anylyze and store component hierarchy from '{}'...", scmConnection);
+		IComponentHierarchyResult hierarchy = connection.get(0)
+				.getComponentHierarchy(new ArrayList<IComponentHandle>());
 		writeHierarchy(teamRepository, hierarchy, monitor);
-		logger.info("Packaging and Ramdomizing Components...");
+		logger.info("Package and Ramdomize Components...");
 		Collection<IComponentHandle> components = hierarchy.getFlattenedElementsMap().values();
-		result = packageComponentHandles(teamRepository, fOutputFolder, workspace, components, monitor);			
+		result = packageComponentHandles(teamRepository, fOutputFolder, workspace, components, monitor);
 		return result;
 	}
 
@@ -263,41 +262,41 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
 		Map<UUID, Collection<IComponentHandle>> par2Child = hierarchy.getParentToChildrenMap();
 		Map<UUID, IComponentHandle> flat = hierarchy.getFlattenedElementsMap();
-		writeChildMap(teamRepository, flat, par2Child, monitor);	
+		writeChildMap(teamRepository, flat, par2Child, monitor);
 	}
-
 
 	private void writeChildMap(ITeamRepository teamRepository, Map<UUID, IComponentHandle> flat,
-			Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		logger.info("Persist component hierarchy...");
-		
+			Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor)
+			throws TeamRepositoryException, UnsupportedEncodingException, IOException {
+		File jsonFile = new File(fOutputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
+		logger.info("Persist component hierarchy in '{}'...", jsonFile.getAbsolutePath());
+
 		JSONArray jsonhierarchy = new JSONArray();
 
-			Set<UUID> parents = par2Child.keySet();
-			for (Iterator<UUID> iterator = parents.iterator(); iterator.hasNext();) {
-				UUID parent = (UUID) iterator.next();
-				IComponent parentComp = ComponentUtil.resolveComponent(teamRepository, flat.get(parent), monitor);
-				JSONObject component = new JSONObject();
-				logger.info("  Parent... '{}'" , parentComp.getName());
-				component.put(ScmSupportToolsConstants.COMPONENT_NAME, parentComp.getName());
-				component.put(ScmSupportToolsConstants.COMPONENT_UUID, parentComp.getItemId().getUuidValue());
-				JSONArray jsonChildren = new JSONArray();
-				Collection<IComponentHandle> children = par2Child.get(parent);
-				for (Iterator<IComponentHandle> childIter = children.iterator(); childIter.hasNext();) {
-					IComponentHandle handle = (IComponentHandle) childIter.next();
-					IComponent child = ComponentUtil.resolveComponent(teamRepository, handle, monitor);
-					JSONObject childComponent = new JSONObject();
-					childComponent.put(ScmSupportToolsConstants.COMPONENT_NAME, child.getName());
-					childComponent.put(ScmSupportToolsConstants.COMPONENT_UUID, child.getItemId().getUuidValue());
-					jsonChildren.add(childComponent);
-					component.put(ScmSupportToolsConstants.COMPONENT_CHILDREN, jsonChildren);
-				}
-				jsonhierarchy.add(component);
+		Set<UUID> parents = par2Child.keySet();
+		for (Iterator<UUID> iterator = parents.iterator(); iterator.hasNext();) {
+			UUID parent = (UUID) iterator.next();
+			IComponent parentComp = ComponentUtil.resolveComponent(teamRepository, flat.get(parent), monitor);
+			JSONObject component = new JSONObject();
+			logger.info("  Parent... '{}'", parentComp.getName());
+			component.put(ScmSupportToolsConstants.COMPONENT_NAME, parentComp.getName());
+			component.put(ScmSupportToolsConstants.COMPONENT_UUID, parentComp.getItemId().getUuidValue());
+			JSONArray jsonChildren = new JSONArray();
+			Collection<IComponentHandle> children = par2Child.get(parent);
+			for (Iterator<IComponentHandle> childIter = children.iterator(); childIter.hasNext();) {
+				IComponentHandle handle = (IComponentHandle) childIter.next();
+				IComponent child = ComponentUtil.resolveComponent(teamRepository, handle, monitor);
+				JSONObject childComponent = new JSONObject();
+				childComponent.put(ScmSupportToolsConstants.COMPONENT_NAME, child.getName());
+				childComponent.put(ScmSupportToolsConstants.COMPONENT_UUID, child.getItemId().getUuidValue());
+				jsonChildren.add(childComponent);
+				component.put(ScmSupportToolsConstants.COMPONENT_CHILDREN, jsonChildren);
 			}
-			jsonhierarchy.serialize(new FileWriter(new File(fOutputFolder,ScmSupportToolsConstants.HIERARCHY_JSON_FILE)), true);
+			jsonhierarchy.add(component);
+		}
+		jsonhierarchy.serialize(new FileWriter(jsonFile), true);
 	}
 
-	
 	/**
 	 * @param teamRepository
 	 * @param outputfolder
@@ -329,8 +328,10 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 //	}
 
 	private boolean packageComponentHandles(ITeamRepository teamRepository, File outputFolder,
-			IWorkspaceConnection connection, Collection<IComponentHandle> componentHandles, IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		List<IComponent> components = ComponentUtil.resolveComponents(teamRepository, new ArrayList<IComponentHandle>(componentHandles), monitor);
+			IWorkspaceConnection connection, Collection<IComponentHandle> componentHandles, IProgressMonitor monitor)
+			throws TeamRepositoryException, IOException {
+		List<IComponent> components = ComponentUtil.resolveComponents(teamRepository,
+				new ArrayList<IComponentHandle>(componentHandles), monitor);
 
 		return packageComponents(teamRepository, outputFolder, connection, components, monitor);
 	}
@@ -424,7 +425,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		if (fPreserve) {
 			return arr;
 		}
-		if (OBFUSCATE_MODE.equals(fConfidentialityMode)) {
+		if (ScmSupportToolsConstants.STORAGE_MODE_OBFUSCATE.equals(fConfidentialityMode)) {
 			return obfuscate(arr);
 		}
 		return randomize(arr);
@@ -438,7 +439,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 
 	private byte[] obfuscate(byte[] arr) {
 		byte[] orr = new byte[arr.length];
-		System.arraycopy(LOREM_IPSUM.getBytes(), 0, orr, 0, arr.length);
+		System.arraycopy(ScmSupportToolsConstants.LOREM_IPSUM.getBytes(), 0, orr, 0, arr.length);
 		return orr;
 	}
 

@@ -20,16 +20,15 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 public class ComponentUtil {
 
-	public  static IComponent resolveComponent(ITeamRepository teamRepository, IComponentHandle handle,
+	public static IComponent resolveComponent(ITeamRepository teamRepository, IComponentHandle handle,
 			IProgressMonitor monitor) throws TeamRepositoryException {
-		@SuppressWarnings("unchecked")
 		IComponent component = (IComponent) teamRepository.itemManager().fetchCompleteItem(handle, IItemManager.DEFAULT,
 				monitor);
 		return component;
 	}
 
-	public  static List<IComponent> resolveComponents(ITeamRepository teamRepository, List<IComponentHandle> wsComponents,
-			IProgressMonitor monitor) throws TeamRepositoryException {
+	public static List<IComponent> resolveComponents(ITeamRepository teamRepository,
+			List<IComponentHandle> wsComponents, IProgressMonitor monitor) throws TeamRepositoryException {
 		@SuppressWarnings("unchecked")
 		List<IComponent> components = (List<IComponent>) teamRepository.itemManager().fetchCompleteItems(wsComponents,
 				IItemManager.DEFAULT, monitor);
@@ -44,16 +43,17 @@ public class ComponentUtil {
 	 * @throws TeamRepositoryException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public  static List<IComponent> getComponents(ITeamRepository teamRepository, IWorkspaceConnection workspaceConnection,
-			IProgressMonitor monitor) throws TeamRepositoryException {
+	public static List<IComponent> getComponents(ITeamRepository teamRepository,
+			IWorkspaceConnection workspaceConnection, IProgressMonitor monitor) throws TeamRepositoryException {
 		// Remove all components
 		List wsComponents = workspaceConnection.getComponents();
-	
+
 		return resolveComponents(teamRepository, wsComponents, monitor);
-	
+
 	}
 
-	public static List<? extends IWorkspaceConnection> getWorkspaceConnections(ITeamRepository teamRepository,List<? extends IWorkspaceHandle> connections, IProgressMonitor monitor) throws TeamRepositoryException {
+	public static List<? extends IWorkspaceConnection> getWorkspaceConnections(ITeamRepository teamRepository,
+			List<? extends IWorkspaceHandle> connections, IProgressMonitor monitor) throws TeamRepositoryException {
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 		return wm.getWorkspaceConnections(connections, monitor);
 	}
@@ -68,8 +68,8 @@ public class ComponentUtil {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	public static List<IWorkspaceHandle> findWorkspacesByName(ITeamRepository teamRepository,
-			String scmConnectionName, int kind, IProgressMonitor monitor) throws TeamRepositoryException {
+	public static List<IWorkspaceHandle> findWorkspacesByName(ITeamRepository teamRepository, String scmConnectionName,
+			int kind, IProgressMonitor monitor) throws TeamRepositoryException {
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 		IWorkspaceSearchCriteria criteria = IWorkspaceSearchCriteria.FACTORY.newInstance().setKind(kind);
 		if (scmConnectionName != null) {
@@ -77,7 +77,7 @@ public class ComponentUtil {
 		}
 		List<IWorkspaceHandle> connections = wm.findWorkspaces(criteria, Integer.MAX_VALUE, monitor);
 		return connections;
-		//return wm.getWorkspaceConnections(connections, monitor);
+		// return wm.getWorkspaceConnections(connections, monitor);
 	}
 
 	/**
@@ -88,25 +88,22 @@ public class ComponentUtil {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	public static HashMap<String, IComponentHandle> getComponentMap(
-			IWorkspaceManager wm, IProgressMonitor monitor)
+	public static HashMap<String, IComponentHandle> getComponentMap(IWorkspaceManager wm, IProgressMonitor monitor)
 			throws TeamRepositoryException {
 		HashMap<String, IComponentHandle> allComponents = new HashMap<String, IComponentHandle>();
 		// These are the components I need
-	
+
 		// Try to find all components
 		Set<String> components = wm.findAllComponentNames(monitor);
 		for (String compName : components) {
-			IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY
-					.newInstance();
+			IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY.newInstance();
 			criteria.setExactName(compName);
-			List<IComponentHandle> found = wm.findComponents(criteria,
-					Integer.MAX_VALUE, monitor);
-	
+			List<IComponentHandle> found = wm.findComponents(criteria, Integer.MAX_VALUE, monitor);
+
 			if (found.size() > 1) {
 				System.out.println("Ambiguous Component Names");
 			}
-	
+
 			for (IComponentHandle iComponentHandle : found) {
 				allComponents.put(compName, iComponentHandle);
 			}
