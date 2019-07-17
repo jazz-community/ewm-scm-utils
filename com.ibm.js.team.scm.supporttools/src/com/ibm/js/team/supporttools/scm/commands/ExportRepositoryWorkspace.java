@@ -316,8 +316,11 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			throws IOException, TeamRepositoryException {
 		boolean result = true;
 
+		int currentComponent = 0;
+		int noOfComponents = components.size();
 		for (IComponent component : components) {
-			logger.info("\tPacking component'{}' UUID '{}'", component.getName(), component.getItemId().getUuidValue());
+			logger.info("\tPacking {} of {} component'{}' UUID '{}'", currentComponent++, noOfComponents,
+					component.getName(), component.getItemId().getUuidValue());
 			result &= packageComponent(teamRepository, connection, component, monitor);
 		}
 		return result;

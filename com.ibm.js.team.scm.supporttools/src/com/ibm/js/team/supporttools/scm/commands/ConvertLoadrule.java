@@ -94,7 +94,7 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 	public void printSyntax() {
 		logger.info("{}", getCommandName());
 		logger.info(
-				"\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. ");
+				"\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.");
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(),
 

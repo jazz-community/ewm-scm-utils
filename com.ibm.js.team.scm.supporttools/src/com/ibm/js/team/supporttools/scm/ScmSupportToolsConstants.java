@@ -41,6 +41,8 @@ public interface ScmSupportToolsConstants {
 	public static final Object TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object TARGET_COMPONENT_UUID = "TargetUUID";
 	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
+	public static final String PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG = "reuseExistingWorkspace";
+	public static final String PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION = "Full path and filename of the resulting loadrule of the conversion.";
 
 	String DEFAULT_STORAGE_MODE_RANDOMIZE = "randomize";
 	String STORAGE_MODE_OBFUSCATE = "obfuscate";

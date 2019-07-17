@@ -71,6 +71,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	private File fInputFolder = null;
 	private IAuditableHandle fArea;
 	private String fNamePrefixr = null;
+	private int fProgress = 0;
+	private boolean reuseExistingWorkspace = false;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -99,6 +101,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER, true,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG, false,
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION);
 		return options;
 	}
 
@@ -153,16 +157,18 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
 
-		logger.info("\tOptional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE);
-		logger.info("\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE);
+		logger.info("\tOptional parameter: -{} {} -{}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
+		logger.info("\tExample optional parameter: -{} {} {}",
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
 	}
 
 	/**
 	 * The main method that executes the behavior of this command.
 	 */
-	@SuppressWarnings("unused")
 	@Override
 	public boolean execute() {
 		logger.info("Executing Command {}", this.getCommandName());
@@ -177,6 +183,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
 		String componentNameModifier = getCmd()
 				.getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
+		reuseExistingWorkspace = getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
 
 		if (componentNameModifier != null) {
 			logger.info("Using prefix '{}' to on component names to force creation of new components.",
@@ -239,8 +246,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.WORKSPACES, monitor);
 		if (connections.size() > 0) {
-			logger.info("WorkspaceConnection '{}' already exists.", scmConnection);
-			// logger.error("WorkspaceConnection '{}' ambiguous.", scmConnection);
+			if (!reuseExistingWorkspace) {
+				logger.error("WorkspaceConnection '{}' already exists.", scmConnection);
+				return false;
+			}
 			List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
 					connections, monitor);
 			targetWorkspace = connection.get(0);
@@ -345,8 +354,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		// Run 3 upload the source code
 		logger.info("Import component data...");
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
+		int currentComponent = 0;
+		int noOfComponents = compKeys3.size();
 		for (String compName : compKeys3) {
-			logger.info("\tComponent '{}'", compName);
+			logger.info("\t {} of {} Component '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 			File archiveFile = new File(fInputFolder, normalizeName(compName) + ".zip");
@@ -466,9 +477,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 			HashMap<String, IComponentHandle> extComponents, IProgressMonitor monitor) throws TeamRepositoryException {
 
 		// Add new components
-		Collection<IComponentHandle> components = extComponents.values();
-		for (Object comp : components) {
-			IComponentHandle cHandle = (IComponentHandle) comp;
+		Set<String> componentNames = extComponents.keySet();
+		for (String compName : componentNames) {
+			logger.info("\tComponent '{}'", compName);
+			IComponentHandle cHandle = (IComponentHandle) extComponents.get(compName);
 			workspaceConnection.applyComponentOperations(
 					Collections.singletonList(workspaceConnection.componentOpFactory().addComponent(cHandle, false)),
 					true, monitor);
@@ -492,6 +504,14 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 
 	private void setComponentNameModifier(String fNameModifier) {
 		this.fNamePrefixr = fNameModifier;
+	}
+
+	@SuppressWarnings("unused")
+	private void showProgress() {
+		fProgress++;
+		if (fProgress % 10 == 9) {
+			System.out.print(".");
+		}
 	}
 
 }
