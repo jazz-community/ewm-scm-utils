@@ -16,6 +16,7 @@
 package com.ibm.js.team.supporttools.scm;
 
 import com.ibm.js.team.supporttools.framework.commands.AbstractCommandFactory;
+import com.ibm.js.team.supporttools.scm.commands.ConvertLoadrule;
 import com.ibm.js.team.supporttools.scm.commands.ExportRepositoryWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.ImportRepositoryWorkspace;
 
@@ -30,7 +31,7 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 	public void setAvailableCommands() {
 		put(new ExportRepositoryWorkspace());
 		put(new ImportRepositoryWorkspace());
-
+		put(new ConvertLoadrule());
 		// Enable sample command
 		// put(new SampleCommandCmd());
 	}

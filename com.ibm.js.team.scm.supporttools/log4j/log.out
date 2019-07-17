@@ -272,3 +272,227 @@ Success.
 
 SCMTools Version: 1.0
 Executing Command exportScmWorkspace
+
+SCMTools Version: 1.0
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find and open WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace'...
+Anylyze and store component hierarchy from 'New Hierarchical JKE Banking Stream Workspace'...
+Persist component hierarchy in 'C:\temp\ScmExport33\hierarchy.json'...
+	Component... 'Top Test3'
+	Component... 'Web UI Test3'
+	Component... 'Java UI Test3'
+	Component... 'Banking Logic Test3'
+Package and Ramdomize Components...
+	Packing component'Top Test3' UUID '_h_tB0qhjEemsB7u2gVCeEw'
+	Packing component'Web UI Test3' UUID '_h9FysahjEemsB7u2gVCeEw'
+	Packing component'Java UI Test3' UUID '_h_VOYahjEemsB7u2gVCeEw'
+	Packing component'Banking Logic Test3' UUID '_h-uKYqhjEemsB7u2gVCeEw'
+Success.
+
+SCMTools Version: 1.0
+Executing Command importScmWorkspace
+Using suffix ' Test' to on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Hierarchical JKE Banking Stream Workspace'...
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'Web UI Test' done
+	Component -> 'Banking Logic Test' done
+	Component -> 'Java UI Test' done
+	Component -> 'Top Test' done
+Find or create components...
+	Component 'Web UI Test'
+	Component 'Java UI Test'
+	Component 'Top Test'
+	Component 'Banking Logic Test'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+Recreate subcomponent structure in workspace...
+	Component 'Web UI Test'
+	Component 'Java UI Test'
+	Component 'Top Test'
+	Component 'Banking Logic Test'
+Import component data...
+	Component 'Web UI Test'
+	Component 'Java UI Test'
+	Component 'Top Test'
+Skipping .subcomponent_info
+	Component 'Banking Logic Test'
+Success.
+
+SCMTools Version: 1.0
+Executing Command importScmWorkspace
+Using suffix ' Test' to on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Hierarchical JKE Banking Stream Workspace'...
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'Web UI Test' done
+	Component -> 'Banking Logic Test' done
+	Component -> 'Java UI Test' done
+	Component -> 'Top Test' done
+Find or create components...
+	Component 'Web UI Test'
+	Component 'Java UI Test'
+	Component 'Top Test'
+	Component 'Banking Logic Test'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+Recreate subcomponent structure in workspace...
+	Component 'Web UI Test'
+	Component 'Java UI Test'
+	Component 'Top Test'
+	Component 'Banking Logic Test'
+Import component data...
+	Component 'Web UI Test'
+
+SCMTools Version: 1.0
+Executing Command importScmWorkspace
+Using prefix 'IBMTest_' to on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Hierarchical JKE Banking Stream Workspace'...
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'Web UIIBMTest_' done
+	Component -> 'Banking LogicIBMTest_' done
+	Component -> 'Java UIIBMTest_' done
+	Component -> 'TopIBMTest_' done
+Find or create components...
+	Component 'Web UIIBMTest_'
+	Component 'TopIBMTest_'
+	Component 'Banking LogicIBMTest_'
+	Component 'Java UIIBMTest_'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+Recreate subcomponent structure in workspace...
+	Component 'Web UIIBMTest_'
+	Component 'TopIBMTest_'
+	Component 'Banking LogicIBMTest_'
+	Component 'Java UIIBMTest_'
+Import component data...
+	Component 'Web UIIBMTest_'
+	Component 'TopIBMTest_'
+Skipping .subcomponent_info
+	Component 'Banking LogicIBMTest_'
+	Component 'Java UIIBMTest_'
+Success.
+
+SCMTools Version: 1.0
+Executing Command importScmWorkspace
+Using prefix 'IBMTest_' to on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Hierarchical JKE Banking Stream Workspace'...
+WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace' already exists.
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'IBMTest_Web UI' done
+	Component -> 'IBMTest_Banking Logic' done
+	Component -> 'IBMTest_Java UI' done
+	Component -> 'IBMTest_Top' done
+Find or create components...
+	Component 'IBMTest_Banking Logic'
+	Component 'IBMTest_Java UI'
+	Component 'IBMTest_Top'
+	Component 'IBMTest_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+Recreate subcomponent structure in workspace...
+	Component 'IBMTest_Banking Logic'
+	Component 'IBMTest_Java UI'
+	Component 'IBMTest_Top'
+	Component 'IBMTest_Web UI'
+Import component data...
+	Component 'IBMTest_Banking Logic'
+	Component 'IBMTest_Java UI'
+	Component 'IBMTest_Top'
+Skipping .subcomponent_info
+	Component 'IBMTest_Web UI'
+Success.
+
+SCMTools Version: 1.0
+Unsupported command name 'convertLoadrule' 
+
+Available commands: 
+
+exportScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+	Syntax : -command exportScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> [ -outputFolder <outputFolderPath> ]
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace"
+	Optional parameter: -{} {}
+	Example optional parameter: -{} {}
+
+
+importScmWorkspace
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command importScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -projectarea "<project_area>" [ -workspaceConnection <workspaceNameOrId> ]
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)"
+	Optional parameter: -componentNameModifier <modifier>
+	Example optional parameter: -componentNameModifier  Test
+
+
+Failed.
+
+SCMTools Version: 1.0
+convertLoadrule
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+Failed.
+
+SCMTools Version: 1.0
+convertLoadrule
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+Failed.
+
+SCMTools Version: 1.0
+convertLoadrule
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+Failed.
+
+SCMTools Version: 1.0
+convertLoadrule
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+Failed.
+
+SCMTools Version: 1.0
+Executing Command convertLoadrule
+Failed.
+
+SCMTools Version: 1.0
+Executing Command convertLoadrule
+
+SCMTools Version: 1.0
+Executing Command convertLoadrule
+Reading component UUID mapping from file 'C:\temp\ScmExport\UUIDMapping.json'...
+Failed.
+
+SCMTools Version: 1.0
+Executing Command convertLoadrule
+Reading component UUID mapping from file 'C:\temp\ScmExport\UUIDMapping.json'...

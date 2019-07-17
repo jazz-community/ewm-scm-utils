@@ -18,6 +18,7 @@ package com.ibm.js.team.supporttools.scm.commands;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -50,6 +51,7 @@ import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.IAuditableHandle;
 import com.ibm.team.repository.common.TeamRepositoryException;
+import com.ibm.team.repository.common.UUID;
 import com.ibm.team.repository.common.json.JSONArray;
 import com.ibm.team.repository.common.json.JSONObject;
 import com.ibm.team.scm.client.IWorkspaceConnection;
@@ -68,29 +70,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	public static final Logger logger = LoggerFactory.getLogger(ImportRepositoryWorkspace.class);
 	private File fInputFolder = null;
 	private IAuditableHandle fArea;
-	private String fNameModifier = null;
-
-	private String modifyNameForTests(String name) {
-		if (fNameModifier != null) {
-			return name + fNameModifier;
-		}
-		return name;
-	}
-
-	private String normalizeName(String name) {
-		if (fNameModifier != null) {
-			return name.substring(0, name.length() - fNameModifier.length());
-		}
-		return name;
-	}
-
-	public String getfNameModifier() {
-		return fNameModifier;
-	}
-
-	public void setComponentNameModifier(String fNameModifier) {
-		this.fNameModifier = fNameModifier;
-	}
+	private String fNamePrefixr = null;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -171,19 +151,12 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE
-		);
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
 
-		logger.info("\tOptional parameter: -{} {}"
-				, 
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE
-		);
-		logger.info("\tExample optional parameter: -{} {}"
-				, 
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE
-		);
+		logger.info("\tOptional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE);
+		logger.info("\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE);
 	}
 
 	/**
@@ -202,13 +175,15 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		String projectAreaName = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 		String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
-		String componentNameModifier = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
+		String componentNameModifier = getCmd()
+				.getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
 
-		if(componentNameModifier!=null) {
-			logger.info("Using suffix '{}' to on component names to force creation of new components.",componentNameModifier);
+		if (componentNameModifier != null) {
+			logger.info("Using prefix '{}' to on component names to force creation of new components.",
+					componentNameModifier);
 			setComponentNameModifier(componentNameModifier);
 		}
-		
+
 		TeamPlatform.startup();
 		try {
 			IProgressMonitor monitor = new NullProgressMonitor();
@@ -282,11 +257,12 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		fArea = findProjectAreaByFQN(projectAreaName, processClient, monitor);
 
 		// Get the required components
-//		HashMap<String,UUID> sourceComponentMap = new HashMap<String,UUID>(3000);
+//		HashMap<String,UUID> sourceComponentMap = new HashMap<String,UUID>(3000);		
+		HashMap<String, UUID> sourceComponentName2UUIDMap = new HashMap<String, UUID>(3000);
 		HashMap<String, ArrayList<String>> sourcePar2ChildMap = new HashMap<String, ArrayList<String>>(3000);
-		File jsonFile = new File(fInputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
-		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile), "UTF-8")); //$NON-NLS-1$
-		logger.info("Reading component structure from file '{}'...", jsonFile.getAbsolutePath());
+		File jsonInputFile = new File(fInputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
+		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonInputFile), "UTF-8")); //$NON-NLS-1$
+		logger.info("Reading component structure from file '{}'...", jsonInputFile.getAbsolutePath());
 		JSONArray comps = JSONArray.parse(reader);
 		for (Object comp : comps) {
 			if (comp instanceof JSONObject) {
@@ -294,6 +270,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				JSONObject jsonComp = (JSONObject) comp;
 				Object oname = jsonComp.get(ScmSupportToolsConstants.COMPONENT_NAME);
 				componentName = modifyNameForTests((String) oname);
+				String ouuid = (String) jsonComp.get(ScmSupportToolsConstants.COMPONENT_UUID);
+				sourceComponentName2UUIDMap.put(componentName, UUID.valueOf(ouuid));
 				ArrayList<String> childrenList = new ArrayList<String>(20);
 				Object ochildren = jsonComp.get(ScmSupportToolsConstants.COMPONENT_CHILDREN);
 				if (null != ochildren && ochildren instanceof JSONArray) {
@@ -313,6 +291,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 
 		logger.info("Find or create components...");
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
+		JSONArray jsonComponentMap = new JSONArray();
 		// Run 1 to get a map for the components needed. Find or create the components.
 		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
 				sourcePar2ChildMap.size());
@@ -324,7 +303,18 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				foundComponent = createComponent(teamRepository, monitor, wm, compName);
 			}
 			targetComponentMap.put(compName, foundComponent);
+			JSONObject jsonComponent = new JSONObject();
+			jsonComponent.put(ScmSupportToolsConstants.COMPONENT_NAME, compName);
+			jsonComponent.put(ScmSupportToolsConstants.SOURCE_COMPONENT_UUID,
+					sourceComponentName2UUIDMap.get(compName).getUuidValue());
+			jsonComponent.put(ScmSupportToolsConstants.TARGET_COMPONENT_UUID,
+					foundComponent.getItemId().getUuidValue());
+			jsonComponentMap.add(jsonComponent);
 		}
+		File jsonComponentMappingFile = new File(fInputFolder, ScmSupportToolsConstants.COMPONENT_MAPPING_JSON_FILE);
+		logger.info("Persist component source to target UUID mapping '{}'...",
+				jsonComponentMappingFile.getAbsolutePath());
+		jsonComponentMap.serialize(new FileWriter(jsonComponentMappingFile), true);
 
 		logger.info("Strip workspace from components...");
 		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
@@ -484,6 +474,24 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 					true, monitor);
 		}
 		return workspaceConnection;
+	}
+
+	private String modifyNameForTests(String name) {
+		if (fNamePrefixr != null) {
+			return fNamePrefixr + name;
+		}
+		return name;
+	}
+
+	private String normalizeName(String name) {
+		if (fNamePrefixr != null) {
+			return name.substring(fNamePrefixr.length());
+		}
+		return name;
+	}
+
+	private void setComponentNameModifier(String fNameModifier) {
+		this.fNamePrefixr = fNameModifier;
 	}
 
 }

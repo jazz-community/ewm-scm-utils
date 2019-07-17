@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
+import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
 import com.ibm.team.filesystem.client.FileSystemCore;
@@ -135,8 +136,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE
-		);
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
 		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
 				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
@@ -199,8 +199,11 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			teamRepository.login(monitor);
 			File outputfolder = new File(outputFolderPath);
 			if (!outputfolder.exists()) {
-				logger.error("Error: Outputfolder '{}' does not exist.", outputFolderPath);
-				return result;
+				FileUtil.createFolderWithParents(outputfolder);
+				if (!outputfolder.exists()) {
+					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
+					return result;
+				}
 			}
 			if (!outputfolder.isDirectory()) {
 				logger.error("Error: '{}' is not a directory.", outputFolderPath);
@@ -477,7 +480,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 //			out.close();
 //		}
 //	}
-	
+
 	private void showProgress() {
 		fProgress++;
 		if (fProgress % 10 == 9) {
