@@ -27,9 +27,10 @@ The importFolder must be the outputFolder of an exportScmWorkspace command.
 It is possible to run against an existing repository workspace using -reuseExistingWorkspace.
 It is possible to run against the same repository and force creation of new components by using the -componentNameModifier and provide a prefix such as "ImportTest_" name prefix 
 
-	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management) Copy" -workspaceConnection "Debs New JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport" -componentNameModifier " Test" -reuseExistingWorkspace
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management) Copy" -workspaceConnection "Debs New JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport" -componentNameModifier "Test_Import_" -reuseExistingWorkspace
 
-Step 3: Convert a loadrule
+Step 3 (optional): Convert a loadrule 
+If using load rules with loading a repository workspace, the component UUID needs to be replaced to work with the newly created components. Note, only component UUID's can currently be replaced. Item ID's are not yet supported.
 Uses the mapping information created during the import operation to convert a loadrule. It replaces the component UUID's in loadrule by the new component UUID and saves the mofification as a new loadrule.
 The converted loadrule can now be used to load the imported repository workspace. Note, Folder UUID's are not converted. Only Loadrules that use a target file path will work.
 

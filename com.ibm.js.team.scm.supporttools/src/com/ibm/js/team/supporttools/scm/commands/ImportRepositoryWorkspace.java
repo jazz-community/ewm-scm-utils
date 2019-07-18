@@ -186,7 +186,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		reuseExistingWorkspace = getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
 
 		if (componentNameModifier != null) {
-			logger.info("Using prefix '{}' to on component names to force creation of new components.",
+			logger.info("Using prefix '{}' on component names to force creation of new components.",
 					componentNameModifier);
 			setComponentNameModifier(componentNameModifier);
 		}
