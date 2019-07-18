@@ -26,7 +26,7 @@ public class ScmSupportTools extends AbstractSupportToolsFramework {
 	 */
 	public static void main(String[] args) throws ParseException {
 
-		logger.info("\nSCMTools Version: {}", "1.0");
+		logger.info("\nSCMTools Version: {}", ScmSupportToolsConstants.SCMTOOLS_VERSION);
 		boolean result = false;
 		AbstractSupportToolsFramework scmTools = new ScmSupportTools(new ScmSupportToolsCommandFactory());
 		result = scmTools.execute(args);

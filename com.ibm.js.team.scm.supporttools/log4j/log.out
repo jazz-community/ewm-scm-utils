@@ -707,3 +707,195 @@ Package and Ramdomize Components...
 	Packing 2 of 4 component'IBMTest_Java UI' UUID '_X_D_UKiPEemsB7u2gVCeEw'
 	Packing 3 of 4 component'IBMTest_Top' UUID '_X_ePAaiPEemsB7u2gVCeEw'
 Success.
+
+SCMTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+	Syntax : -command exportScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> [ -outputFolder <outputFolderPath> ]
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace"
+	Optional parameter: -{} {}
+	Example optional parameter: -{} {}
+
+
+importScmWorkspace
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command importScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -projectarea "<project_area>" [ -workspaceConnection <workspaceNameOrId> ]
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)"
+	Optional parameter: -componentNameModifier <modifier> -reuseExistingWorkspace
+	Example optional parameter: -componentNameModifier  Test reuseExistingWorkspace
+
+
+convertLoadrule
+
+	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+
+
+Failed.
+
+SCMTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+	Syntax : -command exportScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> [ -outputFolder <outputFolderPath> ]
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace"
+
+
+importScmWorkspace
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command importScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -projectarea "<project_area>" [ -workspaceConnection <workspaceNameOrId> ]
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)"
+	Optional parameter: -componentNameModifier <modifier> -reuseExistingWorkspace
+	Example optional parameter: -componentNameModifier  Test reuseExistingWorkspace
+
+
+convertLoadrule
+
+	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+
+
+Failed.
+
+SCMTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+	Syntax : -command exportScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+
+
+importScmWorkspace
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command importScmWorkspace -url https://<server>:port/<context>/ -user <userId> -password <password> -projectarea "<project_area>" [ -workspaceConnection <workspaceNameOrId> ]
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)"
+	Optional parameter: -componentNameModifier <modifier> -reuseExistingWorkspace
+	Example optional parameter: -componentNameModifier  Test reuseExistingWorkspace
+
+
+convertLoadrule
+
+	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+
+
+Failed.
+
+SCMTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+	Syntax : -command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+
+
+importScmWorkspace
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport"
+	Optional parameter: -componentNameModifier <modifier> -reuseExistingWorkspace
+	Example optional parameter: -componentNameModifier " Test" -reuseExistingWorkspace
+
+
+convertLoadrule
+
+	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+
+
+Failed.
+
+SCMTools Version: 1.0
+Missing command 
+
+Syntax: -command commandName {[-parameter] [parameterValue]}
+Available commands: 
+
+exportScmWorkspace
+
+	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+	Syntax : -command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
+	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+
+
+importScmWorkspace
+
+	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. 
+
+	Syntax : -command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
+	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport"
+	Optional parameter: -componentNameModifier <modifier> -reuseExistingWorkspace
+	Example optional parameter: -componentNameModifier "TestImport " -reuseExistingWorkspace
+
+
+convertLoadrule
+
+	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.
+
+	Syntax : -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule>
+	Example: -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+
+
+Failed.
+
+SCMTools Version: 1.1
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+The com.ibm.team.repository.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.repository that is not unique.
+The com.ibm.team.repository.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.links that is not unique.
+Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
+Anylyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
+Persist component hierarchy in 'C:\temp\ScmExport\hierarchy.json'...
+	Component... 'Web UI'
+	Component... 'Banking Logic'
+	Component... 'Java UI'
+	Component... 'Top'
+Package and Ramdomize Components...
+	Packing 0 of 4 component'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
+	Packing 1 of 4 component'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
+	Packing 2 of 4 component'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
+	Packing 3 of 4 component'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
+Success.

@@ -128,7 +128,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("{}", getCommandName());
 		logger.info(
 				"\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.");
-		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} [ -{} {} ]",
+		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_PROTOTYPE,
@@ -137,7 +137,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
 				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
@@ -151,16 +151,16 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 //				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH_EXAMPLE
 		);
 
-		logger.info("\tOptional parameter: -{} {}"
-//				, 
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_PROTOTYPE
-		);
-		logger.info("\tExample optional parameter: -{} {}"
-//				, 
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_EXAMPLE
-		);
+//		logger.info("\tOptional parameter: -{} {}"
+////				, 
+////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
+////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_PROTOTYPE
+//		);
+//		logger.info("\tExample optional parameter: -{} {}"
+////				, 
+////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
+////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_EXAMPLE
+//		);
 	}
 
 	/**
@@ -174,8 +174,8 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		// Execute the code
 		// Get all the option values
 		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-		String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-		String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
+		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
+		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
 

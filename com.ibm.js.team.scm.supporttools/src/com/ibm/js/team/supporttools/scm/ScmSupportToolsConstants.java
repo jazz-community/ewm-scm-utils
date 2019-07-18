@@ -2,6 +2,8 @@ package com.ibm.js.team.supporttools.scm;
 
 public interface ScmSupportToolsConstants {
 
+	public static String SCMTOOLS_VERSION = "1.2";
+
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
@@ -18,7 +20,7 @@ public interface ScmSupportToolsConstants {
 	public static final String HIERARCHY_JSON_FILE = "hierarchy.json";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER = "componentNameModifier";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE = "<modifier>";
-	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE = " Test";
+	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE = "\"TestImport \"";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION = "A suffix to be added to component names to force creation of new components.";
 	public static final String PARAMETER_INPUTFOLDER = "inputFolder";
 
@@ -44,8 +46,8 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG = "reuseExistingWorkspace";
 	public static final String PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION = "Full path and filename of the resulting loadrule of the conversion.";
 
-	String DEFAULT_STORAGE_MODE_RANDOMIZE = "randomize";
-	String STORAGE_MODE_OBFUSCATE = "obfuscate";
-	String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+	public static String DEFAULT_STORAGE_MODE_RANDOMIZE = "randomize";
+	public static String STORAGE_MODE_OBFUSCATE = "obfuscate";
+	public static String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 }

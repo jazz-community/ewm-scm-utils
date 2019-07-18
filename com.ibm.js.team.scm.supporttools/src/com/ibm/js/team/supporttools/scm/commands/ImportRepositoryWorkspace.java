@@ -134,7 +134,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("{}", getCommandName());
 		logger.info(
 				"\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. ");
-		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} [ -{} {} ]",
+		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_PROTOTYPE,
@@ -145,7 +145,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
 				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
@@ -160,7 +160,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("\tOptional parameter: -{} {} -{}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
-		logger.info("\tExample optional parameter: -{} {} {}",
+		logger.info("\tExample optional parameter: -{} {} -{}",
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
@@ -175,13 +175,13 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		boolean result = false;
 		// Execute the code
 		// Get all the option values
-		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-		String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-		String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
-		String projectAreaName = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA);
-		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
-		String componentNameModifier = getCmd()
+		final String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
+		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
+		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
+		final String projectAreaName = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA);
+		final String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
+		final String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
+		final String componentNameModifier = getCmd()
 				.getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
 		reuseExistingWorkspace = getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
 

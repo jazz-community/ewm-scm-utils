@@ -106,7 +106,7 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_PROTOTYPE);
 		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,

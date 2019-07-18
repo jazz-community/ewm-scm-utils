@@ -31,7 +31,7 @@ public interface SupportToolsFrameworkConstants {
 	public static final String PARAMETER_URL = "url";
 	public static final String PARAMETER_URL_DESCRIPTION = "The Public URI of the application.";
 	public static final String PARAMETER_URL_EXAMPLE = "https://clm.example.com:9443/rm/";
-	public static final String PARAMETER_URL_PROTOTYPE = "https://<server>:port/<context>/";
+	public static final String PARAMETER_URL_PROTOTYPE = "\"https://<server>:port/<context>/\"";
 
 	public static final String PARAMETER_USER = "user";
 	public static final String PARAMETER_USER_ID_DESCRIPTION = "The user ID of a user.";
