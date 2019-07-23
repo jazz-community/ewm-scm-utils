@@ -92,18 +92,29 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 	 */
 	@Override
 	public void printSyntax() {
+		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(
-				"\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the repositoryImport command.");
-		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(),
-
-				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
+		logger.info(ScmSupportToolsConstants.CMD_CONVERT_LOADRULE_DESCRIPTION);
+		// General syntax
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_PROTOTYPE);
+		// Parameter and description
+		logger.info("\n\tParameter Description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {}",
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION
+						+ ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_CONVERT_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
+				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
+				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_DESCRIPTION);
+		// Optional parameters
+		// Optional parameters description
+		// Examples
 		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE,
@@ -111,6 +122,7 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_EXAMPLE);
+		// Optional parameter examples
 	}
 
 	/**

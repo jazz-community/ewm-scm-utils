@@ -132,13 +132,15 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 	 */
 	@Override
 	public void printSyntax() {
+		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(
-				"\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. ");
+		logger.info(ScmSupportToolsConstants.CMD_IMPORTWORKSPACE_DESCRIPTION);
+		// General syntax
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
+				SupportToolsFrameworkConstants.PARAMETER_USER,
+				SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
@@ -146,10 +148,36 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
+		// Parameter and description
+		logger.info(
+				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_USER,
+				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
+				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
+		// Optional parameters
+		logger.info("\n\tOptional parameter syntax: -{} {} -{}",
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
+		// Optional parameters description
+		logger.info("\n\tOptional parameter description: \n\t -{} \t{} \n\t -{} \t {}",
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
+				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION);
+		// Examples
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
+				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
+				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
@@ -157,11 +185,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
-
-		logger.info("\tOptional parameter: -{} {} -{}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
-		logger.info("\tExample optional parameter: -{} {} -{}",
+		// Optional parameter examples
+		logger.info("\n\tExample optional parameter: -{} {} -{}",
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
@@ -271,7 +296,8 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		HashMap<String, UUID> sourceComponentName2UUIDMap = new HashMap<String, UUID>(3000);
 		HashMap<String, ArrayList<String>> sourcePar2ChildMap = new HashMap<String, ArrayList<String>>(3000);
 		File jsonInputFile = new File(fInputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
-		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonInputFile), IFileContent.ENCODING_UTF_8)); 
+		Reader reader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(jsonInputFile), IFileContent.ENCODING_UTF_8));
 		logger.info("Reading component structure from file '{}'...", jsonInputFile.getAbsolutePath());
 		JSONArray comps = JSONArray.parse(reader);
 		for (Object comp : comps) {

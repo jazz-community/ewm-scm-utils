@@ -82,7 +82,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	 *
 	 */
 	enum ExportMode {
-		RANDOMIZE, OBFUSCATE, PRESERVE
+	RANDOMIZE, OBFUSCATE, PRESERVE
 	}
 
 	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
@@ -143,27 +143,42 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	 */
 	@Override
 	public void printSyntax() {
+		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(
-				"\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.");
+		logger.info(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE_DESCRIPTION);
+		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
+				SupportToolsFrameworkConstants.PARAMETER_USER,
+				SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
-		logger.info("\n\tDescription: \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{}",
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND, SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
+		// Parameter and description
+		logger.info(
+				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_USER,
+				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
+		// Optional parameters
+		logger.info("\n\tOptional parameter syntax: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
+		// Optional parameters description
+		logger.info("\n\tOptional parameter description: \n\t -{} \t {}",
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
+		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
@@ -173,10 +188,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
-		logger.info("\n\tOptional parameters: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
-		logger.info("\n\tDescription: \n\t -{} \t{}",
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE, ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
+		// Optional parameter examples
 		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
 				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}

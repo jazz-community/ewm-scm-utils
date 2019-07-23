@@ -23,14 +23,14 @@ public class FileContentUtil {
 	public FileContentUtil() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		initializeSampleLines();
 	}
-	
+
 	public void obfuscateSource(InputStream in, ZipOutputStream zos, FileLineDelimiter lineDelimiter, String encoding)
 			throws IOException, UnsupportedEncodingException {
 		String delimiter = getLineDelimiter(lineDelimiter);
-		if(FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
+		if (FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
 			obfuscateBinary(in, zos);
 			return;
-		}  
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
 		String lineread = null;
@@ -43,10 +43,9 @@ public class FileContentUtil {
 		zos.closeEntry();
 	}
 
-
 	private void initializeSampleLines() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(FileContentUtil.CODE_SAMPLE_INPUT_FILE_NAME), IFileContent.ENCODING_UTF_8));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(FileContentUtil.CODE_SAMPLE_INPUT_FILE_NAME), IFileContent.ENCODING_UTF_8));
 		fSampleLines = new ArrayList<String>(200);
 		String line;
 		do {
@@ -59,7 +58,6 @@ public class FileContentUtil {
 		fNumberSamples = fSampleLines.size();
 	}
 
-	
 	public void randomizeBinary(InputStream in, ZipOutputStream zos) throws IOException {
 		byte[] arr = new byte[1024];
 		int w;
@@ -77,7 +75,7 @@ public class FileContentUtil {
 			zos.write(arr, 0, w);
 		}
 	}
-	
+
 	private String obfuscateLine(int length) {
 		String line = getSampleLine();
 		while (line.length() < length) {
@@ -96,8 +94,7 @@ public class FileContentUtil {
 		return sample;
 	}
 
-	public void obfuscateBinary(InputStream in, ZipOutputStream zos)
-			throws IOException, UnsupportedEncodingException {
+	public void obfuscateBinary(InputStream in, ZipOutputStream zos) throws IOException, UnsupportedEncodingException {
 		byte[] arr = new byte[1024];
 		int w;
 		while (-1 != (w = in.read(arr))) {
@@ -105,7 +102,7 @@ public class FileContentUtil {
 			zos.write(line.getBytes(), 0, w);
 		}
 	}
-	
+
 	private String getLineDelimiter(FileLineDelimiter lineDelimiter) {
 		String delimiter = System.lineSeparator(); // Platform
 		if (FileLineDelimiter.LINE_DELIMITER_PLATFORM.equals(lineDelimiter)) {
