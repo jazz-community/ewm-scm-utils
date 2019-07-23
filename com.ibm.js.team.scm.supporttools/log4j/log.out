@@ -393,3 +393,147 @@ Import component data...
 	Component 4 of 5 'IBMTestDefault_Banking Logic'
 	Component 5 of 5 'IBMTestDefault_Web UI'
 Success.
+
+SCMTools Version: 1.3
+Executing Command importScmWorkspace
+Using prefix 'IBMTestRandomize_' on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Randomize Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExportRandomize\hierarchy.json'...
+	Component 1 of 5 'IBMTestRandomize_Web UI' done
+	Component 2 of 5 'IBMTestRandomize_Banking Logic' done
+	Component 3 of 5 'IBMTestRandomize_Java UI' done
+	Component 4 of 5 'IBMTestRandomize_Build' done
+	Component 5 of 5 'IBMTestRandomize_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestRandomize_Banking Logic'
+	Component 2 of 5 'IBMTestRandomize_Top'
+	Component 3 of 5 'IBMTestRandomize_Build'
+	Component 4 of 5 'IBMTestRandomize_Java UI'
+	Component 5 of 5 'IBMTestRandomize_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExportRandomize\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestRandomize_Banking Logic' 
+	Component 2 of 5 'IBMTestRandomize_Top' 
+	Component 3 of 5 'IBMTestRandomize_Build' 
+	Component 4 of 5 'IBMTestRandomize_Web UI' 
+	Component 5 of 5 'IBMTestRandomize_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestRandomize_Banking Logic'
+	Component 2 of 5 'IBMTestRandomize_Top'
+	Component 3 of 5 'IBMTestRandomize_Build'
+	Component 4 of 5 'IBMTestRandomize_Java UI'
+	Component 5 of 5 'IBMTestRandomize_Web UI'
+Import component data...
+	Component 1 of 5 'IBMTestRandomize_Banking Logic'
+	Component 2 of 5 'IBMTestRandomize_Top'
+	Component 3 of 5 'IBMTestRandomize_Build'
+	Component 4 of 5 'IBMTestRandomize_Java UI'
+	Component 5 of 5 'IBMTestRandomize_Web UI'
+Success.
+
+SCMTools Version: 1.3
+Executing Command exportScmWorkspace
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
+Analyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
+Persist component hierarchy in 'C:\temp\ScmExportObfuscate\hierarchy.json'...
+	Component... 'Web UI'
+	Component... 'Banking Logic'
+	Component... 'Java UI'
+	Component... 'Build'
+	Component... 'Top'
+Package and Ramdomize Components...
+	Packing 1 of 5 components: 'Web UI' '_ekb_BqVQEeiCt9y1kOVIWQ'
+	Packing 2 of 5 components: 'Banking Logic' '_egLKEKVQEeiCt9y1kOVIWQ'
+	Packing 3 of 5 components: 'Java UI' '_ekBIQKVQEeiCt9y1kOVIWQ'
+	Packing 4 of 5 components: 'Build' '_ejNP8KVQEeiCt9y1kOVIWQ'
+	Packing 5 of 5 components: 'Top' '_7Vl8IaO6EemfKrzDOqP0IQ'
+Packing components finished...
+Success.
+
+SCMTools Version: 1.3
+Executing Command importScmWorkspace
+Using prefix 'IBMTestObfuscate_' on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Obfuscate Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExportObfuscate\hierarchy.json'...
+	Component 1 of 5 'IBMTestObfuscate_Web UI' done
+	Component 2 of 5 'IBMTestObfuscate_Banking Logic' done
+	Component 3 of 5 'IBMTestObfuscate_Java UI' done
+	Component 4 of 5 'IBMTestObfuscate_Build' done
+	Component 5 of 5 'IBMTestObfuscate_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestObfuscate_Banking Logic'
+	Component 2 of 5 'IBMTestObfuscate_Java UI'
+	Component 3 of 5 'IBMTestObfuscate_Web UI'
+	Component 4 of 5 'IBMTestObfuscate_Build'
+	Component 5 of 5 'IBMTestObfuscate_Top'
+Persist component source to target UUID mapping 'C:\temp\ScmExportObfuscate\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestObfuscate_Banking Logic' 
+	Component 2 of 5 'IBMTestObfuscate_Web UI' 
+	Component 3 of 5 'IBMTestObfuscate_Top' 
+	Component 4 of 5 'IBMTestObfuscate_Build' 
+	Component 5 of 5 'IBMTestObfuscate_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestObfuscate_Banking Logic'
+	Component 2 of 5 'IBMTestObfuscate_Java UI'
+	Component 3 of 5 'IBMTestObfuscate_Web UI'
+	Component 4 of 5 'IBMTestObfuscate_Build'
+	Component 5 of 5 'IBMTestObfuscate_Top'
+Import component data...
+	Component 1 of 5 'IBMTestObfuscate_Banking Logic'
+	Component 2 of 5 'IBMTestObfuscate_Java UI'
+	Component 3 of 5 'IBMTestObfuscate_Web UI'
+	Component 4 of 5 'IBMTestObfuscate_Build'
+	Component 5 of 5 'IBMTestObfuscate_Top'
+Success.
+
+SCMTools Version: 1.3
+Executing Command importScmWorkspace
+Using prefix 'IBMTestPreserve_' on component names to force creation of new components.
+The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
+The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
+Find or create repository workspace 'New Preserve Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExportPreserve\hierarchy.json'...
+	Component 1 of 5 'IBMTestPreserve_Web UI' done
+	Component 2 of 5 'IBMTestPreserve_Banking Logic' done
+	Component 3 of 5 'IBMTestPreserve_Java UI' done
+	Component 4 of 5 'IBMTestPreserve_Build' done
+	Component 5 of 5 'IBMTestPreserve_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestPreserve_Web UI'
+	Component 2 of 5 'IBMTestPreserve_Top'
+	Component 3 of 5 'IBMTestPreserve_Banking Logic'
+	Component 4 of 5 'IBMTestPreserve_Java UI'
+	Component 5 of 5 'IBMTestPreserve_Build'
+Persist component source to target UUID mapping 'C:\temp\ScmExportPreserve\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestPreserve_Java UI' 
+	Component 2 of 5 'IBMTestPreserve_Banking Logic' 
+	Component 3 of 5 'IBMTestPreserve_Web UI' 
+	Component 4 of 5 'IBMTestPreserve_Build' 
+	Component 5 of 5 'IBMTestPreserve_Top' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestPreserve_Web UI'
+	Component 2 of 5 'IBMTestPreserve_Top'
+	Component 3 of 5 'IBMTestPreserve_Banking Logic'
+	Component 4 of 5 'IBMTestPreserve_Java UI'
+	Component 5 of 5 'IBMTestPreserve_Build'
+Import component data...
+	Component 1 of 5 'IBMTestPreserve_Web UI'
+	Component 2 of 5 'IBMTestPreserve_Top'
+	Component 3 of 5 'IBMTestPreserve_Banking Logic'
+	Component 4 of 5 'IBMTestPreserve_Java UI'
+	Component 5 of 5 'IBMTestPreserve_Build'
+Success.
