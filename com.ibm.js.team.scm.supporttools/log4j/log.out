@@ -1,331 +1,395 @@
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExport\hierarchy.json'...
-	Component... 'Web UI'
-	Component... 'Banking Logic'
-	Component... 'Java UI'
-	Component... 'Build'
-	Component... 'Top'
-Package and Ramdomize Components...
-	Packing 0 of 5 components: 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
-	Packing 1 of 5 components: 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
-	Packing 2 of 5 components: 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
-	Packing 3 of 5 components: 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
-	Packing 4 of 5 components: 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
-	Packed 5 of 5 components...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'IBMTestDefault_Web UI' done
+	Component -> 'IBMTestDefault_Banking Logic' done
+	Component -> 'IBMTestDefault_Java UI' done
+	Component -> 'IBMTestDefault_Build' done
+	Component -> 'IBMTestDefault_Top' done
+Find or create components...
+	Component 'IBMTestDefault_Top'
+	Component 'IBMTestDefault_Build'
+	Component 'IBMTestDefault_Java UI'
+	Component 'IBMTestDefault_Banking Logic'
+	Component 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Component 'IBMTestDefault_Top'
+	Component 'IBMTestDefault_Build'
+	Component 'IBMTestDefault_Banking Logic'
+	Component 'IBMTestDefault_Web UI'
+	Component 'IBMTestDefault_Java UI'
+Recreate subcomponent structure in workspace...
+	Component 'IBMTestDefault_Top'
+	Component 'IBMTestDefault_Build'
+	Component 'IBMTestDefault_Java UI'
+	Component 'IBMTestDefault_Banking Logic'
+	Component 'IBMTestDefault_Web UI'
+Import component data...
+	 1 of 5 Component 'IBMTestDefault_Top'
+Skipping .subcomponent_info
+Import component data finished...
+	 2 of 5 Component 'IBMTestDefault_Build'
+Import component data finished...
+	 3 of 5 Component 'IBMTestDefault_Java UI'
+Import component data finished...
+	 4 of 5 Component 'IBMTestDefault_Banking Logic'
+Import component data finished...
+	 5 of 5 Component 'IBMTestDefault_Web UI'
+Import component data finished...
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestRandomize_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'New Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExport33\hierarchy.json'...
-	Component... 'IBMTest3_Web UI'
-	Component... 'IBMTest3_Build'
-	Component... 'IBMTest3_Top'
-	Component... 'IBMTest3_Java UI'
-	Component... 'IBMTest3_Banking Logic'
-Package and Ramdomize Components...
-	Packing 0 of 5 components: 'IBMTest3_Web UI' UUID '_UHviYa0XEemNx8oCVCNJJA'
-	Packing 1 of 5 components: 'IBMTest3_Build' UUID '_UHUroq0XEemNx8oCVCNJJA'
-	Packing 2 of 5 components: 'IBMTest3_Top' UUID '_UIJyEK0XEemNx8oCVCNJJA'
-	Packing 3 of 5 components: 'IBMTest3_Java UI' UUID '_UIiMkK0XEemNx8oCVCNJJA'
-	Packing 4 of 5 components: 'IBMTest3_Banking Logic' UUID '_UFyakK0XEemNx8oCVCNJJA'
-	Packed 5 of 5 components...
+Find or create repository workspace 'New Randomize Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExportRandomize\hierarchy.json'...
+	Component -> 'IBMTestRandomize_Web UI' done
+	Component -> 'IBMTestRandomize_Banking Logic' done
+	Component -> 'IBMTestRandomize_Java UI' done
+	Component -> 'IBMTestRandomize_Build' done
+	Component -> 'IBMTestRandomize_Top' done
+Find or create components...
+	Component 'IBMTestRandomize_Banking Logic'
+	Component 'IBMTestRandomize_Top'
+	Component 'IBMTestRandomize_Build'
+	Component 'IBMTestRandomize_Java UI'
+	Component 'IBMTestRandomize_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExportRandomize\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Component 'IBMTestRandomize_Banking Logic'
+	Component 'IBMTestRandomize_Top'
+	Component 'IBMTestRandomize_Build'
+	Component 'IBMTestRandomize_Web UI'
+	Component 'IBMTestRandomize_Java UI'
+Recreate subcomponent structure in workspace...
+	Component 'IBMTestRandomize_Banking Logic'
+	Component 'IBMTestRandomize_Top'
+	Component 'IBMTestRandomize_Build'
+	Component 'IBMTestRandomize_Java UI'
+	Component 'IBMTestRandomize_Web UI'
+Import component data...
+	 1 of 5 Component 'IBMTestRandomize_Banking Logic'
+Import component data finished...
+	 2 of 5 Component 'IBMTestRandomize_Top'
+Skipping .subcomponent_info
+Import component data finished...
+	 3 of 5 Component 'IBMTestRandomize_Build'
+Import component data finished...
+	 4 of 5 Component 'IBMTestRandomize_Java UI'
+Import component data finished...
+	 5 of 5 Component 'IBMTestRandomize_Web UI'
+Import component data finished...
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExport\hierarchy.json'...
-	Component... 'Web UI'
-	Component... 'Banking Logic'
-	Component... 'Java UI'
-	Component... 'Build'
-	Component... 'Top'
-Package and Ramdomize Components...
-	Packing 0 of 5 components: 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
-	Packing 1 of 5 components: 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
-	Packing 2 of 5 components: 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
-	Packing 3 of 5 components: 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
-	Packing 4 of 5 components: 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
-	Packed 5 of 5 components...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'IBMTestDefault_Web UI' done
+	Component -> 'IBMTestDefault_Banking Logic' done
+	Component -> 'IBMTestDefault_Java UI' done
+	Component -> 'IBMTestDefault_Build' done
+	Component -> 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 1 of 5 'IBMTestDefault_Build'
+	Component 1 of 5 'IBMTestDefault_Java UI'
+	Component 1 of 5 'IBMTestDefault_Banking Logic'
+	Component 1 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 1 of 5 'IBMTestDefault_Build' 
+	Component 1 of 5 'IBMTestDefault_Banking Logic' 
+	Component 1 of 5 'IBMTestDefault_Web UI' 
+	Component 1 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 1 of 5 'IBMTestDefault_Build'
+	Component 1 of 5 'IBMTestDefault_Java UI'
+	Component 1 of 5 'IBMTestDefault_Banking Logic'
+	Component 1 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	 1 of 5 Component 'IBMTestDefault_Top'
+Skipping .subcomponent_info
+Import component data finished...
+	 2 of 5 Component 'IBMTestDefault_Build'
+Import component data finished...
+	 3 of 5 Component 'IBMTestDefault_Java UI'
+Import component data finished...
+	 4 of 5 Component 'IBMTestDefault_Banking Logic'
+Import component data finished...
+	 5 of 5 Component 'IBMTestDefault_Web UI'
+Import component data finished...
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExport\hierarchy.json'...
-	Component... 'Web UI'
-	Component... 'Banking Logic'
-	Component... 'Java UI'
-	Component... 'Build'
-	Component... 'Top'
-Package and Ramdomize Components...
-	Packing 1 of 5 components: 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
-	Packing 2 of 5 components: 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
-	Packing 3 of 5 components: 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
-	Packing 4 of 5 components: 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
-	Packing 5 of 5 components: 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
-	Packed 6 of 5 components...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'IBMTestDefault_Web UI' done
+	Component -> 'IBMTestDefault_Banking Logic' done
+	Component -> 'IBMTestDefault_Java UI' done
+	Component -> 'IBMTestDefault_Build' done
+	Component -> 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 1 of 5 'IBMTestDefault_Build' 
+	Component 1 of 5 'IBMTestDefault_Banking Logic' 
+	Component 1 of 5 'IBMTestDefault_Web UI' 
+	Component 1 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	 1 of 5 Component 'IBMTestDefault_Top'
+Skipping .subcomponent_info
+Import component data finished...
+	 2 of 5 Component 'IBMTestDefault_Build'
+Import component data finished...
+	 3 of 5 Component 'IBMTestDefault_Java UI'
+Import component data finished...
+	 4 of 5 Component 'IBMTestDefault_Banking Logic'
+Import component data finished...
+	 5 of 5 Component 'IBMTestDefault_Web UI'
+Import component data finished...
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'New Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExportRandomize\hierarchy.json'...
-	Component... 'IBMTest3_Web UI'
-	Component... 'IBMTest3_Build'
-	Component... 'IBMTest3_Top'
-	Component... 'IBMTest3_Java UI'
-	Component... 'IBMTest3_Banking Logic'
-Package and Ramdomize Components...
-	Packing 1 of 5 components: 'IBMTest3_Web UI' UUID '_UHviYa0XEemNx8oCVCNJJA'
-	Packing 2 of 5 components: 'IBMTest3_Build' UUID '_UHUroq0XEemNx8oCVCNJJA'
-	Packing 3 of 5 components: 'IBMTest3_Top' UUID '_UIJyEK0XEemNx8oCVCNJJA'
-	Packing 4 of 5 components: 'IBMTest3_Java UI' UUID '_UIiMkK0XEemNx8oCVCNJJA'
-	Packing 5 of 5 components: 'IBMTest3_Banking Logic' UUID '_UFyakK0XEemNx8oCVCNJJA'
-Packing components finished...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component -> 'IBMTestDefault_Web UI' done
+	Component -> 'IBMTestDefault_Banking Logic' done
+	Component -> 'IBMTestDefault_Java UI' done
+	Component -> 'IBMTestDefault_Build' done
+	Component -> 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 2 of 5 'IBMTestDefault_Build' 
+	Component 3 of 5 'IBMTestDefault_Banking Logic' 
+	Component 4 of 5 'IBMTestDefault_Web UI' 
+	Component 5 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	 1 of 5 Component 'IBMTestDefault_Top'
+Skipping .subcomponent_info
+	 2 of 5 Component 'IBMTestDefault_Build'
+	 3 of 5 Component 'IBMTestDefault_Java UI'
+	 4 of 5 Component 'IBMTestDefault_Banking Logic'
+	 5 of 5 Component 'IBMTestDefault_Web UI'
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExportObfusc\hierarchy.json'...
-	Component... 'Web UI'
-	Component... 'Banking Logic'
-	Component... 'Java UI'
-	Component... 'Build'
-	Component... 'Top'
-Package and Ramdomize Components...
-	Packing 1 of 5 components: 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
-	Packing 2 of 5 components: 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
-	Packing 3 of 5 components: 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
-	Packing 4 of 5 components: 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
-	Packing 5 of 5 components: 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
-Packing components finished...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component 1 of 5 'IBMTestDefault_Web UI' done
+	Component 2 of 5 'IBMTestDefault_Banking Logic' done
+	Component 3 of 5 'IBMTestDefault_Java UI' done
+	Component 4 of 5 'IBMTestDefault_Build' done
+	Component 5 of 5 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 2 of 5 'IBMTestDefault_Build' 
+	Component 3 of 5 'IBMTestDefault_Banking Logic' 
+	Component 4 of 5 'IBMTestDefault_Web UI' 
+	Component 5 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	 1 of 5 Component 'IBMTestDefault_Top'
+	Skipping: .subcomponent_info
+	 2 of 5 Component 'IBMTestDefault_Build'
+	 3 of 5 Component 'IBMTestDefault_Java UI'
+	 4 of 5 Component 'IBMTestDefault_Banking Logic'
+	 5 of 5 Component 'IBMTestDefault_Web UI'
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'New Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExportPreserve\hierarchy.json'...
-	Component... 'IBMTest3_Web UI'
-	Component... 'IBMTest3_Build'
-	Component... 'IBMTest3_Top'
-	Component... 'IBMTest3_Java UI'
-	Component... 'IBMTest3_Banking Logic'
-Package and Ramdomize Components...
-	Packing 1 of 5 components: 'IBMTest3_Web UI' UUID '_UHviYa0XEemNx8oCVCNJJA'
-	Packing 2 of 5 components: 'IBMTest3_Build' UUID '_UHUroq0XEemNx8oCVCNJJA'
-	Packing 3 of 5 components: 'IBMTest3_Top' UUID '_UIJyEK0XEemNx8oCVCNJJA'
-	Packing 4 of 5 components: 'IBMTest3_Java UI' UUID '_UIiMkK0XEemNx8oCVCNJJA'
-	Packing 5 of 5 components: 'IBMTest3_Banking Logic' UUID '_UFyakK0XEemNx8oCVCNJJA'
-Packing components finished...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component 1 of 5 'IBMTestDefault_Web UI' done
+	Component 2 of 5 'IBMTestDefault_Banking Logic' done
+	Component 3 of 5 'IBMTestDefault_Java UI' done
+	Component 4 of 5 'IBMTestDefault_Build' done
+	Component 5 of 5 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 2 of 5 'IBMTestDefault_Build' 
+	Component 3 of 5 'IBMTestDefault_Banking Logic' 
+	Component 4 of 5 'IBMTestDefault_Web UI' 
+	Component 5 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Skipping: .subcomponent_info
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExport\hierarchy.json'...
-	Component... 'Web UI'
-	Component... 'Banking Logic'
-	Component... 'Java UI'
-	Component... 'Build'
-	Component... 'Top'
-Package and Ramdomize Components...
-	Packing 1 of 5 components: 'Web UI' UUID '_ekb_BqVQEeiCt9y1kOVIWQ'
-	Packing 2 of 5 components: 'Banking Logic' UUID '_egLKEKVQEeiCt9y1kOVIWQ'
-	Packing 3 of 5 components: 'Java UI' UUID '_ekBIQKVQEeiCt9y1kOVIWQ'
-	Packing 4 of 5 components: 'Build' UUID '_ejNP8KVQEeiCt9y1kOVIWQ'
-	Packing 5 of 5 components: 'Top' UUID '_7Vl8IaO6EemfKrzDOqP0IQ'
-Packing components finished...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component 1 of 5 'IBMTestDefault_Web UI' done
+	Component 2 of 5 'IBMTestDefault_Banking Logic' done
+	Component 3 of 5 'IBMTestDefault_Java UI' done
+	Component 4 of 5 'IBMTestDefault_Build' done
+	Component 5 of 5 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 2 of 5 'IBMTestDefault_Build' 
+	Component 3 of 5 'IBMTestDefault_Banking Logic' 
+	Component 4 of 5 'IBMTestDefault_Web UI' 
+	Component 5 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Skipping: .subcomponent_info
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
 Success.
 
 SCMTools Version: 1.3
-Executing Command exportScmWorkspace
+Executing Command importScmWorkspace
+Using prefix 'IBMTestDefault_' on component names to force creation of new components.
 The com.ibm.team.filesystem.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.filesystem that is not unique.
 The com.ibm.team.scm.common bundle's plugin.xml file contains a <component> element with the id attribute value com.ibm.team.scm that is not unique.
-Find and open WorkspaceConnection 'New Hierarchical JKE Banking Stream Workspace'...
-Analyze and store component hierarchy from 'New Hierarchical JKE Banking Stream Workspace'...
-Persist component hierarchy in 'C:\temp\ScmExportRandomize\hierarchy.json'...
-	Component... 'IBMTest3_Web UI'
-	Component... 'IBMTest3_Build'
-	Component... 'IBMTest3_Top'
-	Component... 'IBMTest3_Java UI'
-	Component... 'IBMTest3_Banking Logic'
-Package and Ramdomize Components...
-	Packing 1 of 5 components: 'IBMTest3_Web UI' UUID '_UHviYa0XEemNx8oCVCNJJA'
-	Packing 2 of 5 components: 'IBMTest3_Build' UUID '_UHUroq0XEemNx8oCVCNJJA'
-	Packing 3 of 5 components: 'IBMTest3_Top' UUID '_UIJyEK0XEemNx8oCVCNJJA'
-	Packing 4 of 5 components: 'IBMTest3_Java UI' UUID '_UIiMkK0XEemNx8oCVCNJJA'
-	Packing 5 of 5 components: 'IBMTest3_Banking Logic' UUID '_UFyakK0XEemNx8oCVCNJJA'
-Packing components finished...
+Find or create repository workspace 'New default  Hierarchical JKE Banking Stream Workspace'...
+Reading component structure from file 'C:\temp\ScmExport\hierarchy.json'...
+	Component 1 of 5 'IBMTestDefault_Web UI' done
+	Component 2 of 5 'IBMTestDefault_Banking Logic' done
+	Component 3 of 5 'IBMTestDefault_Java UI' done
+	Component 4 of 5 'IBMTestDefault_Build' done
+	Component 5 of 5 'IBMTestDefault_Top' done
+Find or create components...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Persist component source to target UUID mapping 'C:\temp\ScmExport\UUIDMapping.json'...
+Strip workspace from components...
+Add components to workspace...
+	Adding Components: '5'
+	Component 1 of 5 'IBMTestDefault_Top' 
+	Component 2 of 5 'IBMTestDefault_Build' 
+	Component 3 of 5 'IBMTestDefault_Banking Logic' 
+	Component 4 of 5 'IBMTestDefault_Web UI' 
+	Component 5 of 5 'IBMTestDefault_Java UI' 
+Recreate subcomponent structure in workspace...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
+Import component data...
+	Component 1 of 5 'IBMTestDefault_Top'
+	Component 2 of 5 'IBMTestDefault_Build'
+	Component 3 of 5 'IBMTestDefault_Java UI'
+	Component 4 of 5 'IBMTestDefault_Banking Logic'
+	Component 5 of 5 'IBMTestDefault_Web UI'
 Success.
-
-SCMTools Version: 1.3
-Missing command 
-
-Syntax: -command commandName {[-parameter] [parameterValue]}
-Available commands: 
-
-exportScmWorkspace
-
-	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
-
-	Syntax: -command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
-
-	Parameter description: 
-	 -command 	 The command to execute. 
-	 -url 	The Public URI of the application. 
-	 -user 	 The user ID of a user. 
-	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
-	 -outputFolder 	 The folder where the resulting data is written.
-
-	Optional parameter syntax: -exportmode <exportmode>
-
-	Optional parameter description: 
-	 -exportmode 	 The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
-
-	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
-
-	Example optional parameter: -exportmode obfuscate
-
-
-importScmWorkspace
-
-	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
-
-	Syntax : -command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
-
-	Parameter description: 
-	 -command 	 The command to execute. 
-	 -url 	The Public URI of the application. 
-	 -user 	 The user ID of a user. 
-	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
-	 -outputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
-
-	Optional parameter syntax: -componentNameModifier <modifier> -reuseExistingWorkspace
-
-	Optional parameter description: 
-	 -componentNameModifier 	A prefix to be added to component names to force creation of new components and support component name uniqueness. 
-	 -reuseExistingWorkspace 	 When providing this flag, the import operation continues if the workspace already exists. It strips the workspace from its components and adds the imported components.
-
-	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport"
-
-	Example optional parameter: -componentNameModifier "TestImport_" -reuseExistingWorkspace
-
-
-convertLoadrule
-
-	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command importScmWorkspace.
-
-	Syntax: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule> 
-
-	Parameter Description: 
-	 -inputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace. In addtion the command importScmWorkspace must have been ecxecuted using this folder creating the UUID mapping required. 
-	 -sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
-	 -targetLoadruleFile 	 Full path and filename of the resulting loadrule of the conversion.
-
-	Example: -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
-
-
-Failed.
-
-SCMTools Version: 1.3
-Missing command 
-
-Syntax: -command commandName {[-parameter] [parameterValue]}
-Available commands: 
-
-exportScmWorkspace
-
-	Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
-
-	Syntax: -command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
-
-	Parameter description: 
-	 -command 	 The command to execute. 
-	 -url 	The Public URI of the application. 
-	 -user 	 The user ID of a user. 
-	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
-	 -outputFolder 	 The folder where the resulting data is written.
-
-	Optional parameter syntax: -exportmode <exportmode>
-
-	Optional parameter description: 
-	 -exportmode 	 The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
-
-	Example: -command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
-
-	Example optional parameter: -exportmode obfuscate
-
-
-importScmWorkspace
-
-	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
-
-	Syntax : -command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
-
-	Parameter description: 
-	 -command 	 The command to execute. 
-	 -url 	The Public URI of the application. 
-	 -user 	 The user ID of a user. 
-	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
-	 -outputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
-
-	Optional parameter syntax: -componentNameModifier <modifier> -reuseExistingWorkspace
-
-	Optional parameter description: 
-	 -componentNameModifier 	A prefix to be added to component names to force creation of new components and support component name uniqueness. 
-	 -reuseExistingWorkspace 	 When providing this flag, the import operation continues if the workspace already exists. It strips the workspace from its components and adds the imported components.
-
-	Example: -command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport"
-
-	Example optional parameter: -componentNameModifier "TestImport_" -reuseExistingWorkspace
-
-
-convertLoadrule
-
-	Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command importScmWorkspace.
-
-	Syntax: -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule> 
-
-	Parameter Description: 
-	 -inputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace. In addtion the command importScmWorkspace must have been ecxecuted using this folder creating the UUID mapping required. 
-	 -sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
-	 -targetLoadruleFile 	 Full path and filename of the resulting loadrule of the conversion.
-
-	Example: -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
-
-
-Failed.

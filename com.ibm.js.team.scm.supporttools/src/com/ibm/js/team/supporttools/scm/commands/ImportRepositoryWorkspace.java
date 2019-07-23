@@ -317,8 +317,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
 				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
+		int currentComponent = 1;
+		int noOfComponents = compKeys.size();		
 		for (String compName : compKeys) {
-			logger.info("\tComponent '{}'", compName);
+			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
 			if (foundComponent == null) {
 				foundComponent = createComponent(teamRepository, monitor, wm, compName);
@@ -364,8 +366,10 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		// Run 2 to get the child mapping
 		logger.info("Recreate subcomponent structure in workspace...");
 		Set<String> compKeys2 = sourcePar2ChildMap.keySet();
+		int currentComponent = 1;
+		int noOfComponents = compKeys2.size();
 		for (String compName : compKeys2) {
-			logger.info("\tComponent '{}'", compName);
+			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			Collection<IComponentHandle> subcomponentsToAdd = new ArrayList<IComponentHandle>();
 			ArrayList<String> children = sourcePar2ChildMap.get(compName);
@@ -400,7 +404,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		int currentComponent = 1;
 		int noOfComponents = compKeys3.size();
 		for (String compName : compKeys3) {
-			logger.info("\t {} of {} Component '{}'", currentComponent++, noOfComponents, compName);
+			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
 			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 			File archiveFile = new File(fInputFolder, stripComponentNamePrefix(compName) + ".zip");
@@ -410,7 +414,6 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				throw new Exception("Exception extracting " + compName);
 			}
 			System.out.println();
-			logger.info("Import component data finished...");
 		}
 	}
 
@@ -431,12 +434,15 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				new InputStreamReader(new FileInputStream(jsonInputFile), IFileContent.ENCODING_UTF_8));
 		logger.info("Reading component structure from file '{}'...", jsonInputFile.getAbsolutePath());
 		JSONArray comps = JSONArray.parse(reader);
+		int currentComponent = 1;
+		int noOfComponents = comps.size();
 		for (Object comp : comps) {
 			if (comp instanceof JSONObject) {
 				String componentName = null;
 				JSONObject jsonComp = (JSONObject) comp;
 				Object oname = jsonComp.get(ScmSupportToolsConstants.JSON_COMPONENT_NAME);
 				componentName = addComponentNamePrefix((String) oname);
+				logger.info("\tComponent {} of {} '{}' done", currentComponent++, noOfComponents, componentName);
 				String ouuid = (String) jsonComp.get(ScmSupportToolsConstants.JSON_COMPONENT_UUID);
 				sourceComponentName2UUIDMap.put(componentName, UUID.valueOf(ouuid));
 				ArrayList<String> childrenList = new ArrayList<String>(20);
@@ -452,7 +458,6 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 					}
 				}
 				sourcePar2ChildMap.put(componentName, childrenList);
-				logger.info("\tComponent -> '{}' done", componentName);
 			}
 		}
 	}
@@ -583,8 +588,11 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 
 		// Add new components
 		Set<String> componentNames = extComponents.keySet();
+		int currentComponent = 1;
+		int noOfComponents = componentNames.size();
+		logger.info("\tAdding Components: '{}'", noOfComponents );
 		for (String compName : componentNames) {
-			logger.info("\tComponent '{}'", compName);
+			logger.info("\tComponent {} of {} '{}' ", currentComponent++, noOfComponents, compName);
 			IComponentHandle cHandle = (IComponentHandle) extComponents.get(compName);
 			workspaceConnection.applyComponentOperations(
 					Collections.singletonList(workspaceConnection.componentOpFactory().addComponent(cHandle, false)),

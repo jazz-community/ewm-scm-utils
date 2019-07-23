@@ -403,7 +403,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		int currentComponent = 1;
 		int noOfComponents = components.size();
 		for (IComponent component : components) {
-			logger.info("\tPacking {} of {} components: '{}' UUID '{}'", currentComponent++, noOfComponents,
+			logger.info("\tPacking {} of {} components: '{}' '{}'", currentComponent++, noOfComponents,
 					component.getName(), component.getItemId().getUuidValue());
 			result &= packageComponent(teamRepository, connection, component, monitor);
 		}

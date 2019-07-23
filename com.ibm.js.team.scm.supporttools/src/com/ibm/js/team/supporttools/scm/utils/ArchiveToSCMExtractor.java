@@ -128,6 +128,7 @@ public class ArchiveToSCMExtractor {
 	private boolean extract() throws IOException, TeamRepositoryException {
 		ZipEntry entry = fZipInStream.getNextEntry();
 		boolean result = true;
+		initializeProgress();
 		while (entry != null) {
 			File targetEntry = new File(entry.toString());
 			try {
@@ -172,7 +173,7 @@ public class ArchiveToSCMExtractor {
 
 		// Ignore the subcomponent.info
 		if (SUBCOMPONENT_INFO.equals(targetFile.getName())) {
-			logger.info("Skipping " + SUBCOMPONENT_INFO);
+			logger.trace("\tSkipping: " + SUBCOMPONENT_INFO);
 			return;
 		}
 
@@ -371,5 +372,13 @@ public class ArchiveToSCMExtractor {
 		if (fProgress % 10 == 9) {
 			System.out.print(".");
 		}
+	}
+
+	/**
+	 * Initialize counter
+	 */
+	private void initializeProgress() {
+		fProgress=0;
+		System.out.print("\t.");
 	}
 }
