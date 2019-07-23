@@ -364,18 +364,18 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			IComponent parentComp = ComponentUtil.resolveComponent(teamRepository, flat.get(parent), monitor);
 			JSONObject component = new JSONObject();
 			logger.info("\tComponent... '{}'", parentComp.getName());
-			component.put(ScmSupportToolsConstants.COMPONENT_NAME, parentComp.getName());
-			component.put(ScmSupportToolsConstants.COMPONENT_UUID, parentComp.getItemId().getUuidValue());
+			component.put(ScmSupportToolsConstants.JSON_COMPONENT_NAME, parentComp.getName());
+			component.put(ScmSupportToolsConstants.JSON_COMPONENT_UUID, parentComp.getItemId().getUuidValue());
 			JSONArray jsonChildren = new JSONArray();
 			Collection<IComponentHandle> children = par2Child.get(parent);
 			for (Iterator<IComponentHandle> childIter = children.iterator(); childIter.hasNext();) {
 				IComponentHandle handle = (IComponentHandle) childIter.next();
 				IComponent child = ComponentUtil.resolveComponent(teamRepository, handle, monitor);
 				JSONObject childComponent = new JSONObject();
-				childComponent.put(ScmSupportToolsConstants.COMPONENT_NAME, child.getName());
-				childComponent.put(ScmSupportToolsConstants.COMPONENT_UUID, child.getItemId().getUuidValue());
+				childComponent.put(ScmSupportToolsConstants.JSON_COMPONENT_NAME, child.getName());
+				childComponent.put(ScmSupportToolsConstants.JSON_COMPONENT_UUID, child.getItemId().getUuidValue());
 				jsonChildren.add(childComponent);
-				component.put(ScmSupportToolsConstants.COMPONENT_CHILDREN, jsonChildren);
+				component.put(ScmSupportToolsConstants.JSON_COMPONENT_CHILDREN, jsonChildren);
 			}
 			jsonhierarchy.add(component);
 		}
@@ -584,9 +584,8 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	}
 
 	/**
-	 * This creates one '.' for every for 10 times it is called to show some
-	 * progress.
-	 * 
+	 * This prints one '.' for every for 10 times it is called to show some
+	 * progress. Can be used to show more fine grained progress.
 	 */
 	private void showProgress() {
 		fProgress++;

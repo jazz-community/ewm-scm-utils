@@ -362,6 +362,10 @@ public class ArchiveToSCMExtractor {
 		return newFolder;
 	}
 
+	/**
+	 * This prints one '.' for every for 10 times it is called to show some
+	 * progress. Can be used to show more fine grained progress.
+	 */
 	private void showProgress() {
 		fProgress++;
 		if (fProgress % 10 == 9) {

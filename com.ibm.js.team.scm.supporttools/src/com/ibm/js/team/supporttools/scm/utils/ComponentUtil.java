@@ -18,8 +18,21 @@ import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
+/**
+ * Utility Class to provide component operations.
+ *
+ */
 public class ComponentUtil {
 
+	/**
+	 * Resolve a component from a handle.
+	 * 
+	 * @param teamRepository
+	 * @param handle
+	 * @param monitor
+	 * @return
+	 * @throws TeamRepositoryException
+	 */
 	public static IComponent resolveComponent(ITeamRepository teamRepository, IComponentHandle handle,
 			IProgressMonitor monitor) throws TeamRepositoryException {
 		IComponent component = (IComponent) teamRepository.itemManager().fetchCompleteItem(handle, IItemManager.DEFAULT,
@@ -27,6 +40,15 @@ public class ComponentUtil {
 		return component;
 	}
 
+	/**
+	 * Resolve a list of components from a list of component handles.
+	 * 
+	 * @param teamRepository
+	 * @param wsComponents
+	 * @param monitor
+	 * @return
+	 * @throws TeamRepositoryException
+	 */
 	public static List<IComponent> resolveComponents(ITeamRepository teamRepository,
 			List<IComponentHandle> wsComponents, IProgressMonitor monitor) throws TeamRepositoryException {
 		@SuppressWarnings("unchecked")
@@ -36,6 +58,8 @@ public class ComponentUtil {
 	}
 
 	/**
+	 * Get all components from a workspace connection and resolve them.
+	 * 
 	 * @param teamRepository
 	 * @param workspaceConnection
 	 * @param monitor
@@ -52,6 +76,15 @@ public class ComponentUtil {
 
 	}
 
+	/**
+	 * Get all components from a workspace connection and resolve them.
+	 * 
+	 * @param teamRepository
+	 * @param connections
+	 * @param monitor
+	 * @return
+	 * @throws TeamRepositoryException
+	 */
 	public static List<? extends IWorkspaceConnection> getWorkspaceConnections(ITeamRepository teamRepository,
 			List<? extends IWorkspaceHandle> connections, IProgressMonitor monitor) throws TeamRepositoryException {
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
@@ -110,5 +143,4 @@ public class ComponentUtil {
 		}
 		return allComponents;
 	}
-
 }

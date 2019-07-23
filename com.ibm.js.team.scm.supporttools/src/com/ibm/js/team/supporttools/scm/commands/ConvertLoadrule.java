@@ -115,7 +115,7 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 		// Optional parameters
 		// Optional parameters description
 		// Examples
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
@@ -151,9 +151,9 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 				if (map instanceof JSONObject) {
 					String componentName = null;
 					JSONObject jsonMap = (JSONObject) map;
-					String sourceName = (String) jsonMap.get(ScmSupportToolsConstants.COMPONENT_NAME);
-					String sourceUUID = (String) jsonMap.get(ScmSupportToolsConstants.SOURCE_COMPONENT_UUID);
-					String targetUUID = (String) jsonMap.get(ScmSupportToolsConstants.TARGET_COMPONENT_UUID);
+					String sourceName = (String) jsonMap.get(ScmSupportToolsConstants.JSON_COMPONENT_NAME);
+					String sourceUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_SOURCE_COMPONENT_UUID);
+					String targetUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_TARGET_COMPONENT_UUID);
 					source2TargetUUIDMap.put(sourceUUID, targetUUID);
 				}
 			}
