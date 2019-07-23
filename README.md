@@ -1,2 +1,142 @@
 # jazz-scm-content-obfuscator
 Tool to allow to download and obfuscate RTC Jazz Source Control content to allow shipping obfuscated content to reproduce issues.
+
+SCMTools Version: 1.3
+
+## Usage 
+`-command commandName {[-parameter] [parameterValue]}`
+
+## Available commands 
+
+### exportScmWorkspace
+### importScmWorkspace
+### convertLoadrule
+
+# Command Description
+## exportScmWorkspace
+```bash
+-command exportScmWorkspace
+   -url "https://<server>:port/<context>/" 
+   -user <userId> 
+   -password <password> 
+   -workspaceConnection <workspaceNameOrId> 
+   -outputFolder <outputFolderPath>
+   [-exportmode <exportmode>]
+```
+### Description
+Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
+
+###	Syntax
+```bash
+  -command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
+```
+
+###	Parameter description
+```bash 
+	 -command 	 The command to execute. 
+	 -url 	The Public URI of the application. 
+	 -user 	 The user ID of a user. 
+	 -password 	 The password of the user. 
+	 -workspaceConnection 	 The repository workspace to export 
+	 -outputFolder 	 The folder where the resulting data is written.
+```
+
+###	Optional parameter syntax
+```bash
+  -exportmode <exportmode>
+```
+
+###	Optional parameter description
+```bash
+	 -exportmode 	 The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize.
+```
+
+###	Example
+```bash
+-command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+```bash
+
+### Example optional parameter
+```bash
+  -exportmode obfuscate
+```
+
+## importScmWorkspace
+```bash
+-command importScmWorkspace
+   -url "https://<server>:port/<context>/" 
+   -user <userId> 
+   -password <password> 
+   -workspaceConnection <workspaceNameOrId> 
+   -inputFolder <inputFolderPath>
+   [-componentNameModifier <modifier>]
+   [-reuseExistingWorkspace]
+```
+
+### Description
+Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
+
+### Syntax 
+```bash
+-command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
+```
+
+### Parameter description
+```bash
+	 -command The command to execute. 
+	 -url The Public URI of the application. 
+	 -user The user ID of a user. 
+	 -password The password of the user. 
+	 -workspaceConnection The repository workspace to export 
+	 -outputFolder The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
+```
+
+###	Optional parameter syntax
+```bash
+  -componentNameModifier <modifier> -reuseExistingWorkspace
+ ```
+
+### Optional parameter description 
+```bash
+	 -componentNameModifier A prefix to be added to component names to force creation of new components and support component name uniqueness. 
+	 -reuseExistingWorkspace When providing this flag, the import operation continues if the workspace already exists. It strips the workspace from its components and adds the imported components.
+```
+
+###	Example
+```bash
+-command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport"
+```
+
+### Example optional parameter
+```bash
+-componentNameModifier "TestImport_" -reuseExistingWorkspace
+```
+
+## convertLoadrule
+```bash
+-command convertLoadrule 
+  -inputFolder <inputFolderPath> 
+  -sourceLoadruleFile <sourceLoadRule> 
+  -targetLoadruleFile <targetLoadRule>
+```
+
+### Description
+Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command importScmWorkspace.
+
+### Syntax
+
+```bash
+ -command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule> 
+```
+
+###	Parameter Description
+```bash 
+	 -inputFolder The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace. In addtion the command importScmWorkspace must have been ecxecuted using this folder creating the UUID mapping required. 
+	 -sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
+	 -targetLoadruleFile Full path and filename of the resulting loadrule of the conversion.
+```
+
+### Example
+```bash
+ -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+```
