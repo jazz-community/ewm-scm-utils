@@ -46,8 +46,14 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG = "reuseExistingWorkspace";
 	public static final String PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION = "Full path and filename of the resulting loadrule of the conversion.";
 
-	public static String DEFAULT_STORAGE_MODE_RANDOMIZE = "randomize";
-	public static String STORAGE_MODE_OBFUSCATE = "obfuscate";
-	public static String LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+	public static String EXPORT_MODE_OBFUSCATE = "obfuscate";
+	public static String EXPORT_MODE_RANDOMIZE = "randomize";
+	public static String EXPORT_MODE_PRESERVE = "preserve";
+
+	public static String PARAMETER_EXPORT_MODE = "exportmode";
+	public static String PARAMETER_EXPORT_MODE_DESCRIPTION = "The mode to export the data. Available modes are: " + EXPORT_MODE_RANDOMIZE + ", " + EXPORT_MODE_OBFUSCATE + ", " + EXPORT_MODE_PRESERVE + ". Default mode if parameter is omitted is: " + EXPORT_MODE_RANDOMIZE;
+	public static Object PARAMETER_EXPORT_MODE_PROTOTYPE = "<exportmode>";
+	public static String PARAMETER_EXPORT_MODE_EXAMPLE = EXPORT_MODE_RANDOMIZE;
+
 
 }

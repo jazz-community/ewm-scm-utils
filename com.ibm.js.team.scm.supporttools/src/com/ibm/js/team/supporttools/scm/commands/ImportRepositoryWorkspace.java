@@ -43,6 +43,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
+import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.process.client.IProcessClientService;
 import com.ibm.team.process.client.IProcessItemService;
 import com.ibm.team.process.common.IProcessArea;
@@ -270,7 +271,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		HashMap<String, UUID> sourceComponentName2UUIDMap = new HashMap<String, UUID>(3000);
 		HashMap<String, ArrayList<String>> sourcePar2ChildMap = new HashMap<String, ArrayList<String>>(3000);
 		File jsonInputFile = new File(fInputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
-		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonInputFile), "UTF-8")); //$NON-NLS-1$
+		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonInputFile), IFileContent.ENCODING_UTF_8)); 
 		logger.info("Reading component structure from file '{}'...", jsonInputFile.getAbsolutePath());
 		JSONArray comps = JSONArray.parse(reader);
 		for (Object comp : comps) {

@@ -16,6 +16,7 @@
 package com.ibm.js.team.supporttools.scm.commands;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,7 +27,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -44,8 +44,11 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
+import com.ibm.js.team.supporttools.scm.utils.FileContentUtil;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
+import com.ibm.team.filesystem.common.FileLineDelimiter;
+import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.filesystem.common.IFileItem;
 import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.client.TeamPlatform;
@@ -69,11 +72,15 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  */
 public class ExportRepositoryWorkspace extends AbstractCommand implements ICommand {
 
+	enum ExportMode {
+		RANDOMIZE, OBFUSCATE, PRESERVE
+	}
+
 	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
-	public boolean fPreserve = false;
-	private Object fConfidentialityMode = ScmSupportToolsConstants.DEFAULT_STORAGE_MODE_RANDOMIZE;
+	public ExportMode fExportMode = ExportMode.RANDOMIZE;
 	private File fOutputFolder = null;
 	private int fProgress = 0;
+	FileContentUtil fFileUtil = null;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -98,6 +105,8 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE, true,
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
 		return options;
 	}
 
@@ -137,30 +146,20 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
+		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
+				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
+				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
-//				,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH,
-//				SupportToolsFrameworkConstants.PARAMETER_CSV_FILE_PATH_EXAMPLE
-		);
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
 
-//		logger.info("\tOptional parameter: -{} {}"
-////				, 
-////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_PROTOTYPE
-//		);
-//		logger.info("\tExample optional parameter: -{} {}"
-////				, 
-////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER,
-////				SupportToolsFrameworkConstants.PARAMETER_CSV_DELIMITER_EXAMPLE
-//		);
+		logger.info("\tOptional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
+		logger.info("\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}
 
 	/**
@@ -178,6 +177,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
 
 		TeamPlatform.startup();
 		try {
@@ -210,6 +210,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				return result;
 			}
 			fOutputFolder = outputfolder;
+			setExportMode(exportMode);
 			result = exportWorkspace(teamRepository, scmWorkspace, monitor);
 		} catch (TeamRepositoryException e) {
 			logger.error("TeamRepositoryException: {}", e.getMessage());
@@ -222,6 +223,25 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		}
 
 		return result;
+	}
+
+	private void setExportMode(String exportMode) {
+		if (exportMode == null) {
+			return;
+		}
+		if (ScmSupportToolsConstants.EXPORT_MODE_RANDOMIZE.equals(exportMode)) {
+			fExportMode = ExportMode.RANDOMIZE;
+			return;
+		}
+		if (ScmSupportToolsConstants.EXPORT_MODE_PRESERVE.equals(exportMode)) {
+			fExportMode = ExportMode.PRESERVE;
+			return;
+		}
+		if (ScmSupportToolsConstants.EXPORT_MODE_OBFUSCATE.equals(exportMode)) {
+			fExportMode = ExportMode.OBFUSCATE;
+			return;
+		}
+
 	}
 
 	/**
@@ -415,14 +435,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				// Get the file contents and write them into the directory
 				IFileItem file = (IFileItem) v;
 				zos.putNextEntry(new ZipEntry(path + v.getName()));
-
-				InputStream in = contentManager.retrieveContentStream(file, file.getContent(), monitor);
-				byte[] arr = new byte[1024];
-				int w;
-				while (-1 != (w = in.read(arr))) {
-					byte[] orr = process(arr);
-					zos.write(orr, 0, w);
-				}
+				generateContent(file, contentManager, zos, monitor);
 				zos.closeEntry();
 			}
 			showProgress();
@@ -430,59 +443,41 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		}
 	}
 
-	private byte[] process(byte[] arr) {
-		if (fPreserve) {
-			return arr;
+	private void generateContent(IFileItem file, IFileContentManager contentManager, ZipOutputStream zos,
+			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
+		FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
+		String encoding = null;
+		IFileContent filecontent = file.getContent();
+		if (filecontent != null) {
+			encoding = filecontent.getCharacterEncoding();
+			lineDelimiter = filecontent.getLineDelimiter();
 		}
-		if (ScmSupportToolsConstants.STORAGE_MODE_OBFUSCATE.equals(fConfidentialityMode)) {
-			return obfuscate(arr);
+		logger.trace(" Filename: '{}' encoding: '{}' delimiter: '{}' content type: '{}'", file.getName(), encoding,
+				lineDelimiter.toString(), file.getContentType());
+
+		InputStream in = contentManager.retrieveContentStream(file, filecontent, monitor);
+		switch (fExportMode) {
+		case OBFUSCATE:
+			getFileContentUtil().obfuscateSource(in, zos, lineDelimiter, encoding);
+			break;
+		case PRESERVE:
+			getFileContentUtil().copyInput(in, zos);
+			break;
+		case RANDOMIZE:
+			getFileContentUtil().randomizeBinary(in, zos);
+			break;
+		default:
+			getFileContentUtil().randomizeBinary(in, zos);
+			break;
 		}
-		return randomize(arr);
 	}
 
-	private byte[] randomize(byte[] arr) {
-		byte[] orr = new byte[arr.length];
-		new Random().nextBytes(orr);
-		return orr;
+	FileContentUtil getFileContentUtil() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+		if (null == fFileUtil) {
+			return new FileContentUtil();
+		}
+		return fFileUtil;
 	}
-
-	private byte[] obfuscate(byte[] arr) {
-		byte[] orr = new byte[arr.length];
-		System.arraycopy(ScmSupportToolsConstants.LOREM_IPSUM.getBytes(), 0, orr, 0, arr.length);
-		return orr;
-	}
-
-//	private void writeRoots(ITeamRepository teamRepository, Collection<IComponentHierarchyNode> roots,
-//			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-//		logger.info("Roots...");
-//		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "rootcomponents.txt"));
-//		try {
-//			for (IComponentHierarchyNode node : roots) {
-//				IComponent comp = ComponentUtil.resolveComponent(teamRepository, node.getComponentHandle(), monitor);
-//				logger.info("Root '{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
-//				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
-//				out.write(componentInfo.getBytes("UTF-8"));
-//			}
-//			out.flush();
-//		} finally {
-//			out.close();
-//		}
-//	}
-//
-//	private void writeComponents(List<IComponent> components) throws UnsupportedEncodingException, IOException {
-//		logger.info("Components...");
-//		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "components.txt"));
-//		try {
-//			for (IComponent comp : components) {
-//				logger.info("'{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
-//				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
-//				out.write(componentInfo.getBytes("UTF-8"));
-//			}
-//			out.flush();
-//		} finally {
-//			out.close();
-//		}
-//	}
 
 	private void showProgress() {
 		fProgress++;

@@ -11,7 +11,7 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.ibm.js.team.supporttools.scm.ScmSupportTools"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command importScmWorkspace -url &quot;https://localhost:9443/ccm/&quot; -user myadmin -password myadmin -projectarea &quot;JKE Banking (Change Management)&quot; -workspaceConnection &quot;New Hierarchical JKE Banking Stream Workspace&quot; -inputFolder &quot;C:\temp\ScmExportObfusc&quot; -componentNameModifier=&quot;IBMTest3_&quot; -reuseExistingWorkspace"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command exportScmWorkspace -url &quot;https://localhost:9443/ccm/&quot; -user myadmin -password myadmin -workspaceConnection &quot;Hierarchical JKE Banking Stream Workspace&quot; -outputFolder &quot;C:\temp\ScmExportObfusc&quot; -exportmode=obfuscate"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.ibm.js.team.supporttools.scm"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>
