@@ -138,7 +138,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_PROTOTYPE,
+				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,

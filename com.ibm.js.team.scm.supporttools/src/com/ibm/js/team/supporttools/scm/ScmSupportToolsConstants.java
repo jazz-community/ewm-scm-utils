@@ -2,7 +2,7 @@ package com.ibm.js.team.supporttools.scm;
 
 public interface ScmSupportToolsConstants {
 
-	public static String SCMTOOLS_VERSION = "1.2";
+	public static String SCMTOOLS_VERSION = "1.3";
 
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
@@ -51,9 +51,10 @@ public interface ScmSupportToolsConstants {
 	public static String EXPORT_MODE_PRESERVE = "preserve";
 
 	public static String PARAMETER_EXPORT_MODE = "exportmode";
-	public static String PARAMETER_EXPORT_MODE_DESCRIPTION = "The mode to export the data. Available modes are: " + EXPORT_MODE_RANDOMIZE + ", " + EXPORT_MODE_OBFUSCATE + ", " + EXPORT_MODE_PRESERVE + ". Default mode if parameter is omitted is: " + EXPORT_MODE_RANDOMIZE;
+	public static String PARAMETER_EXPORT_MODE_DESCRIPTION = "The mode to export the data. Available modes are: "
+			+ EXPORT_MODE_RANDOMIZE + ", " + EXPORT_MODE_OBFUSCATE + ", " + EXPORT_MODE_PRESERVE
+			+ ". Default mode if parameter is omitted is: " + EXPORT_MODE_RANDOMIZE;
 	public static Object PARAMETER_EXPORT_MODE_PROTOTYPE = "<exportmode>";
-	public static String PARAMETER_EXPORT_MODE_EXAMPLE = EXPORT_MODE_RANDOMIZE;
-
+	public static String PARAMETER_EXPORT_MODE_EXAMPLE = EXPORT_MODE_OBFUSCATE;
 
 }

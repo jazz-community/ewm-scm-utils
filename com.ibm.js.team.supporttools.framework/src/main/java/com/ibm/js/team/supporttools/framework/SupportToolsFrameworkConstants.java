@@ -36,7 +36,7 @@ public interface SupportToolsFrameworkConstants {
 	public static final String PARAMETER_USER = "user";
 	public static final String PARAMETER_USER_ID_DESCRIPTION = "The user ID of a user.";
 	public static final String PARAMETER_USER_ID_EXAMPLE = "ADMIN";
-	public static final String PARAMETER_USER_PROTOTYPE = "<userId>";
+	public static final String PARAMETER_USER_ID_PROTOTYPE = "<userId>";
 
 	public static final String PARAMETER_PASSWORD = "password";
 	public static final String PARAMETER_PASSWORD_DESCRIPTION = "The password of the user.";
@@ -60,5 +60,4 @@ public interface SupportToolsFrameworkConstants {
 	public static final String PARAMETER_SAMPLE_OPTION_OPT_DESCRIPTION = "Optional sample option";
 	public static final String PARAMETER_SAMPLE_OPTION_OPT_EXAMPLE = "\"optional value\"";
 	public static final String PARAMETER_SAMPLE_OPTION_OPT_PROTOTYPE = "<optionalOptionValue>";
-
 }

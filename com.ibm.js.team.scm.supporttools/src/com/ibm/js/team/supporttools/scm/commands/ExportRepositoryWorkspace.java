@@ -69,9 +69,18 @@ import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
+ * Allows to export a repository workspace, all its components and the current
+ * SCM data into a persistent format. The persistent format can later be used to
+ * import and recreate a repository workspace and the component and the latest
+ * content.
+ * 
  */
 public class ExportRepositoryWorkspace extends AbstractCommand implements ICommand {
 
+	/**
+	 * The supported modes to export the data
+	 *
+	 */
 	enum ExportMode {
 		RANDOMIZE, OBFUSCATE, PRESERVE
 	}
@@ -137,16 +146,25 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		logger.info("{}", getCommandName());
 		logger.info(
 				"\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.");
-		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_PROTOTYPE,
+				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+		logger.info("\n\tDescription: \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{} \n\t -{} \t{}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND, SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
+				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
@@ -155,17 +173,17 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
-
-		logger.info("\tOptional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+		logger.info("\n\tOptional parameters: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
 				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
-		logger.info("\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+		logger.info("\n\tDescription: \n\t -{} \t{}",
+				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE, ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
+		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
 				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}
 
 	/**
 	 * The main method that executes the behavior of this command.
 	 */
-	@SuppressWarnings("unused")
 	@Override
 	public boolean execute() {
 		logger.info("Executing Command {}", this.getCommandName());
@@ -225,6 +243,11 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		return result;
 	}
 
+	/**
+	 * Managing the export mode based on a parameter.
+	 * 
+	 * @param exportMode
+	 */
 	private void setExportMode(String exportMode) {
 		if (exportMode == null) {
 			return;
@@ -245,6 +268,10 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	}
 
 	/**
+	 * Export a repository workspace, all its components and the current SCM data
+	 * into a persistent format. The persistent format can later be used to import
+	 * and recreate a repository workspace and the component and the latest content.
+	 * 
 	 * @param teamRepository
 	 * @param outputfolder
 	 * @param scmConnection
@@ -282,6 +309,16 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		return result;
 	}
 
+	/**
+	 * Persist the component and component hierarchy information into a JSON file.
+	 * 
+	 * @param teamRepository
+	 * @param hierarchy
+	 * @param monitor
+	 * @throws TeamRepositoryException
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
 	private void writeHierarchy(ITeamRepository teamRepository, IComponentHierarchyResult hierarchy,
 			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
 		Map<UUID, Collection<IComponentHandle>> par2Child = hierarchy.getParentToChildrenMap();
@@ -289,8 +326,20 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		writeChildMap(teamRepository, flat, par2Child, monitor);
 	}
 
-	private void writeChildMap(ITeamRepository teamRepository, Map<UUID, IComponentHandle> flat,
-			Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor)
+	/**
+	 * Create a JSON file containing all components of the repository workspace.
+	 * Each component also has a list of child components.
+	 * 
+	 * @param teamRepository
+	 * @param flat
+	 * @param par2Child
+	 * @param monitor
+	 * @throws TeamRepositoryException
+	 * @throws UnsupportedEncodingException
+	 * @throws IOException
+	 */
+	private void writeChildMap(ITeamRepository teamRepository, final Map<UUID, IComponentHandle> flat,
+			final Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor)
 			throws TeamRepositoryException, UnsupportedEncodingException, IOException {
 		File jsonFile = new File(fOutputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
 		logger.info("Persist component hierarchy in '{}'...", jsonFile.getAbsolutePath());
@@ -322,6 +371,9 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	}
 
 	/**
+	 * Iterate all components. For each component package the folder and file
+	 * structure into a zip file.
+	 * 
 	 * @param teamRepository
 	 * @param outputfolder
 	 * @param connection
@@ -339,21 +391,26 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		int currentComponent = 0;
 		int noOfComponents = components.size();
 		for (IComponent component : components) {
-			logger.info("\tPacking {} of {} component'{}' UUID '{}'", currentComponent++, noOfComponents,
+			logger.info("\tPacking {} of {} components: '{}' UUID '{}'", currentComponent++, noOfComponents,
 					component.getName(), component.getItemId().getUuidValue());
 			result &= packageComponent(teamRepository, connection, component, monitor);
 		}
+		logger.info("\tPacked {} of {} components...", currentComponent++, noOfComponents);
 		return result;
 	}
 
-//	private boolean packageComponentHandles(ITeamRepository teamRepository, File outputfolder,
-//			List<? extends IWorkspaceConnection> connection, Collection<IComponentHandle> components2, IProgressMonitor monitor)
-//			throws IOException, TeamRepositoryException {
-//		List<IComponent> components = resolveComponents(teamRepository, components2, monitor);
-//
-//		return packageComponents(teamRepository, outputfolder, connection, components, monitor);
-//	}
-
+	/**
+	 * Package the components from component handles.
+	 * 
+	 * @param teamRepository
+	 * @param outputFolder
+	 * @param connection
+	 * @param componentHandles
+	 * @param monitor
+	 * @return
+	 * @throws TeamRepositoryException
+	 * @throws IOException
+	 */
 	private boolean packageComponentHandles(ITeamRepository teamRepository, File outputFolder,
 			IWorkspaceConnection connection, Collection<IComponentHandle> componentHandles, IProgressMonitor monitor)
 			throws TeamRepositoryException, IOException {
@@ -364,8 +421,9 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	}
 
 	/**
+	 * Package the component file and folder structure.
+	 * 
 	 * @param teamRepository
-	 * @param outputfolder
 	 * @param connection
 	 * @param component
 	 * @param monitor
@@ -392,11 +450,12 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			@SuppressWarnings("unchecked")
 			List<IVersionable> items = compConfig
 					.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
+
+			// Recursion into each folder in the root
 			loadDirectory(contentManager, compConfig, zos, "", items, monitor);
 
 			zos.close();
 			result = true;
-
 		} finally {
 			out.close();
 			System.out.println("");
@@ -430,19 +489,44 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				List<IVersionable> completeChildren = compConfig
 						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
 
+				// Recursion into the contained folders
 				loadDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
+
 			} else if (v instanceof IFileItem) {
-				// Get the file contents and write them into the directory
+				// Get the file contents. Generate contents to save them into the directory
 				IFileItem file = (IFileItem) v;
 				zos.putNextEntry(new ZipEntry(path + v.getName()));
 				generateContent(file, contentManager, zos, monitor);
 				zos.closeEntry();
 			}
 			showProgress();
-
 		}
 	}
 
+	/**
+	 * This generates the content to be persisted. There are three different options
+	 * available that can be used.
+	 * 
+	 * For all options: the file and folder names are kept.
+	 * 
+	 * Randomize (default): Generates data based on random values. The size of the
+	 * data a generated is the same as the original data. The generated data does
+	 * not keep line ending and file encoding.
+	 * 
+	 * Obfuscate: Generates data based on sample code available. The size of the
+	 * data a generated is similar or the same as the original data. The data is
+	 * generated from example code snippets from a file. The generated data keeps
+	 * line ending and file encoding, where available.
+	 * 
+	 * Preserve: Stores the original file and folder content unchanged.
+	 * 
+	 * @param file
+	 * @param contentManager
+	 * @param zos
+	 * @param monitor
+	 * @throws TeamRepositoryException
+	 * @throws IOException
+	 */
 	private void generateContent(IFileItem file, IFileContentManager contentManager, ZipOutputStream zos,
 			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
 		FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
@@ -472,6 +556,14 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		}
 	}
 
+	/**
+	 * Instantiate the FileContentUtil that performs the data conversion.
+	 * 
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	FileContentUtil getFileContentUtil() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		if (null == fFileUtil) {
 			return new FileContentUtil();
@@ -479,11 +571,15 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		return fFileUtil;
 	}
 
+	/**
+	 * This creates one '.' for every for 10 times it is called to show some
+	 * progress.
+	 * 
+	 */
 	private void showProgress() {
 		fProgress++;
 		if (fProgress % 10 == 9) {
 			System.out.print(".");
 		}
 	}
-
 }
