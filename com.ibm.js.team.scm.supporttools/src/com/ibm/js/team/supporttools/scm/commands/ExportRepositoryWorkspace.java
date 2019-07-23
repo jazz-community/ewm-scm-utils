@@ -311,7 +311,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
 
-		logger.info("Anylyze and store component hierarchy from '{}'...", scmConnection);
+		logger.info("Analyze and store component hierarchy from '{}'...", scmConnection);
 		IComponentHierarchyResult hierarchy = connection.get(0)
 				.getComponentHierarchy(new ArrayList<IComponentHandle>());
 		writeHierarchy(teamRepository, hierarchy, monitor);
@@ -400,14 +400,14 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			throws IOException, TeamRepositoryException {
 		boolean result = true;
 
-		int currentComponent = 0;
+		int currentComponent = 1;
 		int noOfComponents = components.size();
 		for (IComponent component : components) {
 			logger.info("\tPacking {} of {} components: '{}' UUID '{}'", currentComponent++, noOfComponents,
 					component.getName(), component.getItemId().getUuidValue());
 			result &= packageComponent(teamRepository, connection, component, monitor);
 		}
-		logger.info("\tPacked {} of {} components...", currentComponent++, noOfComponents);
+		logger.info("Packing components finished...");
 		return result;
 	}
 

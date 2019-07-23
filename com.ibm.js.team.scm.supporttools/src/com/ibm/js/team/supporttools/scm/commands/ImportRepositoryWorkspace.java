@@ -397,7 +397,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 			IProgressMonitor monitor) throws Exception {
 		logger.info("Import component data...");
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
-		int currentComponent = 0;
+		int currentComponent = 1;
 		int noOfComponents = compKeys3.size();
 		for (String compName : compKeys3) {
 			logger.info("\t {} of {} Component '{}'", currentComponent++, noOfComponents, compName);
@@ -410,6 +410,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				throw new Exception("Exception extracting " + compName);
 			}
 			System.out.println();
+			logger.info("Import component data finished...");
 		}
 	}
 
