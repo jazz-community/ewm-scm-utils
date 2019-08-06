@@ -170,8 +170,6 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return true;
 	}
-
 }

@@ -16,20 +16,11 @@
 package com.ibm.js.team.supporttools.scm.commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -43,23 +34,21 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
+import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
+import com.ibm.js.team.supporttools.scm.statistics.ConnectionStat;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
-import com.ibm.js.team.supporttools.scm.utils.FileContentUtil;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
-import com.ibm.team.filesystem.common.FileLineDelimiter;
-import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.filesystem.common.IFileItem;
 import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.repository.common.UUID;
-import com.ibm.team.repository.common.json.JSONArray;
-import com.ibm.team.repository.common.json.JSONObject;
 import com.ibm.team.scm.client.IConfiguration;
 import com.ibm.team.scm.client.IWorkspaceConnection;
 import com.ibm.team.scm.common.IComponent;
 import com.ibm.team.scm.common.IComponentHandle;
+import com.ibm.team.scm.common.IComponentHierarchyNode;
 import com.ibm.team.scm.common.IComponentHierarchyResult;
 import com.ibm.team.scm.common.IFolder;
 import com.ibm.team.scm.common.IFolderHandle;
@@ -75,7 +64,7 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * content.
  * 
  */
-public class ExportRepositoryWorkspace extends AbstractCommand implements ICommand {
+public class AnalyzeRepositoryWorkspace extends AbstractCommand implements ICommand {
 
 	/**
 	 * The supported modes to export the data
@@ -85,18 +74,19 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	RANDOMIZE, OBFUSCATE, PRESERVE
 	}
 
-	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
+	public static final Logger logger = LoggerFactory.getLogger(AnalyzeRepositoryWorkspace.class);
 	public ExportMode fExportMode = ExportMode.RANDOMIZE;
+	@SuppressWarnings("unused")
 	private File fOutputFolder = null;
 	private int fProgress = 0;
-	private FileContentUtil fFileUtil = null;
+	private ConnectionStat connectionStat = new ConnectionStat();
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
 	 * command option. The name is used in the UIs and the option parser.
 	 */
-	public ExportRepositoryWorkspace() {
-		super(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE);
+	public AnalyzeRepositoryWorkspace() {
+		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACE);
 	}
 
 	/**
@@ -241,7 +231,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			}
 			fOutputFolder = outputfolder;
 			setExportMode(exportMode);
-			result = exportWorkspace(teamRepository, scmWorkspace, monitor);
+			result = analyzeWorkspace(teamRepository, scmWorkspace, monitor);
 		} catch (TeamRepositoryException e) {
 			logger.error("TeamRepositoryException: {}", e.getMessage());
 			// e.printStackTrace();
@@ -292,7 +282,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	 * @throws TeamRepositoryException
 	 * @throws IOException
 	 */
-	private boolean exportWorkspace(ITeamRepository teamRepository, String scmConnection, IProgressMonitor monitor)
+	private boolean analyzeWorkspace(ITeamRepository teamRepository, String scmConnection, IProgressMonitor monitor)
 			throws TeamRepositoryException, IOException {
 		boolean result = false;
 
@@ -311,148 +301,35 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
 
-		logger.info("Analyze and store component hierarchy from '{}'...", scmConnection);
+		logger.info("Analyze component hierarchy from '{}'...", scmConnection);
 		IComponentHierarchyResult hierarchy = workspace.getComponentHierarchy(new ArrayList<IComponentHandle>());
-		writeHierarchy(teamRepository, hierarchy, monitor);
-		logger.info("Package and Ramdomize Components...");
-		Collection<IComponentHandle> components = hierarchy.getFlattenedElementsMap().values();
-		result = packageComponentHandles(teamRepository, fOutputFolder, workspace, components, monitor);
-		return result;
+		analyzeComponentHierarchy(teamRepository, hierarchy, monitor);
+		logger.info("Anylaze components...");
+		analyzeComponentContent(teamRepository, monitor, workspace, hierarchy);
+		logger.info("Show results...");
+		connectionStat.log();
+		return true;
 	}
 
-	/**
-	 * Persist the component and component hierarchy information into a JSON file.
-	 * 
-	 * @param teamRepository
-	 * @param hierarchy
-	 * @param monitor
-	 * @throws TeamRepositoryException
-	 * @throws UnsupportedEncodingException
-	 * @throws IOException
-	 */
-	private void writeHierarchy(ITeamRepository teamRepository, IComponentHierarchyResult hierarchy,
-			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		Map<UUID, Collection<IComponentHandle>> par2Child = hierarchy.getParentToChildrenMap();
-		Map<UUID, IComponentHandle> flat = hierarchy.getFlattenedElementsMap();
-		writeChildMap(teamRepository, flat, par2Child, monitor);
-	}
-
-	/**
-	 * Create a JSON file containing all components of the repository workspace.
-	 * Each component also has a list of child components.
-	 * 
-	 * @param teamRepository
-	 * @param flat
-	 * @param par2Child
-	 * @param monitor
-	 * @throws TeamRepositoryException
-	 * @throws UnsupportedEncodingException
-	 * @throws IOException
-	 */
-	private void writeChildMap(ITeamRepository teamRepository, final Map<UUID, IComponentHandle> flat,
-			final Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor)
-			throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		File jsonFile = new File(fOutputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
-		logger.info("Persist component hierarchy in '{}'...", jsonFile.getAbsolutePath());
-
-		JSONArray jsonhierarchy = new JSONArray();
-
-		Set<UUID> parents = par2Child.keySet();
-		for (Iterator<UUID> iterator = parents.iterator(); iterator.hasNext();) {
-			UUID parent = (UUID) iterator.next();
-			IComponent parentComp = ComponentUtil.resolveComponent(teamRepository, flat.get(parent), monitor);
-			JSONObject component = new JSONObject();
-			logger.info("\tComponent... '{}'", parentComp.getName());
-			component.put(ScmSupportToolsConstants.JSON_COMPONENT_NAME, parentComp.getName());
-			component.put(ScmSupportToolsConstants.JSON_COMPONENT_UUID, parentComp.getItemId().getUuidValue());
-			JSONArray jsonChildren = new JSONArray();
-			Collection<IComponentHandle> children = par2Child.get(parent);
-			for (Iterator<IComponentHandle> childIter = children.iterator(); childIter.hasNext();) {
-				IComponentHandle handle = (IComponentHandle) childIter.next();
-				IComponent child = ComponentUtil.resolveComponent(teamRepository, handle, monitor);
-				JSONObject childComponent = new JSONObject();
-				childComponent.put(ScmSupportToolsConstants.JSON_COMPONENT_NAME, child.getName());
-				childComponent.put(ScmSupportToolsConstants.JSON_COMPONENT_UUID, child.getItemId().getUuidValue());
-				jsonChildren.add(childComponent);
-				component.put(ScmSupportToolsConstants.JSON_COMPONENT_CHILDREN, jsonChildren);
-			}
-			jsonhierarchy.add(component);
-		}
-		jsonhierarchy.serialize(new FileWriter(jsonFile), true);
-	}
-
-	/**
-	 * Iterate all components. For each component package the folder and file
-	 * structure into a zip file.
-	 * 
-	 * @param teamRepository
-	 * @param outputfolder
-	 * @param connection
-	 * @param components
-	 * @param monitor
-	 * @return
-	 * @throws IOException
-	 * @throws TeamRepositoryException
-	 */
-	private boolean packageComponents(ITeamRepository teamRepository, File outputfolder,
-			IWorkspaceConnection connection, List<IComponent> components, IProgressMonitor monitor)
-			throws IOException, TeamRepositoryException {
-		boolean result = true;
-
-		int currentComponent = 1;
-		int noOfComponents = components.size();
-		for (IComponent component : components) {
-			logger.info("\tPacking {} of {} components: '{}' '{}'", currentComponent++, noOfComponents,
-					component.getName(), component.getItemId().getUuidValue());
-			result &= packageComponent(teamRepository, connection, component, monitor);
-		}
-		logger.info("Packing components finished...");
-		return result;
-	}
-
-	/**
-	 * Package the components from component handles.
-	 * 
-	 * @param teamRepository
-	 * @param outputFolder
-	 * @param connection
-	 * @param componentHandles
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 * @throws IOException
-	 */
-	private boolean packageComponentHandles(ITeamRepository teamRepository, File outputFolder,
-			IWorkspaceConnection connection, Collection<IComponentHandle> componentHandles, IProgressMonitor monitor)
+	private void analyzeComponentContent(ITeamRepository teamRepository, IProgressMonitor monitor,
+			IWorkspaceConnection workspace, IComponentHierarchyResult hierarchy)
 			throws TeamRepositoryException, IOException {
+		Collection<IComponentHandle> componentHandles = hierarchy.getFlattenedElementsMap().values();
 		List<IComponent> components = ComponentUtil.resolveComponents(teamRepository,
 				new ArrayList<IComponentHandle>(componentHandles), monitor);
-
-		return packageComponents(teamRepository, outputFolder, connection, components, monitor);
+		for (IComponent component : components) {
+			analyzeComponent(teamRepository, workspace, component, monitor);
+		}
 	}
 
-	/**
-	 * Package the component file and folder structure.
-	 * 
-	 * @param teamRepository
-	 * @param connection
-	 * @param component
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 * @throws IOException
-	 */
-	private boolean packageComponent(ITeamRepository teamRepository, IWorkspaceConnection connection,
-			IComponent component, IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		boolean result = false;
+	private void analyzeComponent(ITeamRepository teamRepository, IWorkspaceConnection connection, IComponent component,
+			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
+		logger.info("\t{}", component.getName());
+		System.out.print("\t");
 		// Start walking the workspace contents
 		IFileContentManager contentManager = FileSystemCore.getContentManager(teamRepository);
-		File base = fOutputFolder;
-
-		FileOutputStream out = new FileOutputStream(new File(base, component.getName().trim() + ".zip"));
+		connectionStat.getComponentStat(component.getItemId()).setComponentName(component.getName());
 		try {
-			ZipOutputStream zos = new ZipOutputStream(out);
-
 			IConfiguration compConfig = connection.configuration(component);
 			// Fetch the items at the root of each component. We do this to initialize our
 			// queue of stuff to download.
@@ -463,18 +340,16 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 					.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
 
 			// Recursion into each folder in the root
-			loadDirectory(contentManager, compConfig, zos, "", items, monitor);
+			analyzeFolder(0, contentManager, compConfig, "", items, monitor);
 
-			zos.close();
-			result = true;
 		} finally {
-			out.close();
 			System.out.println("");
 		}
-		return result;
+
 	}
 
 	/**
+	 * @param depth
 	 * @param contentManager
 	 * @param compConfig
 	 * @param zos
@@ -484,102 +359,57 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	 * @throws IOException
 	 * @throws TeamRepositoryException
 	 */
-	private void loadDirectory(IFileContentManager contentManager, IConfiguration compConfig, ZipOutputStream zos,
-			String path, List<IVersionable> items, IProgressMonitor monitor)
-			throws IOException, TeamRepositoryException {
-
+	private void analyzeFolder(int depth, IFileContentManager contentManager, IConfiguration compConfig, String path,
+			List<IVersionable> items, IProgressMonitor monitor) throws IOException, TeamRepositoryException {
+		depth++;
+		long folders=0;
+		long files=0;
+		ComponentStat compStat = connectionStat.getComponentStat(compConfig.component().getItemId());
 		for (IVersionable v : items) {
 			if (v instanceof IFolder) {
+				folders++;
 				// Write the directory
 				String dirPath = path + v.getName() + "/";
-				zos.putNextEntry(new ZipEntry(dirPath));
-
+				compStat.addFolderStat((IFolder) v, depth, path);
 				@SuppressWarnings("unchecked")
 				Map<String, IVersionableHandle> children = compConfig.childEntries((IFolderHandle) v, monitor);
 				@SuppressWarnings("unchecked")
 				List<IVersionable> completeChildren = compConfig
 						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
-
 				// Recursion into the contained folders
-				loadDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
+				analyzeFolder(depth, contentManager, compConfig, dirPath, completeChildren, monitor);
 
 			} else if (v instanceof IFileItem) {
 				// Get the file contents. Generate contents to save them into the directory
 				IFileItem file = (IFileItem) v;
-				zos.putNextEntry(new ZipEntry(path + v.getName()));
-				generateContent(file, contentManager, zos, monitor);
-				zos.closeEntry();
+				compStat.addFileStat(file, depth);
+				files++;
 			}
-			showProgress();
 		}
+		compStat.addFolderStats(folders,files, depth);
+		showProgress();
 	}
 
-	/**
-	 * This generates the content to be persisted. There are three different options
-	 * available that can be used.
-	 * 
-	 * For all options: the file and folder names are kept.
-	 * 
-	 * Randomize (default): Generates data based on random values. The size of the
-	 * data a generated is the same as the original data. The generated data does
-	 * not keep line ending and file encoding.
-	 * 
-	 * Obfuscate: Generates data based on sample code available. The size of the
-	 * data a generated is similar or the same as the original data. The data is
-	 * generated from example code snippets from a file. The generated data keeps
-	 * line ending and file encoding, where available.
-	 * 
-	 * Preserve: Stores the original file and folder content unchanged.
-	 * 
-	 * @param file
-	 * @param contentManager
-	 * @param zos
-	 * @param monitor
-	 * @throws TeamRepositoryException
-	 * @throws IOException
-	 */
-	private void generateContent(IFileItem file, IFileContentManager contentManager, ZipOutputStream zos,
-			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
-		String encoding = null;
-		IFileContent filecontent = file.getContent();
-		if (filecontent != null) {
-			encoding = filecontent.getCharacterEncoding();
-			lineDelimiter = filecontent.getLineDelimiter();
+	private void analyzeComponentHierarchy(ITeamRepository teamRepository, IComponentHierarchyResult hierarchy,
+			IProgressMonitor monitor) {
+		Map<UUID, Collection<IComponentHandle>> par2Child = hierarchy.getParentToChildrenMap();
+		Collection<IComponentHierarchyNode> roots = hierarchy.getRoots();
+		for (IComponentHierarchyNode node : roots) {
+			analyzeComponent(0, node.getComponentHandle(), par2Child);
 		}
-		logger.trace(" Filename: '{}' encoding: '{}' delimiter: '{}' content type: '{}'", file.getName(), encoding,
-				lineDelimiter.toString(), file.getContentType());
 
-		InputStream in = contentManager.retrieveContentStream(file, filecontent, monitor);
-		switch (fExportMode) {
-		case OBFUSCATE:
-			getFileContentUtil().obfuscateSource(in, zos, lineDelimiter, encoding);
-			break;
-		case PRESERVE:
-			getFileContentUtil().copyInput(in, zos);
-			break;
-		case RANDOMIZE:
-			getFileContentUtil().randomizeBinary(in, zos);
-			break;
-		default:
-			getFileContentUtil().randomizeBinary(in, zos);
-			break;
-		}
 	}
 
-	/**
-	 * Instantiate the FileContentUtil that performs the data conversion.
-	 * 
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 */
-	FileContentUtil getFileContentUtil() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		if (null == fFileUtil) {
-			return new FileContentUtil();
+	private void analyzeComponent(int depth, IComponentHandle componentHandle,
+			Map<UUID, Collection<IComponentHandle>> par2Child) {
+		depth++;
+		ComponentStat comp = connectionStat.getNewComponent(componentHandle.getItemId());
+		comp.setComponentHierarchyDepth(depth);
+		logger.info("\t{} ", componentHandle.getItemId().toString());
+		Collection<IComponentHandle> children = par2Child.get(componentHandle.getItemId());
+		for (IComponentHandle child : children) {
+			analyzeComponent(depth, child, par2Child);
 		}
-		return fFileUtil;
 	}
 
 	/**

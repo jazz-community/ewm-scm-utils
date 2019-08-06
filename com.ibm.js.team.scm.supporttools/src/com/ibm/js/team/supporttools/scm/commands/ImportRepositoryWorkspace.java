@@ -318,7 +318,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
 		int currentComponent = 1;
-		int noOfComponents = compKeys.size();		
+		int noOfComponents = compKeys.size();
 		for (String compName : compKeys) {
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
@@ -403,15 +403,16 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
 		int currentComponent = 1;
 		int noOfComponents = compKeys3.size();
+		// Reuse the class
+		ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 		for (String compName : compKeys3) {
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle handle = targetComponentMap.get(compName);
-			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 			File archiveFile = new File(fInputFolder, stripComponentNamePrefix(compName) + ".zip");
 			if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
 					"Source for Component " + compName, monitor)) {
 				System.out.println();
-				throw new Exception("Exception extracting " + compName);
+				logger.error("Exception extracting component '{}'", compName);
 			}
 			System.out.println();
 		}
@@ -590,7 +591,7 @@ public class ImportRepositoryWorkspace extends AbstractCommand implements IComma
 		Set<String> componentNames = extComponents.keySet();
 		int currentComponent = 1;
 		int noOfComponents = componentNames.size();
-		logger.info("\tAdding Components: '{}'", noOfComponents );
+		logger.info("\tAdding Components: '{}'", noOfComponents);
 		for (String compName : componentNames) {
 			logger.info("\tComponent {} of {} '{}' ", currentComponent++, noOfComponents, compName);
 			IComponentHandle cHandle = (IComponentHandle) extComponents.get(compName);

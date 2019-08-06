@@ -6,7 +6,7 @@ package com.ibm.js.team.supporttools.scm;
  */
 public interface ScmSupportToolsConstants {
 
-	public static final String SCMTOOLS_VERSION = "1.3";
+	public static final String SCMTOOLS_VERSION = "1.5";
 
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
 	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.";
@@ -15,6 +15,10 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_CONVERT_LOADRULE = "convertLoadrule";
 	public static final String CMD_CONVERT_LOADRULE_DESCRIPTION = "\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command "
 			+ CMD_IMPORTWORKSPACE + ".";
+	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
+	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. Thiscreates a flat loadrule from a loadrule that has hierarcy.";
+
+	public static final String CMD_ANYLYZEWORKSPACE = "analyzeScmWorkspace";
 
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
@@ -75,5 +79,7 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
 	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
+
+
 
 }

@@ -216,6 +216,7 @@ public class ArchiveToSCMExtractor {
 			throw e;
 		} finally {
 			contents.close();
+			contents = null;
 		}
 	}
 
@@ -378,7 +379,7 @@ public class ArchiveToSCMExtractor {
 	 * Initialize counter
 	 */
 	private void initializeProgress() {
-		fProgress=0;
+		fProgress = 0;
 		System.out.print("\t.");
 	}
 }
