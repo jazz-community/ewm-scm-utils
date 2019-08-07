@@ -30,12 +30,15 @@ public class ExtensionsStats {
 
 	@Override
 	public String toString() {
-		String message = "Extensions: " + extensions.size();
+		String seperator = " ";
+		String message = "Extensions: " + extensions.size() + " {";
 		Set<String> keys = extensions.keySet();
 		for (String key : keys) {
 			FileTypeStat extension = extensions.get(key);
-			message += " " + extension.toString();
+			message += seperator + extension.toString();
+			seperator = "; ";
 		}
+		message += " }";
 		return message;
 	}
 

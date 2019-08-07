@@ -148,7 +148,7 @@ public class ComponentStat {
 	public String toString() {
 		String message = "";
 		message += componentName + " \n";
-		message += " NoFiles:\t " + noFiles + COLUMN_SEPERATOR;
+//		message += " NoFiles:\t " + noFiles + COLUMN_SEPERATOR;
 		message += " CumulatedFiles:\t " + cumulatedFiles + COLUMN_SEPERATOR;
 		message += " CumulatedFileSize:\t " + cumulatedFileSize + COLUMN_SEPERATOR;
 		message += " MaxFileSize:\t " + maxFileSize+ COLUMN_SEPERATOR;
@@ -156,15 +156,14 @@ public class ComponentStat {
 		message += " averageFileDepth:\t " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles) + COLUMN_SEPERATOR;		
 		message += " MaxFileDepth:\t " + maxFileDepth + COLUMN_SEPERATOR;
 		message += " cumulatedFileDepth:\t " + cumulatedFileDepth + " \n";
-		message += " NoFolders:\t " + noFolders + COLUMN_SEPERATOR;
+//		message += " NoFolders:\t " + noFolders + COLUMN_SEPERATOR;
 		message += " CumulatedFolders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
 		message += " averageFilesPerFolder:\t " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders) + COLUMN_SEPERATOR;		
 		message += " MaxFolderDepth:\t " + maxFolderDepth + COLUMN_SEPERATOR;
 		message += " cumulatedFolderDepth:\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
 		message += " averageFolderDepth:\t " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders) + COLUMN_SEPERATOR;		
 		message += " CompHierarchyDepth:\t " + componentHierarchyDepth + " \n";
-		message += " Extensions: { " + extensions.toString() + "}";
-
+		message += " " + extensions.toString() + "\n";
 		return message;
 	}
 

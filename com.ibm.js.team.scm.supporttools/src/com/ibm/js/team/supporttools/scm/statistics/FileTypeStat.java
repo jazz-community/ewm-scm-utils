@@ -21,7 +21,7 @@ public class FileTypeStat {
 
 	@Override
 	public String toString() {
-		String extension = extensionName + ": delimiters " + lineDelimiters.toString() + " encodings "
+		String extension = "'" + extensionName + "'- used delimiters: " + lineDelimiters.toString() + " used encodings: "
 				+ lineDelimiters.toString();
 		return extension;
 	}

@@ -38,8 +38,10 @@ public class ConnectionStat {
 	}
 
 	public void log() {
+		logger.info("\nComponent characteristics for connection '{}' : ", fConnectionName);
 		Set<String> keys = fComponents.keySet();
-		logger.info("Components: {}", keys.size());
+		int noComponents = keys.size();
+		logger.info("Components: {}", noComponents);
 		long cumulatedHierarchyDepth = 0;
 		long cumulatedFiles = 0;
 		long cumulatedFolders = 0;
@@ -59,8 +61,8 @@ public class ConnectionStat {
 			logger.info(comp.toString());
 			
 		}
+		logger.info("\n\nSummary:\n\nCross Component Characteristics for connection '{}' across all {} components: " , fConnectionName , noComponents);
 
-		logger.info("Workspace {}", fConnectionName);
 //		logger.info("Average Hierarchical Depth {}", CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size()));
 		// Average files/component
 		// average folders/component
