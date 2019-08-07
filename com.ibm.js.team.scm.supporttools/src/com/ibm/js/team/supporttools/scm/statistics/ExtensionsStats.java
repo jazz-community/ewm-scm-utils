@@ -31,7 +31,7 @@ public class ExtensionsStats {
 	@Override
 	public String toString() {
 		String seperator = " ";
-		String message = "Extensions: " + extensions.size() + " {";
+		String message = "File Extensions: " + extensions.size() + " {";
 		Set<String> keys = extensions.keySet();
 		for (String key : keys) {
 			FileTypeStat extension = extensions.get(key);

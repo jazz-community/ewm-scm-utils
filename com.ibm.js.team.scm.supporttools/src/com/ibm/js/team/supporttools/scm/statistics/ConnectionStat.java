@@ -74,16 +74,18 @@ public class ConnectionStat {
 		// Av folder depth
 		String message = "";
 		message += " CumulatedFiles:\t " + cumulatedFiles + COLUMN_SEPERATOR;
+		message += " averageFileSize:\t " + CalcUtil.divideLong(cumulatedFileSize,cumulatedFiles) + COLUMN_SEPERATOR;
 		message += " CumulatedFileSize:\t " + cumulatedFileSize + COLUMN_SEPERATOR;
-		message += " averageFileSize:\t " + CalcUtil.divideLong(cumulatedFileSize,cumulatedFiles)+ COLUMN_SEPERATOR;
-		message += " cumulatedFileDepth:\t " + cumulatedFileDepth+ COLUMN_SEPERATOR;
-		message += " averageFileDepth:\t " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles)+ " \n";		
+		message += " cumulatedFileDepth:\t " + cumulatedFileDepth + COLUMN_SEPERATOR;
+		message += " averageFileDepth:\t " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles) + COLUMN_SEPERATOR;
+		message += "\n";		
 		message += " CumulatedFolders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
+		message += " averageFilesPerFolder:\t " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders) + COLUMN_SEPERATOR;		
+		message += " averageFolderDepth:\t " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders) + COLUMN_SEPERATOR;		
 		message += " cumulatedFolderDepth:\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
-		message += " averageFolderDepth:\t " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders)+ COLUMN_SEPERATOR;		
-		message += " averageFilesPerFolder:\t " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders)+ COLUMN_SEPERATOR;		
-		message += " cumulatedHierarchicalDepth:\t " + cumulatedHierarchyDepth + COLUMN_SEPERATOR;
-		message += " averageHierarchicalDepth:\t " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size())+ " \n";
+		message += " averageHierarchicalDepth:\t " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size()) + COLUMN_SEPERATOR;
+		message += " cumulatedHierarchicalDepth:\t " + cumulatedHierarchyDepth +  COLUMN_SEPERATOR;
+		message += "\n";
 		logger.info(message);
 		
 	}
