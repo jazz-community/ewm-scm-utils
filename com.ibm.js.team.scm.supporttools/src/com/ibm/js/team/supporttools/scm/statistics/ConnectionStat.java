@@ -73,18 +73,18 @@ public class ConnectionStat {
 		// av file depth
 		// Av folder depth
 		String message = "";
-		message += " CumulatedFiles:\t " + cumulatedFiles + COLUMN_SEPERATOR;
-		message += " averageFileSize:\t " + CalcUtil.divideLong(cumulatedFileSize,cumulatedFiles) + COLUMN_SEPERATOR;
-		message += " CumulatedFileSize:\t " + cumulatedFileSize + COLUMN_SEPERATOR;
-		message += " cumulatedFileDepth:\t " + cumulatedFileDepth + COLUMN_SEPERATOR;
-		message += " averageFileDepth:\t " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles) + COLUMN_SEPERATOR;
+		message += " Files:\t " + cumulatedFiles + COLUMN_SEPERATOR;
+		message += " File Size(avg):\t " + CalcUtil.divideLong(cumulatedFileSize,cumulatedFiles) + COLUMN_SEPERATOR;
+		message += " File Size(sum):\t " + cumulatedFileSize + COLUMN_SEPERATOR;
+		message += " File Depth(avg):\t " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles) + COLUMN_SEPERATOR;
+		message += " File Depth(sum):\t " + cumulatedFileDepth + COLUMN_SEPERATOR;
 		message += "\n";		
-		message += " CumulatedFolders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
-		message += " averageFilesPerFolder:\t " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders) + COLUMN_SEPERATOR;		
-		message += " averageFolderDepth:\t " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders) + COLUMN_SEPERATOR;		
-		message += " cumulatedFolderDepth:\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
-		message += " averageHierarchicalDepth:\t " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size()) + COLUMN_SEPERATOR;
-		message += " cumulatedHierarchicalDepth:\t " + cumulatedHierarchyDepth +  COLUMN_SEPERATOR;
+		message += " Folders(sum):\t " + cumulatedFolders + COLUMN_SEPERATOR;
+		message += " Files/Folder:\t " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders) + COLUMN_SEPERATOR;		
+		message += " Folder Depth(avg):\t " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders) + COLUMN_SEPERATOR;		
+		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
+		message += " Hierarchical Depth(avg):\t " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size()) + COLUMN_SEPERATOR;
+		message += " Hierarchical Depth(sum):\t " + cumulatedHierarchyDepth +  COLUMN_SEPERATOR;
 		message += "\n";
 		logger.info(message);
 		
