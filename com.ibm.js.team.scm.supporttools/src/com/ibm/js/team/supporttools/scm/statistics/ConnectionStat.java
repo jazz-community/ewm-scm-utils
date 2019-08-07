@@ -10,10 +10,13 @@ import org.slf4j.LoggerFactory;
 import com.ibm.team.repository.common.UUID;
 
 public class ConnectionStat {
+	public static final String COLUMN_SEPERATOR = " \t";
 	public static final Logger logger = LoggerFactory.getLogger(ConnectionStat.class);
 	HashMap<String, ComponentStat> fComponents = new HashMap<String, ComponentStat>(2000);
+	private String fConnectionName;
 
-	public ConnectionStat() {
+	public ConnectionStat(String connectionName) {
+		fConnectionName=connectionName;
 	}
 
 	public ComponentStat getNewComponent(UUID uuid) {
@@ -56,6 +59,8 @@ public class ConnectionStat {
 			logger.info(comp.toString());
 			
 		}
+
+		logger.info("Workspace {}", fConnectionName);
 //		logger.info("Average Hierarchical Depth {}", CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size()));
 		// Average files/component
 		// average folders/component
@@ -66,17 +71,17 @@ public class ConnectionStat {
 		// av file depth
 		// Av folder depth
 		String message = "";
-		message += " CumulatedFolders: " + cumulatedFolders+ " \n";
-		message += " CumulatedFiles: " + cumulatedFiles+ " \n";
-		message += " CumulatedFileSize: " + cumulatedFileSize+ " \n";
-		message += " cumulatedFolderDepth: " + cumulatedFolderDepth+ " \n";
-		message += " cumulatedFileDepth: " + cumulatedFileDepth+ " \n";
-		message += " averageFolderDepth: " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders)+ " \n";		
-		message += " averageFileDepth: " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles)+ " \n";		
-		message += " averageFilePerFolder: " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders)+ " \n";		
-		message += " averageFileSize: " + CalcUtil.divideLong(cumulatedFileSize,cumulatedFiles)+ " \n";
-		message += " cumulatedHierarchicalDepth: " + cumulatedHierarchyDepth+ " \n";
-		message += " averageHierarchicalDepth: " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size())+ " \n";
+		message += " CumulatedFiles:\t " + cumulatedFiles + COLUMN_SEPERATOR;
+		message += " CumulatedFileSize:\t " + cumulatedFileSize + COLUMN_SEPERATOR;
+		message += " averageFileSize:\t " + CalcUtil.divideLong(cumulatedFileSize,cumulatedFiles)+ COLUMN_SEPERATOR;
+		message += " cumulatedFileDepth:\t " + cumulatedFileDepth+ COLUMN_SEPERATOR;
+		message += " averageFileDepth:\t " + CalcUtil.divideFloat(cumulatedFileDepth,cumulatedFiles)+ " \n";		
+		message += " CumulatedFolders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
+		message += " cumulatedFolderDepth:\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
+		message += " averageFolderDepth:\t " + CalcUtil.divideFloat(cumulatedFolderDepth,cumulatedFolders)+ COLUMN_SEPERATOR;		
+		message += " averageFilesPerFolder:\t " + CalcUtil.divideFloat(cumulatedFiles,cumulatedFolders)+ COLUMN_SEPERATOR;		
+		message += " cumulatedHierarchicalDepth:\t " + cumulatedHierarchyDepth + COLUMN_SEPERATOR;
+		message += " averageHierarchicalDepth:\t " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size())+ " \n";
 		logger.info(message);
 		
 	}

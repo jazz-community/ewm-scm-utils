@@ -114,7 +114,7 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_CONVERT_LOADRULE_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_FLATTEN_LOADRULE_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), 

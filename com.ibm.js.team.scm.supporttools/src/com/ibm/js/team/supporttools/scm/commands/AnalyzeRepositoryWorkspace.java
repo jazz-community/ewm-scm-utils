@@ -58,28 +58,16 @@ import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
- * Allows to export a repository workspace, all its components and the current
- * SCM data into a persistent format. The persistent format can later be used to
- * import and recreate a repository workspace and the component and the latest
- * content.
+ * Allows to analyze a repository workspace, all its components and the current
+ * SCM data.
  * 
  */
 public class AnalyzeRepositoryWorkspace extends AbstractCommand implements ICommand {
 
-	/**
-	 * The supported modes to export the data
-	 *
-	 */
-	enum ExportMode {
-	RANDOMIZE, OBFUSCATE, PRESERVE
-	}
-
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeRepositoryWorkspace.class);
-	public ExportMode fExportMode = ExportMode.RANDOMIZE;
-	@SuppressWarnings("unused")
-	private File fOutputFolder = null;
+//	private File fOutputFolder = null;
 	private int fProgress = 0;
-	private ConnectionStat connectionStat = new ConnectionStat();
+	private ConnectionStat connectionStat = null;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -102,10 +90,10 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE, true,
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
+//		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
+//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
+//		options.addOption(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE, true,
+//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
 		return options;
 	}
 
@@ -122,7 +110,8 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER))) {
+				//&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)
+				)) {
 			isValid = false;
 		}
 		return isValid;
@@ -145,8 +134,10 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE 
+//				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE
+				);
 		// Parameter and description
 		logger.info(
 				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
@@ -158,16 +149,17 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION
+//				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION
+				);
 		// Optional parameters
-		logger.info("\n\tOptional parameter syntax: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
+//		logger.info("\n\tOptional parameter syntax: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
 		// Optional parameters description
-		logger.info("\n\tOptional parameter description: \n\t -{} \t {}",
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
+//		logger.info("\n\tOptional parameter description: \n\t -{} \t {}",
+//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -176,8 +168,10 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE 
+//				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
+				);
 		// Optional parameter examples
 		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
 				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
@@ -196,8 +190,8 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
 		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
+//		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+//		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
 
 		TeamPlatform.startup();
 		try {
@@ -217,20 +211,20 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				}
 			});
 			teamRepository.login(monitor);
-			File outputfolder = new File(outputFolderPath);
-			if (!outputfolder.exists()) {
-				FileUtil.createFolderWithParents(outputfolder);
-				if (!outputfolder.exists()) {
-					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
-					return result;
-				}
-			}
-			if (!outputfolder.isDirectory()) {
-				logger.error("Error: '{}' is not a directory.", outputFolderPath);
-				return result;
-			}
-			fOutputFolder = outputfolder;
-			setExportMode(exportMode);
+//			File outputfolder = new File(outputFolderPath);
+//			if (!outputfolder.exists()) {
+//				FileUtil.createFolderWithParents(outputfolder);
+//				if (!outputfolder.exists()) {
+//					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
+//					return result;
+//				}
+//			}
+//			if (!outputfolder.isDirectory()) {
+//				logger.error("Error: '{}' is not a directory.", outputFolderPath);
+//				return result;
+//			}
+//			fOutputFolder = outputfolder;
+//			setExportMode(exportMode);
 			result = analyzeWorkspace(teamRepository, scmWorkspace, monitor);
 		} catch (TeamRepositoryException e) {
 			logger.error("TeamRepositoryException: {}", e.getMessage());
@@ -243,30 +237,6 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 		}
 
 		return result;
-	}
-
-	/**
-	 * Managing the export mode based on a parameter.
-	 * 
-	 * @param exportMode
-	 */
-	private void setExportMode(String exportMode) {
-		if (exportMode == null) {
-			return;
-		}
-		if (ScmSupportToolsConstants.EXPORT_MODE_RANDOMIZE.equals(exportMode)) {
-			fExportMode = ExportMode.RANDOMIZE;
-			return;
-		}
-		if (ScmSupportToolsConstants.EXPORT_MODE_PRESERVE.equals(exportMode)) {
-			fExportMode = ExportMode.PRESERVE;
-			return;
-		}
-		if (ScmSupportToolsConstants.EXPORT_MODE_OBFUSCATE.equals(exportMode)) {
-			fExportMode = ExportMode.OBFUSCATE;
-			return;
-		}
-
 	}
 
 	/**
@@ -285,7 +255,7 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 	private boolean analyzeWorkspace(ITeamRepository teamRepository, String scmConnection, IProgressMonitor monitor)
 			throws TeamRepositoryException, IOException {
 		boolean result = false;
-
+		connectionStat = new ConnectionStat(scmConnection);
 		logger.info("Find and open WorkspaceConnection '{}'...", scmConnection);
 		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.WORKSPACES, monitor);
