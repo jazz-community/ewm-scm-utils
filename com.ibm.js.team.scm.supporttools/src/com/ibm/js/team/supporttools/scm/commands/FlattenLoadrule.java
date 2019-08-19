@@ -15,20 +15,8 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -59,8 +47,6 @@ import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
-import com.ibm.team.repository.common.json.JSONArray;
-import com.ibm.team.repository.common.json.JSONObject;
 
 /**
  */
@@ -99,8 +85,8 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 		// Check for required options
 		boolean isValid = true;
 
-		if (!(//cmd.hasOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER)
-				cmd.hasOption(ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH)
+		if (!(// cmd.hasOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER)
+		cmd.hasOption(ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH))) {
 			isValid = false;
 		}
@@ -116,8 +102,8 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 		logger.info("{}", getCommandName());
 		logger.info(ScmSupportToolsConstants.CMD_FLATTEN_LOADRULE_DESCRIPTION);
 		// General syntax
-		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), 
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				getCommandName(),
 //				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 //				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
@@ -125,7 +111,7 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_PROTOTYPE);
 		// Parameter and description
-		logger.info("\n\tParameter Description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {}",
+		logger.info("\n\tParameter Description: \n\t -{} \t{} \n\t -{} \t{} \n",
 //				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 //				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION
 //						+ ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_CONVERT_DESCRIPTION,
@@ -136,7 +122,7 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 		// Optional parameters
 		// Optional parameters description
 		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\n\tExample: -{} {} -{} {} -{}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 //				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 //				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
@@ -157,35 +143,29 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 		boolean result = false;
 		// Execute the code
 		// Get all the option values
-//		String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
 		String sourceLoadrulePath = getCmd()
 				.getOptionValue(ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH);
 		String targetLoadrulePath = getCmd()
 				.getOptionValue(ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH);
-		
-//		String inputFile = "./beans.xml";
-//		String outputFile = "./beans_new.xml";
 
 		try {
 			// 1- Build the doc from the XML file
-			Document doc = DocumentBuilderFactory.newInstance()
-			            .newDocumentBuilder().parse(new InputSource(sourceLoadrulePath));
+			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+					.parse(new InputSource(sourceLoadrulePath));
 
 			// 2- Locate the node(s) with xpath
 			XPath xpath = XPathFactory.newInstance().newXPath();
-			NodeList nodes = (NodeList)xpath.evaluate("//sandboxRelativePath[@pathPrefix]",
-                    doc, XPathConstants.NODESET);
-//			NodeList nodes = (NodeList)xpath.evaluate("//*[contains(@value, '!Here')]",
-//			                                          doc, XPathConstants.NODESET);
+			NodeList nodes = (NodeList) xpath.evaluate("//sandboxRelativePath[@pathPrefix]", doc,
+					XPathConstants.NODESET);
 
 			// 3- Make the change on the selected nodes
 			for (int idx = 0; idx < nodes.getLength(); idx++) {
-			    Node value = nodes.item(idx).getAttributes().getNamedItem("pathPrefix");
-			    String val = value.getNodeValue();
-			    String result1 = val.replaceFirst("/", "#");			    
-			    String result2 = result1.replaceAll("/", "_");			    
-			    String result3 = result2.replaceFirst("#", "/");			    
-			    value.setNodeValue(result3);
+				Node value = nodes.item(idx).getAttributes().getNamedItem("pathPrefix");
+				String val = value.getNodeValue();
+				String result1 = val.replaceFirst("/", "#");
+				String result2 = result1.replaceAll("/", "_");
+				String result3 = result2.replaceFirst("#", "/");
+				value.setNodeValue(result3);
 			}
 
 			// 4- Save the result to a new XML doc
@@ -216,38 +196,7 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
 
-//		try {
-//			HashMap<String, String> source2TargetUUIDMap = new HashMap<String, String>(3000);
-//			File jsonInputFile = new File(inputFolderPath, ScmSupportToolsConstants.COMPONENT_MAPPING_JSON_FILE);
-//			Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonInputFile), "UTF-8")); //$NON-NLS-1$
-//			logger.info("Reading component UUID mapping from file '{}'...", jsonInputFile.getAbsolutePath());
-//			JSONArray maps = JSONArray.parse(reader);
-//			for (Object map : maps) {
-//				if (map instanceof JSONObject) {
-//					String componentName = null;
-//					JSONObject jsonMap = (JSONObject) map;
-//					String sourceName = (String) jsonMap.get(ScmSupportToolsConstants.JSON_COMPONENT_NAME);
-//					String sourceUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_SOURCE_COMPONENT_UUID);
-//					String targetUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_TARGET_COMPONENT_UUID);
-//					source2TargetUUIDMap.put(sourceUUID, targetUUID);
-//				}
-//			}
-//			Path sourcePath = Paths.get(sourceLoadrulePath);
-//			Path targetPath = Paths.get(targetLoadrulePath);
-//			Charset charset = StandardCharsets.UTF_8;
-//			String content;
-//			content = new String(Files.readAllBytes(sourcePath), charset);
-//			Set<Entry<String, String>> uuidMapping = source2TargetUUIDMap.entrySet();
-//			for (Entry<String, String> entry : uuidMapping) {
-//				content = content.replaceAll(entry.getKey(), entry.getValue());
-//			}
-//			Files.write(targetPath, content.getBytes(charset));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		return true;
 	}
 }

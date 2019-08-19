@@ -80,6 +80,4 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
 	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
 
-
-
 }

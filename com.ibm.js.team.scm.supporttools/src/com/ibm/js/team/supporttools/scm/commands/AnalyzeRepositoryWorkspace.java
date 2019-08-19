@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
-import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
 import com.ibm.js.team.supporttools.scm.statistics.ConnectionStat;
@@ -110,8 +108,8 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
 				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
-				//&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)
-				)) {
+		// && cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)
+		)) {
 			isValid = false;
 		}
 		return isValid;
@@ -134,13 +132,13 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE 
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE
 //				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 //				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE
-				);
+		);
 		// Parameter and description
 		logger.info(
-				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
+				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
@@ -152,7 +150,7 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION
 //				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 //				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION
-				);
+		);
 		// Optional parameters
 //		logger.info("\n\tOptional parameter syntax: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
 //				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
@@ -168,10 +166,10 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE 
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE
 //				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 //				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
-				);
+		);
 		// Optional parameter examples
 		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
 				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
@@ -332,8 +330,8 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 	private void analyzeFolder(int depth, IFileContentManager contentManager, IConfiguration compConfig, String path,
 			List<IVersionable> items, IProgressMonitor monitor) throws IOException, TeamRepositoryException {
 		depth++;
-		long folders=0;
-		long files=0;
+		long folders = 0;
+		long files = 0;
 		ComponentStat compStat = connectionStat.getComponentStat(compConfig.component().getItemId());
 		for (IVersionable v : items) {
 			if (v instanceof IFolder) {
@@ -356,7 +354,7 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 				files++;
 			}
 		}
-		compStat.addFolderStats(folders,files, depth);
+		compStat.addFolderStats(folders, files, depth);
 		showProgress();
 	}
 
