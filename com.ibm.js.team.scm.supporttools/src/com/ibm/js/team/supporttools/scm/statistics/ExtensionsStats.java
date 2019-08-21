@@ -20,6 +20,9 @@ public class ExtensionsStats {
 	}
 
 	private void logExtension(String ext, FileLineDelimiter lineDelimiter, String encoding) {
+		if(ext==null) {
+			return;
+		}
 		FileTypeStat extension = extensions.get(ext);
 		if (extension == null) {
 			extension = new FileTypeStat(ext);

@@ -60,9 +60,9 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * SCM data.
  * 
  */
-public class AnalyzeRepositoryWorkspace extends AbstractCommand implements ICommand {
+public class AnalyzeWorkspaceConnection extends AbstractCommand implements ICommand {
 
-	public static final Logger logger = LoggerFactory.getLogger(AnalyzeRepositoryWorkspace.class);
+	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspaceConnection.class);
 //	private File fOutputFolder = null;
 	private int fProgress = 0;
 	private ConnectionStat connectionStat = null;
@@ -71,8 +71,8 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 	 * Constructor, set the command name which will be used as option value for the
 	 * command option. The name is used in the UIs and the option parser.
 	 */
-	public AnalyzeRepositoryWorkspace() {
-		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACE);
+	public AnalyzeWorkspaceConnection() {
+		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACECONNECTION);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -171,8 +171,8 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 //				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
 		);
 		// Optional parameter examples
-		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
+//		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
+//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}
 
 	/**
@@ -189,7 +189,6 @@ public class AnalyzeRepositoryWorkspace extends AbstractCommand implements IComm
 		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 //		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-//		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
 
 		TeamPlatform.startup();
 		try {

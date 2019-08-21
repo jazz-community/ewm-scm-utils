@@ -16,7 +16,8 @@
 package com.ibm.js.team.supporttools.scm;
 
 import com.ibm.js.team.supporttools.framework.commands.AbstractCommandFactory;
-import com.ibm.js.team.supporttools.scm.commands.AnalyzeRepositoryWorkspace;
+import com.ibm.js.team.supporttools.scm.commands.AnalyzeSandbox;
+import com.ibm.js.team.supporttools.scm.commands.AnalyzeWorkspaceConnection;
 import com.ibm.js.team.supporttools.scm.commands.ConvertLoadrule;
 import com.ibm.js.team.supporttools.scm.commands.ExportRepositoryWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.FlattenLoadrule;
@@ -31,10 +32,11 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 
 	@Override
 	public void setAvailableCommands() {
+		put(new AnalyzeWorkspaceConnection());
+		put(new AnalyzeSandbox());
 		put(new ExportRepositoryWorkspace());
 		put(new ImportRepositoryWorkspace());
 		put(new ConvertLoadrule());
-		put(new AnalyzeRepositoryWorkspace());
 		put(new FlattenLoadrule());
 		// Enable sample command
 		// put(new SampleCommandCmd());

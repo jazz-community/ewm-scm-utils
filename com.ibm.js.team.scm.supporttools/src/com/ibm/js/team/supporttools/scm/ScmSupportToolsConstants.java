@@ -6,7 +6,7 @@ package com.ibm.js.team.supporttools.scm;
  */
 public interface ScmSupportToolsConstants {
 
-	public static final String SCMTOOLS_VERSION = "1.5";
+	public static final String SCMTOOLS_VERSION = "1.6";
 
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
 	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.";
@@ -16,9 +16,13 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_CONVERT_LOADRULE_DESCRIPTION = "\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command "
 			+ CMD_IMPORTWORKSPACE + ".";
 	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
-	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. Thiscreates a flat loadrule from a loadrule that has hierarcy.";
+	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. Thiscreates a flat loadrule from a loadrule that has hierarcy.";
 
-	public static final String CMD_ANYLYZEWORKSPACE = "analyzeScmWorkspace";
+	public static final String CMD_ANYLYZEWORKSPACECONNECTION = "analyzeScmWorkspace";
+	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+
+	public static final String CMD_ANYLYZESANDBOX = "analyzeSandbox";
+	public static final String CMD_ANALYZESANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";;
 
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
@@ -28,6 +32,12 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_OUTPUTFOLDER_PROTOTYPE = "<outputFolderPath>";
 	public static final String PARAMETER_OUTPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
 	public static final String PARAMETER_OUTPUTFOLDER_DESCRIPTION = "The folder where the resulting data is written.";
+	
+	
+	public static final String PARAMETER_SANDBOXFOLDER = "sandboxFolder";
+	public static final Object PARAMETER_SANDBOXFOLDER_PROTOTYPE = "<sandboxFolderPath>";
+	public static final Object PARAMETER_SANDBOXFOLDER_EXAMPLE = "\"C:\\Temp\\sandbox\\sandboxFolder\"";
+	public static final String PARAMETER_SANDBOXFOLDER_DESCRIPTION = "The folder to be analyzed.";
 
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER = "componentNameModifier";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE = "<modifier>";

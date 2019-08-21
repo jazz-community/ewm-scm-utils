@@ -1,5 +1,7 @@
 package com.ibm.js.team.supporttools.scm.statistics;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,7 +114,7 @@ public class ComponentStat {
 		}
 	}
 
-	public ComponentStat addFileStat(IFileItem file, int depth) {
+	public void addFileStat(IFileItem file, int depth) {
 		long rawlength = file.getContent().getRawLength();
 		long size = file.getContent().getSize();
 		long estLength = file.getContent().getEstimatedConvertedLength();
@@ -125,7 +127,12 @@ public class ComponentStat {
 		}
 		String name = file.getName();
 		addFileStat(name, size, rawlength, estLength, depth, lineDelimiter, encoding);
-		return null;
+	}
+
+	public void addFileStat(File file, int depth) {
+		long size = file.length();
+		String name = file.getName();
+		addFileStat(name, size, size, size, depth, null, null);	
 	}
 
 	public void addFileStat(String name, long size, long rawlength, long estLength, int depth,
@@ -139,6 +146,14 @@ public class ComponentStat {
 	}
 
 	public void addFolderStat(IFolder v, int depth, String path) {
+		addFolderStat(depth);
+	}
+
+	public void addFolderStat(File file, int depth) {
+		addFolderStat(depth);
+	}
+
+	private void addFolderStat(int depth) {
 		noFolders++;
 		calcFolderDepth(depth);
 	}
@@ -179,4 +194,5 @@ public class ComponentStat {
 		cumulatedFileDepth += files * depth;
 		cumulatedFolderDepth += folders * depth;
 	}
+
 }
