@@ -8,14 +8,40 @@ SCMTools Version: 1.6
 
 ## Available commands 
 
-### analyzeScmWorkspace
 ### analyzeSandbox
+### analyzeScmWorkspace
 ### exportScmWorkspace
 ### importScmWorkspace
 ### convertLoadrule
 ### flattenLoadrule
 
 # Command Description
+## analyzeSandbox
+```bash
+-command analyzeSandbox
+   -url "https://<server>:port/<context>/" 
+   -user <userId> 
+   -password <password> 
+   -workspaceConnection <workspaceNameOrId> 
+```
+### Description
+Analyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
+###	Syntax
+```bash
+  -command analyzeSandbox -sandboxFolder <sandboxFolderPath>
+```
+
+###	Parameter description
+```bash 
+	 -command 	 The command to execute. 
+	 -sandboxFolder  The path of the sandbox folder
+```
+
+###	Example
+```bash
+	-command analyzeSandbox -sandboxFolder="C:\CLM2019\6.0.6.1\workspaces\Sandboxes\Sandbox2"
+```
 ## analyzeScmWorkspace
 ```bash
 -command exportScmWorkspace
@@ -26,7 +52,6 @@ SCMTools Version: 1.6
 ```
 ### Description
 Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
-
 
 ###	Syntax
 ```bash
@@ -45,33 +70,6 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 ###	Example
 ```bash
 	-command analyzeScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace"
-```
-## analyzeSandbox
-```bash
--command analyzeSandbox
-   -url "https://<server>:port/<context>/" 
-   -user <userId> 
-   -password <password> 
-   -workspaceConnection <workspaceNameOrId> 
-```
-### Description
-Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
-
-
-###	Syntax
-```bash
-  -command analyzeSandbox -sandboxFolder <sandboxFolderPath>
-```
-
-###	Parameter description
-```bash 
-	 -command 	 The command to execute. 
-	 -sandboxFolder  The path of the sandbox folder
-```
-
-###	Example
-```bash
-	-command analyzeSandbox -sandboxFolder="C:\CLM2019\6.0.6.1\workspaces\Sandboxes\Sandbox2"
 ```
 ## exportScmWorkspace
 ```bash
