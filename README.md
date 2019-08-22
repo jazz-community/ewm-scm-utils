@@ -1,18 +1,78 @@
 # jazz-scm-content-obfuscator
-Tool to allow to download and obfuscate RTC Jazz Source Control content to allow shipping obfuscated content to reproduce issues.
+Supports special SCM operation to export and obfuscate SCM content, import obfuscated content and analyse SCM Workspaces and sandboxes.
 
-SCMTools Version: 1.3
+SCMTools Version: 1.6
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
 
 ## Available commands 
 
+### analyzeScmWorkspace
+### analyzeSandbox
 ### exportScmWorkspace
 ### importScmWorkspace
 ### convertLoadrule
+### flattenLoadrule
 
 # Command Description
+## analyzeScmWorkspace
+```bash
+-command exportScmWorkspace
+   -url "https://<server>:port/<context>/" 
+   -user <userId> 
+   -password <password> 
+   -workspaceConnection <workspaceNameOrId> 
+```
+### Description
+Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
+
+###	Syntax
+```bash
+  -command analyzeScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
+```
+
+###	Parameter description
+```bash 
+	 -command 	 The command to execute. 
+	 -url 	The Public URI of the application. 
+	 -user 	 The user ID of a user. 
+	 -password 	 The password of the user. 
+	 -workspaceConnection 	 The repository workspace to export 
+```
+
+###	Example
+```bash
+	-command analyzeScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace"
+```
+## analyzeSandbox
+```bash
+-command analyzeSandbox
+   -url "https://<server>:port/<context>/" 
+   -user <userId> 
+   -password <password> 
+   -workspaceConnection <workspaceNameOrId> 
+```
+### Description
+Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
+
+###	Syntax
+```bash
+  -command analyzeSandbox -sandboxFolder <sandboxFolderPath>
+```
+
+###	Parameter description
+```bash 
+	 -command 	 The command to execute. 
+	 -sandboxFolder  The path of the sandbox folder
+```
+
+###	Example
+```bash
+	-command analyzeSandbox -sandboxFolder="C:\CLM2019\6.0.6.1\workspaces\Sandboxes\Sandbox2"
+```
 ## exportScmWorkspace
 ```bash
 -command exportScmWorkspace
@@ -139,4 +199,31 @@ Convertes the component ID's in an existing Load Rule File based on the mapping 
 ### Example
 ```bash
  -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+```
+## flattenLoadrule
+```bash
+ -command flattenLoadrule 
+   -sourceLoadruleFile <sourceLoadRule> 
+   -targetLoadruleFile <targetLoadRule> 
+```
+
+### Description
+Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.
+
+### Syntax
+
+```bash
+ -command flattenLoadrule -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule> 
+```
+
+###	Parameter Description
+```bash 
+	 -sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
+	 -targetLoadruleFile 	Full path and filename of the resulting loadrule of the conversion. 
+
+```
+
+### Example
+```bash
+ -command sourceLoadruleFile -"C:\Temp\example.loadrule" targetLoadruleFile -"C:\Temp\converted.loadrule"
 ```
