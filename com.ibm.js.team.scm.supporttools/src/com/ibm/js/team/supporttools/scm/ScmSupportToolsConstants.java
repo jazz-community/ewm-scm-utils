@@ -10,11 +10,14 @@ public interface ScmSupportToolsConstants {
 
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
 	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.";
+
 	public static final String CMD_IMPORTWORKSPACE = "importScmWorkspace";
 	public static final String CMD_IMPORTWORKSPACE_DESCRIPTION = "\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. ";
+
 	public static final String CMD_CONVERT_LOADRULE = "convertLoadrule";
 	public static final String CMD_CONVERT_LOADRULE_DESCRIPTION = "\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command "
 			+ CMD_IMPORTWORKSPACE + ".";
+	
 	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
 	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. Thiscreates a flat loadrule from a loadrule that has hierarcy.";
 
@@ -28,6 +31,7 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
 	public static final String PARAMETER_WORKSPACE_EXAMPLE = "\"Debs JKE Banking Integration Stream Workspace\"";
 	public static final String PARAMETER_WORKSPACE_DESCRIPTION = "The repository workspace to export";
+	
 	public static final String PARAMETER_OUTPUTFOLDER = "outputFolder";
 	public static final String PARAMETER_OUTPUTFOLDER_PROTOTYPE = "<outputFolderPath>";
 	public static final String PARAMETER_OUTPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
@@ -43,8 +47,8 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE = "<modifier>";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE = "\"TestImport_\"";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION = "A prefix to be added to component names to force creation of new components and support component name uniqueness.";
+	
 	public static final String PARAMETER_INPUTFOLDER = "inputFolder";
-
 	public static final String PARAMETER_INPUTFOLDER_PROTOTYPE = "<inputFolderPath>";
 	public static final String PARAMETER_INPUTFOLDER_DESCRIPTION = "The folder where the input information is expected to be. This is the folder and content created in the command "
 			+ CMD_EXPORTWORKSPACE + ".";
