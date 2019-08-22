@@ -67,8 +67,6 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 	 */
 	@Override
 	public Options addCommandOptions(Options options) {
-//		options.addOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER, true,
-//				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH, true,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH, true,
@@ -103,28 +101,18 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 		logger.info(ScmSupportToolsConstants.CMD_FLATTEN_LOADRULE_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(),
-//				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-//				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
+				getCommandName(), ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_PROTOTYPE);
 		// Parameter and description
 		logger.info("\n\tParameter Description: \n\t -{} \t{} \n\t -{} \t{} \n",
-//				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-//				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION
-//						+ ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_CONVERT_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_DESCRIPTION);
-		// Optional parameters
-		// Optional parameters description
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-//				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-//				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
@@ -171,32 +159,25 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 			// 4- Save the result to a new XML doc
 			Transformer xformer = TransformerFactory.newInstance().newTransformer();
 			xformer.transform(new DOMSource(doc), new StreamResult(new File(targetLoadrulePath)));
-		} catch (XPathExpressionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (DOMException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (TransformerConfigurationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SAXException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ParserConfigurationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (TransformerFactoryConfigurationError e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (TransformerException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			result = true;
+		} catch (XPathExpressionException e) {
+			logger.error("XPathExpressionException: {}", e.getMessage());
+		} catch (DOMException e) {
+			logger.error("DOMException: {}", e.getMessage());
+		} catch (TransformerConfigurationException e) {
+			logger.error("IOException: {}", e.getMessage());
+		} catch (SAXException e) {
+			logger.error("SAXException: {}", e.getMessage());
+		} catch (IOException e) {
+			logger.error("IOException: {}", e.getMessage());
+		} catch (ParserConfigurationException e) {
+			logger.error("ParserConfigurationException: {}", e.getMessage());
+		} catch (TransformerFactoryConfigurationError e) {
+			logger.error("TransformerFactoryConfigurationError: {}", e.getMessage());
+		} catch (TransformerException e) {
+			logger.error("TransformerException: {}", e.getMessage());
 		}
 
-		return true;
+		return result;
 	}
 }

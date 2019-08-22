@@ -89,10 +89,12 @@ public class ArchiveToSCMExtractor {
 	 * @param changeSetComment
 	 * @param monitor
 	 * @return
+	 * @throws TeamRepositoryException
 	 * @throws Exception
 	 */
 	public boolean extractFileToComponent(String archiveFileName, IWorkspaceConnection targetWorkspace,
-			IComponentHandle component, String changeSetComment, IProgressMonitor monitor) throws Exception {
+			IComponentHandle component, String changeSetComment, IProgressMonitor monitor)
+			throws TeamRepositoryException {
 
 		File archiveFile = new File(archiveFileName);
 		fMonitor = monitor;

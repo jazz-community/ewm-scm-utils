@@ -20,7 +20,7 @@ public class ExtensionsStats {
 	}
 
 	private void logExtension(String ext, FileLineDelimiter lineDelimiter, String encoding) {
-		if(ext==null) {
+		if (ext == null) {
 			return;
 		}
 		FileTypeStat extension = extensions.get(ext);

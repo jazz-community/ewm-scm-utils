@@ -68,6 +68,7 @@ public abstract class AbstractCommand implements ICommand {
 			CommandLineParser cliParser = new GnuParser();
 			this.cmd = cliParser.parse(options, args);
 			if (!checkParameters(cmd)) {
+				logger.error("Missing required parameters.");
 				printSyntax();
 				return false;
 			}

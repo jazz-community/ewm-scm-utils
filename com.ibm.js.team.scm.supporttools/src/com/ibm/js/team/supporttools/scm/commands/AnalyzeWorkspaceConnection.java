@@ -24,12 +24,11 @@ import java.util.Map;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
-import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
+import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
@@ -39,7 +38,6 @@ import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
 import com.ibm.team.filesystem.common.IFileItem;
 import com.ibm.team.repository.client.ITeamRepository;
-import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.repository.common.UUID;
 import com.ibm.team.scm.client.IConfiguration;
@@ -60,10 +58,9 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * SCM data.
  * 
  */
-public class AnalyzeWorkspaceConnection extends AbstractCommand implements ICommand {
+public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand implements ICommand {
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspaceConnection.class);
-//	private File fOutputFolder = null;
 	private int fProgress = 0;
 	private ConnectionStat connectionStat = null;
 
@@ -75,41 +72,31 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACECONNECTION);
 	}
 
+	@Override
+	public String getScenarioName() {
+		return ScmSupportToolsConstants.EXPENSIVESCENARIO_SCMTOOLS + getCommandName();
+	}
+
 	/**
-	 * Method to add the options this command requires.
+	 * Method to add the additional options this command requires.
 	 */
 	@Override
-	public Options addCommandOptions(Options options) {
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_URL, true,
-				SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_USER, true,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD, true,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION);
+	public Options addTeamRepositoryCommandOptions(Options options) {
 		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-//		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
-//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
-//		options.addOption(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE, true,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
 		return options;
 	}
 
 	/**
-	 * Method to check if the required options/parameters required to perform the
-	 * command are available.
+	 * Method to check if the additional required options/parameters required to
+	 * perform the command are available.
 	 */
 	@Override
-	public boolean checkParameters(CommandLine cmd) {
+	public boolean checkTeamreposiroyCommandParameters(CommandLine cmd) {
 		// Check for required options
 		boolean isValid = true;
 
-		if (!(cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_URL)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
-		// && cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)
-		)) {
+		if (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID))) {
 			isValid = false;
 		}
 		return isValid;
@@ -124,16 +111,14 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		logger.info("{}", getCommandName());
 		logger.info(ScmSupportToolsConstants.CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION);
 		// General syntax
-		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} ",
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
-				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER,
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
+				SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE, SupportToolsFrameworkConstants.PARAMETER_USER,
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE
-		);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE);
 		// Parameter and description
 		logger.info(
 				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
@@ -145,78 +130,32 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION
-		);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
 		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}",
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
-				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
+				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
+				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE
-		);
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE);
 	}
 
 	/**
 	 * The main method that executes the behavior of this command.
+	 * 
+	 * @throws TeamRepositoryException
 	 */
 	@Override
-	public boolean execute() {
-		logger.info("Executing Command {}", this.getCommandName());
+	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
-		// Execute the code
-		// Get all the option values
-		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-//		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-
-		TeamPlatform.startup();
 		try {
-			IProgressMonitor monitor = new NullProgressMonitor();
-			ITeamRepository teamRepository = TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
-			teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
-				public ILoginInfo challenge(ITeamRepository repository) {
-					return new ILoginInfo() {
-						public String getUserId() {
-							return userId;
-						}
-
-						public String getPassword() {
-							return userPassword;
-						}
-					};
-				}
-			});
-			teamRepository.login(monitor);
-//			File outputfolder = new File(outputFolderPath);
-//			if (!outputfolder.exists()) {
-//				FileUtil.createFolderWithParents(outputfolder);
-//				if (!outputfolder.exists()) {
-//					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
-//					return result;
-//				}
-//			}
-//			if (!outputfolder.isDirectory()) {
-//				logger.error("Error: '{}' is not a directory.", outputFolderPath);
-//				return result;
-//			}
-//			fOutputFolder = outputfolder;
-//			setExportMode(exportMode);
-			result = analyzeWorkspace(teamRepository, scmWorkspace, monitor);
-		} catch (TeamRepositoryException e) {
-			logger.error("TeamRepositoryException: {}", e.getMessage());
-			// e.printStackTrace();
+			return analyzeWorkspace(getTeamRepository(), scmWorkspace, getMonitor());
 		} catch (IOException e) {
 			logger.error("IOException: {}", e.getMessage());
-			// e.printStackTrace();
-		} finally {
-			TeamPlatform.shutdown();
 		}
-
 		return result;
 	}
 
@@ -262,6 +201,14 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		return true;
 	}
 
+	/**
+	 * @param teamRepository
+	 * @param monitor
+	 * @param workspace
+	 * @param hierarchy
+	 * @throws TeamRepositoryException
+	 * @throws IOException
+	 */
 	private void analyzeComponentContent(ITeamRepository teamRepository, IProgressMonitor monitor,
 			IWorkspaceConnection workspace, IComponentHierarchyResult hierarchy)
 			throws TeamRepositoryException, IOException {
@@ -273,6 +220,14 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		}
 	}
 
+	/**
+	 * @param teamRepository
+	 * @param connection
+	 * @param component
+	 * @param monitor
+	 * @throws TeamRepositoryException
+	 * @throws IOException
+	 */
 	private void analyzeComponent(ITeamRepository teamRepository, IWorkspaceConnection connection, IComponent component,
 			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
 		logger.info("\t{}", component.getName());
@@ -296,7 +251,6 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		} finally {
 			System.out.println("");
 		}
-
 	}
 
 	/**
@@ -341,6 +295,11 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		showProgress();
 	}
 
+	/**
+	 * @param teamRepository
+	 * @param hierarchy
+	 * @param monitor
+	 */
 	private void analyzeComponentHierarchy(ITeamRepository teamRepository, IComponentHierarchyResult hierarchy,
 			IProgressMonitor monitor) {
 		Map<UUID, Collection<IComponentHandle>> par2Child = hierarchy.getParentToChildrenMap();
@@ -348,9 +307,13 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		for (IComponentHierarchyNode node : roots) {
 			analyzeComponent(0, node.getComponentHandle(), par2Child);
 		}
-
 	}
 
+	/**
+	 * @param depth
+	 * @param componentHandle
+	 * @param par2Child
+	 */
 	private void analyzeComponent(int depth, IComponentHandle componentHandle,
 			Map<UUID, Collection<IComponentHandle>> par2Child) {
 		depth++;

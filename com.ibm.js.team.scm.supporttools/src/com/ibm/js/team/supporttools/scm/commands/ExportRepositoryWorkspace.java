@@ -34,12 +34,11 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
-import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
+import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
@@ -51,7 +50,6 @@ import com.ibm.team.filesystem.common.FileLineDelimiter;
 import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.filesystem.common.IFileItem;
 import com.ibm.team.repository.client.ITeamRepository;
-import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.repository.common.UUID;
 import com.ibm.team.repository.common.json.JSONArray;
@@ -75,7 +73,7 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * content.
  * 
  */
-public class ExportRepositoryWorkspace extends AbstractCommand implements ICommand {
+public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
 
 	/**
 	 * The supported modes to export the data
@@ -103,13 +101,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 	 * Method to add the options this command requires.
 	 */
 	@Override
-	public Options addCommandOptions(Options options) {
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_URL, true,
-				SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_USER, true,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD, true,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION);
+	public Options addTeamRepositoryCommandOptions(Options options) {
 		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
@@ -119,23 +111,21 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		return options;
 	}
 
-	/**
-	 * Method to check if the required options/parameters required to perform the
-	 * command are available.
-	 */
 	@Override
-	public boolean checkParameters(CommandLine cmd) {
+	public boolean checkTeamreposiroyCommandParameters(CommandLine cmd) {
 		// Check for required options
 		boolean isValid = true;
 
-		if (!(cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_URL)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
+		if (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
 				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER))) {
 			isValid = false;
 		}
 		return isValid;
+	}
+
+	@Override
+	public String getScenarioName() {
+		return ScmSupportToolsConstants.EXPENSIVESCENARIO_SCMTOOLS + getCommandName();
 	}
 
 	/**
@@ -193,40 +183,16 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}
 
-	/**
-	 * The main method that executes the behavior of this command.
-	 */
 	@Override
-	public boolean execute() {
-		logger.info("Executing Command {}", this.getCommandName());
+	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
 		// Execute the code
 		// Get all the option values
-		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
 		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
 
-		TeamPlatform.startup();
 		try {
-			IProgressMonitor monitor = new NullProgressMonitor();
-			ITeamRepository teamRepository = TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
-			teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
-				public ILoginInfo challenge(ITeamRepository repository) {
-					return new ILoginInfo() {
-						public String getUserId() {
-							return userId;
-						}
-
-						public String getPassword() {
-							return userPassword;
-						}
-					};
-				}
-			});
-			teamRepository.login(monitor);
 			File outputfolder = new File(outputFolderPath);
 			if (!outputfolder.exists()) {
 				FileUtil.createFolderWithParents(outputfolder);
@@ -241,19 +207,72 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 			}
 			fOutputFolder = outputfolder;
 			setExportMode(exportMode);
-			result = exportWorkspace(teamRepository, scmWorkspace, monitor);
-		} catch (TeamRepositoryException e) {
-			logger.error("TeamRepositoryException: {}", e.getMessage());
-			// e.printStackTrace();
+			result = exportWorkspace(getTeamRepository(), scmWorkspace, getMonitor());
 		} catch (IOException e) {
 			logger.error("IOException: {}", e.getMessage());
-			// e.printStackTrace();
-		} finally {
-			TeamPlatform.shutdown();
 		}
-
 		return result;
 	}
+
+//	/**
+//	 * The main method that executes the behavior of this command.
+//	 */
+//	@Override
+//	public boolean execute() {
+//		logger.info("Executing Command {}", this.getCommandName());
+//		boolean result = false;
+//		// Execute the code
+//		// Get all the option values
+//		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
+//		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
+//		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
+//		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
+//		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+//		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
+//
+//		TeamPlatform.startup();
+//		try {
+//			IProgressMonitor monitor = new NullProgressMonitor();
+//			ITeamRepository teamRepository = TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
+//			teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
+//				public ILoginInfo challenge(ITeamRepository repository) {
+//					return new ILoginInfo() {
+//						public String getUserId() {
+//							return userId;
+//						}
+//
+//						public String getPassword() {
+//							return userPassword;
+//						}
+//					};
+//				}
+//			});
+//			teamRepository.login(monitor);
+//			File outputfolder = new File(outputFolderPath);
+//			if (!outputfolder.exists()) {
+//				FileUtil.createFolderWithParents(outputfolder);
+//				if (!outputfolder.exists()) {
+//					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
+//					return result;
+//				}
+//			}
+//			if (!outputfolder.isDirectory()) {
+//				logger.error("Error: '{}' is not a directory.", outputFolderPath);
+//				return result;
+//			}
+//			fOutputFolder = outputfolder;
+//			setExportMode(exportMode);
+//			result = exportWorkspace(teamRepository, scmWorkspace, monitor);
+//		} catch (TeamRepositoryException e) {
+//			logger.error("TeamRepositoryException: {}", e.getMessage());
+//		} catch (IOException e) {
+//			logger.error("IOException: {}", e.getMessage());
+//		} finally {
+//			TeamPlatform.shutdown();
+//		}
+//
+//		return result;
+//	}
 
 	/**
 	 * Managing the export mode based on a parameter.

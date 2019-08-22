@@ -15,7 +15,7 @@ public class FileTypeStat {
 	}
 
 	public void analyze(String ext, FileLineDelimiter lineDelimiter, String encoding) {
-		if(lineDelimiter==null) {
+		if (lineDelimiter == null) {
 			return;
 		}
 		lineDelimiters.add(lineDelimiter.toString());
@@ -25,9 +25,9 @@ public class FileTypeStat {
 	@Override
 	public String toString() {
 		String extension = "'" + extensionName + "'";
-		if(lineDelimiters.size()>0) {
-			extension += "- used delimiters: " + lineDelimiters.toString()
-			+ " used encodings: " + lineDelimiters.toString();
+		if (lineDelimiters.size() > 0) {
+			extension += "- used delimiters: " + lineDelimiters.toString() + " used encodings: "
+					+ lineDelimiters.toString();
 		}
 		return extension;
 	}

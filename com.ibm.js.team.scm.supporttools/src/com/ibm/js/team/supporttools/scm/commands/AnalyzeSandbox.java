@@ -88,20 +88,10 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_DESCRIPTION);
-		// Optional parameters
-//		logger.info("\n\tOptional parameter syntax: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
-		// Optional parameters description
-//		logger.info("\n\tOptional parameter description: \n\t -{} \t {}",
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_EXAMPLE);
-		// Optional parameter examples
-//		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}
 
 	/**
@@ -130,7 +120,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	 * @param sandboxFolderPath
 	 * @return
 	 * 
-	 * scm show sandbox-structure
+	 * 		scm show sandbox-structure
 	 */
 	private boolean analyzeSandbox(String sandboxFolderPath) {
 		boolean result = false;

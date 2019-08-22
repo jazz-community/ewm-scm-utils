@@ -132,7 +132,7 @@ public class ComponentStat {
 	public void addFileStat(File file, int depth) {
 		long size = file.length();
 		String name = file.getName();
-		addFileStat(name, size, size, size, depth, null, null);	
+		addFileStat(name, size, size, size, depth, null, null);
 	}
 
 	public void addFileStat(String name, long size, long rawlength, long estLength, int depth,

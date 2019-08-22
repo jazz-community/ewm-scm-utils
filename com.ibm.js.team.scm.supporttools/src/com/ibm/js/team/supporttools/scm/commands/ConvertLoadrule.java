@@ -112,8 +112,6 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_DESCRIPTION);
-		// Optional parameters
-		// Optional parameters description
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
@@ -141,6 +139,18 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 		String targetLoadrulePath = getCmd()
 				.getOptionValue(ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH);
 
+		result = convertLoadrule(inputFolderPath, sourceLoadrulePath, targetLoadrulePath);
+		return result;
+	}
+
+	/**
+	 * @param inputFolderPath
+	 * @param sourceLoadrulePath
+	 * @param targetLoadrulePath
+	 * @return
+	 */
+	private boolean convertLoadrule(String inputFolderPath, String sourceLoadrulePath, String targetLoadrulePath) {
+		boolean result = false;
 		try {
 			HashMap<String, String> source2TargetUUIDMap = new HashMap<String, String>(3000);
 			File jsonInputFile = new File(inputFolderPath, ScmSupportToolsConstants.COMPONENT_MAPPING_JSON_FILE);
@@ -149,9 +159,7 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 			JSONArray maps = JSONArray.parse(reader);
 			for (Object map : maps) {
 				if (map instanceof JSONObject) {
-					String componentName = null;
 					JSONObject jsonMap = (JSONObject) map;
-					String sourceName = (String) jsonMap.get(ScmSupportToolsConstants.JSON_COMPONENT_NAME);
 					String sourceUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_SOURCE_COMPONENT_UUID);
 					String targetUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_TARGET_COMPONENT_UUID);
 					source2TargetUUIDMap.put(sourceUUID, targetUUID);
@@ -167,9 +175,10 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 				content = content.replaceAll(entry.getKey(), entry.getValue());
 			}
 			Files.write(targetPath, content.getBytes(charset));
+			result = true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("IOException: {}", e.getMessage());
 		}
-		return true;
+		return result;
 	}
 }

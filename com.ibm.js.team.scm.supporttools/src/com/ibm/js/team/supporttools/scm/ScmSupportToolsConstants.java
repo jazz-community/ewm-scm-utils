@@ -6,7 +6,10 @@ package com.ibm.js.team.supporttools.scm;
  */
 public interface ScmSupportToolsConstants {
 
+	public static final Object SCMTOOLS = "SCMTools";
 	public static final String SCMTOOLS_VERSION = "1.6";
+
+	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
 	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.";
@@ -17,7 +20,7 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_CONVERT_LOADRULE = "convertLoadrule";
 	public static final String CMD_CONVERT_LOADRULE_DESCRIPTION = "\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command "
 			+ CMD_IMPORTWORKSPACE + ".";
-	
+
 	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
 	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.";
 
@@ -31,13 +34,12 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
 	public static final String PARAMETER_WORKSPACE_EXAMPLE = "\"Debs JKE Banking Integration Stream Workspace\"";
 	public static final String PARAMETER_WORKSPACE_DESCRIPTION = "The repository workspace to export";
-	
+
 	public static final String PARAMETER_OUTPUTFOLDER = "outputFolder";
 	public static final String PARAMETER_OUTPUTFOLDER_PROTOTYPE = "<outputFolderPath>";
 	public static final String PARAMETER_OUTPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
 	public static final String PARAMETER_OUTPUTFOLDER_DESCRIPTION = "The folder where the resulting data is written.";
-	
-	
+
 	public static final String PARAMETER_SANDBOXFOLDER = "sandboxFolder";
 	public static final Object PARAMETER_SANDBOXFOLDER_PROTOTYPE = "<sandboxFolderPath>";
 	public static final Object PARAMETER_SANDBOXFOLDER_EXAMPLE = "\"C:\\Temp\\sandbox\\sandboxFolder\"";
@@ -47,7 +49,7 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE = "<modifier>";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE = "\"TestImport_\"";
 	public static final String PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION = "A prefix to be added to component names to force creation of new components and support component name uniqueness.";
-	
+
 	public static final String PARAMETER_INPUTFOLDER = "inputFolder";
 	public static final String PARAMETER_INPUTFOLDER_PROTOTYPE = "<inputFolderPath>";
 	public static final String PARAMETER_INPUTFOLDER_DESCRIPTION = "The folder where the input information is expected to be. This is the folder and content created in the command "

@@ -21,6 +21,7 @@ package com.ibm.js.team.supporttools.framework;
  */
 public interface SupportToolsFrameworkConstants {
 
+	public static final String SUPPORTTOOLSFRAMEWORK = "SUPPFW";
 	public static final String FRAMEWORKVERSIONINFO = "1.0";
 
 	// Commands and parameters
