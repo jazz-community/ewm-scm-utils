@@ -124,7 +124,7 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 		logger.info("{}", getCommandName());
 		logger.info(ScmSupportToolsConstants.CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION);
 		// General syntax
-		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} ",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_USER,
@@ -133,8 +133,6 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE
-//				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE
 		);
 		// Parameter and description
 		logger.info(
@@ -148,18 +146,9 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION
-//				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION
 		);
-		// Optional parameters
-//		logger.info("\n\tOptional parameter syntax: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_PROTOTYPE);
-		// Optional parameters description
-//		logger.info("\n\tOptional parameter description: \n\t -{} \t {}",
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_DESCRIPTION);
 		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
@@ -167,12 +156,7 @@ public class AnalyzeWorkspaceConnection extends AbstractCommand implements IComm
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE
-//				,ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-//				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
 		);
-		// Optional parameter examples
-//		logger.info("\n\tExample optional parameter: -{} {}", ScmSupportToolsConstants.PARAMETER_EXPORT_MODE,
-//				ScmSupportToolsConstants.PARAMETER_EXPORT_MODE_EXAMPLE);
 	}
 
 	/**

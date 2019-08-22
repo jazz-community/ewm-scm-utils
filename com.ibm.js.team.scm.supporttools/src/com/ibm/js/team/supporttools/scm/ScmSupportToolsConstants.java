@@ -19,7 +19,7 @@ public interface ScmSupportToolsConstants {
 			+ CMD_IMPORTWORKSPACE + ".";
 	
 	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
-	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. Thiscreates a flat loadrule from a loadrule that has hierarcy.";
+	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.";
 
 	public static final String CMD_ANYLYZEWORKSPACECONNECTION = "analyzeScmWorkspace";
 	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
