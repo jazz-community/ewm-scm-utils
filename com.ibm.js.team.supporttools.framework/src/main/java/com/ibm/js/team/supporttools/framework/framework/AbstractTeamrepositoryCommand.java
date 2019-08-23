@@ -73,7 +73,6 @@ public abstract class AbstractTeamrepositoryCommand extends AbstractCommand impl
 	 * 
 	 */
 	private void startScenario() {
-		IExpensiveScenarioService scenarioService;
 		try {
 			String scenarioName = getScenarioName();
 			if (scenarioName == null) {
@@ -95,6 +94,7 @@ public abstract class AbstractTeamrepositoryCommand extends AbstractCommand impl
 			if (scenarioService != null) {
 				try {
 					scenarioService.stop(scenarioInstance);
+					scenarioInstance=null;
 				} catch (Exception e) {
 					logger.error("Exception: {}", e.getMessage());
 				}
