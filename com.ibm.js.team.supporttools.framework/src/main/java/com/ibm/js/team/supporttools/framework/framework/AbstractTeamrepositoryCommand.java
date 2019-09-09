@@ -95,6 +95,7 @@ public abstract class AbstractTeamrepositoryCommand extends AbstractCommand impl
 				try {
 					scenarioService.stop(scenarioInstance);
 					scenarioInstance=null;
+					scenarioService=null;
 				} catch (Exception e) {
 					logger.error("Exception: {}", e.getMessage());
 				}
