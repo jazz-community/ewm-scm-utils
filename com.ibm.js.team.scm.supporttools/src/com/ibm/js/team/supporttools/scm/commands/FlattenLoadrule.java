@@ -112,7 +112,8 @@ public class FlattenLoadrule extends AbstractCommand implements ICommand {
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH_DESCRIPTION);
 		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\n\tExample: -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, 
+				ScmSupportToolsConstants.CMD_FLATTEN_LOADRULE,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH,
 				ScmSupportToolsConstants.PARAMETER_SOURCE_LOADRULE_FILE_PATH_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_TARGET_LOADRULE_FILE_PATH,
