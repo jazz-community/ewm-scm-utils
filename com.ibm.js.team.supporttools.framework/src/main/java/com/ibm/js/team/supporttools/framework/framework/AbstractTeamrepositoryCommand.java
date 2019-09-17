@@ -7,9 +7,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.monitoring.custom.service.expensivescenario.ExpensiveScenarioService;
-import com.ibm.js.team.monitoring.custom.service.expensivescenario.IExpensiveScenarioService;
 import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
+import com.ibm.js.team.supporttools.framework.scenario.ExpensiveScenarioService;
+import com.ibm.js.team.supporttools.framework.scenario.IExpensiveScenarioService;
 import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.TeamRepositoryException;

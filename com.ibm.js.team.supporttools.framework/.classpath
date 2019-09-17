@@ -29,6 +29,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PlainJavaApi"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.js.team.monitoring.custom.service.expensivescenario"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

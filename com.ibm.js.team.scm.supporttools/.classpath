@@ -18,6 +18,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.js.team.monitoring.custom.service.expensivescenario"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
