@@ -41,7 +41,7 @@ public class ConnectionStat {
 		logger.info("\nComponent characteristics for connection '{}' : ", fConnectionName);
 		Set<String> keys = fComponents.keySet();
 		int noComponents = keys.size();
-		logger.info("Components: {}", noComponents);
+		logger.info("Components: {}\n", noComponents);
 		long cumulatedHierarchyDepth = 0;
 		long cumulatedFiles = 0;
 		long cumulatedFolders = 0;
@@ -59,20 +59,10 @@ public class ConnectionStat {
 			cumulatedFolderDepth += comp.getCumulatedFolderDepth();
 			cumulatedFileDepth += comp.getCumulatedFileDepth();
 			logger.info(comp.toString());
-
 		}
-		logger.info("\n\nSummary:\n\nCross Component Characteristics for connection '{}' across all {} components: ",
+		logger.info("\nSummary:\n\nCross Component Characteristics for connection '{}' across all {} components: \n",
 				fConnectionName, noComponents);
 
-//		logger.info("Average Hierarchical Depth {}", CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size()));
-		// Average files/component
-		// average folders/component
-		// Average Filesize/component
-		// Average Depth
-		// # files
-		// # folders
-		// av file depth
-		// Av folder depth
 		String message = "";
 		message += " Files:\t\t " + cumulatedFiles + COLUMN_SEPERATOR;
 		message += " File Size(avg):\t " + CalcUtil.divideLong(cumulatedFileSize, cumulatedFiles) + COLUMN_SEPERATOR;

@@ -79,8 +79,8 @@ public abstract class AbstractTeamrepositoryCommand extends AbstractCommand impl
 				scenarioName = SupportToolsFrameworkConstants.SUPPORTTOOLSFRAMEWORK + "_"
 						+ SupportToolsFrameworkConstants.FRAMEWORKVERSIONINFO + "_" + getCommandName();
 			}
-			scenarioService = new ExpensiveScenarioService(teamRepository, scenarioName);
-			scenarioInstance = scenarioService.start();
+			this.scenarioService = new ExpensiveScenarioService(teamRepository, scenarioName);
+			this.scenarioInstance = this.scenarioService.start();
 		} catch (Exception e) {
 			logger.error("Exception: {}", e.getMessage());
 		}
@@ -90,12 +90,12 @@ public abstract class AbstractTeamrepositoryCommand extends AbstractCommand impl
 	 * 
 	 */
 	private void stopScenario() {
-		if (scenarioInstance != null) {
-			if (scenarioService != null) {
+		if (this.scenarioInstance != null) {
+			if (this.scenarioService != null) {
 				try {
-					scenarioService.stop(scenarioInstance);
-					scenarioInstance=null;
-					scenarioService=null;
+					this.scenarioService.stop(this.scenarioInstance);
+					this.scenarioInstance=null;
+					this.scenarioService=null;
 				} catch (Exception e) {
 					logger.error("Exception: {}", e.getMessage());
 				}
