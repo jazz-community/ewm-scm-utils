@@ -249,11 +249,11 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	@SuppressWarnings("unchecked")
 	private void analyzeComponentRoot(IFileContentManager contentManager, IConfiguration compConfig,
 			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		
+
 		Map<String, IVersionableHandle> handles = compConfig.childEntriesForRoot(monitor);
-		List<IVersionable> items = compConfig
-				.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
-		//ArrayList<Long> breadthInfo = new ArrayList<Long>();
+		List<IVersionable> items = compConfig.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()),
+				monitor);
+		// ArrayList<Long> breadthInfo = new ArrayList<Long>();
 		// Recursion analyze all items in the root
 		analyzeFolder(contentManager, compConfig, items, "", 0, monitor);
 	}
@@ -264,18 +264,18 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	 * @param items
 	 * @param path
 	 * @param depth
-	 * @param breadthInfo 
+	 * @param breadthInfo
 	 * @param monitor
 	 * @param zos
 	 * @throws IOException
 	 * @throws TeamRepositoryException
 	 */
 	@SuppressWarnings("unchecked")
-	private void analyzeFolder(IFileContentManager contentManager, IConfiguration compConfig, List<IVersionable> items, String path,
-			int depth, IProgressMonitor monitor) throws IOException, TeamRepositoryException {
+	private void analyzeFolder(IFileContentManager contentManager, IConfiguration compConfig, List<IVersionable> items,
+			String path, int depth, IProgressMonitor monitor) throws IOException, TeamRepositoryException {
 		long folders = 0;
 		long files = 0;
-		//depth++;
+		// depth++;
 		ComponentStat compStat = connectionStat.getComponentStat(compConfig.component().getItemId());
 		for (IVersionable v : items) {
 			if (v instanceof IFolder) {
@@ -283,12 +283,12 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 				// Write the directory
 				String dirPath = path + v.getName() + "/";
 				compStat.addFolderStat((IFolder) v, depth, path);
-				
+
 				Map<String, IVersionableHandle> children = compConfig.childEntries((IFolderHandle) v, monitor);
 				List<IVersionable> completeChildren = compConfig
 						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
 				// Recursion into the contained folders
-				analyzeFolder(contentManager, compConfig, completeChildren, dirPath, depth+1, monitor);
+				analyzeFolder(contentManager, compConfig, completeChildren, dirPath, depth + 1, monitor);
 			} else if (v instanceof IFileItem) {
 				// Get the file contents. Generate contents to save them into the directory
 				IFileItem file = (IFileItem) v;

@@ -48,9 +48,9 @@ public class ConnectionStat {
 		long cumulatedFileSize = 0;
 		long cumulatedFolderDepth = 0;
 		long cumulatedFileDepth = 0;
-		long maxFolderDepth=0;
-		long maxFileDepth=0;
-		long maxFileSize=0;
+		long maxFolderDepth = 0;
+		long maxFileDepth = 0;
+		long maxFileSize = 0;
 		for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
 			String key = (String) iterator.next();
 			ComponentStat comp = fComponents.get(key);
@@ -60,15 +60,15 @@ public class ConnectionStat {
 			cumulatedFolders += comp.getCumulatedFolders();
 			cumulatedFileSize += comp.getCumulatedFileSize();
 			cumulatedFolderDepth += comp.getCumulatedFolderDepth();
-			if(maxFolderDepth<comp.getMaxFolderDepth()) {
-				maxFolderDepth=comp.getMaxFolderDepth();
+			if (maxFolderDepth < comp.getMaxFolderDepth()) {
+				maxFolderDepth = comp.getMaxFolderDepth();
 			}
 			cumulatedFileDepth += comp.getCumulatedFileDepth();
-			if(maxFileDepth<comp.getMaxFileDepth()) {
-				maxFileDepth=comp.getMaxFileDepth();
+			if (maxFileDepth < comp.getMaxFileDepth()) {
+				maxFileDepth = comp.getMaxFileDepth();
 			}
-			if(maxFileSize<comp.getMaxFileSize()) {
-				maxFileSize=comp.getMaxFileSize();
+			if (maxFileSize < comp.getMaxFileSize()) {
+				maxFileSize = comp.getMaxFileSize();
 			}
 			logger.info(comp.toString());
 		}
@@ -76,11 +76,11 @@ public class ConnectionStat {
 				fConnectionName, noComponents);
 
 		String message = "";
-		message += " Hierarchy Depth(avg):\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedHierarchyDepth, keys.size())
-		+ COLUMN_SEPERATOR;
+		message += " Hierarchy Depth(avg):\t "
+				+ CalcUtil.divideFloatWithPrecision2AsString(cumulatedHierarchyDepth, keys.size()) + COLUMN_SEPERATOR;
 		message += " Hierarchy Depth(sum):\t " + cumulatedHierarchyDepth + "\n";
-		message += PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth, cumulatedFiles,
-				maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
+		message += PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth,
+				cumulatedFiles, maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
 		message += "\n";
 		logger.info(message);
 

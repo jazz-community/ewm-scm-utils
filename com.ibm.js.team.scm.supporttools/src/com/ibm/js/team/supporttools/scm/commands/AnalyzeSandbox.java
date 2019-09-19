@@ -156,7 +156,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 			if (file.isDirectory()) {
 				folders++;
 				compStat.addFolderStat(file, depth);
-				analyzeFolder(file, file.getAbsolutePath(), compStat, depth+1);
+				analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
 			} else {
 				files++;
 				compStat.addFileStat(file, depth);

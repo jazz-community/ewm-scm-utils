@@ -163,8 +163,8 @@ public class ComponentStat {
 		String message = "";
 		message += componentName + " \n";
 		message += " Hierarchy Depth:\t " + componentHierarchyDepth + " \n";
-		message+= PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth, cumulatedFiles,
-				maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
+		message += PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth,
+				cumulatedFiles, maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
 //		message += " Folders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
 //		
 //		message += " Files/Folder:\t\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedFiles, cumulatedFolders) + COLUMN_SEPERATOR;
