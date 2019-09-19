@@ -330,7 +330,7 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
 
-		logger.info("Analyze and store component hierarchy from '{}'...", scmConnection);
+		logger.info("Analyze and store component hierarchy for '{}'...", scmConnection);
 		IComponentHierarchyResult hierarchy = workspace.getComponentHierarchy(new ArrayList<IComponentHandle>());
 		writeHierarchy(teamRepository, hierarchy, monitor);
 		logger.info("Package and Ramdomize Components...");

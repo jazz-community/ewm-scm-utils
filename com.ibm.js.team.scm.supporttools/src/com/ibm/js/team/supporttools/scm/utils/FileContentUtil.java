@@ -38,7 +38,7 @@ public class FileContentUtil {
 	/**
 	 * Reads a file line by line. The line content will be changed to some code that
 	 * is randomly constructed from sample code snippets. The original content is
-	 * replaced by srbitrary code snippets, but the line structure and the file
+	 * replaced by arbitrary code snippets, but the line structure and the file
 	 * length is preserved.
 	 * 
 	 * @param in

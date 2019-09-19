@@ -162,23 +162,25 @@ public class ComponentStat {
 	public String toString() {
 		String message = "";
 		message += componentName + " \n";
-//		message += " NoFiles:\t " + noFiles + COLUMN_SEPERATOR;
-		message += " Files:\t\t " + cumulatedFiles + COLUMN_SEPERATOR;
-		message += " File Size(avg):\t " + CalcUtil.divideLong(cumulatedFileSize, cumulatedFiles) + COLUMN_SEPERATOR;
-		message += " File Size(sum):\t " + cumulatedFileSize + COLUMN_SEPERATOR;
-		message += " MaxFileSize:\t " + maxFileSize + COLUMN_SEPERATOR;
-		message += " File Depth(avg):\t " + CalcUtil.divideFloat(cumulatedFileDepth, cumulatedFiles) + COLUMN_SEPERATOR;
-		message += " Max File Depth:\t " + maxFileDepth + COLUMN_SEPERATOR;
-		message += " File Depth(sum):\t " + cumulatedFileDepth + COLUMN_SEPERATOR;
-		message += "\n";
-//		message += " NoFolders:\t " + noFolders + COLUMN_SEPERATOR;
-		message += " Folders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
-		message += " Files/Folder:\t\t " + CalcUtil.divideFloat(cumulatedFiles, cumulatedFolders) + COLUMN_SEPERATOR;
-		message += " Folder Depth(max):\t " + maxFolderDepth + COLUMN_SEPERATOR;
-		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
-		message += " Folder Depth(avg):\t " + CalcUtil.divideFloat(cumulatedFolderDepth, cumulatedFolders)
-				+ COLUMN_SEPERATOR;
 		message += " Hierarchy Depth:\t " + componentHierarchyDepth + " \n";
+		message+= PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth, cumulatedFiles,
+				maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
+//		message += " Folders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
+//		
+//		message += " Files/Folder:\t\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedFiles, cumulatedFolders) + COLUMN_SEPERATOR;
+//		message += " Folder Depth(avg):\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedFolderDepth, cumulatedFolders) + COLUMN_SEPERATOR;
+//		message += " Folder Depth(max):\t " + maxFolderDepth + COLUMN_SEPERATOR;
+//		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
+//		message += "\n";
+//		message += " Files:\t\t " + cumulatedFiles + COLUMN_SEPERATOR;
+//		message += " File Size(avg):\t " + CalcUtil.byBinaryMagnitudeAsString(CalcUtil.divideLong(cumulatedFileSize, cumulatedFiles)) + COLUMN_SEPERATOR;
+////		message += " File Size(max):\t " + CalcUtil.byBinaryMagnitudeAsString(CalcUtil.divideLong(cumulatedFileSize, cumulatedFiles)) + COLUMN_SEPERATOR;
+//		message += " File Size(max):\t " + CalcUtil.byBinaryMagnitudeAsString(maxFileSize) + COLUMN_SEPERATOR;
+//		message += " File Size(sum):\t " + CalcUtil.byBinaryMagnitudeAsString(cumulatedFileSize) + COLUMN_SEPERATOR;
+//		message += " File Depth(avg):\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedFileDepth, cumulatedFiles) + COLUMN_SEPERATOR;
+//		message += " File Depth(max):\t " + maxFileDepth + COLUMN_SEPERATOR;
+//		message += " File Depth(sum):\t " + cumulatedFileDepth + COLUMN_SEPERATOR;
+		message += "\n";
 		message += " " + extensions.toString() + COLUMN_SEPERATOR;
 		message += "\n";
 		return message;

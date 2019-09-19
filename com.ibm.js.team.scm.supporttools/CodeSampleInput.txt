@@ -22,21 +22,6 @@ Duis aute irure dolor in reprehenderit in voluptate velit
 esse cillum dolore eu fugiat nulla pariatur. Excepteur 
 sint occaecat cupidatat non proident, sunt in culpa qui 
 officia deserunt mollit anim id est laborum.
-/*******************************************************************************
- * Copyright (c) 2012 - 2013, 2018 IBM Corporation.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
- *
- * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- * http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *
- *    Ralph Schoon - Initial implementation
- *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 import java.io.BufferedReader;
 import java.io.File;
@@ -254,7 +239,7 @@ public class ExportRepositoryWorkspace extends AbstractCommand implements IComma
 		List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
-		logger.info("Anylyze and store component hierarchy from '{}'...", scmConnection);
+		logger.info("Anylyze and store component hierarchy for '{}'...", scmConnection);
 		IComponentHierarchyResult hierarchy = connection.get(0)
 				.getComponentHierarchy(new ArrayList<IComponentHandle>());
 		writeHierarchy(teamRepository, hierarchy, monitor);
@@ -506,21 +491,6 @@ private void writeHierarchy(ITeamRepository teamRepository, IComponentHierarchyR
 		}
 	}
 }
-/*******************************************************************************
- * Copyright (c) 2012 - 2013, 2018 IBM Corporation.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v. 1.0 which accompanies this distribution.
- *
- * The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- * http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *
- *    Ralph Schoon - Initial implementation
- *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 import java.io.BufferedReader;
 import java.io.File;

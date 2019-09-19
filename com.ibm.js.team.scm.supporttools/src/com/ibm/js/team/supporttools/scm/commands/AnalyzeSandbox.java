@@ -135,7 +135,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 			return result;
 		}
 		ComponentStat compStat = new ComponentStat(sandboxFolderPath);
-		analyzeFolder(0, sandboxFolder, "", compStat);
+		analyzeFolder(sandboxFolder, "", compStat, 0);
 
 		logger.info("\n\nShow results...");
 		logger.info(compStat.toString());
@@ -143,21 +143,20 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	}
 
 	/**
-	 * @param depth
 	 * @param sandboxFolder
 	 * @param path
 	 * @param compStat
+	 * @param depth
 	 */
-	private void analyzeFolder(int depth, File sandboxFolder, String path, ComponentStat compStat) {
+	private void analyzeFolder(File sandboxFolder, String path, ComponentStat compStat, int depth) {
 		File[] contents = sandboxFolder.listFiles();
-		depth++;
 		long folders = 0;
 		long files = 0;
 		for (File file : contents) {
 			if (file.isDirectory()) {
 				folders++;
 				compStat.addFolderStat(file, depth);
-				analyzeFolder(depth, file, file.getAbsolutePath(), compStat);
+				analyzeFolder(file, file.getAbsolutePath(), compStat, depth+1);
 			} else {
 				files++;
 				compStat.addFileStat(file, depth);

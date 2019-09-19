@@ -48,6 +48,9 @@ public class ConnectionStat {
 		long cumulatedFileSize = 0;
 		long cumulatedFolderDepth = 0;
 		long cumulatedFileDepth = 0;
+		long maxFolderDepth=0;
+		long maxFileDepth=0;
+		long maxFileSize=0;
 		for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
 			String key = (String) iterator.next();
 			ComponentStat comp = fComponents.get(key);
@@ -57,27 +60,27 @@ public class ConnectionStat {
 			cumulatedFolders += comp.getCumulatedFolders();
 			cumulatedFileSize += comp.getCumulatedFileSize();
 			cumulatedFolderDepth += comp.getCumulatedFolderDepth();
+			if(maxFolderDepth<comp.getMaxFolderDepth()) {
+				maxFolderDepth=comp.getMaxFolderDepth();
+			}
 			cumulatedFileDepth += comp.getCumulatedFileDepth();
+			if(maxFileDepth<comp.getMaxFileDepth()) {
+				maxFileDepth=comp.getMaxFileDepth();
+			}
+			if(maxFileSize<comp.getMaxFileSize()) {
+				maxFileSize=comp.getMaxFileSize();
+			}
 			logger.info(comp.toString());
 		}
 		logger.info("\nSummary:\n\nCross Component Characteristics for connection '{}' across all {} components: \n",
 				fConnectionName, noComponents);
 
 		String message = "";
-		message += " Files:\t\t " + cumulatedFiles + COLUMN_SEPERATOR;
-		message += " File Size(avg):\t " + CalcUtil.divideLong(cumulatedFileSize, cumulatedFiles) + COLUMN_SEPERATOR;
-		message += " File Size(sum):\t " + cumulatedFileSize + COLUMN_SEPERATOR;
-		message += " File Depth(avg):\t " + CalcUtil.divideFloat(cumulatedFileDepth, cumulatedFiles) + COLUMN_SEPERATOR;
-		message += " File Depth(sum):\t " + cumulatedFileDepth + COLUMN_SEPERATOR;
-		message += "\n";
-		message += " Folders:\t " + cumulatedFolders + COLUMN_SEPERATOR;
-		message += " Files/Folder:\t\t " + CalcUtil.divideFloat(cumulatedFiles, cumulatedFolders) + COLUMN_SEPERATOR;
-		message += " Folder Depth(avg):\t " + CalcUtil.divideFloat(cumulatedFolderDepth, cumulatedFolders)
-				+ COLUMN_SEPERATOR;
-		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + COLUMN_SEPERATOR;
-		message += " Hierarchical Depth(avg):\t " + CalcUtil.divideFloat(cumulatedHierarchyDepth, keys.size())
-				+ COLUMN_SEPERATOR;
-		message += " Hierarchical Depth(sum):\t " + cumulatedHierarchyDepth + COLUMN_SEPERATOR;
+		message += " Hierarchy Depth(avg):\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedHierarchyDepth, keys.size())
+		+ COLUMN_SEPERATOR;
+		message += " Hierarchy Depth(sum):\t " + cumulatedHierarchyDepth + "\n";
+		message += PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth, cumulatedFiles,
+				maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
 		message += "\n";
 		logger.info(message);
 

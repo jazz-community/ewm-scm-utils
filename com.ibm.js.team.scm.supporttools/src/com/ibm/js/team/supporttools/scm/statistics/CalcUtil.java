@@ -1,8 +1,32 @@
 package com.ibm.js.team.supporttools.scm.statistics;
 
-public class CalcUtil {
+import java.text.DecimalFormat;
 
-	public static String divideFloat(long a, long b) {
+public class CalcUtil {
+	
+	public static long KILOBYTE = (long) Math.pow(2, 10); 
+	public static long MEGABYTE = (long) Math.pow(2, 20); 
+	public static long GIGABYTE = (long) Math.pow(2, 30); 
+	public static long TERABYTE = (long) Math.pow(2, 40); 
+
+	 public static String divideFloatWithPrecision2AsString(long a, long b){
+		 
+			if (b == 0) {
+				return "devide by zero";
+			}
+    	    DecimalFormat df = new DecimalFormat("#.##");
+			return df.format(divideFloat(a, b));
+	 }
+
+		public static long divideLong(long a, long b) {
+			return a / b;
+		}
+		
+		public static float divideFloat(float a, float b) {
+			return a / b;
+		}
+	 
+	public static String divideFloatAsString(long a, long b) {
 		if (b == 0) {
 			return "devide by zero";
 		}
@@ -10,7 +34,7 @@ public class CalcUtil {
 		return Float.toString(c);
 	}
 
-	public static String divideLong(long a, long b) {
+	public static String divideLongAsString(long a, long b) {
 		if (b == 0) {
 			return "devide by zero";
 		}
@@ -23,6 +47,22 @@ public class CalcUtil {
 			return a;
 		}
 		return b;
+	}
+
+	public static String byBinaryMagnitudeAsString(long cumulatedFileSize) {
+		if(cumulatedFileSize>TERABYTE) {
+			return divideFloatWithPrecision2AsString(cumulatedFileSize, TERABYTE) + " TB";
+		}
+		if(cumulatedFileSize>GIGABYTE) {
+			return divideFloatWithPrecision2AsString(cumulatedFileSize, GIGABYTE) + " GB";
+		}
+		if(cumulatedFileSize>MEGABYTE) {
+			return divideFloatWithPrecision2AsString(cumulatedFileSize, MEGABYTE) + " MB";
+		}
+		if(cumulatedFileSize>KILOBYTE) {
+			return divideFloatWithPrecision2AsString(cumulatedFileSize, KILOBYTE) + " KB";
+		}
+		return cumulatedFileSize +" B";
 	}
 
 }

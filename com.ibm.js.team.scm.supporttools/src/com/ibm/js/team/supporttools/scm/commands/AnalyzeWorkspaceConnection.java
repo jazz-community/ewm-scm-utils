@@ -239,36 +239,43 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 			IConfiguration compConfig = connection.configuration(component);
 			// Fetch the items at the root of each component. We do this to initialize our
 			// queue of stuff to download.
-			@SuppressWarnings("unchecked")
-			Map<String, IVersionableHandle> handles = compConfig.childEntriesForRoot(monitor);
-			@SuppressWarnings("unchecked")
-			List<IVersionable> items = compConfig
-					.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
-
-			// Recursion into each folder in the root
-			analyzeFolder(0, contentManager, compConfig, "", items, monitor);
+			analyzeComponentRoot(contentManager, compConfig, monitor);
 
 		} finally {
 			System.out.println("");
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private void analyzeComponentRoot(IFileContentManager contentManager, IConfiguration compConfig,
+			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
+		
+		Map<String, IVersionableHandle> handles = compConfig.childEntriesForRoot(monitor);
+		List<IVersionable> items = compConfig
+				.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
+		//ArrayList<Long> breadthInfo = new ArrayList<Long>();
+		// Recursion analyze all items in the root
+		analyzeFolder(contentManager, compConfig, items, "", 0, monitor);
+	}
+
 	/**
-	 * @param depth
 	 * @param contentManager
 	 * @param compConfig
-	 * @param zos
-	 * @param path
 	 * @param items
+	 * @param path
+	 * @param depth
+	 * @param breadthInfo 
 	 * @param monitor
+	 * @param zos
 	 * @throws IOException
 	 * @throws TeamRepositoryException
 	 */
-	private void analyzeFolder(int depth, IFileContentManager contentManager, IConfiguration compConfig, String path,
-			List<IVersionable> items, IProgressMonitor monitor) throws IOException, TeamRepositoryException {
-		depth++;
+	@SuppressWarnings("unchecked")
+	private void analyzeFolder(IFileContentManager contentManager, IConfiguration compConfig, List<IVersionable> items, String path,
+			int depth, IProgressMonitor monitor) throws IOException, TeamRepositoryException {
 		long folders = 0;
 		long files = 0;
+		//depth++;
 		ComponentStat compStat = connectionStat.getComponentStat(compConfig.component().getItemId());
 		for (IVersionable v : items) {
 			if (v instanceof IFolder) {
@@ -276,14 +283,12 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 				// Write the directory
 				String dirPath = path + v.getName() + "/";
 				compStat.addFolderStat((IFolder) v, depth, path);
-				@SuppressWarnings("unchecked")
+				
 				Map<String, IVersionableHandle> children = compConfig.childEntries((IFolderHandle) v, monitor);
-				@SuppressWarnings("unchecked")
 				List<IVersionable> completeChildren = compConfig
 						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
 				// Recursion into the contained folders
-				analyzeFolder(depth, contentManager, compConfig, dirPath, completeChildren, monitor);
-
+				analyzeFolder(contentManager, compConfig, completeChildren, dirPath, depth+1, monitor);
 			} else if (v instanceof IFileItem) {
 				// Get the file contents. Generate contents to save them into the directory
 				IFileItem file = (IFileItem) v;
@@ -316,10 +321,10 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	 */
 	private void analyzeComponent(int depth, IComponentHandle componentHandle,
 			Map<UUID, Collection<IComponentHandle>> par2Child) {
-		depth++;
 		ComponentStat comp = connectionStat.getNewComponent(componentHandle.getItemId());
 		comp.setComponentHierarchyDepth(depth);
 		logger.info("\t{} ", componentHandle.getItemId().toString());
+		depth++;
 		Collection<IComponentHandle> children = par2Child.get(componentHandle.getItemId());
 		for (IComponentHandle child : children) {
 			analyzeComponent(depth, child, par2Child);
