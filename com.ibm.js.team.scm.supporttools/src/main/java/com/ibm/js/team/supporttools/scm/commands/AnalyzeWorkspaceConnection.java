@@ -33,7 +33,9 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
 import com.ibm.js.team.supporttools.scm.statistics.ConnectionStat;
+import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
+import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
 import com.ibm.team.filesystem.common.IFileItem;
@@ -63,7 +65,7 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspaceConnection.class);
 	private int fProgress = 0;
 	private ConnectionStat connectionStat = null;
-
+    private RangeStats rangeStats = new RangeStats();
 	/**
 	 * Constructor, set the command name which will be used as option value for the
 	 * command option. The name is used in the UIs and the option parser.
@@ -198,6 +200,7 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 		analyzeComponentContent(teamRepository, monitor, workspace, hierarchy);
 		logger.info("Show results...");
 		connectionStat.log();
+		rangeStats.logRangeInfo();;
 		return true;
 	}
 
@@ -292,7 +295,9 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 			} else if (v instanceof IFileItem) {
 				// Get the file contents. Generate contents to save them into the directory
 				IFileItem file = (IFileItem) v;
-				compStat.addFileStat(file, depth);
+				FileInfo fInfo = FileInfo.getFileInfo(file);
+				compStat.addFileStat(fInfo, depth);
+				rangeStats.analyze(fInfo);
 				files++;
 			}
 		}

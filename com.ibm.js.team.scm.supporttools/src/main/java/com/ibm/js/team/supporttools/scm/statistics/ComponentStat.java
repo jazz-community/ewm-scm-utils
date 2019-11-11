@@ -5,9 +5,7 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.team.filesystem.common.FileLineDelimiter;
-import com.ibm.team.filesystem.common.IFileContent;
-import com.ibm.team.filesystem.common.IFileItem;
+import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.scm.common.IFolder;
 
 public class ComponentStat {
@@ -114,36 +112,22 @@ public class ComponentStat {
 		}
 	}
 
-	public void addFileStat(IFileItem file, int depth) {
-		long rawlength = file.getContent().getRawLength();
-		long size = file.getContent().getSize();
-		long estLength = file.getContent().getEstimatedConvertedLength();
-		FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
-		String encoding = null;
-		IFileContent filecontent = file.getContent();
-		if (filecontent != null) {
-			encoding = filecontent.getCharacterEncoding();
-			lineDelimiter = filecontent.getLineDelimiter();
-		}
-		String name = file.getName();
-		addFileStat(name, size, rawlength, estLength, depth, lineDelimiter, encoding);
-	}
+//	public void addFileStat(IFileItem file, int depth) {
+//		FileInfo fInfo = FileInfo.getFileInfo(file);
+//		addFileStat(fInfo, depth);
+//	}
 
-	public void addFileStat(File file, int depth) {
-		long size = file.length();
-		String name = file.getName();
-		addFileStat(name, size, size, size, depth, null, null);
-	}
-
-	public void addFileStat(String name, long size, long rawlength, long estLength, int depth,
-			FileLineDelimiter lineDelimiter, String encoding) {
-		// logger.info("File: {} {} {} {} {} {} '{}'.", size, rawlength, estLength,
-		// depth, lineDelimiter, encoding, name);
-		extensions.analyze(name, lineDelimiter, encoding);
+	public void addFileStat(FileInfo fInfo, int depth) {
+		extensions.analyze(fInfo.getName(), fInfo.getLineDelimiter(), fInfo.getEncoding());
 		noFiles++;
 		calcFileMaxDepth(depth);
-		addCumulatedFileSize(size);
+		addCumulatedFileSize(fInfo.getSize());
 	}
+
+//	public void addFileStat(File file, int depth) {
+//		FileInfo fInfo = FileInfo.getFileInfo(file);
+//		addFileStat(fInfo, depth);		
+//	}
 
 	public void addFolderStat(IFolder v, int depth, String path) {
 		addFolderStat(depth);

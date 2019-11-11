@@ -126,7 +126,6 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 	/**
 	 * The main method that executes the behavior of this command.
 	 */
-	@SuppressWarnings("unused")
 	@Override
 	public boolean execute() {
 		logger.info("Executing Command {}", this.getCommandName());

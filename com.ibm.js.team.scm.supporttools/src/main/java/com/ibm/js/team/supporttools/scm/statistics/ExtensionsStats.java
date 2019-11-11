@@ -31,8 +31,24 @@ public class ExtensionsStats {
 		extension.analyze(ext, lineDelimiter, encoding);
 	}
 
-	@Override
-	public String toString() {
+
+	public String extensionsSimple() {
+		String seperator = " ";
+		String message = "File Extensions: " + extensions.size();
+		Set<String> keys = extensions.keySet();
+		if (keys.size()<=0){
+			return message;
+		}
+		message+= " {";
+		for (String key : keys) {
+			message += seperator + key;
+			seperator = "; ";
+		}
+		message += " }";
+		return message;
+	}
+
+	public String extensionsAll() {
 		String seperator = " ";
 		String message = "File Extensions: " + extensions.size() + " {";
 		Set<String> keys = extensions.keySet();
@@ -43,6 +59,11 @@ public class ExtensionsStats {
 		}
 		message += " }";
 		return message;
+	}
+
+	@Override
+	public String toString() {
+		return extensionsAll();
 	}
 
 }

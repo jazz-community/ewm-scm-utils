@@ -27,6 +27,8 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
+import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
+import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 
 /**
  * Allows to analyze a sandbox or local file system folder.
@@ -36,6 +38,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeSandbox.class);
 	private int fProgress = 0;
+    private RangeStats rangeStats = new RangeStats();
 
 	/**
 	 * Constructor, set the command name which will be used as option value for the
@@ -139,6 +142,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 
 		logger.info("\n\nShow results...");
 		logger.info(compStat.toString());
+		rangeStats.logRangeInfo();
 		return true;
 	}
 
@@ -159,7 +163,9 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 				analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
 			} else {
 				files++;
-				compStat.addFileStat(file, depth);
+				FileInfo fInfo = FileInfo.getFileInfo(file);
+				compStat.addFileStat(fInfo, depth);
+				rangeStats.analyze(fInfo);
 			}
 		}
 		compStat.addFolderStats(folders, files, depth);
