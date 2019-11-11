@@ -1,7 +1,7 @@
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
 public class Base10RangeCalculator implements IRangeCalculator {
-	String name = "Pot10";
+	String name = "Files per range logarithmic base 10";
 
 	@Override
 	public String getName() {

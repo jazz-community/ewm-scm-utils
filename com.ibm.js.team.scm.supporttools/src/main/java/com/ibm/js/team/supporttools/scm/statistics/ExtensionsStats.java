@@ -5,9 +5,9 @@ import java.util.Set;
 
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
-public class ExtensionsStats {
+public class ExtensionsStats implements IExtensions {
 
-	HashMap<String, FileTypeStat> extensions = new HashMap<String, FileTypeStat>(50);
+	HashMap<String, IFileTypeStat> extensions = new HashMap<String, IFileTypeStat>(50);
 
 	public void analyze(String name, FileLineDelimiter lineDelimiter, String encoding) {
 		String[] result = name.split("\\.");
@@ -23,7 +23,7 @@ public class ExtensionsStats {
 		if (ext == null) {
 			return;
 		}
-		FileTypeStat extension = extensions.get(ext);
+		IFileTypeStat extension = extensions.get(ext);
 		if (extension == null) {
 			extension = new FileTypeStat(ext);
 		}
@@ -31,6 +31,10 @@ public class ExtensionsStats {
 		extension.analyze(ext, lineDelimiter, encoding);
 	}
 
+
+	public HashMap<String, IFileTypeStat> getExtensions() {
+		return extensions;
+	}
 
 	public String extensionsSimple() {
 		String seperator = " ";
@@ -53,7 +57,7 @@ public class ExtensionsStats {
 		String message = "File Extensions: " + extensions.size() + " {";
 		Set<String> keys = extensions.keySet();
 		for (String key : keys) {
-			FileTypeStat extension = extensions.get(key);
+			IFileTypeStat extension = extensions.get(key);
 			message += seperator + extension.toString();
 			seperator = "; ";
 		}

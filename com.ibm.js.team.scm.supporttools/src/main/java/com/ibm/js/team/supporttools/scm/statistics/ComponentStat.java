@@ -45,7 +45,7 @@ public class ComponentStat {
 		this.cumulatedFolders = cumulatedFolders;
 	}
 
-	public ExtensionsStats getExtensions() {
+	public IExtensions getExtensions() {
 		return extensions;
 	}
 

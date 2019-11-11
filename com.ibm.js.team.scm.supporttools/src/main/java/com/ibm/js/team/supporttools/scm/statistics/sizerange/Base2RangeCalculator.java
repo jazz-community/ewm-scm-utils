@@ -1,7 +1,7 @@
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
 public class Base2RangeCalculator implements IRangeCalculator {
-	String name = "Pot2";
+	String name = "Files per range logarithmic base 2";
 
 	@Override
 	public String getName() {
