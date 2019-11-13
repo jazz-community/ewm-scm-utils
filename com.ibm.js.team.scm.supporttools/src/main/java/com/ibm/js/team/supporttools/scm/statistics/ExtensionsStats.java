@@ -3,39 +3,43 @@ package com.ibm.js.team.supporttools.scm.statistics;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class ExtensionsStats implements IExtensions {
+	public static final Logger logger = LoggerFactory.getLogger(ExtensionsStats.class);
 
 	HashMap<String, IFileTypeStat> extensions = new HashMap<String, IFileTypeStat>(50);
-
-	public void analyze(String name, FileLineDelimiter lineDelimiter, String encoding) {
-		String[] result = name.split("\\.");
-		if (result.length == 2) {
-			String ext = result[1];
-			if (ext != null && ext.length() > 0) {
-				logExtension(ext, lineDelimiter, encoding);
-			}
-		}
+	
+	@Override
+	public int getNoExtensions(){
+		return extensions.entrySet().size();
 	}
-
-	private void logExtension(String ext, FileLineDelimiter lineDelimiter, String encoding) {
-		if (ext == null) {
-			return;
-		}
-		IFileTypeStat extension = extensions.get(ext);
-		if (extension == null) {
-			extension = new FileTypeStat(ext);
-		}
-		extensions.put(ext, extension);
-		extension.analyze(ext, lineDelimiter, encoding);
-	}
-
-
+	
 	public HashMap<String, IFileTypeStat> getExtensions() {
 		return extensions;
 	}
 
+	@Override
+	public String getExtensionsCompressed() {
+		String seperator = " ";
+		String message = "";
+		Set<String> keys = extensions.keySet();
+		if (keys.size()<=0){
+			return message;
+		}
+		message+= " {";
+		for (String key : keys) {
+			message += seperator + key;
+			seperator = "; ";
+		}
+		message += " }";
+		return message;
+	}
+	
 	public String extensionsSimple() {
 		String seperator = " ";
 		String message = "File Extensions: " + extensions.size();
@@ -51,6 +55,33 @@ public class ExtensionsStats implements IExtensions {
 		message += " }";
 		return message;
 	}
+
+	public void analyze(String name, FileLineDelimiter lineDelimiter, String encoding) {
+		String[] result = name.split("\\.");
+		if (result.length == 2) {
+			String ext = result[1];
+			if (ext != null && ext.length() > 0) {
+				logExtension(ext, lineDelimiter, encoding);
+			} 
+		} else {
+//			if(result.length == 1 ){
+//				logger.info("No Extension: {}" , result[0]);
+//			}
+		}
+	}
+
+	private void logExtension(String ext, FileLineDelimiter lineDelimiter, String encoding) {
+		if (ext == null) {
+			return;
+		}
+		IFileTypeStat extension = extensions.get(ext);
+		if (extension == null) {
+			extension = new FileTypeStat(ext);
+		}
+		extensions.put(ext, extension);
+		extension.analyze(ext, lineDelimiter, encoding);
+	}
+
 
 	public String extensionsAll() {
 		String seperator = " ";

@@ -6,6 +6,7 @@
 	<artifactId>com.ibm.js.team.supporttools.scm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>com.ibm.js.team.supporttools.scm</name>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -19,6 +20,7 @@
   			com.ibm.js.team.supporttools.framework
   		</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

@@ -11,7 +11,7 @@ import com.ibm.team.scm.common.IFolder;
 public class ComponentStat {
 	public static final String COLUMN_SEPERATOR = " \t";
 	public static final Logger logger = LoggerFactory.getLogger(ComponentStat.class);
-	private ExtensionsStats extensions = new ExtensionsStats();
+	private IExtensions extensions = new ExtensionsStats();
 	private String componentName;
 	private long componentHierarchyDepth = 0;
 	private long noFiles = 0;

@@ -1,7 +1,7 @@
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
 public class Base10RangeCalculator implements IRangeCalculator {
-	String name = "Files per range logarithmic base 10";
+	String name = "Log 10";
 
 	@Override
 	public String getName() {
@@ -14,8 +14,8 @@ public class Base10RangeCalculator implements IRangeCalculator {
 	}
 
 	@Override
-	public int getTopThreshold(int interval) {
-		return (int) Math.pow(10,interval);
+	public double getTopThreshold(int interval) {
+		return Math.pow(10,interval);
 	}
 
 }

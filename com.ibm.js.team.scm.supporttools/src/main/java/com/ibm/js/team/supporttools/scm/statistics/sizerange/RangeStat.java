@@ -8,19 +8,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.scm.utils.FileInfo;
+import com.ibm.js.team.supporttools.scm.utils.FormatUtil;
 
 public class RangeStat implements IRangeStat {
 	IRangeCalculator rangeCalc = null;
-	HashMap<Integer,IRangeInfo> rangeMap = new HashMap<Integer,IRangeInfo> ();
-	public static final Logger logger = LoggerFactory.getLogger(RangeStat.class);
-	long totalFileCount = 0;
 
-	class RangeStatIterator implements Iterator<RangeInfo>{
+	private HashMap<Integer,IRangeInfo> rangeMap = new HashMap<Integer,IRangeInfo> ();
+	public static final Logger logger = LoggerFactory.getLogger(RangeStat.class);
+	private long totalFileCount = 0;
+
+	class RangeInfoIterator implements Iterator<IRangeInfo>{
 		
-		long index = -1;
-		long rangesLeft=-1;
+		int index = -1;
+		int rangesLeft=-1;
 		
-		public RangeStatIterator() {
+		public RangeInfoIterator() {
 			super();
 			this.index = 0;
 			this.rangesLeft= rangeMap.size();
@@ -32,14 +34,15 @@ public class RangeStat implements IRangeStat {
 		}
 
 		@Override
-		public RangeInfo next() {
-			IRangeInfo range = rangeMap.get(index++);
+		public IRangeInfo next() {
+			Integer current = new Integer(this.index++);
+			IRangeInfo range = rangeMap.get(current);
 			if(range!=null){
-				rangesLeft--;
+				this.rangesLeft--;
 			} else {
-				range = new RangeInfo(index);	
+				range = new RangeInfo(current);	
 			}
-			return null;
+			return range;
 		}
 	}
 	
@@ -77,7 +80,7 @@ public class RangeStat implements IRangeStat {
 				extensions = range.getExtensionStatus().extensionsSimple();
 				rangesLeft--;
 			}
-			logger.info("{} files to {} bytes. (Range {}), {}", fileCount, rangeCalc.getTopThreshold(currentInterval), currentInterval, extensions);			
+			logger.info("{} files to {} bytes. (Range {}), {}", fileCount, FormatUtil.getLeftAligned(rangeCalc.getTopThreshold(currentInterval)), currentInterval, extensions);			
 			totalFileCount+=fileCount;
 			currentInterval++;
 		}
@@ -99,4 +102,19 @@ public class RangeStat implements IRangeStat {
 		}
 		return ring;
 	}
+
+	public Iterator<IRangeInfo> iterator() {
+		return new RangeInfoIterator();
+	}
+
+	@Override
+	public long getTotalFiles() {
+		return this.totalFileCount;
+	}
+
+	@Override
+	public IRangeCalculator getRangeCalculator() {
+		return this.rangeCalc;
+	}
+
 }

@@ -16,6 +16,7 @@
 package com.ibm.js.team.supporttools.scm.commands;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -110,6 +111,9 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 
 		try {
 			result = analyzeSandbox(sandboxFolderPath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 		}
 		return result;
@@ -124,8 +128,9 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	 * @return
 	 * 
 	 * 		scm show sandbox-structure
+	 * @throws IOException 
 	 */
-	private boolean analyzeSandbox(String sandboxFolderPath) {
+	private boolean analyzeSandbox(String sandboxFolderPath) throws IOException {
 		boolean result = false;
 		logger.info("Analyze sandbox '{}'...", sandboxFolderPath);
 		File sandboxFolder = new File(sandboxFolderPath);
