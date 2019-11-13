@@ -12,7 +12,7 @@ import com.ibm.team.repository.common.UUID;
 public class ConnectionStat {
 	public static final String COLUMN_SEPERATOR = " \t";
 	public static final Logger logger = LoggerFactory.getLogger(ConnectionStat.class);
-	HashMap<String, ComponentStat> fComponents = new HashMap<String, ComponentStat>(2000);
+	HashMap<String, ComponentStat> fComponents = new HashMap<String, ComponentStat>(2500);
 	private String fConnectionName;
 
 	public ConnectionStat(String connectionName) {

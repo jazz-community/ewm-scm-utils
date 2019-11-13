@@ -59,9 +59,9 @@ public class RangeStats {
 	}
 
 	public void logRangeInfo() throws IOException {
-		for (IRangeStat iRangeStat : rangeStats) {
-			iRangeStat.printRangeInfos();
-		}
+//		for (IRangeStat iRangeStat : rangeStats) {
+//			iRangeStat.printRangeInfos();
+//		}
 
 		logger.info("Creating workbook...");
 		Workbook wb = new HSSFWorkbook();
