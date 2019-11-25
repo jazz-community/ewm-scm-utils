@@ -1,7 +1,6 @@
 package com.ibm.js.team.supporttools.scm.statistics;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 

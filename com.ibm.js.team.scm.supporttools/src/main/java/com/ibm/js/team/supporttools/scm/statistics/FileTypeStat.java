@@ -54,8 +54,8 @@ public class FileTypeStat implements IFileTypeStat {
 	public String toString() {
 		String extension = "'" + extensionName + "'";
 		if (lineDelimiters.size() > 0) {
-			extension += "- used delimiters: " + lineDelimiters.toString() + " used encodings: "
-					+ lineDelimiters.toString();
+			extension += "- " + lineDelimiters.toString() + " : "
+					+ encodings.toString();
 		}
 		return extension;
 	}

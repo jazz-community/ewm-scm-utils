@@ -6,7 +6,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class ExtensionsStats implements IExtensions {
@@ -42,7 +41,7 @@ public class ExtensionsStats implements IExtensions {
 	
 	public String extensionsSimple() {
 		String seperator = " ";
-		String message = "File Extensions: " + extensions.size();
+		String message = "Extensions: " + extensions.size();
 		Set<String> keys = extensions.keySet();
 		if (keys.size()<=0){
 			return message;
@@ -85,7 +84,7 @@ public class ExtensionsStats implements IExtensions {
 
 	public String extensionsAll() {
 		String seperator = " ";
-		String message = "File Extensions: " + extensions.size() + " {";
+		String message = "Extensions: " + extensions.size() + " {";
 		Set<String> keys = extensions.keySet();
 		for (String key : keys) {
 			IFileTypeStat extension = extensions.get(key);

@@ -12,7 +12,7 @@ public class CalcUtil {
 	public static String divideFloatWithPrecision2AsString(long a, long b) {
 
 		if (b == 0) {
-			return "devide by zero";
+			return "N/A"; // return "devide by zero";
 		}
 		return formatPrecision2(divideFloat(a, b));
 	}
@@ -37,7 +37,7 @@ public class CalcUtil {
 
 	public static String divideFloatAsString(long a, long b) {
 		if (b == 0) {
-			return "devide by zero";
+			return "N/A"; // return "devide by zero";
 		}
 		float c = (float) a / (float) b;
 		return Float.toString(c);
@@ -45,7 +45,7 @@ public class CalcUtil {
 
 	public static String divideLongAsString(long a, long b) {
 		if (b == 0) {
-			return "devide by zero";
+			return "N/A"; // return "devide by zero";
 		}
 		long c = a / b;
 		return String.valueOf(c);

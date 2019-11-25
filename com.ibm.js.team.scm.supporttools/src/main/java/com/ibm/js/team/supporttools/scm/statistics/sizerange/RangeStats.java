@@ -59,10 +59,7 @@ public class RangeStats {
 	}
 
 	public void logRangeInfo() throws IOException {
-//		for (IRangeStat iRangeStat : rangeStats) {
-//			iRangeStat.printRangeInfos();
-//		}
-
+		logger.info("Creating range statistics...");
 		logger.info("Creating workbook...");
 		Workbook wb = new HSSFWorkbook();
 		int sheetNo = 0;
@@ -70,7 +67,7 @@ public class RangeStats {
 		for (IRangeStat iRangeStat : rangeStats) {
 			IRangeCalculator rangeCalc = iRangeStat.getRangeCalculator();
 			logger.info("Creating sheet...");
-			String safeName = WorkbookUtil.createSafeSheetName(sheetNo++ + "- " + rangeCalc.getName());
+			String safeName = WorkbookUtil.createSafeSheetName(sheetNo++ + " - " + rangeCalc.getName());
 			Sheet sheet = wb.createSheet(safeName);
 			CreationHelper createHelper = wb.getCreationHelper();
 			Row header = sheet.createRow(0);
@@ -109,7 +106,11 @@ public class RangeStats {
 		logger.info("Writing...");
 		try (OutputStream fileOut = new FileOutputStream("workbook.xls")) {
 			wb.write(fileOut);
+			
+		} finally{
+			wb.close();
 		}
 		logger.info("Written");
+		logger.info("Done...");
 	}
 }

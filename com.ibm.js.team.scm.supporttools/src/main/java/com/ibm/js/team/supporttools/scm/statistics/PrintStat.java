@@ -7,7 +7,7 @@ public class PrintStat {
 			final long maxFileDepth, final long cumulatedFileDepth) {
 		String message = "";
 		message += " Folders:\t " + cumulatedFolders + ConnectionStat.COLUMN_SEPERATOR;
-		message += " Files/Folder:\t\t " + CalcUtil.divideFloat(cumulatedFiles, cumulatedFolders)
+		message += " Files/Folder:\t\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedFiles, cumulatedFolders)
 				+ ConnectionStat.COLUMN_SEPERATOR;
 		message += " Folder Depth(avg):\t "
 				+ CalcUtil.divideFloatWithPrecision2AsString(cumulatedFolderDepth, cumulatedFolders)
