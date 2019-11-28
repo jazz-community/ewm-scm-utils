@@ -41,8 +41,8 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 	public static final Logger logger = LoggerFactory.getLogger(ConvertLoadrule.class);
 
 	/**
-	 * Constructor, set the command name which will be used as option value for the
-	 * command option. The name is used in the UIs and the option parser.
+	 * Constructor, set the command name which will be used as option value for
+	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public ConvertLoadrule() {
 		super(ScmSupportToolsConstants.CMD_CONVERT_LOADRULE);
@@ -63,8 +63,8 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 	}
 
 	/**
-	 * Method to check if the required options/parameters required to perform the
-	 * command are available.
+	 * Method to check if the required options/parameters required to perform
+	 * the command are available.
 	 */
 	@Override
 	public boolean checkParameters(CommandLine cmd) {

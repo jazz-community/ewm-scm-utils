@@ -15,17 +15,18 @@ import com.ibm.team.filesystem.common.IFileItem;
 
 public class FileInfo {
 
-	String name=null;
-	long size=0;
-	long rawlength=0;
-	long estLength=0;
-	FileLineDelimiter lineDelimiter=null;
-	String encoding=null;
-	
+	String name = null;
+	long size = 0;
+	long rawlength = 0;
+	long estLength = 0;
+	FileLineDelimiter lineDelimiter = null;
+	String encoding = null;
+
 	public FileInfo(IFileItem file) {
 		super();
 		analyze(file);
 	}
+
 	public FileInfo(File file) {
 		super();
 		analyze(file);
@@ -43,77 +44,77 @@ public class FileInfo {
 			lineDelimiter = filecontent.getLineDelimiter();
 		}
 		String name = file.getName();
-		analyze(name, size, rawlength, estLength, lineDelimiter, encoding);	
+		analyze(name, size, rawlength, estLength, lineDelimiter, encoding);
 	}
 
 	private void analyze(File file) {
 		long size = file.length();
 		String name = file.getName();
-		analyze(name, size, size, size, null, null);		
+		analyze(name, size, size, size, null, null);
 	}
-	
+
 	private void analyze(String name, long size, long rawlength, long estLength, FileLineDelimiter lineDelimiter,
 			String encoding) {
 		setName(name);
 		setSize(size);
-		setRawlength(rawlength); 
+		setRawlength(rawlength);
 		setEstLength(estLength);
 		setLineDelimiter(lineDelimiter);
 		setEncoding(encoding);
 	}
-	
-	public static FileInfo getFileInfo(IFileItem file){
+
+	public static FileInfo getFileInfo(IFileItem file) {
 		return new FileInfo(file);
 	}
 
-	public static FileInfo getFileInfo(File file){
-		return new FileInfo(file);		
+	public static FileInfo getFileInfo(File file) {
+		return new FileInfo(file);
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public long getSize() {
 		return size;
 	}
-	
+
 	public void setSize(long size) {
 		this.size = size;
 	}
-	
+
 	public long getRawlength() {
 		return rawlength;
 	}
-	
+
 	public void setRawlength(long rawlength) {
 		this.rawlength = rawlength;
 	}
-	
+
 	public long getEstLength() {
 		return estLength;
 	}
-	
+
 	public void setEstLength(long estLength) {
 		this.estLength = estLength;
 	}
-	
+
 	public FileLineDelimiter getLineDelimiter() {
 		return lineDelimiter;
 	}
-	
+
 	public void setLineDelimiter(FileLineDelimiter lineDelimiter) {
 		this.lineDelimiter = lineDelimiter;
 	}
-	
+
 	public String getEncoding() {
 		return encoding;
 	}
-	
+
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}

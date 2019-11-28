@@ -23,9 +23,8 @@ public class PrintStat {
 		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + ConnectionStat.COLUMN_SEPERATOR;
 		message += " Folder Depth Limits: " + ConnectionStat.COLUMN_SEPERATOR;
 		message += " log(e):\t " + CalcUtil.formatPrecision2(Math.log(cumulatedFolders))
-		+ ConnectionStat.COLUMN_SEPERATOR;
-		message += " (max):\t " + cumulatedFolders
 				+ ConnectionStat.COLUMN_SEPERATOR;
+		message += " (max):\t " + cumulatedFolders + ConnectionStat.COLUMN_SEPERATOR;
 		message += "\n";
 		message += " Files:\t\t " + cumulatedFiles + ConnectionStat.COLUMN_SEPERATOR;
 		message += " File Size(avg):\t "

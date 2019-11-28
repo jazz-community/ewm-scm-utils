@@ -35,7 +35,10 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
 
 	public static final String CMD_ANYLYZESANDBOX = "analyzeSandbox";
-	public static final String CMD_ANALYZESANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";;
+	public static final String CMD_ANALYZESANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+
+	public static final String CMD_GENERATEEXTERNALCHANGES = "generateExternalChanges";
+	public static final String CMD_GENERATEEXTERNALCHANGES_DESCRIPTION = "\n\tGenerates external changes on an Eclipse sandbox.";
 
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";

@@ -97,9 +97,10 @@ public class RangeStats {
 				row.createCell(4).setCellValue(index);
 				row.createCell(6).setCellValue(count);
 				row.createCell(7).setCellValue(iRangeInfo.getExtensionStatus().getNoExtensions());
-				row.createCell(8).setCellValue(createHelper.createRichTextString(iRangeInfo.getExtensionStatus().getExtensionsCompressed()));
+				row.createCell(8).setCellValue(
+						createHelper.createRichTextString(iRangeInfo.getExtensionStatus().getExtensionsCompressed()));
 			}
-			logger.info("Autosizing...");				
+			logger.info("Autosizing...");
 			sheet.autoSizeColumn(1);
 			sheet.autoSizeColumn(2);
 			sheet.autoSizeColumn(3);
@@ -113,8 +114,8 @@ public class RangeStats {
 		logger.info("Writing...");
 		try (OutputStream fileOut = new FileOutputStream("workbook.xls")) {
 			wb.write(fileOut);
-			
-		} finally{
+
+		} finally {
 			wb.close();
 		}
 		logger.info("Written");

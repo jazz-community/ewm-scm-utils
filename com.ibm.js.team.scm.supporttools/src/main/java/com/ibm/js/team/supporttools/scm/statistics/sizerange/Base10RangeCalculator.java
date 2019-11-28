@@ -22,7 +22,7 @@ public class Base10RangeCalculator implements IRangeCalculator {
 
 	@Override
 	public double getTopThreshold(int interval) {
-		return Math.pow(10,interval);
+		return Math.pow(10, interval);
 	}
 
 }

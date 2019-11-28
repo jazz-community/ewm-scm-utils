@@ -13,15 +13,18 @@ import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class RangeInfo implements IRangeInfo {
-	
 
 	public RangeInfo(long index) {
 		super();
 		this.index = index;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#getIndex()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#getIndex
+	 * ()
 	 */
 	@Override
 	public long getIndex() {
@@ -32,32 +35,42 @@ public class RangeInfo implements IRangeInfo {
 		return ext;
 	}
 
-	long index=-1;
+	long index = -1;
 	IExtensions ext = new ExtensionsStats();
 	private long hits = 0;
 
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#addFileStat(java.lang.String, long, long, long, int, com.ibm.team.filesystem.common.FileLineDelimiter, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#
+	 * addFileStat(java.lang.String, long, long, long, int,
+	 * com.ibm.team.filesystem.common.FileLineDelimiter, java.lang.String)
 	 */
 	@Override
 	public void addFileStat(String name, long size, long rawlength, long estLength, int depth,
 			FileLineDelimiter lineDelimiter, String encoding) {
 	}
-	
-	public long getFileCount(){
+
+	public long getFileCount() {
 		return hits;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#getExtensionStatus()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#
+	 * getExtensionStatus()
 	 */
 	@Override
-	public IExtensions getExtensionStatus(){
+	public IExtensions getExtensionStatus() {
 		return ext;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#addFileStat(com.ibm.js.team.supporttools.scm.utils.FileInfo)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeInfo#
+	 * addFileStat(com.ibm.js.team.supporttools.scm.utils.FileInfo)
 	 */
 	@Override
 	public void addFileStat(FileInfo fileInfo) {

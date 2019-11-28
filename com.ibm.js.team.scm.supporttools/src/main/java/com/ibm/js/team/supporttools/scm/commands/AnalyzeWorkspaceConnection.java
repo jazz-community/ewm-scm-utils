@@ -57,10 +57,11 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspaceConnection.class);
 	private int fProgress = 0;
 	private ConnectionStat connectionStat = null;
-    private RangeStats rangeStats = new RangeStats();
+	private RangeStats rangeStats = new RangeStats();
+
 	/**
-	 * Constructor, set the command name which will be used as option value for the
-	 * command option. The name is used in the UIs and the option parser.
+	 * Constructor, set the command name which will be used as option value for
+	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public AnalyzeWorkspaceConnection() {
 		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACECONNECTION);
@@ -154,9 +155,10 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	}
 
 	/**
-	 * Export a repository workspace, all its components and the current SCM data
-	 * into a persistent format. The persistent format can later be used to import
-	 * and recreate a repository workspace and the component and the latest content.
+	 * Export a repository workspace, all its components and the current SCM
+	 * data into a persistent format. The persistent format can later be used to
+	 * import and recreate a repository workspace and the component and the
+	 * latest content.
 	 * 
 	 * @param teamRepository
 	 * @param outputfolder
@@ -192,7 +194,8 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 		analyzeComponentContent(teamRepository, monitor, workspace, hierarchy);
 		logger.info("Show results...");
 		connectionStat.log();
-		rangeStats.logRangeInfo();;
+		rangeStats.logRangeInfo();
+		;
 		return true;
 	}
 
@@ -232,7 +235,8 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 		connectionStat.getComponentStat(component.getItemId()).setComponentName(component.getName());
 		try {
 			IConfiguration compConfig = connection.configuration(component);
-			// Fetch the items at the root of each component. We do this to initialize our
+			// Fetch the items at the root of each component. We do this to
+			// initialize our
 			// queue of stuff to download.
 			analyzeComponentRoot(contentManager, compConfig, monitor);
 
@@ -285,7 +289,8 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 				// Recursion into the contained folders
 				analyzeFolder(contentManager, compConfig, completeChildren, dirPath, depth + 1, monitor);
 			} else if (v instanceof IFileItem) {
-				// Get the file contents. Generate contents to save them into the directory
+				// Get the file contents. Generate contents to save them into
+				// the directory
 				IFileItem file = (IFileItem) v;
 				FileInfo fInfo = FileInfo.getFileInfo(file);
 				compStat.addFileStat(fInfo, depth);

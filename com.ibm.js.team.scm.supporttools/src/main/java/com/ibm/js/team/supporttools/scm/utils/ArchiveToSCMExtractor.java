@@ -78,7 +78,8 @@ public class ArchiveToSCMExtractor {
 	}
 
 	/**
-	 * Extract the archive. This is basically the entry point for the extraction.
+	 * Extract the archive. This is basically the entry point for the
+	 * extraction.
 	 * 
 	 * @param zipFile
 	 * @param teamRepository
@@ -118,8 +119,8 @@ public class ArchiveToSCMExtractor {
 
 	/**
 	 * Extract the content of an archive to a component. This assumes that the
-	 * archive contains folders on top level. These folders can act as projects when
-	 * loading,
+	 * archive contains folders on top level. These folders can act as projects
+	 * when loading,
 	 * 
 	 * @return
 	 * @throws IOException
@@ -158,8 +159,8 @@ public class ArchiveToSCMExtractor {
 	 * Extract a file from a ZipEntry to the Jazz SCM system. Currently only
 	 * Text/UTF8 files are supported.
 	 * 
-	 * Commit the file if there are changes because the file did not exist or there
-	 * are changes in the new content compared to the existing file.
+	 * Commit the file if there are changes because the file did not exist or
+	 * there are changes in the new content compared to the existing file.
 	 * 
 	 * @param targetFile
 	 * @param zipEntry
@@ -240,7 +241,8 @@ public class ArchiveToSCMExtractor {
 	}
 
 	/**
-	 * Tries to create a IFileItem node in a given IFolder. Returns the IFileItem.
+	 * Tries to create a IFileItem node in a given IFolder. Returns the
+	 * IFileItem.
 	 * 
 	 * @param string
 	 * @param zipEntry
@@ -260,8 +262,8 @@ public class ArchiveToSCMExtractor {
 	}
 
 	/**
-	 * Copy the data from an input stream to an output stream. This is done to avoid
-	 * the Jazz SCM closing the stream that contains the original data.
+	 * Copy the data from an input stream to an output stream. This is done to
+	 * avoid the Jazz SCM closing the stream that contains the original data.
 	 * 
 	 * @param zipInStream
 	 * @return

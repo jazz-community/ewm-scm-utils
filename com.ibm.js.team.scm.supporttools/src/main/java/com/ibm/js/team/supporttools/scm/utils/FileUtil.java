@@ -1,0 +1,33 @@
+package com.ibm.js.team.supporttools.scm.utils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class FileUtil {
+	public static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
+	public static void touchFile(File file, long time) {
+		if (!file.isDirectory()) {
+			touchAll(file, time);
+		}
+	}
+
+	public static void touchAll(File file, long time) {
+		try {
+			if (!file.exists()) {
+				new FileOutputStream(file).close();
+			}
+			file.setLastModified(time);
+		} catch (FileNotFoundException e) {
+			logger.error("FileNotFoundException file '{}'", file.getAbsolutePath());
+		} catch (IOException e) {
+			logger.error("IOException file '{}'", file.getAbsolutePath());
+			e.printStackTrace();
+		}
+	}
+}

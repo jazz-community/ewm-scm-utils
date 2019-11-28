@@ -43,10 +43,10 @@ public class FileContentUtil {
 	}
 
 	/**
-	 * Reads a file line by line. The line content will be changed to some code that
-	 * is randomly constructed from sample code snippets. The original content is
-	 * replaced by arbitrary code snippets, but the line structure and the file
-	 * length is preserved.
+	 * Reads a file line by line. The line content will be changed to some code
+	 * that is randomly constructed from sample code snippets. The original
+	 * content is replaced by arbitrary code snippets, but the line structure
+	 * and the file length is preserved.
 	 * 
 	 * @param in
 	 * @param zos
@@ -75,8 +75,8 @@ public class FileContentUtil {
 	}
 
 	/**
-	 * Create a binary file based on the code samples, instead of generating random
-	 * file content.
+	 * Create a binary file based on the code samples, instead of generating
+	 * random file content.
 	 * 
 	 * @param in
 	 * @param zos
@@ -93,8 +93,8 @@ public class FileContentUtil {
 	}
 
 	/**
-	 * Create the content for one line from the sample table. Use multiple samples
-	 * to increase the line length.
+	 * Create the content for one line from the sample table. Use multiple
+	 * samples to increase the line length.
 	 * 
 	 * @param length
 	 * @return
@@ -128,8 +128,8 @@ public class FileContentUtil {
 	}
 
 	/**
-	 * Randomize a file. The file content is read and random data of the same size
-	 * is created to be stored.
+	 * Randomize a file. The file content is read and random data of the same
+	 * size is created to be stored.
 	 * 
 	 * @param in
 	 * @param zos

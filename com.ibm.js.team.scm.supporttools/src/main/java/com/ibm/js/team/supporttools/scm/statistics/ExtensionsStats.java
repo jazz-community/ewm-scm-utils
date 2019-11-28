@@ -19,12 +19,12 @@ public class ExtensionsStats implements IExtensions {
 	public static final Logger logger = LoggerFactory.getLogger(ExtensionsStats.class);
 
 	HashMap<String, IFileTypeStat> extensions = new HashMap<String, IFileTypeStat>(50);
-	
+
 	@Override
-	public int getNoExtensions(){
+	public int getNoExtensions() {
 		return extensions.entrySet().size();
 	}
-	
+
 	public HashMap<String, IFileTypeStat> getExtensions() {
 		return extensions;
 	}
@@ -34,10 +34,10 @@ public class ExtensionsStats implements IExtensions {
 		String seperator = " ";
 		String message = "";
 		Set<String> keys = extensions.keySet();
-		if (keys.size()<=0){
+		if (keys.size() <= 0) {
 			return message;
 		}
-		message+= " {";
+		message += " {";
 		for (String key : keys) {
 			message += seperator + key;
 			seperator = "; ";
@@ -45,15 +45,15 @@ public class ExtensionsStats implements IExtensions {
 		message += " }";
 		return message;
 	}
-	
+
 	public String extensionsSimple() {
 		String seperator = " ";
 		String message = "Extensions: " + extensions.size();
 		Set<String> keys = extensions.keySet();
-		if (keys.size()<=0){
+		if (keys.size() <= 0) {
 			return message;
 		}
-		message+= " {";
+		message += " {";
 		for (String key : keys) {
 			message += seperator + key;
 			seperator = "; ";
@@ -68,11 +68,11 @@ public class ExtensionsStats implements IExtensions {
 			String ext = result[1];
 			if (ext != null && ext.length() > 0) {
 				logExtension(ext, lineDelimiter, encoding);
-			} 
+			}
 		} else {
-//			if(result.length == 1 ){
-//				logger.info("No Extension: {}" , result[0]);
-//			}
+			// if(result.length == 1 ){
+			// logger.info("No Extension: {}" , result[0]);
+			// }
 		}
 	}
 
@@ -87,7 +87,6 @@ public class ExtensionsStats implements IExtensions {
 		extensions.put(ext, extension);
 		extension.analyze(ext, lineDelimiter, encoding);
 	}
-
 
 	public String extensionsAll() {
 		String seperator = " ";

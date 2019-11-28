@@ -13,24 +13,33 @@ import java.util.Set;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class FileTypeStat implements IFileTypeStat {
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#getExtensionName()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#
+	 * getExtensionName()
 	 */
 	@Override
 	public String getExtensionName() {
 		return extensionName;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#getLineDelimiters()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#
+	 * getLineDelimiters()
 	 */
 	@Override
 	public Set<String> getLineDelimiters() {
 		return lineDelimiters;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#getEncodings()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#getEncodings()
 	 */
 	@Override
 	public Set<String> getEncodings() {
@@ -45,8 +54,13 @@ public class FileTypeStat implements IFileTypeStat {
 		extensionName = ext;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#analyze(java.lang.String, com.ibm.team.filesystem.common.FileLineDelimiter, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.js.team.supporttools.scm.statistics.IFileTypeStat#analyze(java.
+	 * lang.String, com.ibm.team.filesystem.common.FileLineDelimiter,
+	 * java.lang.String)
 	 */
 	@Override
 	public void analyze(String ext, FileLineDelimiter lineDelimiter, String encoding) {
@@ -61,8 +75,7 @@ public class FileTypeStat implements IFileTypeStat {
 	public String toString() {
 		String extension = "'" + extensionName + "'";
 		if (lineDelimiters.size() > 0) {
-			extension += "- " + lineDelimiters.toString() + " : "
-					+ encodings.toString();
+			extension += "- " + lineDelimiters.toString() + " : " + encodings.toString();
 		}
 		return extension;
 	}

@@ -22,15 +22,15 @@ public class Base2RangeCalculator implements IRangeCalculator {
 
 	@Override
 	public double getTopThreshold(int interval) {
-		return Math.pow(2,interval);
+		return Math.pow(2, interval);
 	}
 
-	double log2(long x){
-		return log(x,2);
-	}	
-	
-	double log(long x, long base){
-		return (Math.log(x)/Math.log(base));
+	double log2(long x) {
+		return log(x, 2);
+	}
+
+	double log(long x, long base) {
+		return (Math.log(x) / Math.log(base));
 	}
 
 }

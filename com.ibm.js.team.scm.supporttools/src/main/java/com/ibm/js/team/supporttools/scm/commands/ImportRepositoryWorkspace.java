@@ -73,8 +73,8 @@ public class ImportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	private boolean reuseExistingWorkspace = false;
 
 	/**
-	 * Constructor, set the command name which will be used as option value for the
-	 * command option. The name is used in the UIs and the option parser.
+	 * Constructor, set the command name which will be used as option value for
+	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public ImportRepositoryWorkspace() {
 		super(ScmSupportToolsConstants.CMD_IMPORTWORKSPACE);
@@ -99,8 +99,8 @@ public class ImportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	}
 
 	/**
-	 * Method to check if the required options/parameters required to perform the
-	 * command are available.
+	 * Method to check if the required options/parameters required to perform
+	 * the command are available.
 	 */
 	@Override
 	public boolean checkTeamreposiroyCommandParameters(CommandLine cmd) {
@@ -276,7 +276,8 @@ public class ImportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 		logger.info("Find or create components...");
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 		JSONArray jsonComponentMap = new JSONArray();
-		// Run 1 to get a map for the components needed. Find or create the components.
+		// Run 1 to get a map for the components needed. Find or create the
+		// components.
 		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
 				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();

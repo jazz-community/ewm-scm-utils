@@ -72,7 +72,7 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	 *
 	 */
 	enum ExportMode {
-	RANDOMIZE, OBFUSCATE, PRESERVE
+		RANDOMIZE, OBFUSCATE, PRESERVE
 	}
 
 	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
@@ -82,8 +82,8 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	private FileContentUtil fFileUtil = null;
 
 	/**
-	 * Constructor, set the command name which will be used as option value for the
-	 * command option. The name is used in the UIs and the option parser.
+	 * Constructor, set the command name which will be used as option value for
+	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public ExportRepositoryWorkspace() {
 		super(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE);
@@ -206,65 +206,73 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 		return result;
 	}
 
-//	/**
-//	 * The main method that executes the behavior of this command.
-//	 */
-//	@Override
-//	public boolean execute() {
-//		logger.info("Executing Command {}", this.getCommandName());
-//		boolean result = false;
-//		// Execute the code
-//		// Get all the option values
-//		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-//		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-//		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
-//		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-//		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-//		String exportMode = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
-//
-//		TeamPlatform.startup();
-//		try {
-//			IProgressMonitor monitor = new NullProgressMonitor();
-//			ITeamRepository teamRepository = TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
-//			teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
-//				public ILoginInfo challenge(ITeamRepository repository) {
-//					return new ILoginInfo() {
-//						public String getUserId() {
-//							return userId;
-//						}
-//
-//						public String getPassword() {
-//							return userPassword;
-//						}
-//					};
-//				}
-//			});
-//			teamRepository.login(monitor);
-//			File outputfolder = new File(outputFolderPath);
-//			if (!outputfolder.exists()) {
-//				FileUtil.createFolderWithParents(outputfolder);
-//				if (!outputfolder.exists()) {
-//					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
-//					return result;
-//				}
-//			}
-//			if (!outputfolder.isDirectory()) {
-//				logger.error("Error: '{}' is not a directory.", outputFolderPath);
-//				return result;
-//			}
-//			fOutputFolder = outputfolder;
-//			setExportMode(exportMode);
-//			result = exportWorkspace(teamRepository, scmWorkspace, monitor);
-//		} catch (TeamRepositoryException e) {
-//			logger.error("TeamRepositoryException: {}", e.getMessage());
-//		} catch (IOException e) {
-//			logger.error("IOException: {}", e.getMessage());
-//		} finally {
-//			TeamPlatform.shutdown();
-//		}
-//
-//		return result;
-//	}
+	// /**
+	// * The main method that executes the behavior of this command.
+	// */
+	// @Override
+	// public boolean execute() {
+	// logger.info("Executing Command {}", this.getCommandName());
+	// boolean result = false;
+	// // Execute the code
+	// // Get all the option values
+	// String repositoryURI =
+	// getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
+	// final String userId =
+	// getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
+	// final String userPassword =
+	// getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
+	// String scmWorkspace =
+	// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
+	// String outputFolderPath =
+	// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+	// String exportMode =
+	// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
+	//
+	// TeamPlatform.startup();
+	// try {
+	// IProgressMonitor monitor = new NullProgressMonitor();
+	// ITeamRepository teamRepository =
+	// TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
+	// teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
+	// public ILoginInfo challenge(ITeamRepository repository) {
+	// return new ILoginInfo() {
+	// public String getUserId() {
+	// return userId;
+	// }
+	//
+	// public String getPassword() {
+	// return userPassword;
+	// }
+	// };
+	// }
+	// });
+	// teamRepository.login(monitor);
+	// File outputfolder = new File(outputFolderPath);
+	// if (!outputfolder.exists()) {
+	// FileUtil.createFolderWithParents(outputfolder);
+	// if (!outputfolder.exists()) {
+	// logger.error("Error: Outputfolder '{}' could not be created.",
+	// outputFolderPath);
+	// return result;
+	// }
+	// }
+	// if (!outputfolder.isDirectory()) {
+	// logger.error("Error: '{}' is not a directory.", outputFolderPath);
+	// return result;
+	// }
+	// fOutputFolder = outputfolder;
+	// setExportMode(exportMode);
+	// result = exportWorkspace(teamRepository, scmWorkspace, monitor);
+	// } catch (TeamRepositoryException e) {
+	// logger.error("TeamRepositoryException: {}", e.getMessage());
+	// } catch (IOException e) {
+	// logger.error("IOException: {}", e.getMessage());
+	// } finally {
+	// TeamPlatform.shutdown();
+	// }
+	//
+	// return result;
+	// }
 
 	/**
 	 * Managing the export mode based on a parameter.
@@ -291,9 +299,10 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	}
 
 	/**
-	 * Export a repository workspace, all its components and the current SCM data
-	 * into a persistent format. The persistent format can later be used to import
-	 * and recreate a repository workspace and the component and the latest content.
+	 * Export a repository workspace, all its components and the current SCM
+	 * data into a persistent format. The persistent format can later be used to
+	 * import and recreate a repository workspace and the component and the
+	 * latest content.
 	 * 
 	 * @param teamRepository
 	 * @param outputfolder
@@ -332,7 +341,8 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	}
 
 	/**
-	 * Persist the component and component hierarchy information into a JSON file.
+	 * Persist the component and component hierarchy information into a JSON
+	 * file.
 	 * 
 	 * @param teamRepository
 	 * @param hierarchy
@@ -465,7 +475,8 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 			ZipOutputStream zos = new ZipOutputStream(out);
 
 			IConfiguration compConfig = connection.configuration(component);
-			// Fetch the items at the root of each component. We do this to initialize our
+			// Fetch the items at the root of each component. We do this to
+			// initialize our
 			// queue of stuff to download.
 			@SuppressWarnings("unchecked")
 			Map<String, IVersionableHandle> handles = compConfig.childEntriesForRoot(monitor);
@@ -515,7 +526,8 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 				loadDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
 
 			} else if (v instanceof IFileItem) {
-				// Get the file contents. Generate contents to save them into the directory
+				// Get the file contents. Generate contents to save them into
+				// the directory
 				IFileItem file = (IFileItem) v;
 				zos.putNextEntry(new ZipEntry(path + v.getName()));
 				generateContent(file, contentManager, zos, monitor);
@@ -526,19 +538,19 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	}
 
 	/**
-	 * This generates the content to be persisted. There are three different options
-	 * available that can be used.
+	 * This generates the content to be persisted. There are three different
+	 * options available that can be used.
 	 * 
 	 * For all options: the file and folder names are kept.
 	 * 
-	 * Randomize (default): Generates data based on random values. The size of the
-	 * data a generated is the same as the original data. The generated data does
-	 * not keep line ending and file encoding.
+	 * Randomize (default): Generates data based on random values. The size of
+	 * the data a generated is the same as the original data. The generated data
+	 * does not keep line ending and file encoding.
 	 * 
 	 * Obfuscate: Generates data based on sample code available. The size of the
 	 * data a generated is similar or the same as the original data. The data is
-	 * generated from example code snippets from a file. The generated data keeps
-	 * line ending and file encoding, where available.
+	 * generated from example code snippets from a file. The generated data
+	 * keeps line ending and file encoding, where available.
 	 * 
 	 * Preserve: Stores the original file and folder content unchanged.
 	 * 

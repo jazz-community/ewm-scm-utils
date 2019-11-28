@@ -7,9 +7,6 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
@@ -19,26 +16,22 @@ import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
-import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
+import com.ibm.js.team.supporttools.scm.changegeneration.ExternalChangeGenerator;
 
 /**
  * Allows to analyze a sandbox or local file system folder.
  * 
  */
-public class AnalyzeSandbox extends AbstractCommand implements ICommand {
+public class GenerateExternalChanges extends AbstractCommand implements ICommand {
 
-	public static final Logger logger = LoggerFactory.getLogger(AnalyzeSandbox.class);
-	private int fProgress = 0;
-	private RangeStats rangeStats = new RangeStats();
+	public static final Logger logger = LoggerFactory.getLogger(GenerateExternalChanges.class);
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public AnalyzeSandbox() {
-		super(ScmSupportToolsConstants.CMD_ANYLYZESANDBOX);
+	public GenerateExternalChanges() {
+		super(ScmSupportToolsConstants.CMD_GENERATEEXTERNALCHANGES);
 	}
 
 	/**
@@ -73,7 +66,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_ANALYZESANDBOX_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_GENERATEEXTERNALCHANGES_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
@@ -100,84 +93,9 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		// Execute the code
 		// Get all the option values
 		String sandboxFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER);
-
-		try {
-			result = analyzeSandbox(sandboxFolderPath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-		}
+		ExternalChangeGenerator changeGen = new ExternalChangeGenerator(sandboxFolderPath);
+		result = changeGen.generateLoad();
 		return result;
 	}
 
-	/**
-	 * Export a repository workspace, all its components and the current SCM
-	 * data into a persistent format. The persistent format can later be used to
-	 * import and recreate a repository workspace and the component and the
-	 * latest content.
-	 * 
-	 * @param sandboxFolderPath
-	 * @return
-	 * 
-	 * 		scm show sandbox-structure
-	 * @throws IOException
-	 */
-	private boolean analyzeSandbox(String sandboxFolderPath) throws IOException {
-		boolean result = false;
-		logger.info("Analyze sandbox '{}'...", sandboxFolderPath);
-		File sandboxFolder = new File(sandboxFolderPath);
-		if (!sandboxFolder.exists()) {
-			logger.error("Error: Sandboxfolder '{}' could not be created.", sandboxFolderPath);
-			return result;
-		}
-		if (!sandboxFolder.isDirectory()) {
-			logger.error("Error: Sandboxfolder '{}' is not a directory.", sandboxFolderPath);
-			return result;
-		}
-		ComponentStat compStat = new ComponentStat(sandboxFolderPath);
-		analyzeFolder(sandboxFolder, "", compStat, 0);
-
-		logger.info("\n\nShow results...");
-		logger.info(compStat.toString());
-		rangeStats.logRangeInfo();
-		return true;
-	}
-
-	/**
-	 * @param sandboxFolder
-	 * @param path
-	 * @param compStat
-	 * @param depth
-	 */
-	private void analyzeFolder(File sandboxFolder, String path, ComponentStat compStat, int depth) {
-		File[] contents = sandboxFolder.listFiles();
-		long folders = 0;
-		long files = 0;
-		for (File file : contents) {
-			if (file.isDirectory()) {
-				folders++;
-				compStat.addFolderStat(file, depth);
-				analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
-			} else {
-				files++;
-				FileInfo fInfo = FileInfo.getFileInfo(file);
-				compStat.addFileStat(fInfo, depth);
-				rangeStats.analyze(fInfo);
-			}
-		}
-		compStat.addFolderStats(folders, files, depth);
-		showProgress();
-	}
-
-	/**
-	 * This prints one '.' for every for 10 times it is called to show some
-	 * progress. Can be used to show more fine grained progress.
-	 */
-	private void showProgress() {
-		fProgress++;
-		if (fProgress % 10 == 9) {
-			System.out.print(".");
-		}
-	}
 }

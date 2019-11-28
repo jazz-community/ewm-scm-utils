@@ -13,6 +13,7 @@ import com.ibm.js.team.supporttools.scm.commands.AnalyzeWorkspaceConnection;
 import com.ibm.js.team.supporttools.scm.commands.ConvertLoadrule;
 import com.ibm.js.team.supporttools.scm.commands.ExportRepositoryWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.FlattenLoadrule;
+import com.ibm.js.team.supporttools.scm.commands.GenerateExternalChanges;
 import com.ibm.js.team.supporttools.scm.commands.ImportRepositoryWorkspace;
 
 /**
@@ -30,6 +31,7 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 		put(new ImportRepositoryWorkspace());
 		put(new ConvertLoadrule());
 		put(new FlattenLoadrule());
+		put(new GenerateExternalChanges());
 		// Enable sample command
 		// put(new SampleCommandCmd());
 	}

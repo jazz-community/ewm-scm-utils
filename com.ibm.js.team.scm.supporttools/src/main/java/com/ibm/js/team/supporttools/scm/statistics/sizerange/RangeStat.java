@@ -20,90 +20,99 @@ import com.ibm.js.team.supporttools.scm.utils.FormatUtil;
 public class RangeStat implements IRangeStat {
 	IRangeCalculator rangeCalc = null;
 
-	private HashMap<Integer,IRangeInfo> rangeMap = new HashMap<Integer,IRangeInfo> ();
+	private HashMap<Integer, IRangeInfo> rangeMap = new HashMap<Integer, IRangeInfo>();
 	public static final Logger logger = LoggerFactory.getLogger(RangeStat.class);
 	private long totalFileCount = 0;
 
-	class RangeInfoIterator implements Iterator<IRangeInfo>{
-		
+	class RangeInfoIterator implements Iterator<IRangeInfo> {
+
 		int index = -1;
-		int rangesLeft=-1;
-		
+		int rangesLeft = -1;
+
 		public RangeInfoIterator() {
 			super();
 			this.index = 0;
-			this.rangesLeft= rangeMap.size();
+			this.rangesLeft = rangeMap.size();
 		}
 
 		@Override
 		public boolean hasNext() {
-			return rangesLeft>0;
+			return rangesLeft > 0;
 		}
 
 		@Override
 		public IRangeInfo next() {
 			Integer current = new Integer(this.index++);
 			IRangeInfo range = rangeMap.get(current);
-			if(range!=null){
+			if (range != null) {
 				this.rangesLeft--;
 			} else {
-				range = new RangeInfo(current);	
+				range = new RangeInfo(current);
 			}
 			return range;
 		}
 	}
-	
+
 	public RangeStat(IRangeCalculator rangeCalc) {
 		super();
 		this.rangeCalc = rangeCalc;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeStat#analyze(com.ibm.js.team.supporttools.scm.utils.FileInfo)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeStat#analyze(
+	 * com.ibm.js.team.supporttools.scm.utils.FileInfo)
 	 */
 	@Override
 	public void analyze(FileInfo fileInfo) {
 		IRangeInfo potRange = geRangeInfo(fileInfo.getSize());
-		potRange.addFileStat(fileInfo);		
+		potRange.addFileStat(fileInfo);
 		totalFileCount++;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeStat#printRangeInfos()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.supporttools.scm.statistics.sizerange.IRangeStat#
+	 * printRangeInfos()
 	 */
 	@Override
-	public void printRangeInfos(){
-		int totalFileCount=0;
+	public void printRangeInfos() {
+		int totalFileCount = 0;
 		logger.info(rangeCalc.getName() + "...");
 		Set<Integer> keys = rangeMap.keySet();
 		int rangesLeft = keys.size();
-		int currentInterval=0;
-		while(rangesLeft>0){
+		int currentInterval = 0;
+		while (rangesLeft > 0) {
 			long fileCount = 0;
 			IRangeInfo range = rangeMap.get(currentInterval);
-			String extensions ="";
-			if(range!=null){
+			String extensions = "";
+			if (range != null) {
 				fileCount = range.getFileCount();
 				extensions = range.getExtensionStatus().extensionsSimple();
 				rangesLeft--;
 			}
-			logger.info("{} files to {} bytes. (Range {}), {}", fileCount, FormatUtil.getLeftAligned(rangeCalc.getTopThreshold(currentInterval)), currentInterval, extensions);			
-			totalFileCount+=fileCount;
+			logger.info("{} files to {} bytes. (Range {}), {}", fileCount,
+					FormatUtil.getLeftAligned(rangeCalc.getTopThreshold(currentInterval)), currentInterval, extensions);
+			totalFileCount += fileCount;
 			currentInterval++;
 		}
-		logger.info("Total {} \n", totalFileCount);		
+		logger.info("Total {} \n", totalFileCount);
 	}
 
 	private IRangeInfo geRangeInfo(long size) {
-		int index=0;
-		if(size>0){
+		int index = 0;
+		if (size > 0) {
 			index = rangeCalc.getInterval(size);
-			if(index<0){ // Ensure index is always positive to avoid endless loop during output.
-				index=0;
+			if (index < 0) { // Ensure index is always positive to avoid endless
+								// loop during output.
+				index = 0;
 			}
 		}
-	    IRangeInfo ring = rangeMap.get(index);
-		if (ring == null){
+		IRangeInfo ring = rangeMap.get(index);
+		if (ring == null) {
 			ring = new RangeInfo(index);
 			rangeMap.put(index, ring);
 		}
