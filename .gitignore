@@ -1,8 +1,4 @@
 
-log.out
+*.out
 *.class
-com.ibm.js.team.scm.supporttools/log4j/log.out
-com.ibm.js.team.scm.supporttools/log4j/log.out
-com.ibm.js.team.scm.supporttools/log4j/log.out
-*.xls
 *.xls
