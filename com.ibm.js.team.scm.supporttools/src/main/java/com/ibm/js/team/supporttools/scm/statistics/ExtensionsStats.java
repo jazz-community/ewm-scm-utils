@@ -10,9 +10,11 @@ package com.ibm.js.team.supporttools.scm.statistics;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ibm.js.team.supporttools.scm.utils.FileUtil;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class ExtensionsStats implements IExtensions {
@@ -63,16 +65,10 @@ public class ExtensionsStats implements IExtensions {
 	}
 
 	public void analyze(String name, FileLineDelimiter lineDelimiter, String encoding) {
-		String[] result = name.split("\\.");
-		if (result.length == 2) {
-			String ext = result[1];
-			if (ext != null && ext.length() > 0) {
-				logExtension(ext, lineDelimiter, encoding);
-			}
-		} else {
-			// if(result.length == 1 ){
-			// logger.info("No Extension: {}" , result[0]);
-			// }
+		// String ext2 = new FileUtil().getExtension(name);
+		String ext = FilenameUtils.getExtension(name);
+		if (ext != null && ext.length() > 0) {
+			logExtension(ext, lineDelimiter, encoding);
 		}
 	}
 

@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -145,6 +146,26 @@ public class FileContentUtil {
 		}
 	}
 
+	/**
+	 * TODO: Random Generation
+	 * Generate a random file file from an input file. 
+	 * The file content is not read, a file with random data is created and stored.
+	 * 
+	 * @param in
+	 * @param zos
+	 * @throws IOException
+	 */
+	public void generateRandom(InputStream in, OutputStream out) throws IOException {
+		byte[] arr = new byte[1024];
+		int w;
+		while (-1 != (w = in.read(arr))) {
+			byte[] orr = new byte[arr.length];
+			new Random().nextBytes(orr);
+			out.write(orr, 0, w);
+		}
+	}
+
+	
 	/**
 	 * Copy and preserve the input content into the output.
 	 * 

@@ -37,4 +37,18 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String getExtension(String fileName){
+		String[] result = fileName.split("\\.");
+		if (result.length == 2) {
+			String ext = result[1];
+			return ext;
+		} else {
+			// if(result.length == 1 ){
+			// logger.info("No Extension: {}" , result[0]);
+			// }
+		}
+		return null;
+
+	}
 }
