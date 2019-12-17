@@ -5,7 +5,7 @@
  * of the MIT license.  See the LICENSE file for details.
  * 
  *******************************************************************************/
-package com.ibm.js.team.supporttools.scm.commands;
+package com.ibm.js.team.supporttools.scm.statistics;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
 import com.ibm.js.team.supporttools.scm.statistics.ConnectionStat;
+import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStat;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
 import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
@@ -53,107 +54,12 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * SCM data.
  * 
  */
-public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
+public class AnalyzeWorkspaceStatistics {
 
-	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspace.class);
+	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspaceStatistics.class);
 	private int fProgress = 0;
 	private ConnectionStat connectionStat = null;
 	private RangeStats rangeStats = new RangeStats();
-
-	/**
-	 * Constructor, set the command name which will be used as option value for
-	 * the command option. The name is used in the UIs and the option parser.
-	 */
-	public AnalyzeWorkspace() {
-		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACECONNECTION);
-	}
-
-	@Override
-	public String getScenarioName() {
-		return ScmSupportToolsConstants.EXPENSIVESCENARIO_SCMTOOLS + getCommandName();
-	}
-
-	/**
-	 * Method to add the additional options this command requires.
-	 */
-	@Override
-	public Options addTeamRepositoryCommandOptions(Options options) {
-		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-		return options;
-	}
-
-	/**
-	 * Method to check if the additional required options/parameters required to
-	 * perform the command are available.
-	 */
-	@Override
-	public boolean checkTeamreposiroyCommandParameters(CommandLine cmd) {
-		// Check for required options
-		boolean isValid = true;
-
-		if (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID))) {
-			isValid = false;
-		}
-		return isValid;
-	}
-
-	/**
-	 * Method to print the syntax in case of missing options.
-	 */
-	@Override
-	public void printSyntax() {
-		// Command name and description
-		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION);
-		// General syntax
-		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE);
-		// Parameter and description
-		logger.info(
-				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
-				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
-				SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE);
-	}
-
-	/**
-	 * The main method that executes the behavior of this command.
-	 * 
-	 * @throws TeamRepositoryException
-	 */
-	@Override
-	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
-		boolean result = false;
-		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		try {
-			return analyzeWorkspace(getTeamRepository(), scmWorkspace, getMonitor());
-		} catch (IOException e) {
-			logger.error("IOException: {}", e.getMessage());
-		}
-		return result;
-	}
 
 	/**
 	 * Export a repository workspace, all its components and the current SCM
@@ -189,6 +95,36 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 		IWorkspaceConnection workspace = connection.get(0);
 
 		logger.info("Analyze component hierarchy from '{}'...", scmConnection);
+		IComponentHierarchyResult hierarchy = workspace.getComponentHierarchy(new ArrayList<IComponentHandle>());
+		analyzeComponentHierarchy(teamRepository, hierarchy, monitor);
+		logger.info("Anylaze components...");
+		analyzeComponentContent(teamRepository, monitor, workspace, hierarchy);
+		logger.info("Show results...");
+		connectionStat.printConnectionStatistics();
+		rangeStats.generateWorkBook();
+		return true;
+	}
+
+	private boolean analyzeWorkspace2(ITeamRepository teamRepository, IWorkspaceConnection workspace, IProgressMonitor monitor)
+			throws TeamRepositoryException, IOException {
+		boolean result = false;
+//		connectionStat = new ConnectionStat(scmConnection);
+//		logger.info("Find and open workspace '{}'...", scmConnection);
+//		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
+//				IWorkspaceSearchCriteria.ALL, monitor);
+//		if (connections.size() < 1) {
+//			logger.error("Error: workspace '{}' not found.", scmConnection);
+//			return result;
+//		}
+//		if (connections.size() > 1) {
+//			logger.warn("Warning: workspace '{}' not unique, picking first result.", scmConnection);
+//			//return result;
+//		}
+//		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,
+//				connections, monitor);
+//		IWorkspaceConnection workspace = connection.get(0);
+		connectionStat = new ConnectionStat(workspace.getName());
+		logger.info("Analyze component hierarchy of '{}'...", workspace.getName());
 		IComponentHierarchyResult hierarchy = workspace.getComponentHierarchy(new ArrayList<IComponentHandle>());
 		analyzeComponentHierarchy(teamRepository, hierarchy, monitor);
 		logger.info("Anylaze components...");

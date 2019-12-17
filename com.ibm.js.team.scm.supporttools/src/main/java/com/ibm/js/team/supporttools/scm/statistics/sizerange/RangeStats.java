@@ -38,6 +38,7 @@ public class RangeStats {
 		rangeStats.add((IRangeStat) new RangeStat(new Base2RangeCalculator()));
 		rangeStats.add((IRangeStat) new RangeStat(new Base10RangeCalculator()));
 		rangeStats.add((IRangeStat) new RangeStat(new LinearBaseRangeCalculator(1000)));
+		rangeStats.add((IRangeStat) new RangeStat(new LinearBaseRangeCalculator(1000000)));
 	}
 
 	class RangeStatsIterator implements Iterator<IRangeStat> {
