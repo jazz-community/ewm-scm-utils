@@ -173,15 +173,15 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 			throws TeamRepositoryException, IOException {
 		boolean result = false;
 		connectionStat = new ConnectionStat(scmConnection);
-		logger.info("Find and open WorkspaceConnection '{}'...", scmConnection);
+		logger.info("Find and open workspace '{}'...", scmConnection);
 		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.ALL, monitor);
 		if (connections.size() < 1) {
-			logger.error("Error: WorkspaceConnection '{}' not found.", scmConnection);
+			logger.error("Error: workspace '{}' not found.", scmConnection);
 			return result;
 		}
 		if (connections.size() > 1) {
-			logger.error("Error: WorkspaceConnection '{}' not unique.", scmConnection);
+			logger.error("Error: workspace '{}' not unique.", scmConnection);
 			return result;
 		}
 		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,

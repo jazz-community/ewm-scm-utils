@@ -33,7 +33,6 @@ public class ConnectionUtil {
 		}
 		List<IWorkspaceHandle> connections = wm.findWorkspaces(criteria, Integer.MAX_VALUE, monitor);
 		return connections;
-		// return wm.getWorkspaceConnections(connections, monitor);
 	}
 
 	/**

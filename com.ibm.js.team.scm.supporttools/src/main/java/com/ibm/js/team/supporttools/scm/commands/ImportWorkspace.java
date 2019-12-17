@@ -242,15 +242,14 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 			IProgressMonitor monitor)
 			throws TeamRepositoryException, UnsupportedEncodingException, FileNotFoundException, IOException {
 
-		// Find Or Create Workspace
-		logger.info("Find or create repository workspace '{}'...", scmConnection);
-
+		// Find Or Create workspaceConnection
+		logger.info("Find or create workspaceConnection '{}'...", scmConnection);
 		IWorkspaceConnection targetWorkspace = null;
 		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.ALL, monitor);
 		if (connections.size() > 0) {
 			if (!reuseExistingWorkspace) {
-				logger.error("WorkspaceConnection '{}' already exists.", scmConnection);
+				logger.error("The workspace '{}' already exists.", scmConnection);
 				return false;
 			}
 			List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,

@@ -19,7 +19,7 @@ public interface ScmSupportToolsConstants {
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
 	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
-	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.";
+	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file.";
 
 	public static final String CMD_IMPORTWORKSPACE = "importScmWorkspace";
 	public static final String CMD_IMPORTWORKSPACE_DESCRIPTION = "\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. ";
@@ -32,7 +32,7 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.";
 
 	public static final String CMD_ANYLYZEWORKSPACECONNECTION = "analyzeScmWorkspace";
-	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
 
 	public static final String CMD_ANYLYZESANDBOX = "analyzeSandbox";
 	public static final String CMD_ANALYZESANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
