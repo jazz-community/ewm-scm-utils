@@ -14,7 +14,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.utils.FileUtil;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class ExtensionsStats implements IExtensions {

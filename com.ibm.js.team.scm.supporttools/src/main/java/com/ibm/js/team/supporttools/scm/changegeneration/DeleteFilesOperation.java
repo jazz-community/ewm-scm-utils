@@ -1,19 +1,11 @@
 package com.ibm.js.team.supporttools.scm.changegeneration;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
-import com.ibm.js.team.supporttools.scm.utils.FileContentUtil;
 
 public class DeleteFilesOperation implements IFileOperation {
 	public static final Logger logger = LoggerFactory.getLogger(DeleteFilesOperation.class);
@@ -22,8 +14,8 @@ public class DeleteFilesOperation implements IFileOperation {
 	public HashSet<String> getSupportedExtensions() {
 		return supportedExtensions;
 	}
-	
-	public void addSupportedExtension(String extension){
+
+	public void addSupportedExtension(String extension) {
 		supportedExtensions.add(extension);
 	}
 
@@ -33,7 +25,7 @@ public class DeleteFilesOperation implements IFileOperation {
 
 	@Override
 	public void execute(File file) {
-		if(!isSupportedFile(file)){
+		if (!isSupportedFile(file)) {
 			return;
 		}
 		delete(file);
@@ -41,15 +33,15 @@ public class DeleteFilesOperation implements IFileOperation {
 
 	private void delete(File file) {
 		String fileName = file.getAbsolutePath();
-		if(file.exists()){
+		if (file.exists()) {
 			file.delete();
-			logger.info("Deleted '{}'", fileName );
+			logger.info("Deleted '{}'", fileName);
 		}
 	}
 
 	private boolean isSupportedFile(File file) {
 		String name = file.getName();
-		if (name==null){
+		if (name == null) {
 			return false;
 		}
 		String extension = FilenameUtils.getExtension(name);

@@ -12,7 +12,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
 import com.ibm.js.team.supporttools.scm.utils.FileContentUtil;
 
 public class GenerateFilesOperation implements IFileOperation {
@@ -28,25 +27,24 @@ public class GenerateFilesOperation implements IFileOperation {
 		return supportedExtensions.toArray(new String[0]);
 	}
 
-	
-	public void addSupportedExtension(String extension){
+	public void addSupportedExtension(String extension) {
 		supportedExtensions.add(extension);
 	}
 
 	public GenerateFilesOperation(String generationExtension) {
 		super();
 		this.generationExtension = generationExtension;
-		if(generationExtension==null){
+		if (generationExtension == null) {
 			throw new RuntimeException("Extension for Generation can not be null.");
 		}
-		if("".equals(generationExtension)){
+		if ("".equals(generationExtension)) {
 			throw new RuntimeException("Extension for Generation can not be empty.");
 		}
 	}
 
 	@Override
 	public void execute(File file) {
-		if(!isSupportedFile(file)){
+		if (!isSupportedFile(file)) {
 			return;
 		}
 		generate(file);
@@ -59,8 +57,8 @@ public class GenerateFilesOperation implements IFileOperation {
 			FileInputStream in = new FileInputStream(file);
 			FileOutputStream out = new FileOutputStream(generated);
 			FileContentUtil fCont = new FileContentUtil();
-			fCont.generateRandom(in,out);
-			logger.info("Created '{}'", generationFileName );
+			fCont.generateRandom(in, out);
+			logger.info("Created '{}'", generationFileName);
 			out.close();
 		} catch (FileNotFoundException e) {
 			logger.error("FileNotFoundException");
@@ -68,12 +66,12 @@ public class GenerateFilesOperation implements IFileOperation {
 			logger.error("UnsupportedEncodingException");
 		} catch (IOException e) {
 			logger.error("IOException");
-		}		
+		}
 	}
 
 	private boolean isSupportedFile(File file) {
 		String name = file.getName();
-		if (name==null){
+		if (name == null) {
 			return false;
 		}
 		String extension = FilenameUtils.getExtension(name);

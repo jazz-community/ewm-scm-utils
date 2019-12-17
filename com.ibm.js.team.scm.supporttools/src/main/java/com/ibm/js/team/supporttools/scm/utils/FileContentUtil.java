@@ -147,9 +147,9 @@ public class FileContentUtil {
 	}
 
 	/**
-	 * TODO: Random Generation
-	 * Generate a random file file from an input file. 
-	 * The file content is not read, a file with random data is created and stored.
+	 * TODO: Random Generation Generate a random file file from an input file.
+	 * The file content is not read, a file with random data is created and
+	 * stored.
 	 * 
 	 * @param in
 	 * @param zos
@@ -165,7 +165,6 @@ public class FileContentUtil {
 		}
 	}
 
-	
 	/**
 	 * Copy and preserve the input content into the output.
 	 * 

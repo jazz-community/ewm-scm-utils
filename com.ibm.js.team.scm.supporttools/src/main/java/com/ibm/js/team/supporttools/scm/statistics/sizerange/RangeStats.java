@@ -29,6 +29,7 @@ import com.ibm.js.team.supporttools.scm.utils.FileInfo;
  *
  */
 public class RangeStats {
+	private static final String DEFAULT_WORKBOOK_NAME = "workbook.xls";
 	public static final Logger logger = LoggerFactory.getLogger(RangeStats.class);
 	ArrayList<IRangeStat> rangeStats = new ArrayList<IRangeStat>();
 
@@ -65,7 +66,17 @@ public class RangeStats {
 		}
 	}
 
-	public void logRangeInfo() throws IOException {
+	/**
+	 * @throws IOException
+	 */
+	public void generateWorkBook() throws IOException {
+		generateWorkBook(DEFAULT_WORKBOOK_NAME);
+	}
+
+	/**
+	 * @throws IOException
+	 */
+	public void generateWorkBook(String workBookName) throws IOException {
 		logger.info("Creating range statistics...");
 		logger.info("Creating workbook...");
 		Workbook wb = new HSSFWorkbook();
@@ -112,7 +123,7 @@ public class RangeStats {
 			sheet.autoSizeColumn(9);
 		}
 		logger.info("Writing...");
-		try (OutputStream fileOut = new FileOutputStream("workbook.xls")) {
+		try (OutputStream fileOut = new FileOutputStream(workBookName)) {
 			wb.write(fileOut);
 
 		} finally {

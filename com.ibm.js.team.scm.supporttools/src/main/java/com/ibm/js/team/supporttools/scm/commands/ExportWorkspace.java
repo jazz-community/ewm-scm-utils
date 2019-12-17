@@ -35,6 +35,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
+import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
 import com.ibm.js.team.supporttools.scm.utils.FileContentUtil;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
@@ -65,7 +66,7 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * content.
  * 
  */
-public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
+public class ExportWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
 
 	/**
 	 * The supported modes to export the data
@@ -75,7 +76,7 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 		RANDOMIZE, OBFUSCATE, PRESERVE
 	}
 
-	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
+	public static final Logger logger = LoggerFactory.getLogger(ExportWorkspace.class);
 	public ExportMode fExportMode = ExportMode.RANDOMIZE;
 	private File fOutputFolder = null;
 	private int fProgress = 0;
@@ -85,7 +86,7 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	 * Constructor, set the command name which will be used as option value for
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public ExportRepositoryWorkspace() {
+	public ExportWorkspace() {
 		super(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE);
 	}
 
@@ -206,74 +207,6 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 		return result;
 	}
 
-	// /**
-	// * The main method that executes the behavior of this command.
-	// */
-	// @Override
-	// public boolean execute() {
-	// logger.info("Executing Command {}", this.getCommandName());
-	// boolean result = false;
-	// // Execute the code
-	// // Get all the option values
-	// String repositoryURI =
-	// getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-	// final String userId =
-	// getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-	// final String userPassword =
-	// getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
-	// String scmWorkspace =
-	// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-	// String outputFolderPath =
-	// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-	// String exportMode =
-	// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_EXPORT_MODE);
-	//
-	// TeamPlatform.startup();
-	// try {
-	// IProgressMonitor monitor = new NullProgressMonitor();
-	// ITeamRepository teamRepository =
-	// TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
-	// teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
-	// public ILoginInfo challenge(ITeamRepository repository) {
-	// return new ILoginInfo() {
-	// public String getUserId() {
-	// return userId;
-	// }
-	//
-	// public String getPassword() {
-	// return userPassword;
-	// }
-	// };
-	// }
-	// });
-	// teamRepository.login(monitor);
-	// File outputfolder = new File(outputFolderPath);
-	// if (!outputfolder.exists()) {
-	// FileUtil.createFolderWithParents(outputfolder);
-	// if (!outputfolder.exists()) {
-	// logger.error("Error: Outputfolder '{}' could not be created.",
-	// outputFolderPath);
-	// return result;
-	// }
-	// }
-	// if (!outputfolder.isDirectory()) {
-	// logger.error("Error: '{}' is not a directory.", outputFolderPath);
-	// return result;
-	// }
-	// fOutputFolder = outputfolder;
-	// setExportMode(exportMode);
-	// result = exportWorkspace(teamRepository, scmWorkspace, monitor);
-	// } catch (TeamRepositoryException e) {
-	// logger.error("TeamRepositoryException: {}", e.getMessage());
-	// } catch (IOException e) {
-	// logger.error("IOException: {}", e.getMessage());
-	// } finally {
-	// TeamPlatform.shutdown();
-	// }
-	//
-	// return result;
-	// }
-
 	/**
 	 * Managing the export mode based on a parameter.
 	 * 
@@ -317,8 +250,8 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 		boolean result = false;
 
 		logger.info("Find and open WorkspaceConnection '{}'...", scmConnection);
-		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
-				IWorkspaceSearchCriteria.WORKSPACES, monitor);
+		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
+				IWorkspaceSearchCriteria.ALL, monitor);
 		if (connections.size() < 1) {
 			logger.error("Error: WorkspaceConnection '{}' not found.", scmConnection);
 			return result;
@@ -327,7 +260,7 @@ public class ExportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 			logger.error("Error: WorkspaceConnection '{}' not unique.", scmConnection);
 			return result;
 		}
-		List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
+		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
 

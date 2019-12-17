@@ -15,7 +15,7 @@ public class ExternalChangeGenerator {
 	private String fSandboxPAth;
 
 	public ExternalChangeGenerator(String sandboxFolderPath) {
-		fSandboxPAth=sandboxFolderPath;
+		fSandboxPAth = sandboxFolderPath;
 	}
 
 	/**
@@ -32,37 +32,38 @@ public class ExternalChangeGenerator {
 			logger.error("Error: Sandboxfolder '{}' is not a directory.", fSandboxPAth);
 			return result;
 		}
-		logger.info("1..");
+		logger.info("\n\n1..");
 		DeleteFilesOperation deleter = new DeleteFilesOperation();
-	
-		FileSystemJob fs1 = new FileSystemJob("Touch",sandboxFolder,new TouchFile(Touchmode.ANY));
+
+		// FileSystemJob fs1 = new FileSystemJob("Touch",sandboxFolder,new
+		// TouchFile(Touchmode.ANY));
 		SandboxOperation op = new SandboxOperation(sandboxFolder, new TouchFile(Touchmode.ANY));
 		op.addIgnoreDirectory(".metadata");
 		op.addIgnoreDirectory(".jazz5");
 		op.execute();
 		showProgress();
 
-		logger.info("2..");
+		logger.info("\n\n2..");
 		GenerateFilesOperation compiler1 = new GenerateFilesOperation(GENERATE_1);
 		compiler1.addSupportedExtension("java");
 		deleter.addSupportedExtension(GENERATE_1);
-		SandboxOperation op1 = new SandboxOperation(sandboxFolder,compiler1);
+		SandboxOperation op1 = new SandboxOperation(sandboxFolder, compiler1);
 		op1.addIgnoreDirectory(".metadata");
 		op1.addIgnoreDirectory(".jazz5");
 		op1.execute();
 		showProgress();
 
-		logger.info("3..");
+		logger.info("\n\n3..");
 		GenerateFilesOperation compiler2 = new GenerateFilesOperation(GENERATE_2);
 		compiler2.addSupportedExtension("c");
 		compiler2.addSupportedExtension("h");
-		SandboxOperation op2 = new SandboxOperation(sandboxFolder,compiler2);
+		SandboxOperation op2 = new SandboxOperation(sandboxFolder, compiler2);
 		op2.addIgnoreDirectory(".metadata");
 		op2.addIgnoreDirectory(".jazz5");
 		deleter.addSupportedExtension(GENERATE_2);
 		op2.execute();
 		showProgress();
-		logger.info("4..");
+		logger.info("\n\n4..");
 		SandboxOperation delete = new SandboxOperation(sandboxFolder, deleter);
 		delete.execute();
 		return true;

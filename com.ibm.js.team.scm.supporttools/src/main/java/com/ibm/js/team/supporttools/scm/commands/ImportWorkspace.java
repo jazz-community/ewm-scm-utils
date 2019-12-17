@@ -35,7 +35,7 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCo
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
-import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
+import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
 import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.process.client.IProcessClientService;
 import com.ibm.team.process.client.IProcessItemService;
@@ -63,9 +63,9 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * output information.
  * 
  */
-public class ImportRepositoryWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
+public class ImportWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
 
-	public static final Logger logger = LoggerFactory.getLogger(ImportRepositoryWorkspace.class);
+	public static final Logger logger = LoggerFactory.getLogger(ImportWorkspace.class);
 	private File fInputFolder = null;
 	private IAuditableHandle fArea;
 	private String fNamePrefix = null;
@@ -76,7 +76,7 @@ public class ImportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 	 * Constructor, set the command name which will be used as option value for
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public ImportRepositoryWorkspace() {
+	public ImportWorkspace() {
 		super(ScmSupportToolsConstants.CMD_IMPORTWORKSPACE);
 	}
 
@@ -246,14 +246,14 @@ public class ImportRepositoryWorkspace extends AbstractTeamrepositoryCommand imp
 		logger.info("Find or create repository workspace '{}'...", scmConnection);
 
 		IWorkspaceConnection targetWorkspace = null;
-		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
-				IWorkspaceSearchCriteria.WORKSPACES, monitor);
+		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
+				IWorkspaceSearchCriteria.ALL, monitor);
 		if (connections.size() > 0) {
 			if (!reuseExistingWorkspace) {
 				logger.error("WorkspaceConnection '{}' already exists.", scmConnection);
 				return false;
 			}
-			List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
+			List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,
 					connections, monitor);
 			targetWorkspace = connection.get(0);
 		}

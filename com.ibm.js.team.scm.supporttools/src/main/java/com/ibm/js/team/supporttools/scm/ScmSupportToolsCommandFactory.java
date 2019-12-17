@@ -9,12 +9,12 @@ package com.ibm.js.team.supporttools.scm;
 
 import com.ibm.js.team.supporttools.framework.commands.AbstractCommandFactory;
 import com.ibm.js.team.supporttools.scm.commands.AnalyzeSandbox;
-import com.ibm.js.team.supporttools.scm.commands.AnalyzeWorkspaceConnection;
+import com.ibm.js.team.supporttools.scm.commands.AnalyzeWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.ConvertLoadrule;
-import com.ibm.js.team.supporttools.scm.commands.ExportRepositoryWorkspace;
+import com.ibm.js.team.supporttools.scm.commands.ExportWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.FlattenLoadrule;
 import com.ibm.js.team.supporttools.scm.commands.GenerateExternalChanges;
-import com.ibm.js.team.supporttools.scm.commands.ImportRepositoryWorkspace;
+import com.ibm.js.team.supporttools.scm.commands.ImportWorkspace;
 
 /**
  * Factory class dealing with commands. A new command has to be added to the
@@ -25,10 +25,10 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 
 	@Override
 	public void setAvailableCommands() {
-		put(new AnalyzeWorkspaceConnection());
+		put(new AnalyzeWorkspace());
 		put(new AnalyzeSandbox());
-		put(new ExportRepositoryWorkspace());
-		put(new ImportRepositoryWorkspace());
+		put(new ExportWorkspace());
+		put(new ImportWorkspace());
 		put(new ConvertLoadrule());
 		put(new FlattenLoadrule());
 		put(new GenerateExternalChanges());

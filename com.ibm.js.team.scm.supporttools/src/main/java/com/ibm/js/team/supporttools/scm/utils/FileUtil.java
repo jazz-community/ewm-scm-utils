@@ -37,8 +37,8 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 	}
-	
-	public static String getExtension(String fileName){
+
+	public static String getExtension(String fileName) {
 		String[] result = fileName.split("\\.");
 		if (result.length == 2) {
 			String ext = result[1];

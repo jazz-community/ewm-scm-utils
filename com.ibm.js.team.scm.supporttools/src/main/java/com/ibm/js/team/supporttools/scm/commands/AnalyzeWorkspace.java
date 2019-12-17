@@ -27,6 +27,7 @@ import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
 import com.ibm.js.team.supporttools.scm.statistics.ConnectionStat;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
+import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
 import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
@@ -52,9 +53,9 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * SCM data.
  * 
  */
-public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand implements ICommand {
+public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
 
-	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspaceConnection.class);
+	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspace.class);
 	private int fProgress = 0;
 	private ConnectionStat connectionStat = null;
 	private RangeStats rangeStats = new RangeStats();
@@ -63,7 +64,7 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 	 * Constructor, set the command name which will be used as option value for
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public AnalyzeWorkspaceConnection() {
+	public AnalyzeWorkspace() {
 		super(ScmSupportToolsConstants.CMD_ANYLYZEWORKSPACECONNECTION);
 	}
 
@@ -173,8 +174,8 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 		boolean result = false;
 		connectionStat = new ConnectionStat(scmConnection);
 		logger.info("Find and open WorkspaceConnection '{}'...", scmConnection);
-		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
-				IWorkspaceSearchCriteria.WORKSPACES, monitor);
+		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
+				IWorkspaceSearchCriteria.ALL, monitor);
 		if (connections.size() < 1) {
 			logger.error("Error: WorkspaceConnection '{}' not found.", scmConnection);
 			return result;
@@ -183,7 +184,7 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 			logger.error("Error: WorkspaceConnection '{}' not unique.", scmConnection);
 			return result;
 		}
-		List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
+		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
 
@@ -194,8 +195,7 @@ public class AnalyzeWorkspaceConnection extends AbstractTeamrepositoryCommand im
 		analyzeComponentContent(teamRepository, monitor, workspace, hierarchy);
 		logger.info("Show results...");
 		connectionStat.log();
-		rangeStats.logRangeInfo();
-		;
+		rangeStats.generateWorkBook();
 		return true;
 	}
 
