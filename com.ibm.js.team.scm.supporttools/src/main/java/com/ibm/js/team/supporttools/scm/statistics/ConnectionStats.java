@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
 
 import com.ibm.team.repository.common.UUID;
 
-public class ConnectionStat {
+public class ConnectionStats {
 	public static final String COLUMN_SEPERATOR = " \t";
-	public static final Logger logger = LoggerFactory.getLogger(ConnectionStat.class);
+	public static final Logger logger = LoggerFactory.getLogger(ConnectionStats.class);
 	HashMap<String, ComponentStat> fComponents = new HashMap<String, ComponentStat>(2500);
 	private String fConnectionName;
 	private int noComponents = 0;
@@ -102,7 +102,7 @@ public class ConnectionStat {
 	/**
 	 * @param connectionName
 	 */
-	public ConnectionStat(String connectionName) {
+	public ConnectionStats(String connectionName) {
 		fConnectionName = connectionName;
 	}
 
@@ -168,10 +168,9 @@ public class ConnectionStat {
 		logger.info(message);
 	}
 
-
 	/**
-	 * Resets and calculates the connection statistics without printing the data.
-	 * Use the available getters and setters to get the data.
+	 * Resets and calculates the connection statistics without printing the
+	 * data. Use the available getters and setters to get the data.
 	 */
 	public void calculateConnectionStats() {
 		logger.info("Analyze connection '{}'" + fConnectionName);
@@ -188,6 +187,7 @@ public class ConnectionStat {
 
 	/**
 	 * Aggregates the data for one component to the Connection statistics
+	 * 
 	 * @param comp
 	 */
 	private void aggregateComponent(ComponentStat comp) {
