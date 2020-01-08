@@ -41,6 +41,7 @@ public class ConnectionStats {
 	private double avgHierarchyDepth = 0;
 
 	private int activeRow = 0;
+	private boolean showExtensions=false;
 
 	public HashMap<String, ComponentStat> getComponents() {
 		return fComponents;
@@ -188,6 +189,11 @@ public class ConnectionStats {
 		header1.createCell(20).setCellValue(ch.boldFace("File Depth(avg)"));
 		header1.createCell(21).setCellValue(ch.boldFace("File Depth(max)"));
 		header1.createCell(22).setCellValue(ch.boldFace("File Depth(sum)"));
+		if(showExtensions){
+			header1.createCell(23).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+			header1.createCell(24).setCellValue(ch.boldFace("Extensions"));
+			header1.createCell(25).setCellValue(ch.boldFace("Extension Details"));
+		}
 
 		// Row for connection data
 		Row connectionRow = sheet.createRow(getNextActiveRow());
@@ -227,10 +233,12 @@ public class ConnectionStats {
 		header2.createCell(20).setCellValue(ch.boldFace("File Depth(avg)"));
 		header2.createCell(21).setCellValue(ch.boldFace("File Depth(max)"));
 		header2.createCell(22).setCellValue(ch.boldFace("File Depth(sum)"));
-		header2.createCell(23).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(24).setCellValue(ch.boldFace("Extensions"));
-		header2.createCell(25).setCellValue(ch.boldFace("Extension Details"));
-
+		if(showExtensions){
+			header2.createCell(23).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+			header2.createCell(24).setCellValue(ch.boldFace("Extensions"));
+			header2.createCell(25).setCellValue(ch.boldFace("Extension Details"));
+		}
+		
 		Set<String> keys = fComponents.keySet();
 		noComponents = keys.size();
 		logger.info("Components: {}\n", noComponents);
@@ -262,11 +270,11 @@ public class ConnectionStats {
 			ch.setNumber(row.createCell(21), comp.getMaxFileDepth());
 			ch.setNumber(row.createCell(22), comp.getCumulatedFileDepth());
 
-			IExtensions ext = comp.getExtensions();
-
-			ch.setNumber(row.createCell(24), ext.getNoExtensions());
-			ch.setText(row.createCell(25), ext.extensionsSimple());
-
+			if(showExtensions){
+				IExtensions ext = comp.getExtensions();
+				ch.setNumber(row.createCell(24), ext.getNoExtensions());
+				ch.setText(row.createCell(25), ext.getExtensionsCompressed());
+			}
 			aggregateComponent(comp);
 			logger.info(comp.toString());
 		}
@@ -299,7 +307,9 @@ public class ConnectionStats {
 		ch.setNumberP2(connectionRow.createCell(20), CalcUtil.divide(cumulatedFileDepth, cumulatedFiles));
 		ch.setNumber(connectionRow.createCell(21), maxFileDepth);
 		ch.setNumber(connectionRow.createCell(22), cumulatedFileDepth);
-
+		if(showExtensions){
+			// Not available at this level at the moment
+		}
 		message += PrintStat.getFileAndFolderStatistics(cumulatedFolders, cumulatedFolderDepth, maxFolderDepth,
 				cumulatedFiles, maxFileSize, cumulatedFileSize, maxFileDepth, cumulatedFileDepth);
 		message += "\n";

@@ -13,6 +13,12 @@ import java.util.Set;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class FileTypeStat implements IFileTypeStat {
+	
+	String extensionName = null;
+	Set<String> lineDelimiters = new HashSet<String>();
+	Set<String> encodings = new HashSet<String>();
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -46,10 +52,6 @@ public class FileTypeStat implements IFileTypeStat {
 		return encodings;
 	}
 
-	String extensionName = null;
-	Set<String> lineDelimiters = new HashSet<String>();
-	Set<String> encodings = new HashSet<String>();
-
 	public FileTypeStat(String ext) {
 		extensionName = ext;
 	}
@@ -75,7 +77,7 @@ public class FileTypeStat implements IFileTypeStat {
 	public String toString() {
 		String extension = "'" + extensionName + "'";
 		if (lineDelimiters.size() > 0) {
-			extension += "- " + lineDelimiters.toString() + " : " + encodings.toString();
+			extension += " - " + lineDelimiters.toString() + " : " + encodings.toString();
 		}
 		return extension;
 	}
