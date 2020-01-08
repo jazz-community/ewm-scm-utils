@@ -140,7 +140,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 
 		logger.info("\n\nShow results...");
 		logger.info(compStat.toString());
-		rangeStats.generateWorkBook();
+		rangeStats.createWorkBook();
 		return true;
 	}
 

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,8 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCo
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.AnalyzeConnectionStatistics;
+import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
+import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 import com.ibm.team.repository.common.TeamRepositoryException;
 
 /**
@@ -118,14 +121,23 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
 		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		try {
-			AnalyzeConnectionStatistics stats = new AnalyzeConnectionStatistics(getTeamRepository(), getMonitor());
 
+		String workbookName = scmWorkspace + ".xls";
+		try {
+			RangeStats crossWorkspaceRangeStatistics = new RangeStats();
+			AnalyzeConnectionStatistics stats = new AnalyzeConnectionStatistics(getTeamRepository(), getMonitor(),
+					crossWorkspaceRangeStatistics);
 			result = stats.analyzeWorkspace(scmWorkspace);
 			if (result) {
 				logger.info("Show results...");
-				stats.getConnectionStats().printConnectionStatistics();
-				stats.getConnectionRangeStats().generateWorkBook(scmWorkspace+".xls");
+				// stats.getConnectionStats().printConnectionStatistics();
+				logger.info("Generate workbook ...");
+				Workbook workBook = SheetUtils.createWorkBook(workbookName);
+				stats.getConnectionStats().updateWorkBook(workBook);
+				stats.getConnectionRangeStats().updateWorkBook(workBook);
+				SheetUtils.writeWorkBook(workBook, workbookName);
+				result = true;
+				// stats.getMultiConnectionRangeStats().generateWorkBook("CrossWorkspaceRangeStatistics.xls");
 			}
 		} catch (IOException e) {
 			logger.error("IOException: {}", e.getMessage());

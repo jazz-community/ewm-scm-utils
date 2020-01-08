@@ -290,7 +290,7 @@ public class AnalyzeConnectionStatistics {
 		return connectionRangeStats;
 	}
 
-	public RangeStats getMultyConnectionRangeStats() {
+	public RangeStats getMultiConnectionRangeStats() {
 		return multiConnectionRangeStats;
 	}
 

@@ -7,13 +7,10 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -23,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.scm.utils.FileInfo;
+import com.ibm.js.team.supporttools.scm.utils.POICellHelper;
+import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 
 /**
  * @see https://www.callicoder.com/java-write-excel-file-apache-poi/
@@ -37,8 +36,10 @@ public class RangeStats {
 		super();
 		rangeStats.add((IRangeStat) new RangeStat(new Base2RangeCalculator()));
 		rangeStats.add((IRangeStat) new RangeStat(new Base10RangeCalculator()));
-		rangeStats.add((IRangeStat) new RangeStat(new LinearBaseRangeCalculator(1000)));
-		rangeStats.add((IRangeStat) new RangeStat(new LinearBaseRangeCalculator(1000000)));
+		// rangeStats.add((IRangeStat) new RangeStat(new
+		// LinearBaseRangeCalculator(1000)));
+		// rangeStats.add((IRangeStat) new RangeStat(new
+		// LinearBaseRangeCalculator(1000000)));
 	}
 
 	class RangeStatsIterator implements Iterator<IRangeStat> {
@@ -68,35 +69,46 @@ public class RangeStats {
 	}
 
 	/**
+	 * @return
 	 * @throws IOException
 	 */
-	public void generateWorkBook() throws IOException {
-		generateWorkBook(DEFAULT_WORKBOOK_NAME);
+	public Workbook createWorkBook() throws IOException {
+		return SheetUtils.createWorkBook(DEFAULT_WORKBOOK_NAME);
 	}
 
 	/**
 	 * @throws IOException
 	 */
-	public void generateWorkBook(String workBookName) throws IOException {
+	public Workbook updateWorkBook(Workbook workBook) throws IOException {
 		logger.info("Creating range statistics...");
-		logger.info("Creating workbook...");
-		Workbook wb = new HSSFWorkbook();
-		int sheetNo = 0;
-		int rowOffset = 1;
+		if (workBook == null) {
+			workBook = createWorkBook();
+		}
+		POICellHelper ch = new POICellHelper(workBook);
+		int sheetNo = 1;
+		int rowOffset = 4;
 		for (IRangeStat iRangeStat : rangeStats) {
 			IRangeCalculator rangeCalc = iRangeStat.getRangeCalculator();
 			logger.info("Creating sheet...");
 			String safeName = WorkbookUtil.createSafeSheetName(sheetNo++ + " - " + rangeCalc.getName());
-			Sheet sheet = wb.createSheet(safeName);
-			CreationHelper createHelper = wb.getCreationHelper();
-			Row header = sheet.createRow(0);
-			header.createCell(1).setCellValue(createHelper.createRichTextString("Total Files"));
-			header.createCell(2).setCellValue(iRangeStat.getTotalFiles());
-			header.createCell(5).setCellValue(createHelper.createRichTextString("Top Limit bytes"));
-			header.createCell(4).setCellValue(createHelper.createRichTextString("Range index"));
-			header.createCell(6).setCellValue(createHelper.createRichTextString("File count"));
-			header.createCell(7).setCellValue(createHelper.createRichTextString("Extension count"));
-			header.createCell(8).setCellValue(createHelper.createRichTextString("Extensions"));
+			Sheet sheet = workBook.createSheet(safeName);
+			CreationHelper createHelper = workBook.getCreationHelper();
+			Row header1 = sheet.createRow(0);
+
+			ch.setBoldText(header1.createCell(1), "Total Files");
+			ch.setBoldText(header1.createCell(2), POICellHelper.XLS_COLUMN_SEPARATOR);
+
+			Row header1row = sheet.createRow(1);
+			ch.setNumber(header1row.createCell(1), iRangeStat.getTotalFiles());
+
+			Row header2 = sheet.createRow(3);
+
+			ch.setBoldText(header2.createCell(3), "Range index");
+			ch.setBoldText(header2.createCell(4), "Range Top Limit");
+			ch.setBoldText(header2.createCell(5), "File count");
+			ch.setBoldText(header2.createCell(6), "Extension count");
+			ch.setBoldText(header2.createCell(7), "Extensions");
+
 			for (Iterator<IRangeInfo> iterator = iRangeStat.iterator(); iterator.hasNext();) {
 				IRangeInfo iRangeInfo = iterator.next();
 				int index = (int) iRangeInfo.getIndex();
@@ -105,12 +117,11 @@ public class RangeStats {
 
 				Row row = sheet.createRow(index + rowOffset);
 
-				row.createCell(5).setCellValue((new Double(threshold)).intValue());
-				row.createCell(4).setCellValue(index);
-				row.createCell(6).setCellValue(count);
-				row.createCell(7).setCellValue(iRangeInfo.getExtensionStatus().getNoExtensions());
-				row.createCell(8).setCellValue(
-						createHelper.createRichTextString(iRangeInfo.getExtensionStatus().getExtensionsCompressed()));
+				ch.setNumber(row.createCell(3), index);
+				ch.setNumber(row.createCell(4), threshold);
+				ch.setNumber(row.createCell(5), count);
+				ch.setNumber(row.createCell(6), iRangeInfo.getExtensionStatus().getNoExtensions());
+				ch.setText(row.createCell(7), iRangeInfo.getExtensionStatus().getExtensionsCompressed());
 			}
 			logger.info("Autosizing...");
 			sheet.autoSizeColumn(1);
@@ -120,17 +131,8 @@ public class RangeStats {
 			sheet.autoSizeColumn(5);
 			sheet.autoSizeColumn(6);
 			sheet.autoSizeColumn(7);
-			sheet.autoSizeColumn(8);
-			sheet.autoSizeColumn(9);
 		}
-		logger.info("Writing...");
-		try (OutputStream fileOut = new FileOutputStream(workBookName)) {
-			wb.write(fileOut);
-
-		} finally {
-			wb.close();
-		}
-		logger.info("Written");
 		logger.info("Done...");
+		return workBook;
 	}
 }

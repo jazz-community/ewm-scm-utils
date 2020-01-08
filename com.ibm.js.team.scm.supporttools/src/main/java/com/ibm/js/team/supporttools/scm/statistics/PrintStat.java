@@ -7,37 +7,39 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.statistics;
 
+import com.ibm.js.team.supporttools.scm.utils.CalcUtil;
+import com.ibm.js.team.supporttools.scm.utils.PrintUtil;
+
 public class PrintStat {
 
 	public static String getFileAndFolderStatistics(final long cumulatedFolders, final long cumulatedFolderDepth,
 			final long maxFolderDepth, final long cumulatedFiles, final long maxFileSize, final long cumulatedFileSize,
 			final long maxFileDepth, final long cumulatedFileDepth) {
 		String message = "";
-		message += " Folders:\t " + cumulatedFolders + ConnectionStats.COLUMN_SEPERATOR;
-		message += " Files/Folder:\t\t " + CalcUtil.divideFloatWithPrecision2AsString(cumulatedFiles, cumulatedFolders)
-				+ ConnectionStats.COLUMN_SEPERATOR;
+		message += " Folders:\t " + cumulatedFolders + ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " Files/Folder:\t\t " + PrintUtil.asPrecision2(CalcUtil.divide(cumulatedFiles, cumulatedFolders))
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " Folder Depth(avg):\t "
-				+ CalcUtil.divideFloatWithPrecision2AsString(cumulatedFolderDepth, cumulatedFolders)
-				+ ConnectionStats.COLUMN_SEPERATOR;
-		message += " Folder Depth(max):\t " + maxFolderDepth + ConnectionStats.COLUMN_SEPERATOR;
-		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + ConnectionStats.COLUMN_SEPERATOR;
-		message += " Folder Depth Limits: " + ConnectionStats.COLUMN_SEPERATOR;
-		message += " log(e):\t " + CalcUtil.formatPrecision2(Math.log(cumulatedFolders))
-				+ ConnectionStats.COLUMN_SEPERATOR;
-		message += " (max):\t " + cumulatedFolders + ConnectionStats.COLUMN_SEPERATOR;
+				+ PrintUtil.asPrecision2(CalcUtil.divide(cumulatedFolderDepth, cumulatedFolders))
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " Folder Depth(max):\t " + maxFolderDepth + ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " Folder Depth(sum):\t " + cumulatedFolderDepth + ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " Folder Depth Limits: " + ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " log(e):\t " + PrintUtil.asPrecision2(Math.log(cumulatedFolders))
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " (max):\t " + cumulatedFolders + ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += "\n";
-		message += " Files:\t\t " + cumulatedFiles + ConnectionStats.COLUMN_SEPERATOR;
+		message += " Files:\t\t " + cumulatedFiles + ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " File Size(avg):\t "
-				+ CalcUtil.byBinaryMagnitudeAsString(CalcUtil.divideLong(cumulatedFileSize, cumulatedFiles))
-				+ ConnectionStats.COLUMN_SEPERATOR;
-		message += " File Size(max):\t " + CalcUtil.byBinaryMagnitudeAsString(maxFileSize)
-				+ ConnectionStats.COLUMN_SEPERATOR;
-		message += " File Size(sum):\t " + CalcUtil.byBinaryMagnitudeAsString(cumulatedFileSize)
-				+ ConnectionStats.COLUMN_SEPERATOR;
-		message += " File Depth(avg):\t "
-				+ CalcUtil.divideFloatWithPrecision2AsString(cumulatedFileDepth, cumulatedFiles)
-				+ ConnectionStats.COLUMN_SEPERATOR;
-		message += " File Depth(max):\t " + maxFileDepth + ConnectionStats.COLUMN_SEPERATOR;
+				+ PrintUtil.asBinaryMagnitude(CalcUtil.divide(cumulatedFileSize, cumulatedFiles))
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " File Size(max):\t " + PrintUtil.asBinaryMagnitude(maxFileSize)
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " File Size(sum):\t " + PrintUtil.asBinaryMagnitude(cumulatedFileSize)
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " File Depth(avg):\t " + PrintUtil.asPrecision2(CalcUtil.divide(cumulatedFileDepth, cumulatedFiles))
+				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " File Depth(max):\t " + maxFileDepth + ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " File Depth(sum):\t " + cumulatedFileDepth;
 		return message;
 	}
