@@ -7,6 +7,7 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
@@ -121,27 +122,51 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
 		String scmWorkspaceName = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
+		result = analyzeWorkspace(scmWorkspaceName);
+		return result;
+	}
 
-		String workbookName = scmWorkspaceName + ".xls";
+	/**
+	 * @param scmWorkspaceName
+	 * @return
+	 * @throws TeamRepositoryException
+	 */
+	private boolean analyzeWorkspace(String scmWorkspaceName) throws TeamRepositoryException {
+		boolean result = false;
+		RangeStats crossWorkspaceRangeStatistics = new RangeStats();
+		ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor(),
+				crossWorkspaceRangeStatistics);
+
 		try {
-			RangeStats crossWorkspaceRangeStatistics = new RangeStats();
-			ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor(),
-					crossWorkspaceRangeStatistics);
 			result = analyzer.analyzeWorkspace(scmWorkspaceName);
 			if (result) {
-				logger.info("Show results...");
-				// stats.getConnectionStats().printConnectionStatistics();
-				logger.info("Generate workbook ...");
-				Workbook workBook = SheetUtils.createWorkBook(workbookName);
-				analyzer.getConnectionStats().updateWorkBook(workBook);
-				analyzer.getConnectionRangeStats().updateWorkBook(workBook);
-				SheetUtils.writeWorkBook(workBook, workbookName);
-				result = true;
-				// stats.getMultiConnectionRangeStats().generateWorkBook("CrossWorkspaceRangeStatistics.xls");
+				return generateResult(scmWorkspaceName, analyzer);
 			}
 		} catch (IOException e) {
 			logger.error("IOException: {}", e.getMessage());
 		}
+		return result;
+	}
+
+	/**
+	 * @param scmWorkspaceName
+	 * @param analyzer
+	 * @return
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	private boolean generateResult(String scmWorkspaceName, ConnectionAnalyzer analyzer)
+			throws IOException, FileNotFoundException {
+		boolean result = false;
+		logger.info("Show results...");
+		// stats.getConnectionStats().printConnectionStatistics();
+		logger.info("Generate workbook ...");
+		String workbookName = scmWorkspaceName + ".xls";
+		Workbook workBook = SheetUtils.createWorkBook(workbookName);
+		analyzer.getConnectionStats().updateWorkBook(workBook);
+		analyzer.getConnectionRangeStats().updateWorkBook(workBook);
+		SheetUtils.writeWorkBook(workBook, workbookName);
+		result = true;
 		return result;
 	}
 
