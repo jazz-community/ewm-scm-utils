@@ -45,7 +45,7 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * file size range statistics across all components.
  * 
  */
-public class AnalyzeConnectionStatistics {
+public class ConnectionAnalyzer {
 
 	/**
 	 * Just for the simple case to analyze a workspace connection.
@@ -53,7 +53,7 @@ public class AnalyzeConnectionStatistics {
 	 * @param teamRepository
 	 * @param monitor
 	 */
-	public AnalyzeConnectionStatistics(ITeamRepository teamRepository, IProgressMonitor monitor) {
+	public ConnectionAnalyzer(ITeamRepository teamRepository, IProgressMonitor monitor) {
 		this(teamRepository, monitor, null);
 	}
 
@@ -66,7 +66,7 @@ public class AnalyzeConnectionStatistics {
 	 * @param monitor
 	 * @param multiConnection
 	 */
-	public AnalyzeConnectionStatistics(ITeamRepository teamRepository, IProgressMonitor monitor,
+	public ConnectionAnalyzer(ITeamRepository teamRepository, IProgressMonitor monitor,
 			RangeStats multiConnection) {
 		super();
 		this.teamRepository = teamRepository;
@@ -74,7 +74,7 @@ public class AnalyzeConnectionStatistics {
 		this.multiConnectionRangeStats = multiConnection;
 	}
 
-	public static final Logger logger = LoggerFactory.getLogger(AnalyzeConnectionStatistics.class);
+	public static final Logger logger = LoggerFactory.getLogger(ConnectionAnalyzer.class);
 	private int fProgress = 0;
 	private ConnectionStats connectionStats = null;
 	private RangeStats connectionRangeStats = null;

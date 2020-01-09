@@ -19,7 +19,7 @@ import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scm.statistics.AnalyzeConnectionStatistics;
+import com.ibm.js.team.supporttools.scm.statistics.ConnectionAnalyzer;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 import com.ibm.team.repository.common.TeamRepositoryException;
@@ -125,16 +125,16 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 		String workbookName = scmWorkspace + ".xls";
 		try {
 			RangeStats crossWorkspaceRangeStatistics = new RangeStats();
-			AnalyzeConnectionStatistics stats = new AnalyzeConnectionStatistics(getTeamRepository(), getMonitor(),
+			ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor(),
 					crossWorkspaceRangeStatistics);
-			result = stats.analyzeWorkspace(scmWorkspace);
+			result = analyzer.analyzeWorkspace(scmWorkspace);
 			if (result) {
 				logger.info("Show results...");
 				// stats.getConnectionStats().printConnectionStatistics();
 				logger.info("Generate workbook ...");
 				Workbook workBook = SheetUtils.createWorkBook(workbookName);
-				stats.getConnectionStats().updateWorkBook(workBook);
-				stats.getConnectionRangeStats().updateWorkBook(workBook);
+				analyzer.getConnectionStats().updateWorkBook(workBook);
+				analyzer.getConnectionRangeStats().updateWorkBook(workBook);
 				SheetUtils.writeWorkBook(workBook, workbookName);
 				result = true;
 				// stats.getMultiConnectionRangeStats().generateWorkBook("CrossWorkspaceRangeStatistics.xls");
