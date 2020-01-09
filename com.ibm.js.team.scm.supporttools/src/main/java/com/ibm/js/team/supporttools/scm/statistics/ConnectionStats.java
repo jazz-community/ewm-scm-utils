@@ -399,10 +399,6 @@ public class ConnectionStats {
 		return activeRow;
 	}
 
-	private void setActiveRow(int activeRow) {
-		this.activeRow = activeRow;
-	}
-
 	private int getNextActiveRow() {
 		return ++this.activeRow;
 	}

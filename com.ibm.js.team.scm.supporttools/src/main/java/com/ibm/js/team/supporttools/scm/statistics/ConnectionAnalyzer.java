@@ -95,8 +95,6 @@ public class ConnectionAnalyzer {
 	 */
 	public boolean analyzeWorkspace(String scmConnection) throws TeamRepositoryException, IOException {
 		boolean result = false;
-		connectionStats = new ConnectionStats(scmConnection);
-		connectionRangeStats = new RangeStats();
 		logger.info("Find and open workspace '{}'...", scmConnection);
 		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
 				IWorkspaceSearchCriteria.ALL, monitor);
@@ -111,7 +109,7 @@ public class ConnectionAnalyzer {
 		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,
 				connections, monitor);
 		IWorkspaceConnection workspace = connection.get(0);
-		return analyzeWorkspaceConnection(workspace);
+		return analyzeWorkspace(workspace);
 	}
 
 	/**
@@ -122,8 +120,9 @@ public class ConnectionAnalyzer {
 	 * @throws TeamRepositoryException
 	 * @throws IOException
 	 */
-	public boolean analyzeWorkspaceConnection(IWorkspaceConnection workspace)
+	public boolean analyzeWorkspace(IWorkspaceConnection workspace)
 			throws TeamRepositoryException, IOException {
+		connectionRangeStats = new RangeStats();
 		connectionStats = new ConnectionStats(workspace.getName());
 		logger.info("Analyze component hierarchy of '{}'...", workspace.getName());
 		IComponentHierarchyResult hierarchy = workspace.getComponentHierarchy(new ArrayList<IComponentHandle>());

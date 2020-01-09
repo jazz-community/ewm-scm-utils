@@ -120,14 +120,14 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	@Override
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
-		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
+		String scmWorkspaceName = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 
-		String workbookName = scmWorkspace + ".xls";
+		String workbookName = scmWorkspaceName + ".xls";
 		try {
 			RangeStats crossWorkspaceRangeStatistics = new RangeStats();
 			ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor(),
 					crossWorkspaceRangeStatistics);
-			result = analyzer.analyzeWorkspace(scmWorkspace);
+			result = analyzer.analyzeWorkspace(scmWorkspaceName);
 			if (result) {
 				logger.info("Show results...");
 				// stats.getConnectionStats().printConnectionStatistics();
