@@ -96,12 +96,11 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_EXPORT_MODE_EXAMPLE = EXPORT_MODE_OBFUSCATE;
 
 	public static final String CODE_SAMPLE_INPUT_FILE_NAME = "./CodeSampleInput.txt";
-	
+
 	public static final String PARAMETER_SCM_SCOPE = "connectionOwnerScope";
 	public static final String PARAMETER_SCM_SCOPE_PROTOTYPE = "<processarea1_name>[&<processarea_name>]";
 	public static final String PARAMETER_SCM_SCOPE_EXAMPLE = "\"Project1 (Change Management)\"&\"Project2 (Change Management)/SCM Expert Team\"";
 	public static final String PARAMETER_SCM_SCOPE_DESCRIPTION = "Filter and analyze only the connections owned by the process area in the scope";
-
 
 	// JSON format for hierarchy export/import
 	public static final String JSON_COMPONENT_CHILDREN = "Children";

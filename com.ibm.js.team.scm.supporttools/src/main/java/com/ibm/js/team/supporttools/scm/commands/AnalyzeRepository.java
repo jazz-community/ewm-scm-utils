@@ -74,9 +74,11 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		// Check for required options
 		boolean isValid = true;
 
-//		if (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID))) {
-//			isValid = false;
-//		}
+		// if
+		// (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)))
+		// {
+		// isValid = false;
+		// }
 		return isValid;
 	}
 
@@ -128,12 +130,12 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 	@Override
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
-		
+
 		String outputFolder = null;
-		if(getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)){
+		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)) {
 			outputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
 		}
-		
+
 		result = analyzeRepository();
 		return result;
 	}
@@ -142,26 +144,26 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		boolean result = false;
 		IWorkspaceSearchCriteria criteria = IWorkspaceSearchCriteria.FACTORY.newInstance();
 		criteria.setKind(IWorkspaceSearchCriteria.STREAMS);
-		
+
 		String connectionOwnerScope = null;
-		if(getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE)){
-			connectionOwnerScope = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE);			
-		}		
-		if(connectionOwnerScope!=null){
-			boolean scope=true;
+		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE)) {
+			connectionOwnerScope = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE);
+		}
+		if (connectionOwnerScope != null) {
+			boolean scope = true;
 			String[] processAreas = connectionOwnerScope.split("&");
 			for (int i = 0; i < processAreas.length; i++) {
 				String processArea = processAreas[i];
 				IProcessArea area = findProcessArea(processArea);
-					if (null == area) {
-						logger.error("SCM Connection Owner Scope: unable to find process area '{}'" , processArea);
-						scope = false;
-					} else {
-						criteria.getFilterByOwnerOptional().add(area);
-						// criteria.setExactOwnerName(arg0)
-					}
+				if (null == area) {
+					logger.error("SCM Connection Owner Scope: unable to find process area '{}'", processArea);
+					scope = false;
+				} else {
+					criteria.getFilterByOwnerOptional().add(area);
+					// criteria.setExactOwnerName(arg0)
+				}
 			}
-			if(!scope){
+			if (!scope) {
 				logger.error("Check SCM Connection Owner Scope");
 				return false;
 			}
@@ -173,7 +175,6 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		result = repoAnalyzer.analyze(connection);
 		return result;
 	}
-
 
 	/**
 	 */
