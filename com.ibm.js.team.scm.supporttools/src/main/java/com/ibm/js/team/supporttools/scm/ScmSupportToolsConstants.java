@@ -18,27 +18,30 @@ public interface ScmSupportToolsConstants {
 
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
-	public static final String CMD_EXPORTWORKSPACE = "exportScmWorkspace";
-	public static final String CMD_EXPORTWORKSPACE_DESCRIPTION = "\n\tExports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file.";
+	public static final String CMD_EXPORT_WORKSPACE = "exportScmWorkspace";
+	public static final String CMD_EXPORT_WORKSPACE_DESCRIPTION = "\n\tExports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file.";
 
-	public static final String CMD_IMPORTWORKSPACE = "importScmWorkspace";
-	public static final String CMD_IMPORTWORKSPACE_DESCRIPTION = "\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. ";
+	public static final String CMD_IMPORT_WORKSPACE = "importScmWorkspace";
+	public static final String CMD_IMPORT_WORKSPACE_DESCRIPTION = "\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. ";
 
 	public static final String CMD_CONVERT_LOADRULE = "convertLoadrule";
 	public static final String CMD_CONVERT_LOADRULE_DESCRIPTION = "\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command "
-			+ CMD_IMPORTWORKSPACE + ".";
+			+ CMD_IMPORT_WORKSPACE + ".";
 
 	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
 	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.";
 
-	public static final String CMD_ANYLYZEWORKSPACECONNECTION = "analyzeScmWorkspace";
+	public static final String CMD_ANYLYZE_WORKSPACECONNECTION = "analyzeScmWorkspace";
 	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
 
-	public static final String CMD_ANYLYZESANDBOX = "analyzeSandbox";
-	public static final String CMD_ANALYZESANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+	public static final String CMD_ANYLYZE_REPOSITORY = "analyzeScmRepository";
+	public static final String CMD_ANYLYZE_REPOSITORY_DESCRIPTION = "\n\tAnalyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
 
-	public static final String CMD_GENERATEEXTERNALCHANGES = "generateExternalChanges";
-	public static final String CMD_GENERATEEXTERNALCHANGES_DESCRIPTION = "\n\tGenerates external changes on an Eclipse sandbox.";
+	public static final String CMD_ANYLYZE_SANDBOX = "analyzeSandbox";
+	public static final String CMD_ANALYZE_SANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+
+	public static final String CMD_GENERATE_EXTERNAL_CHANGES = "generateExternalChanges";
+	public static final String CMD_GENERATE_EXTERNAL_CHANGES_DESCRIPTION = "\n\tGenerates external changes on an Eclipse sandbox.";
 
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
@@ -63,9 +66,9 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_INPUTFOLDER = "inputFolder";
 	public static final String PARAMETER_INPUTFOLDER_PROTOTYPE = "<inputFolderPath>";
 	public static final String PARAMETER_INPUTFOLDER_DESCRIPTION = "The folder where the input information is expected to be. This is the folder and content created in the command "
-			+ CMD_EXPORTWORKSPACE + ".";
+			+ CMD_EXPORT_WORKSPACE + ".";
 	public static final String PARAMETER_INPUTFOLDER_CONVERT_DESCRIPTION = " In addtion the command "
-			+ CMD_IMPORTWORKSPACE + " must have been ecxecuted using this folder creating the UUID mapping required.";
+			+ CMD_IMPORT_WORKSPACE + " must have been ecxecuted using this folder creating the UUID mapping required.";
 	public static final String PARAMETER_INPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
 
 	public static final String PARAMETER_SOURCE_LOADRULE_FILE_PATH = "sourceLoadruleFile";

@@ -31,7 +31,7 @@ public class GenerateExternalChanges extends AbstractCommand implements ICommand
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public GenerateExternalChanges() {
-		super(ScmSupportToolsConstants.CMD_GENERATEEXTERNALCHANGES);
+		super(ScmSupportToolsConstants.CMD_GENERATE_EXTERNAL_CHANGES);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class GenerateExternalChanges extends AbstractCommand implements ICommand
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_GENERATEEXTERNALCHANGES_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_GENERATE_EXTERNAL_CHANGES_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,

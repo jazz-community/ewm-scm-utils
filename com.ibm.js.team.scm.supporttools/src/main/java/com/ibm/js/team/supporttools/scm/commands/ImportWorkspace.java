@@ -77,7 +77,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public ImportWorkspace() {
-		super(ScmSupportToolsConstants.CMD_IMPORTWORKSPACE);
+		super(ScmSupportToolsConstants.CMD_IMPORT_WORKSPACE);
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_IMPORTWORKSPACE_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_IMPORT_WORKSPACE_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),

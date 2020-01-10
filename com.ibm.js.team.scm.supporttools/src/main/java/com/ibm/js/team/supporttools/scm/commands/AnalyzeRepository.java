@@ -9,6 +9,8 @@ package com.ibm.js.team.supporttools.scm.commands;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -21,26 +23,34 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCo
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ConnectionAnalyzer;
-import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
+import com.ibm.js.team.supporttools.scm.statistics.RepositoryAnalyzer;
+import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
+import com.ibm.team.process.client.IProcessItemService;
+import com.ibm.team.process.common.IProcessArea;
 import com.ibm.team.repository.common.TeamRepositoryException;
+import com.ibm.team.scm.client.IWorkspaceConnection;
+import com.ibm.team.scm.client.IWorkspaceManager;
+import com.ibm.team.scm.client.SCMPlatform;
+import com.ibm.team.scm.common.IWorkspaceHandle;
+import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
  * Allows to analyze a repository workspace, all its components and the current
  * SCM data of a workspace connection.
  * 
  */
-public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
+public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements ICommand {
 
-	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspace.class);
+	public static final Logger logger = LoggerFactory.getLogger(AnalyzeRepository.class);
 	private int fProgress = 0;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public AnalyzeWorkspace() {
-		super(ScmSupportToolsConstants.CMD_ANYLYZE_WORKSPACECONNECTION);
+	public AnalyzeRepository() {
+		super(ScmSupportToolsConstants.CMD_ANYLYZE_REPOSITORY);
 	}
 
 	@Override
@@ -80,7 +90,7 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_ANYLYZE_REPOSITORY_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
@@ -121,32 +131,62 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	@Override
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
-		String scmWorkspaceName = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		result = analyzeWorkspace(scmWorkspaceName);
+		// String scmWorkspaceName =
+		// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
+
+		result = analyzeRepository();
 		return result;
 	}
 
-	/**
-	 * @param scmWorkspaceName
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	private boolean analyzeWorkspace(String scmWorkspaceName) throws TeamRepositoryException {
+	private boolean analyzeRepository() throws TeamRepositoryException {
 		boolean result = false;
-		RangeStats crossWorkspaceRangeStatistics = new RangeStats();
-		ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor(),
-				crossWorkspaceRangeStatistics);
-
-		try {
-			result = analyzer.analyzeWorkspace(scmWorkspaceName);
-			if (result) {
-				return generateResult(scmWorkspaceName, analyzer);
-			}
-		} catch (IOException e) {
-			logger.error("IOException: {}", e.getMessage());
+		IWorkspaceSearchCriteria criteria = IWorkspaceSearchCriteria.FACTORY.newInstance();
+		criteria.setKind(IWorkspaceSearchCriteria.STREAMS);
+		IProcessArea area = findProcessArea("JKE Banking (Change Management)/Business Recovery Matters"); // "JKE
+																											// Banking
+																											// (Change
+																											// Management)"
+		// IProcessArea area = findProcessArea("JKE Banking (Change
+		// Management)"); // "JKE Banking (Change Management)"
+		// IProcessArea area = findProcessArea("Business Recovery Matters"); //
+		// "JKE Banking (Change Management)"
+		// IProcessArea area = findProcessArea("Business Recovery Matters"); //
+		// "JKE Banking (Change Management)"
+		if (null != area) {
+			// criteria.getFilterByOwnerOptional().add(area);
+			// criteria.setExactOwnerName(arg0)
 		}
+		List<IWorkspaceHandle> connections = findConnections(criteria);
+		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(getTeamRepository(),
+				connections, getMonitor());
+		RepositoryAnalyzer repoAnalyzer = new RepositoryAnalyzer(getTeamRepository(), getMonitor());
+		result = repoAnalyzer.analyze(connection);
 		return result;
 	}
+
+	// /**
+	// * @param scmWorkspaceName
+	// * @return
+	// * @throws TeamRepositoryException
+	// */
+	// private boolean analyzeWorkspace(String scmWorkspaceName) throws
+	// TeamRepositoryException {
+	// boolean result = false;
+	// RangeStats crossWorkspaceRangeStatistics = new RangeStats();
+	// RepositoryAnalyzer analyzer = new RepositoryAnalyzer(getTeamRepository(),
+	// getMonitor(),
+	// crossWorkspaceRangeStatistics);
+	//
+	// try {
+	// result = analyzer.analyze(scmWorkspaceName);
+	// if (result) {
+	// return generateResult(scmWorkspaceName, analyzer);
+	// }
+	// } catch (IOException e) {
+	// logger.error("IOException: {}", e.getMessage());
+	// }
+	// return result;
+	// }
 
 	/**
 	 * @param scmWorkspaceName
@@ -159,6 +199,7 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 			throws IOException, FileNotFoundException {
 		boolean result = false;
 		logger.info("Show results...");
+		// stats.getConnectionStats().printConnectionStatistics();
 		logger.info("Generate workbook ...");
 		String workbookName = scmWorkspaceName + ".xls";
 		Workbook workBook = SheetUtils.createWorkBook(workbookName);
@@ -167,6 +208,27 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 		SheetUtils.writeWorkBook(workBook, workbookName);
 		result = true;
 		return result;
+	}
+
+	/**
+	 */
+	private List<IWorkspaceHandle> findConnections(IWorkspaceSearchCriteria criteria) throws TeamRepositoryException {
+		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(getTeamRepository());
+		List<IWorkspaceHandle> connections = wm.findWorkspaces(criteria, Integer.MAX_VALUE, getMonitor());
+		return connections;
+	}
+
+	public IProcessArea findProcessArea(String name) throws TeamRepositoryException {
+		IProcessItemService service = (IProcessItemService) getTeamRepository()
+				.getClientLibrary(IProcessItemService.class);
+		URI uri = URI.create(name.replaceAll(" ", "%20"));
+		IProcessArea area = service.findProcessArea(uri, IProcessItemService.ALL_PROPERTIES, getMonitor());
+		return area;
+		// if (area != null && area instanceof IProjectArea) {
+		// System.out.println("Project Area found: " + projectName);
+		// return (IProjectArea) area;
+		// }
+
 	}
 
 	/**

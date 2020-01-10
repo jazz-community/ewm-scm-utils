@@ -16,7 +16,7 @@ public class PrintStat {
 			final long maxFolderDepth, final long cumulatedFiles, final long maxFileSize, final long cumulatedFileSize,
 			final long maxFileDepth, final long cumulatedFileDepth) {
 		String message = "";
-		message += " Folders:\t " + cumulatedFolders + ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " Folders (sum):\t " + cumulatedFolders + ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " Files/Folder:\t\t " + PrintUtil.asPrecision2(CalcUtil.divide(cumulatedFiles, cumulatedFolders))
 				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " Folder Depth(avg):\t "
@@ -29,7 +29,7 @@ public class PrintStat {
 				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " (max):\t " + cumulatedFolders + ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += "\n";
-		message += " Files:\t\t " + cumulatedFiles + ConnectionStats.TABBED_COLUMN_SEPERATOR;
+		message += " Files (sum):\t\t " + cumulatedFiles + ConnectionStats.TABBED_COLUMN_SEPERATOR;
 		message += " File Size(avg):\t "
 				+ PrintUtil.asBinaryMagnitude(CalcUtil.divide(cumulatedFileSize, cumulatedFiles))
 				+ ConnectionStats.TABBED_COLUMN_SEPERATOR;

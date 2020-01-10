@@ -47,6 +47,15 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  */
 public class ConnectionAnalyzer {
 
+	public static final Logger logger = LoggerFactory.getLogger(ConnectionAnalyzer.class);
+	private int fProgress = 0;
+	private ConnectionStats connectionStats = null;
+	private RangeStats connectionRangeStats = null;
+	private RangeStats multiConnectionRangeStats = null;
+	// private boolean silent = false;
+	private ITeamRepository teamRepository = null;
+	private IProgressMonitor monitor = null;
+
 	/**
 	 * Just for the simple case to analyze a workspace connection.
 	 * 
@@ -66,44 +75,34 @@ public class ConnectionAnalyzer {
 	 * @param monitor
 	 * @param multiConnection
 	 */
-	public ConnectionAnalyzer(ITeamRepository teamRepository, IProgressMonitor monitor,
-			RangeStats multiConnection) {
+	public ConnectionAnalyzer(ITeamRepository teamRepository, IProgressMonitor monitor, RangeStats multiConnection) {
 		super();
 		this.teamRepository = teamRepository;
 		this.monitor = monitor;
 		this.multiConnectionRangeStats = multiConnection;
 	}
 
-	public static final Logger logger = LoggerFactory.getLogger(ConnectionAnalyzer.class);
-	private int fProgress = 0;
-	private ConnectionStats connectionStats = null;
-	private RangeStats connectionRangeStats = null;
-	private RangeStats multiConnectionRangeStats = null;
-	// private boolean silent = false;
-	private ITeamRepository teamRepository = null;
-	private IProgressMonitor monitor = null;
-
 	/**
 	 * Analyze a repository workspace. Collect data such as hierarchy depth,
 	 * extensions, encoding, file, folder numbers, averages and sizing.
 	 * 
 	 * @param outputfolder
-	 * @param scmConnection
+	 * @param scmConnectionName
 	 * @return
 	 * @throws TeamRepositoryException
 	 * @throws IOException
 	 */
-	public boolean analyzeWorkspace(String scmConnection) throws TeamRepositoryException, IOException {
+	public boolean analyzeWorkspace(String scmConnectionName) throws TeamRepositoryException, IOException {
 		boolean result = false;
-		logger.info("Find and open workspace '{}'...", scmConnection);
-		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
+		logger.info("Find and open workspace '{}'...", scmConnectionName);
+		List<IWorkspaceHandle> connections = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnectionName,
 				IWorkspaceSearchCriteria.ALL, monitor);
 		if (connections.size() < 1) {
-			logger.error("Error: workspace '{}' not found.", scmConnection);
+			logger.error("Error: workspace '{}' not found.", scmConnectionName);
 			return result;
 		}
 		if (connections.size() > 1) {
-			logger.error("Error: workspace '{}' not unique.", scmConnection);
+			logger.error("Error: workspace '{}' not unique.", scmConnectionName);
 			return result;
 		}
 		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(teamRepository,
@@ -120,8 +119,7 @@ public class ConnectionAnalyzer {
 	 * @throws TeamRepositoryException
 	 * @throws IOException
 	 */
-	public boolean analyzeWorkspace(IWorkspaceConnection workspace)
-			throws TeamRepositoryException, IOException {
+	public boolean analyzeWorkspace(IWorkspaceConnection workspace) throws TeamRepositoryException, IOException {
 		connectionRangeStats = new RangeStats();
 		connectionStats = new ConnectionStats(workspace.getName());
 		logger.info("Analyze component hierarchy of '{}'...", workspace.getName());
@@ -130,6 +128,18 @@ public class ConnectionAnalyzer {
 		logger.info("Anylaze components...");
 		analyzeConnectionComponents(workspace, hierarchy);
 		return true;
+	}
+
+	public ConnectionStats getConnectionStats() {
+		return connectionStats;
+	}
+
+	public RangeStats getConnectionRangeStats() {
+		return connectionRangeStats;
+	}
+
+	public RangeStats getMultiConnectionRangeStats() {
+		return multiConnectionRangeStats;
 	}
 
 	/**
@@ -279,18 +289,6 @@ public class ConnectionAnalyzer {
 		if (null != multiConnectionRangeStats) {
 			connectionRangeStats.analyze(fInfo);
 		}
-	}
-
-	public ConnectionStats getConnectionStats() {
-		return connectionStats;
-	}
-
-	public RangeStats getConnectionRangeStats() {
-		return connectionRangeStats;
-	}
-
-	public RangeStats getMultiConnectionRangeStats() {
-		return multiConnectionRangeStats;
 	}
 
 	/**

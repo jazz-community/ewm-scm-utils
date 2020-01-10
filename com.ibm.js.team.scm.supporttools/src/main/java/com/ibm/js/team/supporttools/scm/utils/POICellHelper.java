@@ -1,9 +1,11 @@
 package com.ibm.js.team.supporttools.scm.utils;
 
-import java.math.BigDecimal;
-
+import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -25,6 +27,23 @@ public class POICellHelper {
 		return string;
 	}
 
+	public void setNumberP0(Cell cell, long value) {
+		setNumberP0(cell, new Double(value));
+	}
+
+	public void setNumberP0(Cell cell, Double value) {
+		if (value == null) {
+			cell.setBlank();
+			return;
+		}
+		if (!Double.isFinite(value)) {
+			cell.setBlank();
+			return;
+		}
+		value = (double) Math.round(value);
+		cell.setCellValue(value);
+	}
+
 	public void setNumberP2(Cell cell, long value) {
 		setNumberP2(cell, new Double(value));
 	}
@@ -40,14 +59,6 @@ public class POICellHelper {
 		}
 		value = Math.round(value * 100d) / 100d;
 		cell.setCellValue(value);
-	}
-
-	public void setNumberP2(Cell cell, BigDecimal value) {
-		Double doubleValue = null;
-		if (value != null) {
-			doubleValue = value.doubleValue();
-		}
-		setNumberP2(cell, doubleValue);
 	}
 
 	public void setNumber(Cell cell, long value) {
@@ -66,14 +77,6 @@ public class POICellHelper {
 		cell.setCellValue(value);
 	}
 
-	public void setNumber(Cell cell, BigDecimal value) {
-		if (value == null) {
-			cell.setBlank();
-			return;
-		}
-		cell.setCellValue(value.doubleValue());
-	}
-
 	public void setText(Cell cell, String value) {
 		if (value == null) {
 			cell.setBlank();
@@ -83,5 +86,32 @@ public class POICellHelper {
 
 	public void setBoldText(Cell cell, String value) {
 		cell.setCellValue(boldFace(value));
+	}
+
+	public void setURLHyperLink(Cell cell, String lable, String workbookFileName) {
+		Hyperlink link = fWorkBook.getCreationHelper().createHyperlink(HyperlinkType.URL);
+		link.setAddress(workbookFileName);
+		cell.setCellValue(lable);
+		cell.setHyperlink(link);
+		CellStyle hlink_style = getLinkCellStyle();
+		cell.setCellStyle(hlink_style);
+	}
+
+	public void setFileHyperLink(Cell cell, String lable, String workbookFileName) {
+		Hyperlink link = fWorkBook.getCreationHelper().createHyperlink(HyperlinkType.FILE);
+		link.setAddress(workbookFileName);
+		cell.setCellValue(lable);
+		cell.setHyperlink(link);
+		CellStyle hlink_style = getLinkCellStyle();
+		cell.setCellStyle(hlink_style);
+	}
+
+	private CellStyle getLinkCellStyle() {
+		CellStyle hlink_style = fWorkBook.createCellStyle();
+		Font hlink_font = fWorkBook.createFont();
+		hlink_font.setUnderline(Font.U_SINGLE);
+		hlink_font.setColor(IndexedColors.BLUE.getIndex());
+		hlink_style.setFont(hlink_font);
+		return hlink_style;
 	}
 }

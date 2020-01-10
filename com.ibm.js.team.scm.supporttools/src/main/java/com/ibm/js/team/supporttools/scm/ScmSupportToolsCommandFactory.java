@@ -8,6 +8,7 @@
 package com.ibm.js.team.supporttools.scm;
 
 import com.ibm.js.team.supporttools.framework.commands.AbstractCommandFactory;
+import com.ibm.js.team.supporttools.scm.commands.AnalyzeRepository;
 import com.ibm.js.team.supporttools.scm.commands.AnalyzeSandbox;
 import com.ibm.js.team.supporttools.scm.commands.AnalyzeWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.ConvertLoadrule;
@@ -25,6 +26,7 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 
 	@Override
 	public void setAvailableCommands() {
+		put(new AnalyzeRepository());
 		put(new AnalyzeWorkspace());
 		put(new AnalyzeSandbox());
 		put(new ExportWorkspace());

@@ -55,4 +55,11 @@ public class PrintUtil {
 		return CalcUtil.roundPrecision2(value).toString();
 	}
 
+	public static String handleNull(Double value) {
+		if (value == null) {
+			return "N/A";
+		}
+		return value.toString();
+	}
+
 }

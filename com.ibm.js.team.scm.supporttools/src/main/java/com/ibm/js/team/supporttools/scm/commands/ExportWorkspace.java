@@ -87,7 +87,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public ExportWorkspace() {
-		super(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE);
+		super(ScmSupportToolsConstants.CMD_EXPORT_WORKSPACE);
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_EXPORT_WORKSPACE_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),

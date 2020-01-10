@@ -38,7 +38,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
 	public AnalyzeSandbox() {
-		super(ScmSupportToolsConstants.CMD_ANYLYZESANDBOX);
+		super(ScmSupportToolsConstants.CMD_ANYLYZE_SANDBOX);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_ANALYZESANDBOX_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_ANALYZE_SANDBOX_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
