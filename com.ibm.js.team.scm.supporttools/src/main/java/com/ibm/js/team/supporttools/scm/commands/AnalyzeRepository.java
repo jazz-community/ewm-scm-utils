@@ -7,14 +7,11 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.commands;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +19,8 @@ import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scm.statistics.ConnectionAnalyzer;
 import com.ibm.js.team.supporttools.scm.statistics.RepositoryAnalyzer;
 import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
-import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 import com.ibm.team.process.client.IProcessItemService;
 import com.ibm.team.process.common.IProcessArea;
 import com.ibm.team.repository.common.TeamRepositoryException;
@@ -63,8 +58,10 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 	 */
 	@Override
 	public Options addTeamRepositoryCommandOptions(Options options) {
-		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE, true,
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		return options;
 	}
 
@@ -77,9 +74,9 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		// Check for required options
 		boolean isValid = true;
 
-		if (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID))) {
-			isValid = false;
-		}
+//		if (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID))) {
+//			isValid = false;
+//		}
 		return isValid;
 	}
 
@@ -131,9 +128,12 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 	@Override
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
-		// String scmWorkspaceName =
-		// getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-
+		
+		String outputFolder = null;
+		if(getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)){
+			outputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+		}
+		
 		result = analyzeRepository();
 		return result;
 	}
@@ -142,19 +142,29 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		boolean result = false;
 		IWorkspaceSearchCriteria criteria = IWorkspaceSearchCriteria.FACTORY.newInstance();
 		criteria.setKind(IWorkspaceSearchCriteria.STREAMS);
-		IProcessArea area = findProcessArea("JKE Banking (Change Management)/Business Recovery Matters"); // "JKE
-																											// Banking
-																											// (Change
-																											// Management)"
-		// IProcessArea area = findProcessArea("JKE Banking (Change
-		// Management)"); // "JKE Banking (Change Management)"
-		// IProcessArea area = findProcessArea("Business Recovery Matters"); //
-		// "JKE Banking (Change Management)"
-		// IProcessArea area = findProcessArea("Business Recovery Matters"); //
-		// "JKE Banking (Change Management)"
-		if (null != area) {
-			// criteria.getFilterByOwnerOptional().add(area);
-			// criteria.setExactOwnerName(arg0)
+		
+		String connectionOwnerScope = null;
+		if(getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE)){
+			connectionOwnerScope = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_SCM_SCOPE);			
+		}		
+		if(connectionOwnerScope!=null){
+			boolean scope=true;
+			String[] processAreas = connectionOwnerScope.split("&");
+			for (int i = 0; i < processAreas.length; i++) {
+				String processArea = processAreas[i];
+				IProcessArea area = findProcessArea(processArea);
+					if (null == area) {
+						logger.error("SCM Connection Owner Scope: unable to find process area '{}'" , processArea);
+						scope = false;
+					} else {
+						criteria.getFilterByOwnerOptional().add(area);
+						// criteria.setExactOwnerName(arg0)
+					}
+			}
+			if(!scope){
+				logger.error("Check SCM Connection Owner Scope");
+				return false;
+			}
 		}
 		List<IWorkspaceHandle> connections = findConnections(criteria);
 		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(getTeamRepository(),
@@ -164,51 +174,6 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		return result;
 	}
 
-	// /**
-	// * @param scmWorkspaceName
-	// * @return
-	// * @throws TeamRepositoryException
-	// */
-	// private boolean analyzeWorkspace(String scmWorkspaceName) throws
-	// TeamRepositoryException {
-	// boolean result = false;
-	// RangeStats crossWorkspaceRangeStatistics = new RangeStats();
-	// RepositoryAnalyzer analyzer = new RepositoryAnalyzer(getTeamRepository(),
-	// getMonitor(),
-	// crossWorkspaceRangeStatistics);
-	//
-	// try {
-	// result = analyzer.analyze(scmWorkspaceName);
-	// if (result) {
-	// return generateResult(scmWorkspaceName, analyzer);
-	// }
-	// } catch (IOException e) {
-	// logger.error("IOException: {}", e.getMessage());
-	// }
-	// return result;
-	// }
-
-	/**
-	 * @param scmWorkspaceName
-	 * @param analyzer
-	 * @return
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 */
-	private boolean generateResult(String scmWorkspaceName, ConnectionAnalyzer analyzer)
-			throws IOException, FileNotFoundException {
-		boolean result = false;
-		logger.info("Show results...");
-		// stats.getConnectionStats().printConnectionStatistics();
-		logger.info("Generate workbook ...");
-		String workbookName = scmWorkspaceName + ".xls";
-		Workbook workBook = SheetUtils.createWorkBook(workbookName);
-		analyzer.getConnectionStats().updateWorkBook(workBook);
-		analyzer.getConnectionRangeStats().updateWorkBook(workBook);
-		SheetUtils.writeWorkBook(workBook, workbookName);
-		result = true;
-		return result;
-	}
 
 	/**
 	 */

@@ -1,6 +1,5 @@
 package com.ibm.js.team.supporttools.scm.statistics;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +33,7 @@ public class RepositoryAnalyzer {
 
 	public boolean analyze(List<? extends IWorkspaceConnection> connections) throws TeamRepositoryException {
 		boolean result = false;
-		String repositoryWorkBookName = "repository.xls";
+		String repositoryWorkBookName = "_repository.xls";
 		Workbook repositoryWorkBook = SheetUtils.createWorkBook(repositoryWorkBookName);
 		String sheetName = WorkbookUtil.createSafeSheetName("Repository Stats");
 		Sheet sheet = repositoryWorkBook.createSheet(sheetName);
@@ -189,26 +188,4 @@ public class RepositoryAnalyzer {
 	private int getNextActiveRow() {
 		return ++this.activeRow;
 	}
-
-	/**
-	 * @param scmWorkspaceName
-	 * @param analyzer
-	 * @return
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 */
-	private boolean generateResult(String scmWorkspaceName, ConnectionAnalyzer analyzer)
-			throws IOException, FileNotFoundException {
-		boolean result = false;
-		logger.info("Show results...");
-		logger.info("Generate workbook ...");
-		String workbookName = scmWorkspaceName + ".xls";
-		Workbook workBook = SheetUtils.createWorkBook(workbookName);
-		analyzer.getConnectionStats().updateWorkBook(workBook);
-		analyzer.getConnectionRangeStats().updateWorkBook(workBook);
-		SheetUtils.writeWorkBook(workBook, workbookName);
-		result = true;
-		return result;
-	}
-
 }

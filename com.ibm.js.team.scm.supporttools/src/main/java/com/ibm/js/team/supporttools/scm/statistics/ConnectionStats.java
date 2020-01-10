@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.scm.utils.CalcUtil;
 import com.ibm.js.team.supporttools.scm.utils.POICellHelper;
-import com.ibm.js.team.supporttools.scm.utils.PrintUtil;
 import com.ibm.team.repository.common.UUID;
 
 public class ConnectionStats {
@@ -283,37 +282,6 @@ public class ConnectionStats {
 			sheet.autoSizeColumn(i);
 		}
 		return workBook;
-	}
-
-	/**
-	 * Calculates the connection statistics with printing the data.
-	 * 
-	 * @deprecated
-	 */
-	private void printConnectionStatistics() {
-		resetStats();
-		logger.info("\nComponent characteristics for connection '{}' : ", fConnectionName);
-		Set<String> keys = getComponentStatisticsMap().keySet();
-		logger.info("Components: {}\n", getNoComponents());
-		for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
-			String key = (String) iterator.next();
-			ComponentStat comp = getComponentStatisticsMap().get(key);
-			aggregateComponent(comp);
-			logger.info(comp.toString());
-		}
-		logger.info("\nSummary:\n\nCross Component Characteristics for connection '{}' across all {} components: \n",
-				getConnectionName(), getNoComponents());
-
-		String message = POICellHelper.XLS_COLUMN_SEPARATOR;
-		message += " Hierarchy Depth(avg):\t "
-				+ PrintUtil.handleNull(CalcUtil.roundPrecision2(getAverageHierarchyDepth())) + TABBED_COLUMN_SEPERATOR;
-		message += " Hierarchy Depth(sum):\t " + getCumulatedHierarchyDepth() + TABBED_COLUMN_SEPERATOR
-				+ " Hierarchy Depth(max):\t " + getMaxHierarchyDepth() + "\n";
-		message += PrintStat.getFileAndFolderStatistics(getCumulatedFolders(), getCumulatedFolderDepth(),
-				getMaxFolderDepth(), getCumulatedFiles(), getMaxFileSize(), getCumulatedFileSize(), getMaxFileDepth(),
-				getCumulatedFileDepth());
-		message += "\n";
-		logger.info(message);
 	}
 
 	public HashMap<String, ComponentStat> getComponentStatisticsMap() {
