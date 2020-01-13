@@ -1,13 +1,14 @@
 # jazz-scm-content-obfuscator
 Supports special SCM operation to export and obfuscate SCM content, import obfuscated content and analyse SCM Workspaces and sandboxes.
 
-SCMTools Version: 1.6
+SCMTools Version: 1.8
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
 
 ## Available commands 
 
+### analyzeScmRepository
 ### analyzeSandbox
 ### analyzeScmWorkspace
 ### exportScmWorkspace
@@ -16,31 +17,47 @@ SCMTools Version: 1.6
 ### flattenLoadrule
 
 # Command Description
+## analyzeScmRepository
+```bash
+-command analyzeScmRepository
+-url "https://<server>:port/<context>/" 
+-user <userId> 
+-password <password> 
+ -connectionOwnerScope "<processAreaName>{&<processAreaName>}"
+ -outputFolder <outputFolderPath>
+```
+### Description
+Analyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
 ## analyzeSandbox
 ```bash
 -command analyzeSandbox
-   -url "https://<server>:port/<context>/" 
-   -user <userId> 
-   -password <password> 
-   -workspaceConnection <workspaceNameOrId> 
+ -url "https://<server>:port/<context>/" 
+ -user <userId> 
+ -password <password> 
+ -workspaceConnection <workspaceNameOrId> 
 ```
 ### Description
 Analyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.
 
 ###	Syntax
 ```bash
-  -command analyzeSandbox -sandboxFolder <sandboxFolderPath>
+-command analyzeScmRepository -url "https://<server>:port/<context>/" -user <userId> -password <password> -connectionOwnerScope <processarea1_name>[&<processarea_name>] -outputFolder <outputFolderPath>
 ```
 
 ###	Parameter description
 ```bash 
-	 -command 	 The command to execute. 
-	 -sandboxFolder  The path of the sandbox folder
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
+-connectionOwnerScope	Filter and analyze only the connections owned by the process area in the scope 
+-outputFolder	The folder where the resulting data is written.
 ```
 
 ###	Example
 ```bash
-	-command analyzeSandbox -sandboxFolder="C:\CLM2019\6.0.6.1\workspaces\Sandboxes\Sandbox2"
+ -command analyzeSandbox -sandboxFolder="C:\CLM2019\6.0.6.1\workspaces\Sandboxes\Sandbox2"
 ```
 ## analyzeScmWorkspace
 ```bash
