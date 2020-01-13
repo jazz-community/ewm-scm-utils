@@ -15,8 +15,10 @@ SCMTools Version: 1.8
 ### importScmWorkspace
 ### convertLoadrule
 ### flattenLoadrule
+### generateExternalChanges
 
 # Command Description
+
 ## analyzeScmRepository
 ```bash
 -command analyzeScmRepository
@@ -264,4 +266,39 @@ Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The
 ### Example
 ```bash
 -command sourceLoadruleFile -"C:\Temp\example.loadrule" targetLoadruleFile -"C:\Temp\converted.loadrule"
+```
+
+## analyzeScmWorkspace
+```bash
+-command exportScmWorkspace
+-url "https://<server>:port/<context>/" 
+-user <userId> 
+-password <password> 
+-workspaceConnection <workspaceNameOrId>
+-outputFolder <outputFolderPath>
+```
+### Description
+Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
+###	Syntax
+```bash
+-command analyzeScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath> -outputFolder
+```
+## generateExternalChanges
+
+```bash
+-command generateExternalChanges -sandboxFolder <sandboxFolderPath>
+```
+### Description
+Generates external changes on an Eclipse sandbox.
+
+###	Parameter description
+```bash 
+-command The command to execute. 
+-sandboxFolder The folder to be perform the changes in.
+```
+
+###	Example
+```bash
+-command generateExternalChanges -sandboxFolder "C:\Temp\sandbox\sandboxFolder"
 ```
