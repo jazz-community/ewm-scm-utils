@@ -8,8 +8,8 @@
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
 import com.ibm.js.team.supporttools.scm.statistics.ExtensionsStats;
+import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scm.statistics.IExtensions;
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
 public class RangeInfo implements IRangeInfo {

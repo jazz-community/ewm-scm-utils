@@ -19,11 +19,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.framework.util.FileUtil;
-import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 
+/**
+ * Utility for excel workbooks
+ *
+ */
 public class SheetUtils {
-	public static final Logger logger = LoggerFactory.getLogger(RangeStats.class);
+	public static final Logger logger = LoggerFactory.getLogger(SheetUtils.class);
 
+	/**
+	 * @return
+	 */
 	public static Workbook createWorkBook() {
 		logger.info("Creating workbook '{}'...");
 		Workbook wb = new HSSFWorkbook();

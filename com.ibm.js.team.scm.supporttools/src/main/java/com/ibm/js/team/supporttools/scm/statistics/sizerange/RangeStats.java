@@ -18,7 +18,7 @@ import org.apache.poi.ss.util.WorkbookUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
+import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scm.utils.POICellHelper;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 

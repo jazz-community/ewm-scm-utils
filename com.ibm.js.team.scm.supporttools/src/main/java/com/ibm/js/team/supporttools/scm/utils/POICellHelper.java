@@ -16,6 +16,10 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Workbook;
 
+/**
+ * Helper class to help creating cells in excel.
+ *
+ */
 public class POICellHelper {
 
 	private Workbook fWorkBook;
@@ -28,16 +32,34 @@ public class POICellHelper {
 		fBold.setBold(true);
 	}
 
+	/**
+	 * Create bold text
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public RichTextString boldFace(String value) {
 		RichTextString string = fWorkBook.getCreationHelper().createRichTextString(value);
 		string.applyFont(fBold);
 		return string;
 	}
 
+	/**
+	 * Set a number cell, round the value to 0 decimal.
+	 *  
+	 * @param cell
+	 * @param value
+	 */
 	public void setNumberP0(Cell cell, long value) {
 		setNumberP0(cell, new Double(value));
 	}
 
+	/**
+	 * Set a number cell, round the value to 0 decimal.
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setNumberP0(Cell cell, Double value) {
 		if (value == null) {
 			cell.setBlank();
@@ -51,10 +73,22 @@ public class POICellHelper {
 		cell.setCellValue(value);
 	}
 
+	/**
+	 * Set a number cell, round the value to 2 decimal.	 
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setNumberP2(Cell cell, long value) {
 		setNumberP2(cell, new Double(value));
 	}
 
+	/**
+	 * Set a number cell, round the value to 2 decimal.	 
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setNumberP2(Cell cell, Double value) {
 		if (value == null) {
 			cell.setBlank();
@@ -68,10 +102,23 @@ public class POICellHelper {
 		cell.setCellValue(value);
 	}
 
+	/**
+	 * Set a number cell, no rounding.	 
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setNumber(Cell cell, long value) {
 		setNumber(cell, new Double(value));
 	}
 
+	/**
+	 * Set a number cell, no rounding.	 
+	 * Set cell blank if infinite or null
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setNumber(Cell cell, Double value) {
 		if (value == null) {
 			cell.setBlank();
@@ -84,6 +131,12 @@ public class POICellHelper {
 		cell.setCellValue(value);
 	}
 
+	/**
+	 * Set a text value or blank if text is null
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setText(Cell cell, String value) {
 		if (value == null) {
 			cell.setBlank();
@@ -91,28 +144,53 @@ public class POICellHelper {
 		cell.setCellValue(value);
 	}
 
+	/**
+	 * Set text bold face
+	 * 
+	 * @param cell
+	 * @param value
+	 */
 	public void setBoldText(Cell cell, String value) {
 		cell.setCellValue(boldFace(value));
 	}
 
-	public void setURLHyperLink(Cell cell, String lable, String workbookFileName) {
+	/**
+	 * Set a Hyperlink providing a URI
+	 * 
+	 * @param cell
+	 * @param label
+	 * @param url
+	 */
+	public void setURLHyperLink(Cell cell, String label, String url) {
 		Hyperlink link = fWorkBook.getCreationHelper().createHyperlink(HyperlinkType.URL);
-		link.setAddress(workbookFileName);
-		cell.setCellValue(lable);
+		link.setAddress(url);
+		cell.setCellValue(label);
 		cell.setHyperlink(link);
 		CellStyle hlink_style = getLinkCellStyle();
 		cell.setCellStyle(hlink_style);
 	}
 
-	public void setFileHyperLink(Cell cell, String lable, String workbookFileName) {
+	/**
+	 * Set a Hyperlink providing a file name
+	 * 
+	 * @param cell
+	 * @param lable
+	 * @param fileName
+	 */
+	public void setFileHyperLink(Cell cell, String lable, String fileName) {
 		Hyperlink link = fWorkBook.getCreationHelper().createHyperlink(HyperlinkType.FILE);
-		link.setAddress(workbookFileName);
+		link.setAddress(fileName);
 		cell.setCellValue(lable);
 		cell.setHyperlink(link);
 		CellStyle hlink_style = getLinkCellStyle();
 		cell.setCellStyle(hlink_style);
 	}
 
+	/**
+	 * Create the style for hyper links.
+	 * 
+	 * @return
+	 */
 	private CellStyle getLinkCellStyle() {
 		CellStyle hlink_style = fWorkBook.createCellStyle();
 		Font hlink_font = fWorkBook.createFont();

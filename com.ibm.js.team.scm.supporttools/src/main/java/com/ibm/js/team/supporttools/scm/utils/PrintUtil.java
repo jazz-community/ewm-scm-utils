@@ -7,6 +7,14 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.utils;
 
+/**
+ * Utility Class for printing/logging
+ *
+ */
+/**
+ * @author RalphSchoon
+ *
+ */
 public class PrintUtil {
 
 	private static final String BYTE_STRING = "B";
@@ -19,35 +27,59 @@ public class PrintUtil {
 	public static final Double GIGABYTE = new Double(Math.pow(2, 30));
 	public static final Double TERABYTE = new Double(Math.pow(2, 40));
 
-	public static String asBinaryMagnitude(long cumulatedFileSize) {
-		return asBinaryMagnitude(new Double(cumulatedFileSize));
+	/**
+	 * Get a size based on binary magnitudes e.g. 12 GB
+	 * 
+	 * @param size
+	 * @return
+	 */
+	public static String asBinaryMagnitude(long size) {
+		return asBinaryMagnitude(new Double(size));
 	}
 
-	public static String asBinaryMagnitude(Double cumulatedFileSize) {
+	/**
+	 * Get a size based on binary magnitudes e.g. 12 GB
+	 * 
+	 * @param size
+	 * @return
+	 */
+	public static String asBinaryMagnitude(Double size) {
 		Double adjusted;
-		if (cumulatedFileSize > TERABYTE) {
-			adjusted = CalcUtil.divide(cumulatedFileSize, TERABYTE);
+		if (size > TERABYTE) {
+			adjusted = CalcUtil.divide(size, TERABYTE);
 			return CalcUtil.roundPrecision2(adjusted).toString() + " " + TERABYTE_STRING;
 		}
-		if (cumulatedFileSize > GIGABYTE) {
-			adjusted = CalcUtil.divide(cumulatedFileSize, GIGABYTE);
+		if (size > GIGABYTE) {
+			adjusted = CalcUtil.divide(size, GIGABYTE);
 			return CalcUtil.roundPrecision2(adjusted).toString() + " " + GIGABYTE_STRING;
 		}
-		if (cumulatedFileSize > MEGABYTE) {
-			adjusted = CalcUtil.divide(cumulatedFileSize, MEGABYTE);
+		if (size > MEGABYTE) {
+			adjusted = CalcUtil.divide(size, MEGABYTE);
 			return CalcUtil.roundPrecision2(adjusted).toString() + " " + MEGABYTE_STRING;
 		}
-		if (cumulatedFileSize > KILOBYTE) {
-			adjusted = CalcUtil.divide(cumulatedFileSize, KILOBYTE);
+		if (size > KILOBYTE) {
+			adjusted = CalcUtil.divide(size, KILOBYTE);
 			return CalcUtil.roundPrecision2(adjusted).toString() + " " + KILOBYTE_STRING;
 		}
-		return cumulatedFileSize + " " + BYTE_STRING;
+		return size + " " + BYTE_STRING;
 	}
 
+	/**
+	 * Round a value to precision 2 and create a string. Handles null values.
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static String asPrecision2(long value) {
 		return asPrecision2(new Double(value));
 	}
 
+	/**
+	 * Round a value to precision 2
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static String asPrecision2(Double value) {
 		if (value == null) {
 			return "N/A";
@@ -55,11 +87,24 @@ public class PrintUtil {
 		return CalcUtil.roundPrecision2(value).toString();
 	}
 
+	/**
+	 * Convert null values to N/A
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static String handleNull(Double value) {
 		if (value == null) {
 			return "N/A";
 		}
 		return value.toString();
+	}
+
+	public static String getLeftAligned(double d) {
+		Double data = new Double(d);
+		String blanks = "                    ";
+		String sValue = blanks + data.intValue();
+		return sValue.substring(sValue.length() - 10);
 	}
 
 }

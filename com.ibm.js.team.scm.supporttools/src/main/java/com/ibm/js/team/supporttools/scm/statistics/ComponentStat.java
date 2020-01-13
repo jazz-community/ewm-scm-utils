@@ -12,7 +12,6 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.scm.common.IFolder;
 
 public class ComponentStat {

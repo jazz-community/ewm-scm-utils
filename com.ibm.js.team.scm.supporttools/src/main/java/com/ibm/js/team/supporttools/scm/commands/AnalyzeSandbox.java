@@ -20,8 +20,8 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
+import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 
 /**
  * Allows to analyze a sandbox or local file system folder.

@@ -14,8 +14,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
-import com.ibm.js.team.supporttools.scm.utils.FormatUtil;
+import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
+import com.ibm.js.team.supporttools.scm.utils.PrintUtil;
 
 public class RangeStat implements IRangeStat {
 	IRangeCalculator rangeCalc = null;
@@ -95,7 +95,7 @@ public class RangeStat implements IRangeStat {
 				rangesLeft--;
 			}
 			logger.info("{} files to {} bytes. (Range {}), {}", fileCount,
-					FormatUtil.getLeftAligned(rangeCalc.getTopThreshold(currentInterval)), currentInterval, extensions);
+					PrintUtil.getLeftAligned(rangeCalc.getTopThreshold(currentInterval)), currentInterval, extensions);
 			totalFileCount += fileCount;
 			currentInterval++;
 		}

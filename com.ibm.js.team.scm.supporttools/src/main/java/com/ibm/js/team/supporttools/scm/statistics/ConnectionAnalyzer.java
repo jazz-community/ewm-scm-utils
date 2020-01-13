@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
 import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
 import com.ibm.team.filesystem.client.FileSystemCore;
 import com.ibm.team.filesystem.client.IFileContentManager;
 import com.ibm.team.filesystem.common.IFileItem;

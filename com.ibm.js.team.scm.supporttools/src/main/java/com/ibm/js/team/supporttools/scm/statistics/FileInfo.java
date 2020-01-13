@@ -5,7 +5,7 @@
  * of the MIT license.  See the LICENSE file for details.
  * 
  *******************************************************************************/
-package com.ibm.js.team.supporttools.scm.utils;
+package com.ibm.js.team.supporttools.scm.statistics;
 
 import java.io.File;
 

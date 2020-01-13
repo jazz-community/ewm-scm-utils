@@ -9,7 +9,7 @@ package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
 import java.util.Iterator;
 
-import com.ibm.js.team.supporttools.scm.utils.FileInfo;
+import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 
 public interface IRangeStat {
 
