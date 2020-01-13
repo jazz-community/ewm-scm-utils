@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.POICellHelper;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 import com.ibm.team.repository.client.ITeamRepository;
@@ -25,16 +26,19 @@ public class RepositoryAnalyzer {
 	private IProgressMonitor monitor = null;
 	private RepositoryStat repoStat = new RepositoryStat();
 	private int activeRow = 0;
+	private String fOutputFolder;
+	private RangeStats fCrossWorkspaceRangeStatistics = new RangeStats();
 
-	public RepositoryAnalyzer(ITeamRepository teamRepository, IProgressMonitor monitor) {
+	public RepositoryAnalyzer(ITeamRepository teamRepository, String outputFolder, IProgressMonitor monitor) {
 		this.teamRepository = teamRepository;
+		this.fOutputFolder = outputFolder;
 		this.monitor = monitor;
 	}
 
 	public boolean analyze(List<? extends IWorkspaceConnection> connections) throws TeamRepositoryException {
 		boolean result = false;
 		String repositoryWorkBookName = "_repository.xls";
-		Workbook repositoryWorkBook = SheetUtils.createWorkBook(repositoryWorkBookName);
+		Workbook repositoryWorkBook = SheetUtils.createWorkBook();
 		String sheetName = WorkbookUtil.createSafeSheetName("Repository Stats");
 		Sheet sheet = repositoryWorkBook.createSheet(sheetName);
 
@@ -108,9 +112,10 @@ public class RepositoryAnalyzer {
 			IWorkspaceConnection workspaceConnection = (IWorkspaceConnection) iterator.next();
 			String workspaceConnectionName = workspaceConnection.getName();
 			logger.info("Analyzing: '{}'", workspaceConnectionName);
-			ConnectionAnalyzer analyzer = new ConnectionAnalyzer(teamRepository, monitor);
+			ConnectionAnalyzer analyzer = new ConnectionAnalyzer(teamRepository, monitor,
+					fCrossWorkspaceRangeStatistics);
 			String workbookFileName = workspaceConnectionName + ".xls";
-			Workbook workBook = SheetUtils.createWorkBook(workbookFileName);
+			Workbook workBook = SheetUtils.createWorkBook();
 			try {
 				analyzer.analyzeWorkspace(workspaceConnection);
 				ConnectionStats connectionStats = analyzer.getConnectionStats();
@@ -140,7 +145,7 @@ public class RepositoryAnalyzer {
 				rch.setNumberP2(activeRow.createCell(21), connectionStats.getAverageFileDepth());
 				rch.setNumber(activeRow.createCell(22), connectionStats.getMaxFileDepth());
 
-				SheetUtils.writeWorkBook(workBook, workbookFileName);
+				SheetUtils.writeWorkBook(workBook, fOutputFolder, workbookFileName);
 			} catch (IOException e) {
 				logger.error("I/O Exception writing workbook.");
 				e.printStackTrace();
@@ -170,7 +175,8 @@ public class RepositoryAnalyzer {
 			sheet.autoSizeColumn(i);
 		}
 		try {
-			SheetUtils.writeWorkBook(repositoryWorkBook, repositoryWorkBookName);
+			fCrossWorkspaceRangeStatistics.updateWorkBook(repositoryWorkBook);
+			SheetUtils.writeWorkBook(repositoryWorkBook, fOutputFolder, repositoryWorkBookName);
 		} catch (IOException e) {
 			logger.error("I/O Exception writing workbook.");
 			e.printStackTrace();
@@ -188,4 +194,5 @@ public class RepositoryAnalyzer {
 	private int getNextActiveRow() {
 		return ++this.activeRow;
 	}
+
 }

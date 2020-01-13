@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -73,7 +72,7 @@ public class RangeStats {
 	 * @throws IOException
 	 */
 	public Workbook createWorkBook() throws IOException {
-		return SheetUtils.createWorkBook(DEFAULT_WORKBOOK_NAME);
+		return SheetUtils.createWorkBook();
 	}
 
 	/**
@@ -92,7 +91,6 @@ public class RangeStats {
 			logger.info("Creating sheet...");
 			String safeName = WorkbookUtil.createSafeSheetName(sheetNo++ + " - " + rangeCalc.getName());
 			Sheet sheet = workBook.createSheet(safeName);
-			CreationHelper createHelper = workBook.getCreationHelper();
 			Row header1 = sheet.createRow(0);
 
 			ch.setBoldText(header1.createCell(1), "Total Files");

@@ -21,7 +21,6 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCo
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ConnectionAnalyzer;
-import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 import com.ibm.team.repository.common.TeamRepositoryException;
 
@@ -34,6 +33,7 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspace.class);
 	private int fProgress = 0;
+	private String fOutputFolder = null;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
@@ -55,6 +55,8 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	public Options addTeamRepositoryCommandOptions(Options options) {
 		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		return options;
 	}
 
@@ -121,6 +123,10 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	@Override
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
+		this.fOutputFolder = null;
+		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)) {
+			fOutputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+		}
 		String scmWorkspaceName = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
 		result = analyzeWorkspace(scmWorkspaceName);
 		return result;
@@ -133,9 +139,7 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 	 */
 	private boolean analyzeWorkspace(String scmWorkspaceName) throws TeamRepositoryException {
 		boolean result = false;
-		RangeStats crossWorkspaceRangeStatistics = new RangeStats();
-		ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor(),
-				crossWorkspaceRangeStatistics);
+		ConnectionAnalyzer analyzer = new ConnectionAnalyzer(getTeamRepository(), getMonitor());
 
 		try {
 			result = analyzer.analyzeWorkspace(scmWorkspaceName);
@@ -161,10 +165,10 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 		logger.info("Show results...");
 		logger.info("Generate workbook ...");
 		String workbookName = scmWorkspaceName + ".xls";
-		Workbook workBook = SheetUtils.createWorkBook(workbookName);
+		Workbook workBook = SheetUtils.createWorkBook();
 		analyzer.getConnectionStats().updateWorkBook(workBook);
 		analyzer.getConnectionRangeStats().updateWorkBook(workBook);
-		SheetUtils.writeWorkBook(workBook, workbookName);
+		SheetUtils.writeWorkBook(workBook, this.fOutputFolder, workbookName);
 		result = true;
 		return result;
 	}

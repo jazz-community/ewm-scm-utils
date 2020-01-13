@@ -7,6 +7,7 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.utils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,20 +18,27 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ibm.js.team.supporttools.framework.util.FileUtil;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 
 public class SheetUtils {
 	public static final Logger logger = LoggerFactory.getLogger(RangeStats.class);
 
-	public static Workbook createWorkBook(String workBookName) {
-		logger.info("Creating workbook '{}'...", workBookName);
+	public static Workbook createWorkBook() {
+		logger.info("Creating workbook '{}'...");
 		Workbook wb = new HSSFWorkbook();
 		return wb;
 	}
 
-	public static boolean writeWorkBook(Workbook workBook, String fileName) throws FileNotFoundException, IOException {
+	public static boolean writeWorkBook(Workbook workBook, String folderName, String workbookName)
+			throws FileNotFoundException, IOException {
 		boolean result = false;
 		logger.info("Writing...");
+		String fileName = workbookName;
+		if (folderName != null) {
+			fileName = folderName + "//" + workbookName;
+			FileUtil.createFolderWithParents(new File(folderName));
+		}
 		try (OutputStream fileOut = new FileOutputStream(fileName)) {
 			workBook.write(fileOut);
 			result = true;

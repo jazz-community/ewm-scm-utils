@@ -287,7 +287,7 @@ public class ConnectionAnalyzer {
 			connectionRangeStats.analyze(fInfo);
 		}
 		if (null != multiConnectionRangeStats) {
-			connectionRangeStats.analyze(fInfo);
+			multiConnectionRangeStats.analyze(fInfo);
 		}
 	}
 

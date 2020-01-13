@@ -39,6 +39,7 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeRepository.class);
 	private int fProgress = 0;
+	private String fOutputFolder = null;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
@@ -73,12 +74,7 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 	public boolean checkTeamreposiroyCommandParameters(CommandLine cmd) {
 		// Check for required options
 		boolean isValid = true;
-
-		// if
-		// (!(cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)))
-		// {
-		// isValid = false;
-		// }
+		// Check for required parameters
 		return isValid;
 	}
 
@@ -131,9 +127,9 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 	public boolean executeTeamRepositoryCommand() throws TeamRepositoryException {
 		boolean result = false;
 
-		String outputFolder = null;
+		this.fOutputFolder = null;
 		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)) {
-			outputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+			fOutputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
 		}
 
 		result = analyzeRepository();
@@ -171,7 +167,7 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		List<IWorkspaceHandle> connections = findConnections(criteria);
 		List<? extends IWorkspaceConnection> connection = ConnectionUtil.getWorkspaceConnections(getTeamRepository(),
 				connections, getMonitor());
-		RepositoryAnalyzer repoAnalyzer = new RepositoryAnalyzer(getTeamRepository(), getMonitor());
+		RepositoryAnalyzer repoAnalyzer = new RepositoryAnalyzer(getTeamRepository(), this.fOutputFolder, getMonitor());
 		result = repoAnalyzer.analyze(connection);
 		return result;
 	}
@@ -190,11 +186,6 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		URI uri = URI.create(name.replaceAll(" ", "%20"));
 		IProcessArea area = service.findProcessArea(uri, IProcessItemService.ALL_PROPERTIES, getMonitor());
 		return area;
-		// if (area != null && area instanceof IProjectArea) {
-		// System.out.println("Project Area found: " + projectName);
-		// return (IProjectArea) area;
-		// }
-
 	}
 
 	/**
