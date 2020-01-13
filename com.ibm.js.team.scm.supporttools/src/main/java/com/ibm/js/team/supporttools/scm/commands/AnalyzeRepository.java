@@ -87,17 +87,20 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		logger.info("{}", getCommandName());
 		logger.info(ScmSupportToolsConstants.CMD_ANYLYZE_REPOSITORY_DESCRIPTION);
 		// General syntax
-		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} ", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
 				SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE, SupportToolsFrameworkConstants.PARAMETER_USER,
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE);
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE,
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE_PROTOTYPE,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
+		
 		// Parameter and description
 		logger.info(
-				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
+				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
@@ -105,17 +108,21 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE,
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
 				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE);
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE,
+				ScmSupportToolsConstants.PARAMETER_SCM_SCOPE_EXAMPLE,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
 	}
 
 	/**

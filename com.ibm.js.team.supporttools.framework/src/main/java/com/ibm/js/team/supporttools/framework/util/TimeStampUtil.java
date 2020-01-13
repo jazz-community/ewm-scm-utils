@@ -5,7 +5,6 @@
  * of the MIT license.  See the LICENSE file for details.
  * 
  *******************************************************************************/
-
 package com.ibm.js.team.supporttools.framework.util;
 
 import java.sql.Timestamp;
