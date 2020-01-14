@@ -152,6 +152,8 @@ public class RepositoryAnalyzer {
 				rch.setNumberP2(activeRow.createCell(21), connectionStats.getAverageFileDepth());
 				rch.setNumber(activeRow.createCell(22), connectionStats.getMaxFileDepth());
 
+				// Add the range statistics
+				analyzer.getConnectionRangeStats().updateWorkBook(workBook);
 				SheetUtils.writeWorkBook(workBook, fOutputFolder, workbookFileName);
 			} catch (IOException e) {
 				logger.error("I/O Exception writing workbook.");
@@ -182,6 +184,7 @@ public class RepositoryAnalyzer {
 			sheet.autoSizeColumn(i);
 		}
 		try {
+			// Add the cross repository range statistics.
 			fCrossWorkspaceRangeStatistics.updateWorkBook(repositoryWorkBook);
 			SheetUtils.writeWorkBook(repositoryWorkBook, fOutputFolder, repositoryWorkBookName);
 		} catch (IOException e) {

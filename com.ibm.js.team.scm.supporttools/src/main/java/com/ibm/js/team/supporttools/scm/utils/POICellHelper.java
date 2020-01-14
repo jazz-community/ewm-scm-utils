@@ -46,7 +46,7 @@ public class POICellHelper {
 
 	/**
 	 * Set a number cell, round the value to 0 decimal.
-	 *  
+	 * 
 	 * @param cell
 	 * @param value
 	 */
@@ -74,7 +74,7 @@ public class POICellHelper {
 	}
 
 	/**
-	 * Set a number cell, round the value to 2 decimal.	 
+	 * Set a number cell, round the value to 2 decimal.
 	 * 
 	 * @param cell
 	 * @param value
@@ -84,7 +84,7 @@ public class POICellHelper {
 	}
 
 	/**
-	 * Set a number cell, round the value to 2 decimal.	 
+	 * Set a number cell, round the value to 2 decimal.
 	 * 
 	 * @param cell
 	 * @param value
@@ -103,7 +103,7 @@ public class POICellHelper {
 	}
 
 	/**
-	 * Set a number cell, no rounding.	 
+	 * Set a number cell, no rounding.
 	 * 
 	 * @param cell
 	 * @param value
@@ -113,8 +113,7 @@ public class POICellHelper {
 	}
 
 	/**
-	 * Set a number cell, no rounding.	 
-	 * Set cell blank if infinite or null
+	 * Set a number cell, no rounding. Set cell blank if infinite or null
 	 * 
 	 * @param cell
 	 * @param value

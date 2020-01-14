@@ -67,20 +67,12 @@ public class RangeStats {
 	}
 
 	/**
-	 * @return
-	 * @throws IOException
-	 */
-	public Workbook createWorkBook() throws IOException {
-		return SheetUtils.createWorkBook();
-	}
-
-	/**
 	 * @throws IOException
 	 */
 	public Workbook updateWorkBook(Workbook workBook) throws IOException {
 		logger.info("Creating range statistics...");
 		if (workBook == null) {
-			workBook = createWorkBook();
+			workBook = SheetUtils.createWorkBook();
 		}
 		POICellHelper ch = new POICellHelper(workBook);
 		int sheetNo = 1;

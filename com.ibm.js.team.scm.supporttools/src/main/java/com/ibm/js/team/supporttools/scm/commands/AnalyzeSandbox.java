@@ -9,9 +9,11 @@ package com.ibm.js.team.supporttools.scm.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +24,7 @@ import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
 import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
+import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 
 /**
  * Allows to analyze a sandbox or local file system folder.
@@ -32,6 +35,9 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeSandbox.class);
 	private int fProgress = 0;
 	private RangeStats rangeStats = new RangeStats();
+	private String fOutputFolder = null;
+	private HashSet<String> ignoreFolderSet = new HashSet<String>(20);
+	private HashSet<String> ignoreFileSet = new HashSet<String>(20);
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
@@ -48,6 +54,8 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	public Options addCommandOptions(Options options) {
 		options.addOption(ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER, true,
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		return options;
 	}
 
@@ -77,17 +85,23 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		// General syntax
 		logger.info("\n\tSyntax: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
-				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_PROTOTYPE);
+				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_PROTOTYPE,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
 		// Parameter and description
 		logger.info("\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
-				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_DESCRIPTION);
+				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER,
-				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_EXAMPLE);
+				ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER_EXAMPLE,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
 	}
 
 	/**
@@ -100,11 +114,18 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		// Execute the code
 		// Get all the option values
 		String sandboxFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER);
+		this.fOutputFolder = null;
+		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)) {
+			fOutputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+		}
 
 		try {
+			addIgnoreDirectory(".metadata");
+			addIgnoreDirectory(".jazz5");
+			addIgnoreDirectory(".git");
 			result = analyzeSandbox(sandboxFolderPath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			logger.error("IO Exception");
 			e.printStackTrace();
 		} finally {
 		}
@@ -112,15 +133,10 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	}
 
 	/**
-	 * Export a repository workspace, all its components and the current SCM
-	 * data into a persistent format. The persistent format can later be used to
-	 * import and recreate a repository workspace and the component and the
-	 * latest content.
+	 * Analyze a sandbox.
 	 * 
 	 * @param sandboxFolderPath
 	 * @return
-	 * 
-	 * 		scm show sandbox-structure
 	 * @throws IOException
 	 */
 	private boolean analyzeSandbox(String sandboxFolderPath) throws IOException {
@@ -128,7 +144,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		logger.info("Analyze sandbox '{}'...", sandboxFolderPath);
 		File sandboxFolder = new File(sandboxFolderPath);
 		if (!sandboxFolder.exists()) {
-			logger.error("Error: Sandboxfolder '{}' could not be created.", sandboxFolderPath);
+			logger.error("Error: Sandboxfolder '{}' does not exist.", sandboxFolderPath);
 			return result;
 		}
 		if (!sandboxFolder.isDirectory()) {
@@ -140,7 +156,10 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 
 		logger.info("\n\nShow results...");
 		logger.info(compStat.toString());
-		rangeStats.createWorkBook();
+		String workbookName = sandboxFolder.getName() + ".xls";
+		Workbook workBook = SheetUtils.createWorkBook();
+		rangeStats.updateWorkBook(workBook);
+		SheetUtils.writeWorkBook(workBook, this.fOutputFolder, workbookName);
 		return true;
 	}
 
@@ -156,14 +175,18 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		long files = 0;
 		for (File file : contents) {
 			if (file.isDirectory()) {
-				folders++;
-				compStat.addFolderStat(file, depth);
-				analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
+				if(!isIgnoredDirectory(file)){
+					folders++;
+					compStat.addFolderStat(file, depth);
+					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);					
+				}
 			} else {
-				files++;
-				FileInfo fInfo = FileInfo.getFileInfo(file);
-				compStat.addFileStat(fInfo, depth);
-				rangeStats.analyze(fInfo);
+				if(!isIgnoredFile(file)){
+					files++;
+					FileInfo fInfo = FileInfo.getFileInfo(file);
+					compStat.addFileStat(fInfo, depth);
+					rangeStats.analyze(fInfo);
+				}
 			}
 		}
 		compStat.addFolderStats(folders, files, depth);
@@ -179,5 +202,33 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		if (fProgress % 10 == 9) {
 			System.out.print(".");
 		}
+	}
+	
+	public void addIgnoreDirectory(String name) {
+		ignoreFolderSet.add(name);
+	}
+
+	public void addIgnoreFile(String name) {
+		ignoreFileSet.add(name);
+	}
+	
+	private boolean isIgnoredDirectory(File file) {
+		if (file == null) {
+			return false;
+		}
+		if (ignoreFolderSet.contains(file.getName())) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isIgnoredFile(File file) {
+		if (file == null) {
+			return false;
+		}
+		if (ignoreFolderSet.contains(file.getName())) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -84,15 +84,15 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 		logger.info("{}", getCommandName());
 		logger.info(ScmSupportToolsConstants.CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION);
 		// General syntax
-		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE, SupportToolsFrameworkConstants.PARAMETER_USER,
+		logger.info("\n\tSyntax: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
+				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
+				SupportToolsFrameworkConstants.PARAMETER_USER,
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_PROTOTYPE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
 		// Parameter and description
 		logger.info(
@@ -109,15 +109,14 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		// Examples
-		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
+		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
+				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
+				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
 	}
 

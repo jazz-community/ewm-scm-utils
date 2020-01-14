@@ -144,7 +144,6 @@ public class ExpensiveScenarioService implements IExpensiveScenarioService {
 				response.close();
 			}
 		}
-
 	}
 
 	/* (non-Javadoc)
