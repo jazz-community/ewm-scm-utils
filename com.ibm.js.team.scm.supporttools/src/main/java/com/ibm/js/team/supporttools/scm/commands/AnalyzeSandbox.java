@@ -181,7 +181,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 					compStat.addFolderStat(file, depth);
 					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);					
 				} else {
-					logger.info("Ignoring folder '{}'",file.getAbsolutePath());
+					logger.info("\nIgnoring folder '{}'",file.getAbsolutePath());
 				}
 			} else {
 				if(!isIgnoredFile(file)){
@@ -190,7 +190,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 					compStat.addFileStat(fInfo, depth);
 					rangeStats.analyze(fInfo);
 				} else {
-					logger.info("Ignoring file '{}'",file.getAbsolutePath());
+					logger.info("\nIgnoring file '{}'",file.getAbsolutePath());
 				}
 			}
 		}
