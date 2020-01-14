@@ -28,6 +28,7 @@ import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 
 /**
  * Allows to analyze a sandbox or local file system folder.
+ * Ignores folders with names ".git", ".jazz5", ".metadata".
  * 
  */
 public class AnalyzeSandbox extends AbstractCommand implements ICommand {
@@ -179,6 +180,8 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 					folders++;
 					compStat.addFolderStat(file, depth);
 					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);					
+				} else {
+					logger.info("Ignoring folder '{}'",file.getAbsolutePath());
 				}
 			} else {
 				if(!isIgnoredFile(file)){
@@ -186,6 +189,8 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 					FileInfo fInfo = FileInfo.getFileInfo(file);
 					compStat.addFileStat(fInfo, depth);
 					rangeStats.analyze(fInfo);
+				} else {
+					logger.info("Ignoring file '{}'",file.getAbsolutePath());
 				}
 			}
 		}
@@ -216,19 +221,13 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		if (file == null) {
 			return false;
 		}
-		if (ignoreFolderSet.contains(file.getName())) {
-			return true;
-		}
-		return false;
+		return ignoreFolderSet.contains(file.getName());
 	}
 
 	private boolean isIgnoredFile(File file) {
 		if (file == null) {
 			return false;
 		}
-		if (ignoreFolderSet.contains(file.getName())) {
-			return true;
-		}
-		return false;
+		return ignoreFolderSet.contains(file.getName());
 	}
 }
