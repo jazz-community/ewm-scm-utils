@@ -18,7 +18,8 @@ To Build for usage
 Click Finish and allow to create the folder.
 7. Copy the content of the projects sub-folder scripts into the export location 
    folder 'C:\temp\SCMTools\'. The files copied are script files, scmtools.bat and scmtools.sh, 
-   the license file LICENSE.html and the log configuration file log4j.properties
+   the license file LICENSE.html and the log configuration file log4j.properties. In addition the file 
+   CodeSampleInput.txt is needed.
 8. Check the script files and provide a dedicated JRE 1.8 if needed
 9. On Unix make the script file scmtools.sh you just copied executable
 
