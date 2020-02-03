@@ -23,11 +23,13 @@ public class TimeStampUtil {
 	/**
 	 * Get a string representation for a timestamp in a specified pattern
 	 * 
-	 * @param date              A time stamp data to convert into a string.
-	 * @param timeFormatPattern A time format pattern or null (which results in a
-	 *                          default pattern being used)
-	 * @return The string representation of the time stamp create with the specified
-	 *         format pattern
+	 * @param date
+	 *            A time stamp data to convert into a string.
+	 * @param timeFormatPattern
+	 *            A time format pattern or null (which results in a default
+	 *            pattern being used)
+	 * @return The string representation of the time stamp create with the
+	 *         specified format pattern
 	 */
 	public static String getDate(final Timestamp date, final String timeFormatPattern) {
 		String pattern = SIMPLE_DATE_FORMAT_PATTERN_YYYY_MM_DD_HH_MM_SS_Z;

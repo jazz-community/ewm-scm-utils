@@ -14,7 +14,7 @@ package com.ibm.js.team.supporttools.scm;
 public interface ScmSupportToolsConstants {
 
 	public static final Object SCMTOOLS = "SCMTools";
-	public static final String SCMTOOLS_VERSION = "1.9";
+	public static final String SCMTOOLS_VERSION = "2.0";
 
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
@@ -102,6 +102,10 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_SCM_SCOPE_EXAMPLE = "\"Project1 (Change Management)&Project2 (Change Management)/SCM Expert Team\"";
 	public static final String PARAMETER_SCM_SCOPE_DESCRIPTION = "Filter and analyze only the connections owned by the process area in the scope";
 
+	// Flag for import workspace
+	public static final String PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG = "skipUploadingExistingComponents";
+	public static final String PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG_DESCRIPTION = "Don't reupload content to existing components. This can be used when imports of large numbers of components or folders fail to skip data that is already successfully imported.";
+
 	// JSON format for hierarchy export/import
 	public static final String JSON_COMPONENT_CHILDREN = "Children";
 	public static final String JSON_COMPONENT_UUID = "UUID";
@@ -113,5 +117,4 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
 	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
-
 }

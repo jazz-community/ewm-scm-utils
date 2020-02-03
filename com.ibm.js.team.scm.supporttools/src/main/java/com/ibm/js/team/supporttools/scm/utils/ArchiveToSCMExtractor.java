@@ -109,11 +109,14 @@ public class ArchiveToSCMExtractor {
 				return extract();
 			} finally {
 				fileInputStream.close();
+				fileInputStream = null;
 			}
 		} catch (Exception e) {
 			logger.error("Exception extract file '{}': {}", archiveFile.getPath(), e.getMessage());
 			e.printStackTrace();
 			return false;
+		} finally {
+			fZipInStream = null;
 		}
 	}
 
@@ -211,7 +214,11 @@ public class ArchiveToSCMExtractor {
 				fWorkspace.commit(fChangeSet,
 						Collections.singletonList(fWorkspace.configurationOpFactory().save(fileWorkingCopy)), fMonitor);
 				logger.trace(" ... Content");
+				fileWorkingCopy = null;
+
 			}
+			storedzipContent = null;
+			filecontent = null;
 		} catch (TeamRepositoryException e) {
 			e.printStackTrace();
 			throw e;
@@ -270,14 +277,18 @@ public class ArchiveToSCMExtractor {
 	 * @throws IOException
 	 */
 	private ByteArrayOutputStream copyFileData(InputStream zipInStream) throws IOException {
-		ByteArrayOutputStream contents = new ByteArrayOutputStream();
 		byte[] buf = new byte[2048];
-		int read;
-		while ((read = zipInStream.read(buf)) != -1) {
-			contents.write(buf, 0, read);
+		try {
+			ByteArrayOutputStream contents = new ByteArrayOutputStream();
+			int read;
+			while ((read = zipInStream.read(buf)) != -1) {
+				contents.write(buf, 0, read);
+			}
+			contents.flush();
+			return contents;
+		} finally {
+			buf = null;
 		}
-		contents.flush();
-		return contents;
 	}
 
 	/**

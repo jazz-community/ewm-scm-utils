@@ -101,8 +101,8 @@ public abstract class AbstractTeamrepositoryCommand extends AbstractCommand impl
 			if (this.scenarioService != null) {
 				try {
 					this.scenarioService.stop(this.scenarioInstance);
-					this.scenarioInstance=null;
-					this.scenarioService=null;
+					this.scenarioInstance = null;
+					this.scenarioService = null;
 				} catch (Exception e) {
 					logger.error("Exception: {}", e.getMessage());
 				}

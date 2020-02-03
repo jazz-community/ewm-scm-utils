@@ -31,15 +31,15 @@ public abstract class AbstractCommandFactory implements ICommandFactory {
 	public AbstractCommandFactory() {
 		super();
 		setAvailableCommands();
-//		put(new ExportConfigurationsCmd());
-//		put(new ExportConfigurationsByDescriptionCmd());
-//		put(new ExportAllConfigurationsByDescriptionCmd());
-//		put(new ImportTypeSystemCmd());
-//		put(new DeliverTypeSystemCmd());
-//		put(new ImportTypeSystemByDescriptionCmd());
-//		put(new DeliverTypeSystemByDescriptionCmd());
+		// put(new ExportConfigurationsCmd());
+		// put(new ExportConfigurationsByDescriptionCmd());
+		// put(new ExportAllConfigurationsByDescriptionCmd());
+		// put(new ImportTypeSystemCmd());
+		// put(new DeliverTypeSystemCmd());
+		// put(new ImportTypeSystemByDescriptionCmd());
+		// put(new DeliverTypeSystemByDescriptionCmd());
 		// Enable sample command
-//		put(new SampleCommandCmd());
+		// put(new SampleCommandCmd());
 	}
 
 	public abstract void setAvailableCommands();

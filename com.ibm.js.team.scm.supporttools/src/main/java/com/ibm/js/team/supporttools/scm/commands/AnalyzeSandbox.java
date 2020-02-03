@@ -27,8 +27,8 @@ import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 
 /**
- * Allows to analyze a sandbox or local file system folder.
- * Ignores folders with names ".git", ".jazz5", ".metadata".
+ * Allows to analyze a sandbox or local file system folder. Ignores folders with
+ * names ".git", ".jazz5", ".metadata".
  * 
  */
 public class AnalyzeSandbox extends AbstractCommand implements ICommand {
@@ -176,21 +176,21 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		long files = 0;
 		for (File file : contents) {
 			if (file.isDirectory()) {
-				if(!isIgnoredDirectory(file)){
+				if (!isIgnoredDirectory(file)) {
 					folders++;
 					compStat.addFolderStat(file, depth);
-					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);					
+					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
 				} else {
-					logger.info("\nIgnoring folder '{}'",file.getAbsolutePath());
+					logger.info("\nIgnoring folder '{}'", file.getAbsolutePath());
 				}
 			} else {
-				if(!isIgnoredFile(file)){
+				if (!isIgnoredFile(file)) {
 					files++;
 					FileInfo fInfo = FileInfo.getFileInfo(file);
 					compStat.addFileStat(fInfo, depth);
 					rangeStats.analyze(fInfo);
 				} else {
-					logger.info("\nIgnoring file '{}'",file.getAbsolutePath());
+					logger.info("\nIgnoring file '{}'", file.getAbsolutePath());
 				}
 			}
 		}
@@ -208,7 +208,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 			System.out.print(".");
 		}
 	}
-	
+
 	public void addIgnoreDirectory(String name) {
 		ignoreFolderSet.add(name);
 	}
@@ -216,7 +216,7 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 	public void addIgnoreFile(String name) {
 		ignoreFileSet.add(name);
 	}
-	
+
 	private boolean isIgnoredDirectory(File file) {
 		if (file == null) {
 			return false;

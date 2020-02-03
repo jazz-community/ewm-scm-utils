@@ -27,8 +27,8 @@ public class FileUtil {
 
 	/**
 	 * Copy a file and don't complain if the source File does not exist. This
-	 * operation fails if the parent folder of the destination file does not exist.
-	 * Returns false in case the source file does not exist;
+	 * operation fails if the parent folder of the destination file does not
+	 * exist. Returns false in case the source file does not exist;
 	 * 
 	 * @param srcFile
 	 * @param destFile
@@ -58,9 +58,10 @@ public class FileUtil {
 	}
 
 	/**
-	 * Copy a folder into another folder. Copy contents recursively The destination
-	 * folder gets created if it does not exist. If the source file is not a folder
-	 * the operation fails and returns false. Otherwise the operation returns true.
+	 * Copy a folder into another folder. Copy contents recursively The
+	 * destination folder gets created if it does not exist. If the source file
+	 * is not a folder the operation fails and returns false. Otherwise the
+	 * operation returns true.
 	 * 
 	 * @param srcFolder
 	 * @param destFolder
@@ -120,8 +121,8 @@ public class FileUtil {
 	}
 
 	/**
-	 * Deletes all files and sub directories under given directory. If a deletion
-	 * fails, the method stops attempting to delete and returns false.
+	 * Deletes all files and sub directories under given directory. If a
+	 * deletion fails, the method stops attempting to delete and returns false.
 	 * 
 	 * @return -true if all deletions were successful, false otherwise
 	 */
@@ -148,7 +149,7 @@ public class FileUtil {
 	 * @param outputFile
 	 * @throws IOException
 	 * 
-	 *                     From RTC3.0 SDK
+	 *             From RTC3.0 SDK
 	 * @see com.ibm.team.filesystem.setup.junit.internal.SourceControlContribution
 	 */
 	private static void copyFile(File inputFile, File outputFile) throws IOException {
@@ -169,14 +170,14 @@ public class FileUtil {
 	}
 
 	/**
-	 * Recursively copy a folder. Automatically create the destination folder. This
-	 * operation fails if the parent of the destination directory
+	 * Recursively copy a folder. Automatically create the destination folder.
+	 * This operation fails if the parent of the destination directory
 	 * 
 	 * @param inputFile
 	 * @param outputFile
 	 * @throws IOException
 	 * 
-	 *                     From RTC3.0 SDK
+	 *             From RTC3.0 SDK
 	 * @see com.ibm.team.filesystem.setup.junit.internal.SourceControlContribution
 	 * 
 	 */

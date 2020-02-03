@@ -8,11 +8,12 @@
 package com.ibm.js.team.supporttools.framework.scenario;
 
 /**
- * Interface for a basic Expensive Scenario Service that passes the information required between service calls using a string. 
+ * Interface for a basic Expensive Scenario Service that passes the information
+ * required between service calls using a string.
  *
  */
 public interface IExpensiveScenarioService {
-	
+
 	/**
 	 * Start an expensive scenario.
 	 * 
@@ -21,11 +22,12 @@ public interface IExpensiveScenarioService {
 	 * @throws Exception
 	 */
 	public String start() throws Exception;
-	
+
 	/**
 	 * Stop the expensive scenario.
 	 * 
-	 * @param startRequestResponse the response string from the start command
+	 * @param startRequestResponse
+	 *            the response string from the start command
 	 * @throws Exception
 	 */
 	public void stop(String startRequestResponse) throws Exception;

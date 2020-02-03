@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -71,6 +72,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	private String fNamePrefix = null;
 	private int fProgress = 0;
 	private boolean reuseExistingWorkspace = false;
+	private boolean skipUploadExistingComponent = false;
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
@@ -95,6 +97,8 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG, false,
 				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG, false,
+				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG_DESCRIPTION);
 		return options;
 	}
 
@@ -156,16 +160,19 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
 		// Optional parameters
-		logger.info("\n\tOptional parameter syntax: -{} {} -{}",
+		logger.info("\n\tOptional parameter syntax: -{} {} -{} -{}",
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
+				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
 		// Optional parameters description
-		logger.info("\n\tOptional parameter description: \n\t -{} \t{} \n\t -{} \t {}",
+		logger.info("\n\tOptional parameter description: \n\t -{} \t{} \n\t -{} \t {}\n\t -{} \t {}",
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION);
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION,
+				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG,
+				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG_DESCRIPTION);
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -179,10 +186,11 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
 		// Optional parameter examples
-		logger.info("\n\tExample optional parameter: -{} {} -{}",
+		logger.info("\n\tExample optional parameter: -{} {} -{} -{}",
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
 				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
+				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
+				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
 	}
 
 	/**
@@ -199,7 +207,8 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		final String componentNameModifier = getCmd()
 				.getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
 		reuseExistingWorkspace = getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
-
+		skipUploadExistingComponent = getCmd()
+				.hasOption(ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
 		if (componentNameModifier != null) {
 			logger.info("Using prefix '{}' on component names to force creation of new components.",
 					componentNameModifier);
@@ -282,10 +291,12 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
 		int currentComponent = 1;
 		int noOfComponents = compKeys.size();
+		Set<String> missingComponents = new HashSet<String>(noOfComponents);
 		for (String compName : compKeys) {
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
 			if (foundComponent == null) {
+				missingComponents.add(compName);
 				foundComponent = createComponent(teamRepository, monitor, wm, compName);
 			}
 			targetComponentMap.put(compName, foundComponent);
@@ -310,7 +321,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		recreateComponentHierarchy(targetWorkspace, sourcePar2ChildMap, targetComponentMap, monitor);
 
 		// Run 3 upload the source code
-		uploadComponentContent(targetWorkspace, sourcePar2ChildMap, targetComponentMap, monitor);
+		uploadComponentContent(targetWorkspace, sourcePar2ChildMap, targetComponentMap, missingComponents, monitor);
 		return true;
 	}
 
@@ -356,29 +367,39 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	 * @param targetWorkspace
 	 * @param sourcePar2ChildMap
 	 * @param targetComponentMap
+	 * @param missingComponents
 	 * @param monitor
 	 * @throws TeamRepositoryException
 	 * @throws Exception
 	 */
-	private void uploadComponentContent(IWorkspaceConnection targetWorkspace,
-			HashMap<String, ArrayList<String>> sourcePar2ChildMap, HashMap<String, IComponentHandle> targetComponentMap,
+	private void uploadComponentContent(final IWorkspaceConnection targetWorkspace,
+			final HashMap<String, ArrayList<String>> sourcePar2ChildMap,
+			final HashMap<String, IComponentHandle> targetComponentMap, final Set<String> missingComponents,
 			IProgressMonitor monitor) throws TeamRepositoryException {
 		logger.info("Import component data...");
 		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
 		int currentComponent = 1;
 		int noOfComponents = compKeys3.size();
 		// Reuse the class
-		ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 		for (String compName : compKeys3) {
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
+			if (skipUploadExistingComponent) {
+				if (!missingComponents.contains(compName)) {
+					logger.info("\t\tComponent exists skipping code upload..");
+					continue;
+				}
+			}
 			IComponentHandle handle = targetComponentMap.get(compName);
 			File archiveFile = new File(fInputFolder, stripComponentNamePrefix(compName) + ".zip");
+			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
 			if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
 					"Source for Component " + compName, monitor)) {
 				System.out.println();
 				logger.error("Exception extracting component '{}'", compName);
 			}
 			System.out.println();
+			scmExt = null;
+			archiveFile = null;
 		}
 	}
 
