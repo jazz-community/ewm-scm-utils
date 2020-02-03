@@ -1,7 +1,7 @@
 # jazz-scm-content-obfuscator
 Supports special SCM operation to export and obfuscate SCM content, import obfuscated content and analyse SCM Workspaces and sandboxes.
 
-SCMTools Version: 1.8
+SCMTools Version: 2.0
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
@@ -172,6 +172,7 @@ Exports the contents of a repository workspace into a set of zip files. Exports 
 -inputFolder <inputFolderPath>
 [-componentNameModifier <modifier>]
 [-reuseExistingWorkspace]
+[-skipUploadingExistingComponents]
 ```
 
 ### Description
@@ -194,13 +195,14 @@ Creates a repository workspace and its components from a JSON file describing th
 
 ###	Optional parameter syntax
 ```bash
--componentNameModifier <modifier> -reuseExistingWorkspace
+-componentNameModifier <modifier> -reuseExistingWorkspace -skipUploadingExistingComponents
  ```
 
 ### Optional parameter description 
 ```bash
 -componentNameModifier A prefix to be added to component names to force creation of new components and support component name uniqueness. 
 -reuseExistingWorkspace When providing this flag, the import operation continues if the workspace already exists. It strips the workspace from its components and adds the imported components.
+-skipUploadingExistingComponents Don't reupload content to existing components. This can be used when imports of large numbers of components or folders fail to skip data that is already successfully imported.
 ```
 
 ###	Example
