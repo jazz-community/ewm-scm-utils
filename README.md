@@ -212,7 +212,7 @@ Creates a repository workspace and its components from a JSON file describing th
 
 ### Example optional parameter
 ```bash
--componentNameModifier "TestImport_" -reuseExistingWorkspace
+-componentNameModifier "TestImport_" -reuseExistingWorkspace -skipUploadingExistingComponents
 ```
 
 ## convertLoadrule
