@@ -396,6 +396,6 @@ public class ArchiveToSCMExtractor {
 	 */
 	private void initializeProgress() {
 		fProgress = 0;
-		System.out.print("\t.");
+		System.out.print("\t\t.");
 	}
 }
