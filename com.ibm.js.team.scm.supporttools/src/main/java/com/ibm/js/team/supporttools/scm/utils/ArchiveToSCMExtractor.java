@@ -91,8 +91,8 @@ public class ArchiveToSCMExtractor {
 	 * @throws TeamRepositoryException
 	 * @throws Exception
 	 */
-	public boolean extractFileToComponent(String archiveFileName, IWorkspaceConnection targetWorkspace,
-			IComponentHandle component, String changeSetComment, IProgressMonitor monitor)
+	public boolean extractFileToComponent(final String archiveFileName, final IWorkspaceConnection targetWorkspace,
+			final IComponentHandle component, final String changeSetComment, IProgressMonitor monitor)
 			throws TeamRepositoryException {
 
 		File archiveFile = new File(archiveFileName);
@@ -101,7 +101,7 @@ public class ArchiveToSCMExtractor {
 		fWorkspace = targetWorkspace;
 		fChangeSet = fWorkspace.createChangeSet(component, changeSetComment, true, monitor);
 		fConfiguration = fWorkspace.configuration(component);
-		logger.trace("Extract: " + archiveFile.getPath());
+		logger.trace("\t\t\tExtract: " + archiveFile.getPath());
 		try {
 			FileInputStream fileInputStream = new FileInputStream(archiveFile);
 			fZipInStream = new ZipInputStream(fileInputStream);
@@ -117,6 +117,9 @@ public class ArchiveToSCMExtractor {
 			return false;
 		} finally {
 			fZipInStream = null;
+			fChangeSet = null;
+			fConfiguration = null;
+			archiveFile = null;
 		}
 	}
 
@@ -137,11 +140,11 @@ public class ArchiveToSCMExtractor {
 			File targetEntry = new File(entry.toString());
 			try {
 				if (entry.isDirectory()) {
-					logger.trace("Extracting Folder: " + targetEntry.getPath());
+					logger.trace("\t\t\tExtracting Folder: " + targetEntry.getPath());
 					findOrCreateFolderWithParents(targetEntry);
 
 				} else {
-					logger.trace("Extracting File: " + targetEntry.getPath());
+					logger.trace("\t\t\tExtracting File: " + targetEntry.getPath());
 					extractFile(targetEntry, entry);
 				}
 			} catch (Exception e) {

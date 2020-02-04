@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -68,7 +67,6 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 
 	public static final Logger logger = LoggerFactory.getLogger(ImportWorkspace.class);
 	private File fInputFolder = null;
-	private IAuditableHandle fArea;
 	private String fNamePrefix = null;
 	private int fProgress = 0;
 	private boolean reuseExistingWorkspace = false;
@@ -274,7 +272,10 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		// Find Project Area
 		IProcessClientService processClient = (IProcessClientService) teamRepository
 				.getClientLibrary(IProcessClientService.class);
-		fArea = findProjectAreaByFQN(projectAreaName, processClient, monitor);
+		IAuditableHandle owner = findProjectAreaByFQN(projectAreaName, processClient, monitor);
+
+		logger.info("Strip workspace from components...");
+		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
 
 		// Get the component mapping
 		HashMap<String, UUID> sourceComponentName2UUIDMap = new HashMap<String, UUID>(3000);
@@ -285,20 +286,28 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
 		JSONArray jsonComponentMap = new JSONArray();
 		// Run 1 to get a map for the components needed. Find or create the
-		// components.
+		// components. Upload the component data.
 		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
 				sourcePar2ChildMap.size());
 		Set<String> compKeys = sourcePar2ChildMap.keySet();
 		int currentComponent = 1;
 		int noOfComponents = compKeys.size();
-		Set<String> missingComponents = new HashSet<String>(noOfComponents);
 		for (String compName : compKeys) {
+			boolean componentExists = true;
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
 			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
 			if (foundComponent == null) {
-				missingComponents.add(compName);
-				foundComponent = createComponent(teamRepository, monitor, wm, compName);
+				logger.info("\t\tCreated...");
+				componentExists = false;
+				foundComponent = createComponent(teamRepository, wm, compName, owner, monitor);
 			}
+			addComponentToWorkspaceConnection(targetWorkspace, foundComponent, monitor);
+			if (!(componentExists && skipUploadExistingComponent)) {
+				uploadComponentContent2(targetWorkspace, compName, foundComponent, monitor);
+			} else {
+				logger.info("\t\tSkipped component data upload...");
+			}
+
 			targetComponentMap.put(compName, foundComponent);
 			JSONObject jsonComponent = new JSONObject();
 			jsonComponent.put(ScmSupportToolsConstants.JSON_COMPONENT_NAME, compName);
@@ -313,15 +322,9 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				jsonComponentMappingFile.getAbsolutePath());
 		jsonComponentMap.serialize(new FileWriter(jsonComponentMappingFile), true);
 
-		logger.info("Strip workspace from components...");
-		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
-
-		logger.info("Add components to workspace...");
-		addComponentsToWorkspaceConnection(targetWorkspace, targetComponentMap, monitor);
+		logger.info("Recreate component hierarchy...");
 		recreateComponentHierarchy(targetWorkspace, sourcePar2ChildMap, targetComponentMap, monitor);
 
-		// Run 3 upload the source code
-		uploadComponentContent(targetWorkspace, sourcePar2ChildMap, targetComponentMap, missingComponents, monitor);
 		return true;
 	}
 
@@ -361,46 +364,19 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		}
 	}
 
-	/**
-	 * Upload the content for the components.
-	 * 
-	 * @param targetWorkspace
-	 * @param sourcePar2ChildMap
-	 * @param targetComponentMap
-	 * @param missingComponents
-	 * @param monitor
-	 * @throws TeamRepositoryException
-	 * @throws Exception
-	 */
-	private void uploadComponentContent(final IWorkspaceConnection targetWorkspace,
-			final HashMap<String, ArrayList<String>> sourcePar2ChildMap,
-			final HashMap<String, IComponentHandle> targetComponentMap, final Set<String> missingComponents,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		logger.info("Import component data...");
-		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
-		int currentComponent = 1;
-		int noOfComponents = compKeys3.size();
-		// Reuse the class
-		for (String compName : compKeys3) {
-			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
-			if (skipUploadExistingComponent) {
-				if (!missingComponents.contains(compName)) {
-					logger.info("\t\tComponent exists skipping code upload..");
-					continue;
-				}
-			}
-			IComponentHandle handle = targetComponentMap.get(compName);
-			File archiveFile = new File(fInputFolder, stripComponentNamePrefix(compName) + ".zip");
-			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
-			if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
-					"Source for Component " + compName, monitor)) {
-				System.out.println();
-				logger.error("Exception extracting component '{}'", compName);
-			}
+	private void uploadComponentContent2(final IWorkspaceConnection targetWorkspace, String compName,
+			IComponentHandle handle, IProgressMonitor monitor) throws TeamRepositoryException {
+		logger.info("\t\tImport component data...");
+		File archiveFile = new File(fInputFolder, stripComponentNamePrefix(compName) + ".zip");
+		ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
+		if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
+				"Source for Component " + compName, monitor)) {
 			System.out.println();
-			scmExt = null;
-			archiveFile = null;
+			logger.error("Exception extracting component '{}'", compName);
 		}
+		System.out.println();
+		scmExt = null;
+		archiveFile = null;
 	}
 
 	/**
@@ -452,18 +428,18 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	 * Create the component.
 	 * 
 	 * @param teamRepository
-	 * @param monitor
 	 * @param wm
 	 * @param compName
+	 * @param monitor
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IComponentHandle createComponent(ITeamRepository teamRepository, IProgressMonitor monitor,
-			IWorkspaceManager wm, String compName) throws TeamRepositoryException {
+	private IComponentHandle createComponent(ITeamRepository teamRepository, IWorkspaceManager wm, String compName,
+			IAuditableHandle owner, IProgressMonitor monitor) throws TeamRepositoryException {
 		IComponentHandle component;
 		// Create Component
 		component = wm.createComponent(compName, teamRepository.loggedInContributor(), monitor);
-		wm.setComponentOwner(component, fArea, monitor);
+		wm.setComponentOwner(component, owner, monitor);
 		return component;
 	}
 
@@ -561,30 +537,18 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	}
 
 	/**
-	 * Adds components to a workspace connection
+	 * Adds a component to a workspace connection
 	 * 
 	 * @param workspaceConnection
-	 * @param extComponents
+	 * @param componentHandle
 	 * @param monitor
-	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IWorkspaceConnection addComponentsToWorkspaceConnection(IWorkspaceConnection workspaceConnection,
-			HashMap<String, IComponentHandle> extComponents, IProgressMonitor monitor) throws TeamRepositoryException {
+	private void addComponentToWorkspaceConnection(IWorkspaceConnection workspaceConnection,
+			IComponentHandle componentHandle, IProgressMonitor monitor) throws TeamRepositoryException {
 
-		// Add new components
-		Set<String> componentNames = extComponents.keySet();
-		int currentComponent = 1;
-		int noOfComponents = componentNames.size();
-		logger.info("\tAdding Components: '{}'", noOfComponents);
-		for (String compName : componentNames) {
-			logger.info("\tComponent {} of {} '{}' ", currentComponent++, noOfComponents, compName);
-			IComponentHandle cHandle = (IComponentHandle) extComponents.get(compName);
-			workspaceConnection.applyComponentOperations(
-					Collections.singletonList(workspaceConnection.componentOpFactory().addComponent(cHandle, false)),
-					true, monitor);
-		}
-		return workspaceConnection;
+		workspaceConnection.applyComponentOperations(Collections.singletonList(
+				workspaceConnection.componentOpFactory().addComponent(componentHandle, false)), true, monitor);
 	}
 
 	/**
