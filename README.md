@@ -1,7 +1,7 @@
 # jazz-scm-content-obfuscator
 Supports special SCM operation to export and obfuscate SCM content, import obfuscated content and analyse SCM Workspaces and sandboxes.
 
-SCMTools Version: 2.0
+SCMTools Version: 2.1
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
