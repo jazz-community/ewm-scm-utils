@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,11 +35,9 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
 import com.ibm.js.team.supporttools.scm.utils.ConnectionUtil;
+import com.ibm.js.team.supporttools.scm.utils.ProjectAreaUtil;
 import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.process.client.IProcessClientService;
-import com.ibm.team.process.client.IProcessItemService;
-import com.ibm.team.process.common.IProcessArea;
-import com.ibm.team.process.common.IProjectArea;
 import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.common.IAuditableHandle;
 import com.ibm.team.repository.common.TeamRepositoryException;
@@ -272,7 +269,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		// Find Project Area
 		IProcessClientService processClient = (IProcessClientService) teamRepository
 				.getClientLibrary(IProcessClientService.class);
-		IAuditableHandle owner = findProjectAreaByFQN(projectAreaName, processClient, monitor);
+		IAuditableHandle owner = ProjectAreaUtil.findProjectAreaByFQN(projectAreaName, processClient, monitor);
 
 		logger.info("Strip workspace from components...");
 		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
@@ -466,54 +463,6 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 			return null;
 		}
 		return found.get(0);
-	}
-
-	/**
-	 * Find a ProjectArea by fully qualified name The name has to be a fully
-	 * qualified name with the full path e.g. "JKE Banking(Change
-	 * Management)/Business Recovery Matters"
-	 * 
-	 * @param name
-	 * @param processClient
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	public static IProjectArea findProjectAreaByFQN(String name, IProcessClientService processClient,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		IProcessArea processArea = findProcessAreaByFQN(name, processClient, monitor);
-		if (null != processArea && processArea instanceof IProjectArea) {
-			return (IProjectArea) processArea;
-		}
-		return null;
-	}
-
-	/**
-	 * Find a ProcessArea by fully qualified name The name has to be a fully
-	 * qualified name with the full path e.g. "JKE Banking(Change
-	 * Management)/Business Recovery Matters"
-	 * 
-	 * @param name
-	 * @param processClient
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	public static IProcessArea findProcessAreaByFQN(String name, IProcessClientService processClient,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		URI uri = getURIFromName(name);
-		return (IProcessArea) processClient.findProcessArea(uri, IProcessItemService.ALL_PROPERTIES, monitor);
-	}
-
-	/**
-	 * URI conversion to be able to find from a URI
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public static URI getURIFromName(String name) {
-		URI uri = URI.create(name.replaceAll(" ", "%20"));
-		return uri;
 	}
 
 	/**
