@@ -7,6 +7,10 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.utils;
 
+/**
+ * Helps with some calculations used in several places.
+ *
+ */
 public class CalcUtil {
 
 	public static long calcMax(long a, long b) {

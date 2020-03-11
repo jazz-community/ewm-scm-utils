@@ -19,7 +19,8 @@ import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.changegeneration.ExternalChangeGenerator;
 
 /**
- * Allows to analyze a sandbox or local file system folder.
+ * Experimental command to generate artificial I/O load on sandboxes that are tracked in RTC, especially 
+ * when external file changes are tracked.
  * 
  */
 public class GenerateExternalChanges extends AbstractCommand implements ICommand {

@@ -7,6 +7,10 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
+/**
+ * Calculates number of file using a log 2 based size mesh.
+ *
+ */
 public class Base2RangeCalculator implements IRangeCalculator {
 	String name = "Log 2";
 

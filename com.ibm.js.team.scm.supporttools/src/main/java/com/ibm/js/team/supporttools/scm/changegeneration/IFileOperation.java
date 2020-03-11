@@ -9,6 +9,10 @@ package com.ibm.js.team.supporttools.scm.changegeneration;
 
 import java.io.File;
 
+/**
+ * Interface for file operations.
+ *
+ */
 public interface IFileOperation {
 
 	void execute(File file);

@@ -17,6 +17,10 @@ import org.slf4j.LoggerFactory;
 import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scm.utils.PrintUtil;
 
+/**
+ * Collects the statistics for a list of ranges. Allows the ranges to have gaps 
+ *
+ */
 public class RangeStat implements IRangeStat {
 	IRangeCalculator rangeCalc = null;
 

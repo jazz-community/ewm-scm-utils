@@ -13,6 +13,11 @@ import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * For operations on a sandbox. Can ignore folders and files such as .jazz5
+ * or .metadata.
+ *
+ */
 public class SandboxOperation {
 	public static final Logger logger = LoggerFactory.getLogger(SandboxOperation.class);
 	private int fProgress = 0;

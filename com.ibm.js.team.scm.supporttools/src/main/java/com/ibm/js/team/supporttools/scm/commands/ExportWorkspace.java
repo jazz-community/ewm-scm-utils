@@ -409,8 +409,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 
 			IConfiguration compConfig = connection.configuration(component);
 			// Fetch the items at the root of each component. We do this to
-			// initialize our
-			// queue of stuff to download.
+			// initialize our queue of stuff to download.
 			@SuppressWarnings("unchecked")
 			Map<String, IVersionableHandle> handles = compConfig.childEntriesForRoot(monitor);
 			@SuppressWarnings("unchecked")
@@ -418,7 +417,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 					.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
 
 			// Recursion into each folder in the root
-			loadDirectory(contentManager, compConfig, zos, "", items, monitor);
+			storeDirectory(contentManager, compConfig, zos, "", items, monitor);
 
 			zos.close();
 			result = true;
@@ -439,7 +438,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	 * @throws IOException
 	 * @throws TeamRepositoryException
 	 */
-	private void loadDirectory(IFileContentManager contentManager, IConfiguration compConfig, ZipOutputStream zos,
+	private void storeDirectory(IFileContentManager contentManager, IConfiguration compConfig, ZipOutputStream zos,
 			String path, List<IVersionable> items, IProgressMonitor monitor)
 			throws IOException, TeamRepositoryException {
 
@@ -456,7 +455,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
 
 				// Recursion into the contained folders
-				loadDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
+				storeDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
 
 			} else if (v instanceof IFileItem) {
 				// Get the file contents. Generate contents to save them into

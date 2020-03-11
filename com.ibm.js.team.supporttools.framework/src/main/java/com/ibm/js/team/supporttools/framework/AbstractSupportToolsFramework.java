@@ -30,7 +30,7 @@ public abstract class AbstractSupportToolsFramework {
 
 	ICommandFactory commandFactory = null;
 
-	public AbstractSupportToolsFramework(ICommandFactory commandFactory) {
+	public AbstractSupportToolsFramework(final ICommandFactory commandFactory) {
 		super();
 		this.commandFactory = commandFactory;
 	}

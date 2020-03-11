@@ -7,6 +7,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Experimental operation to delete files in the file system
+ *
+ */
 public class DeleteFilesOperation implements IFileOperation {
 	public static final Logger logger = LoggerFactory.getLogger(DeleteFilesOperation.class);
 	private HashSet<String> supportedExtensions = new HashSet<String>(20);

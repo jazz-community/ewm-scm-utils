@@ -23,6 +23,10 @@ import com.ibm.js.team.supporttools.scm.utils.CalcUtil;
 import com.ibm.js.team.supporttools.scm.utils.POICellHelper;
 import com.ibm.team.repository.common.UUID;
 
+/**
+ * Used to collect and calculate the statistics for a SCM Connection.
+ *
+ */
 public class ConnectionStats {
 	public static final String TABBED_COLUMN_SEPERATOR = "\t";
 	public static final Logger logger = LoggerFactory.getLogger(ConnectionStats.class);

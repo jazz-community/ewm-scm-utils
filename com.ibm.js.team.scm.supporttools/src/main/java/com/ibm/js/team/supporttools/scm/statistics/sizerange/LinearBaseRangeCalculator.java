@@ -7,6 +7,10 @@
  *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.statistics.sizerange;
 
+/**
+ * Calculates number of file using a linear based size mesh.
+ *
+ */
 public class LinearBaseRangeCalculator implements IRangeCalculator {
 	String name = "Linear base";
 

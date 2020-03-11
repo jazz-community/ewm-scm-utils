@@ -11,6 +11,10 @@ import java.util.HashMap;
 
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
+/**
+ * Interface for the analysis of extensions.
+ *
+ */
 public interface IExtensions {
 
 	public HashMap<String, IFileTypeStat> getExtensions();

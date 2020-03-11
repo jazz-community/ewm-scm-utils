@@ -14,6 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.scm.utils.FileContentUtil;
 
+/**
+ * Experimental generated files onthe file system.
+ *
+ */
 public class GenerateFilesOperation implements IFileOperation {
 	public static final Logger logger = LoggerFactory.getLogger(GenerateFilesOperation.class);
 	private HashSet<String> supportedExtensions = new HashSet<String>(20);

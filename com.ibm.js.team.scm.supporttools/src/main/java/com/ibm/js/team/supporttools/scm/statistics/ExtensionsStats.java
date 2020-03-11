@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
+/**
+ * Used to collect and calculate the statistics for file name extensions.
+ *
+ */
 public class ExtensionsStats implements IExtensions {
 	public static final Logger logger = LoggerFactory.getLogger(ExtensionsStats.class);
 

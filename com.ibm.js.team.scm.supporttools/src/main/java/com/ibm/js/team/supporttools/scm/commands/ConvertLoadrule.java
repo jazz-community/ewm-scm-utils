@@ -35,6 +35,8 @@ import com.ibm.team.repository.common.json.JSONArray;
 import com.ibm.team.repository.common.json.JSONObject;
 
 /**
+ * Convert a load rule to match the component ID's for components after an import. This allows to use a load rule that uses component Id's with the imported components.
+ * 
  */
 public class ConvertLoadrule extends AbstractCommand implements ICommand {
 

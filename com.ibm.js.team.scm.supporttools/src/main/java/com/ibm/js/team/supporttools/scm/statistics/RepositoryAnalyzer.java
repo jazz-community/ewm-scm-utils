@@ -26,6 +26,10 @@ import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.scm.client.IWorkspaceConnection;
 
+/**
+ * Analyzes a list of workspace connections and generates statistics in an excel file.
+ *
+ */
 public class RepositoryAnalyzer {
 
 	public static final Logger logger = LoggerFactory.getLogger(RepositoryAnalyzer.class);

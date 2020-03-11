@@ -19,6 +19,10 @@ import com.ibm.team.scm.client.SCMPlatform;
 import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
+/**
+ * Utility Class to provide connection operations.
+ *
+ */
 public class ConnectionUtil {
 
 	/**

@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 import com.ibm.js.team.supporttools.framework.AbstractSupportToolsFramework;
 import com.ibm.js.team.supporttools.framework.commands.ICommandFactory;
 
+/**
+ * Main class to run the ScmSupportTools
+ *
+ */
 public class ScmSupportTools extends AbstractSupportToolsFramework {
 
 	public static final Logger logger = LoggerFactory.getLogger(ScmSupportTools.class);

@@ -11,10 +11,6 @@ package com.ibm.js.team.supporttools.scm.utils;
  * Utility Class for printing/logging
  *
  */
-/**
- * @author RalphSchoon
- *
- */
 public class PrintUtil {
 
 	private static final String BYTE_STRING = "B";

@@ -14,6 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import com.ibm.team.scm.common.IFolder;
 
+/**
+ * Used to collect and calculate the statistics for a SCM component.
+ *
+ */
 public class ComponentStat {
 	public static final String COLUMN_SEPERATOR = " \t";
 	public static final Logger logger = LoggerFactory.getLogger(ComponentStat.class);

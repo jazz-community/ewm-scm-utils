@@ -41,6 +41,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 
 /**
+ * Removes target folder hierarchy from a loadrule.
  */
 public class FlattenLoadrule extends AbstractCommand implements ICommand {
 

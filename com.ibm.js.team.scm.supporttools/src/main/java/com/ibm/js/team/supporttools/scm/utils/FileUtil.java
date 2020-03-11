@@ -15,6 +15,10 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Supports general file operations.
+ *
+ */
 public class FileUtil {
 	public static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 

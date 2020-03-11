@@ -24,7 +24,7 @@ import com.ibm.team.filesystem.common.FileLineDelimiter;
 import com.ibm.team.filesystem.common.IFileContent;
 
 /**
- * This class allows to randomize, obfuscate or copy files.s
+ * This class allows to randomize, obfuscate or copy files.
  *
  */
 public class FileContentUtil {

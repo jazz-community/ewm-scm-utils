@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.scm.changegeneration.TouchFile.Touchmode;
 
+/**
+ * Experimental to generate external changes.
+ *
+ */
 public class ExternalChangeGenerator {
 	private static final String GENERATE_2 = "objtest123";
 	private static final String GENERATE_1 = "test123";

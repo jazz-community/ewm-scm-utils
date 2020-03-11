@@ -40,8 +40,9 @@ import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
- * Analyzes the statistics for a workspace connection, its components and the
+ * Analyzes the statistics for a workspace/stream connection, its components and the
  * file size range statistics across all components.
+ * 
  * 
  */
 public class ConnectionAnalyzer {

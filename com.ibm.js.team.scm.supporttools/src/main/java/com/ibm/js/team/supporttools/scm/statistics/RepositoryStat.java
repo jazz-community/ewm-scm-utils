@@ -9,6 +9,10 @@ package com.ibm.js.team.supporttools.scm.statistics;
 
 import com.ibm.js.team.supporttools.scm.utils.CalcUtil;
 
+/**
+ * Creates repository statistics adding the statistics for a number of connections.
+ *
+ */
 public class RepositoryStat {
 	private int noConnections = 0;
 	// Connection Level

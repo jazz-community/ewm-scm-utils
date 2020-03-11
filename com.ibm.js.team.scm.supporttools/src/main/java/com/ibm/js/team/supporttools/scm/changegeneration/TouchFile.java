@@ -15,6 +15,10 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Touch a file to stimulate a data update.
+ *
+ */
 public class TouchFile implements IFileOperation {
 	public static final Logger logger = LoggerFactory.getLogger(TouchFile.class);
 	// private long touchTime = System.currentTimeMillis();

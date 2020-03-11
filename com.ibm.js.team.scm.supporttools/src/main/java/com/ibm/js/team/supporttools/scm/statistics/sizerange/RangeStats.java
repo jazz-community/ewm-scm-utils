@@ -23,6 +23,8 @@ import com.ibm.js.team.supporttools.scm.utils.POICellHelper;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 
 /**
+ * Calculates range statistics for several range calculation options.
+ * 
  * @see https://www.callicoder.com/java-write-excel-file-apache-poi/
  *
  */
@@ -113,13 +115,9 @@ public class RangeStats {
 				ch.setText(row.createCell(7), iRangeInfo.getExtensionStatus().getExtensionsCompressed());
 			}
 			logger.info("Autosizing...");
-			sheet.autoSizeColumn(1);
-			sheet.autoSizeColumn(2);
-			sheet.autoSizeColumn(3);
-			sheet.autoSizeColumn(4);
-			sheet.autoSizeColumn(5);
-			sheet.autoSizeColumn(6);
-			sheet.autoSizeColumn(7);
+			for (int i = 1; i < 8; i++) {
+				sheet.autoSizeColumn(i);				
+			}
 		}
 		logger.info("Done...");
 		return workBook;

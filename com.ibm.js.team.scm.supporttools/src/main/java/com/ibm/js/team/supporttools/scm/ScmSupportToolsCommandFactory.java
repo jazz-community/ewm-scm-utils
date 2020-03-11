@@ -19,7 +19,7 @@ import com.ibm.js.team.supporttools.scm.commands.ImportWorkspace;
 
 /**
  * Factory class dealing with commands. A new command has to be added to the
- * constructor.
+ * method setAvailableCommands.
  *
  */
 public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {

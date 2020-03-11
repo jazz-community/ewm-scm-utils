@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2015-2020 IBM Corporation
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ * 
+ *******************************************************************************/
 package com.ibm.js.team.supporttools.scm.utils;
 
 import java.net.URI;
@@ -10,6 +17,10 @@ import com.ibm.team.process.common.IProcessArea;
 import com.ibm.team.process.common.IProjectArea;
 import com.ibm.team.repository.common.TeamRepositoryException;
 
+/**
+ * Utility class for working with project areas.
+ *
+ */
 public class ProjectAreaUtil {
 
 	/**

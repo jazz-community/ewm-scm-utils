@@ -31,8 +31,8 @@ import com.ibm.team.scm.common.IWorkspaceHandle;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
- * Allows to analyze a repository workspace, all its components and the current
- * SCM data of a workspace connection.
+ * Allows to analyze all visible streams in a repository. Performs a {@code AnalyzeWorkspace} 
+ * operation on each stream found.
  * 
  */
 public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements ICommand {

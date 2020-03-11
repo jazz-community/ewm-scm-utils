@@ -12,6 +12,10 @@ import java.util.Set;
 
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
+/**
+ * Collects information about file types.
+ *
+ */
 public class FileTypeStat implements IFileTypeStat {
 
 	String extensionName = null;

@@ -13,6 +13,10 @@ import com.ibm.team.filesystem.common.FileLineDelimiter;
 import com.ibm.team.filesystem.common.IFileContent;
 import com.ibm.team.filesystem.common.IFileItem;
 
+/**
+ * Analyzes the information about a file.
+ *
+ */
 public class FileInfo {
 
 	String name = null;

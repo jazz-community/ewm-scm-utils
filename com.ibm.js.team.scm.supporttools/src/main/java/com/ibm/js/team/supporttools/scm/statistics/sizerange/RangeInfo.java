@@ -12,6 +12,10 @@ import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scm.statistics.IExtensions;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
 
+/**
+ * Used to calculate the file statistics for a range. A range has a lower minimum and a maximum size.
+ *
+ */
 public class RangeInfo implements IRangeInfo {
 
 	public RangeInfo(long index) {

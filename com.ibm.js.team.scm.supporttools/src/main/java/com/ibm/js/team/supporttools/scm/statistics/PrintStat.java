@@ -10,6 +10,10 @@ package com.ibm.js.team.supporttools.scm.statistics;
 import com.ibm.js.team.supporttools.scm.utils.CalcUtil;
 import com.ibm.js.team.supporttools.scm.utils.PrintUtil;
 
+/**
+ * Calculates and prints file and folder statistics.
+ *
+ */
 public class PrintStat {
 
 	public static String getFileAndFolderStatistics(final long cumulatedFolders, final long cumulatedFolderDepth,
