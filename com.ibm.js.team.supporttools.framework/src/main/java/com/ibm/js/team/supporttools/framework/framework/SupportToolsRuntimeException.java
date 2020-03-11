@@ -9,7 +9,8 @@
 package com.ibm.js.team.supporttools.framework.framework;
 
 /**
- * 
+ * A runtime exception that could be used in the framework. 
+ *
  */
 public class SupportToolsRuntimeException extends RuntimeException {
 

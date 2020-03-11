@@ -23,8 +23,6 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 /**
  * Main class that is called and controls the execution.
  * 
- * @see https://jazz.net/wiki/bin/view/Main/DNGServerAPI
- *
  */
 public abstract class AbstractSupportToolsFramework {
 

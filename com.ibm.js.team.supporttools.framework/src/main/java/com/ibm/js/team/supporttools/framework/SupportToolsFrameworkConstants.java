@@ -8,7 +8,7 @@
 package com.ibm.js.team.supporttools.framework;
 
 /**
- * Various constants used in the application.
+ * Various constants used in the framework.
  *
  */
 public interface SupportToolsFrameworkConstants {
@@ -43,7 +43,6 @@ public interface SupportToolsFrameworkConstants {
 
 	// Sample
 	public static final String CMD_SAMPLE = "sampleCommand";
-
 	public static final String PARAMETER_SAMPLE_OPTION = "mandatorySampleOption";
 	public static final String PARAMETER_SAMPLE_OPTION_DESCRIPTION = "Mandatory sample option";
 	public static final String PARAMETER_SAMPLE_OPTION_EXAMPLE = "\"mandatory value\"";

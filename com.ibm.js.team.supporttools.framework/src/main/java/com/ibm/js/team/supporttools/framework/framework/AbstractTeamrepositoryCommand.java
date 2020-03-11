@@ -21,6 +21,11 @@ import com.ibm.team.repository.client.ITeamRepository;
 import com.ibm.team.repository.client.TeamPlatform;
 import com.ibm.team.repository.common.TeamRepositoryException;
 
+/**
+ * An abstract command that handles logging into the team repository. 
+ * This can be extended by commands that require a team repository connection.
+ *
+ */
 public abstract class AbstractTeamrepositoryCommand extends AbstractCommand implements ICommand {
 
 	@Override

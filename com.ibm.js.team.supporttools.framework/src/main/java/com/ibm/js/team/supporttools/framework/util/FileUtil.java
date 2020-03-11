@@ -16,12 +16,6 @@ import java.nio.channels.FileChannel;
 /**
  * Tool for file copying
  * 
- * From RTC3.0 SDK
- * 
- * @see com.ibm.team.filesystem.rcp.core.internal.compare.ExternalCompareToolsUtil
- * @see com.ibm.team.filesystem.setup.junit.internal.SourceControlContribution
- * 
- * 
  */
 public class FileUtil {
 
@@ -223,5 +217,4 @@ public class FileUtil {
 		}
 		return null;
 	}
-
 }

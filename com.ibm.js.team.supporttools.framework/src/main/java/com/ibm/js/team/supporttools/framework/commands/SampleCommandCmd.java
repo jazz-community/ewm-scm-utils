@@ -17,7 +17,6 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 
 /**
- * TODO update documentation
  * 
  * This class represents a minimal sample for a custom command.
  * 
@@ -27,7 +26,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
  * and implement the abstract methods.
  * 
  * To finally enable this command, add this to {@link CommandFactory} in the
- * constructor like below
+ * constructor like below for this sample class.
  * 
  * {@code
  * 
@@ -36,6 +35,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
  * SampleCommand()); } }
  * 
  * to finalize the integration.
+ * 
  */
 public class SampleCommandCmd extends AbstractCommand implements ICommand {
 

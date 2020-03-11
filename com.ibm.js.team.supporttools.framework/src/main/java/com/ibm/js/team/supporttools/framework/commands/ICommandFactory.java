@@ -11,6 +11,10 @@ import java.util.HashMap;
 
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 
+/**
+ * Interface for the command factory. Used to be passed in the framework.
+ *
+ */
 public interface ICommandFactory {
 	/**
 	 * Add a command to the list of supported commands
@@ -35,5 +39,5 @@ public interface ICommandFactory {
 	 * @param commandName
 	 * @return command or null
 	 */
-	public ICommand getCommand(String commandName);
+	public ICommand getCommand(final String commandName);
 }
