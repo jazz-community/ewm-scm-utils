@@ -1,962 +1,555 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-sed do eiusmod tempor incididunt ut labore et dolore magna 
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit 
-esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-sint occaecat cupidatat non proident, sunt in culpa qui 
-officia deserunt mollit anim id est laborum. Lorem ipsum 
-dolor sit amet, consectetur adipiscing elit, sed do 
-eiusmod tempor incididunt ut labore et dolore magna 
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit 
-esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-sint occaecat cupidatat non proident, sunt in culpa qui 
-officia deserunt mollit anim id est laborum. Lorem ipsum 
-dolor sit amet, consectetur adipiscing elit, sed do 
-eiusmod tempor incididunt ut labore et dolore magna 
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-Duis aute irure dolor in reprehenderit in voluptate velit 
-esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-sint occaecat cupidatat non proident, sunt in culpa qui 
-officia deserunt mollit anim id est laborum.
-package com.ibm.js.team.supporttools.scm.commands;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+/*******************************************************************************
+ * Copyright (c) 2015-2020 IBM Corporation
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ * 
+ *******************************************************************************/
+package com.ibm.js.team.supporttools.framework;
+
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Options;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.UnrecognizedOptionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
-import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
+
+import com.ibm.js.team.supporttools.framework.commands.ICommandFactory;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
-import com.ibm.js.team.supporttools.framework.util.FileUtil;
-import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
-import com.ibm.team.filesystem.client.FileSystemCore;
-import com.ibm.team.filesystem.client.IFileContentManager;
-import com.ibm.team.filesystem.common.FileLineDelimiter;
-import com.ibm.team.filesystem.common.IFileContent;
-import com.ibm.team.filesystem.common.IFileItem;
-import com.ibm.team.repository.client.ITeamRepository;
-import com.ibm.team.repository.client.TeamPlatform;
-import com.ibm.team.repository.common.TeamRepositoryException;
-import com.ibm.team.repository.common.UUID;
-import com.ibm.team.repository.common.json.JSONArray;
-import com.ibm.team.repository.common.json.JSONObject;
-import com.ibm.team.scm.client.IConfiguration;
-import com.ibm.team.scm.client.IWorkspaceConnection;
-import com.ibm.team.scm.common.IComponent;
-import com.ibm.team.scm.common.IComponentHandle;
-import com.ibm.team.scm.common.IComponentHierarchyResult;
-import com.ibm.team.scm.common.IFolder;
-import com.ibm.team.scm.common.IFolderHandle;
-import com.ibm.team.scm.common.IVersionable;
-import com.ibm.team.scm.common.IVersionableHandle;
-import com.ibm.team.scm.common.IWorkspaceHandle;
-import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
-public class ExportRepositoryWorkspace extends AbstractCommand implements ICommand {
-	private static final String CODE_SAMPLE_INPUT_FILE_NAME = "CodeSampleInput.txt";
-	public static final Logger logger = LoggerFactory.getLogger(ExportRepositoryWorkspace.class);
-	public boolean fPreserve = false;
-	private Object fConfidentialityMode = ScmSupportToolsConstants.DEFAULT_STORAGE_MODE_RANDOMIZE;
-	private File fOutputFolder = null;
-	private int fProgress = 0;
-	private ArrayList<String> fSampleLines = null;
-	private int fNumberSamples = 0;
-	/**
-	 * Constructor, set the command name which will be used as option value for the
-	 * command option. The name is used in the UIs and the option parser.
-	 */
-	public ExportRepositoryWorkspace() {
-		super(ScmSupportToolsConstants.CMD_EXPORTWORKSPACE);
-	}
-	/**
-	 * Method to add the options this command requires.
-	 */
-	@Override
-	public Options addCommandOptions(Options options) {
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_URL, true,
-				SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_USER, true,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD, true,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
-		return options;
-	}
-	/**
-	 * Method to check if the required options/parameters required to perform the
-	 * command are available.
-	 */
-	@Override
-	public boolean checkParameters(CommandLine cmd) {
-		// Check for required options
-		boolean isValid = true;
 
-		if (!(cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_URL)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER))) {
-			isValid = false;
-		}
-		return isValid;
+/**
+ * Main class that is called and controls the execution.
+ * 
+ */
+public abstract class AbstractSupportToolsFramework {
+
+	public static final Logger logger = LoggerFactory.getLogger(AbstractSupportToolsFramework.class);
+
+	ICommandFactory commandFactory = null;
+
+	public AbstractSupportToolsFramework(final ICommandFactory commandFactory) {
+		super();
+		this.commandFactory = commandFactory;
 	}
+
 	/**
-	 * Method to print the syntax in case of missing options.
+	 * Execute the command
+	 * 
+	 * @param args
+	 * @throws ParseException
 	 */
-	@Override
-	public void printSyntax() {
-		logger.info("{}", getCommandName());
-		logger.info(
-				"\n\tExports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.");
-		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
-				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE
-	/**
-	 * The main method that executes the behavior of this command.
-	 */
-	@SuppressWarnings("unused")
-	@Override
-	public boolean execute() {
-		logger.info("Executing Command {}", this.getCommandName());
+	public boolean execute(final String[] args) throws ParseException {
+
 		boolean result = false;
-		// Execute the code
-		// Get all the option values
-		String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
-		String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		String outputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-
-		TeamPlatform.startup();
+		CommandLine cmd = null;
+		Options options = new Options();
+		options.addOption(SupportToolsFrameworkConstants.PARAMETER_COMMAND, true,
+				SupportToolsFrameworkConstants.PARAMETER_COMMAND_EXAMPLE);
 		try {
-			IProgressMonitor monitor = new NullProgressMonitor();
-			ITeamRepository teamRepository = TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
-			teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
-				public ILoginInfo challenge(ITeamRepository repository) {
-					return new ILoginInfo() {
-						public String getUserId() {
-							return userId;
-						}
 
-						public String getPassword() {
-							return userPassword;
-						}
-					};
-				}
-			});
-			teamRepository.login(monitor);
-			File outputfolder = new File(outputFolderPath);
-			if (!outputfolder.exists()) {
-				FileUtil.createFolderWithParents(outputfolder);
-				if (!outputfolder.exists()) {
-					logger.error("Error: Outputfolder '{}' could not be created.", outputFolderPath);
-					return result;
-				}
-			}
-			if (!outputfolder.isDirectory()) {
-				logger.error("Error: '{}' is not a directory.", outputFolderPath);
+			// Parse the command line
+			CommandLineParser cliParser = new GnuParser();
+			// ignore unrecognized options, we only care for other issues,
+			cmd = cliParser.parse(options, args, true);
+		} catch (ParseException e) {
+			if (e instanceof MissingArgumentException) {
+				logger.error("Missing command \n" + "Syntax: -command commandName {[-parameter] [parameterValue]}");
+				printSupportedCommands();
 				return result;
 			}
-			fOutputFolder = outputfolder;
-			result = exportWorkspace(teamRepository, scmWorkspace, monitor);
-		} catch (TeamRepositoryException e) {
-			logger.error("TeamRepositoryException: {}", e.getMessage());
-			// e.printStackTrace();
-		} catch (IOException e) {
-			logger.error("IOException: {}", e.getMessage());
-			// e.printStackTrace();
-		} finally {
-			TeamPlatform.shutdown();
-		}
-		return result;
-	}
-	/**
-	 * @param teamRepository
-	 * @param outputfolder
-	 * @param scmConnection
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 * @throws IOException
-	 */
-	private boolean exportWorkspace(ITeamRepository teamRepository, String scmConnection, IProgressMonitor monitor)
-			throws TeamRepositoryException, IOException {
-		boolean result = false;
-		logger.info("Find and open WorkspaceConnection '{}'...", scmConnection);
-		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
-				IWorkspaceSearchCriteria.WORKSPACES, monitor);
-		if (connections.size() < 1) {
-			logger.error("Error: WorkspaceConnection '{}' not found.", scmConnection);
-			return result;
-		}
-		if (connections.size() > 1) {
-			logger.error("Error: WorkspaceConnection '{}' not unique.", scmConnection);
-			return result;
-		}
-		List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
-				connections, monitor);
-		IWorkspaceConnection workspace = connection.get(0);
-		logger.info("Anylyze and store component hierarchy for '{}'...", scmConnection);
-		IComponentHierarchyResult hierarchy = connection.get(0)
-				.getComponentHierarchy(new ArrayList<IComponentHandle>());
-		writeHierarchy(teamRepository, hierarchy, monitor);
-		logger.info("Package and Ramdomize Components...");
-		Collection<IComponentHandle> components = hierarchy.getFlattenedElementsMap().values();
-		result = packageComponentHandles(teamRepository, fOutputFolder, workspace, components, monitor);
-		return result;
-	}
-private void writeHierarchy(ITeamRepository teamRepository, IComponentHierarchyResult hierarchy,
-			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		Map<UUID, Collection<IComponentHandle>> par2Child = hierarchy.getParentToChildrenMap();
-		Map<UUID, IComponentHandle> flat = hierarchy.getFlattenedElementsMap();
-		writeChildMap(teamRepository, flat, par2Child, monitor);
-	}
-	private void writeChildMap(ITeamRepository teamRepository, Map<UUID, IComponentHandle> flat,
-			Map<UUID, Collection<IComponentHandle>> par2Child, IProgressMonitor monitor)
-			throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-		File jsonFile = new File(fOutputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
-		logger.info("Persist component hierarchy in '{}'...", jsonFile.getAbsolutePath());
-		JSONArray jsonhierarchy = new JSONArray();
-		Set<UUID> parents = par2Child.keySet();
-		for (Iterator<UUID> iterator = parents.iterator(); iterator.hasNext();) {
-			UUID parent = (UUID) iterator.next();
-			IComponent parentComp = ComponentUtil.resolveComponent(teamRepository, flat.get(parent), monitor);
-			JSONObject component = new JSONObject();
-			logger.info("\tComponent... '{}'", parentComp.getName());
-			component.put(ScmSupportToolsConstants.COMPONENT_NAME, parentComp.getName());
-			component.put(ScmSupportToolsConstants.COMPONENT_UUID, parentComp.getItemId().getUuidValue());
-			JSONArray jsonChildren = new JSONArray();
-			Collection<IComponentHandle> children = par2Child.get(parent);
-			for (Iterator<IComponentHandle> childIter = children.iterator(); childIter.hasNext();) {
-				IComponentHandle handle = (IComponentHandle) childIter.next();
-				IComponent child = ComponentUtil.resolveComponent(teamRepository, handle, monitor);
-				JSONObject childComponent = new JSONObject();
-				childComponent.put(ScmSupportToolsConstants.COMPONENT_NAME, child.getName());
-				childComponent.put(ScmSupportToolsConstants.COMPONENT_UUID, child.getItemId().getUuidValue());
-				jsonChildren.add(childComponent);
-				component.put(ScmSupportToolsConstants.COMPONENT_CHILDREN, jsonChildren);
+			if (!(e instanceof UnrecognizedOptionException)) {
+				logger.info("Failed.");
+				throw (e);
 			}
-			jsonhierarchy.add(component);
 		}
-		jsonhierarchy.serialize(new FileWriter(jsonFile), true);
+
+		// Get the command name provided as option
+		String command = cmd.getOptionValue(SupportToolsFrameworkConstants.PARAMETER_COMMAND);
+		if (command == null) {
+			logger.error("Missing command \n\nSyntax: -command commandName {[-parameter] [parameterValue]}");
+			printSupportedCommands();
+			return result;
+		}
+
+		// get the class to execute
+		ICommand execCommand = getCommandFactory().getCommandMap().get(command);
+		if (execCommand == null) {
+			logger.error("Unsupported command name '{}' \n", command);
+			printSupportedCommands();
+			return result;
+		}
+
+		// run the command
+		result = execCommand.run(options, args);
+		return result;
 	}
 
 	/**
-	 * @param teamRepository
-	 * @param outputfolder
-	 * @param connection
-	 * @param components
-	 * @param monitor
-	 * @return
-	 * @throws IOException
-	 * @throws TeamRepositoryException
+	 * Print the syntax.
 	 */
-	private boolean packageComponents(ITeamRepository teamRepository, File outputfolder,
-			IWorkspaceConnection connection, List<IComponent> components, IProgressMonitor monitor)
-			throws IOException, TeamRepositoryException {
-		boolean result = true;
-		initializeSampleLines();
+	public void printSupportedCommands() {
+		logger.error("Available commands: \n");
+		getCommandFactory().printCommandSyntax();
+	}
 
-		int currentComponent = 0;
-		int noOfComponents = components.size();
-		for (IComponent component : components) {
-			logger.info("\tPacking {} of {} component'{}' UUID '{}'", currentComponent++, noOfComponents,
-					component.getName(), component.getItemId().getUuidValue());
-			result &= packageComponent(teamRepository, connection, component, monitor);
-		}
-		return result;
-	}
-	private void initializeSampleLines() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(CODE_SAMPLE_INPUT_FILE_NAME), IFileContent.ENCODING_UTF_8));
-		fSampleLines = new ArrayList<String>(200);
-		String line;
-		do {
-			line = reader.readLine();
-			if (line!=null) {
-				fSampleLines.add(line);
-			}
-		} while (line!=null);
-		reader.close();
-		fNumberSamples = fSampleLines.size();
-	}
-//	private boolean packageComponentHandles(ITeamRepository teamRepository, File outputfolder,
-//			List<? extends IWorkspaceConnection> connection, Collection<IComponentHandle> components2, IProgressMonitor monitor)
-//			throws IOException, TeamRepositoryException {
-//		List<IComponent> components = resolveComponents(teamRepository, components2, monitor);
-//
-//		return packageComponents(teamRepository, outputfolder, connection, components, monitor);
-//	}
-	private boolean packageComponentHandles(ITeamRepository teamRepository, File outputFolder,
-			IWorkspaceConnection connection, Collection<IComponentHandle> componentHandles, IProgressMonitor monitor)
-			throws TeamRepositoryException, IOException {
-		List<IComponent> components = ComponentUtil.resolveComponents(teamRepository,
-				new ArrayList<IComponentHandle>(componentHandles), monitor);
-		return packageComponents(teamRepository, outputFolder, connection, components, monitor);
-	}
-	/**
-	 * @param teamRepository
-	 * @param outputfolder
-	 * @param connection
-	 * @param component
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 * @throws IOException
-	 */
-	private boolean packageComponent(ITeamRepository teamRepository, IWorkspaceConnection connection,
-			IComponent component, IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		boolean result = false;
-		// Start walking the workspace contents
-		IFileContentManager contentManager = FileSystemCore.getContentManager(teamRepository);
-		File base = fOutputFolder;
-		FileOutputStream out = new FileOutputStream(new File(base, component.getName().trim() + ".zip"));
-		try {
-			ZipOutputStream zos = new ZipOutputStream(out);
-			IConfiguration compConfig = connection.configuration(component);
-			// Fetch the items at the root of each component. We do this to initialize our
-			// queue of stuff to download.
-			@SuppressWarnings("unchecked")
-			Map<String, IVersionableHandle> handles = compConfig.childEntriesForRoot(monitor);
-			@SuppressWarnings("unchecked")
-			List<IVersionable> items = compConfig
-					.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
-			loadDirectory(contentManager, compConfig, zos, "", items, monitor);
-			zos.close();
-			result = true;
-		} finally {
-			out.close();
-			System.out.println("");
-		}
-		return result;
-	}
-	/**
-	 * @param contentManager
-	 * @param compConfig
-	 * @param zos
-	 * @param path
-	 * @param items
-	 * @param monitor
-	 * @throws IOException
-	 * @throws TeamRepositoryException
-	 */
-	private void loadDirectory(IFileContentManager contentManager, IConfiguration compConfig, ZipOutputStream zos,
-			String path, List<IVersionable> items, IProgressMonitor monitor)
-			throws IOException, TeamRepositoryException {
-		for (IVersionable v : items) {
-			if (v instanceof IFolder) {
-				// Write the directory
-				String dirPath = path + v.getName() + "/";
-				zos.putNextEntry(new ZipEntry(dirPath));
-				@SuppressWarnings("unchecked")
-				Map<String, IVersionableHandle> children = compConfig.childEntries((IFolderHandle) v, monitor);
-				@SuppressWarnings("unchecked")
-				List<IVersionable> completeChildren = compConfig
-						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
-				loadDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
-			} else if (v instanceof IFileItem) {
-				// Get the file contents and write them into the directory
-				IFileItem file = (IFileItem) v;
-				zos.putNextEntry(new ZipEntry(path + v.getName()));
-				InputStream in = generateContent(file, contentManager, monitor);
-				byte[] arr = new byte[1024];
-				int w;
-				while (-1 != (w = in.read(arr))) {
-					byte[] orr = process(arr);
-					zos.write(orr, 0, w);
-				}
-				zos.closeEntry();
-			}
-			showProgress();
-		}
-	}
-	private InputStream generateContent(IFileItem file, IFileContentManager contentManager, IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
-		String encoding = null;
-		IFileContent filecontent = file.getContent();
-		if (filecontent != null) {
-			encoding = filecontent.getCharacterEncoding();
-			lineDelimiter = filecontent.getLineDelimiter();
-		}
-		String contentType = file.getContentType();
-		InputStream in = contentManager.retrieveContentStream(file, file.getContent(), monitor);
-		if(FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
-		} else {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String line = obfuscate (reader.readLine());
-		}
-		logger.info(" Fileinfo: '{}' Enc: '{}' Delim: '{}' Content: '{}'", file.getName(), encoding, lineDelimiter, contentType );
-		return in;
-	}
-	private String obfuscate(String readLine) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	private byte[] process(byte[] arr) {
-		if (fPreserve) {
-			return arr;
-		}
-		if (ScmSupportToolsConstants.STORAGE_MODE_OBFUSCATE.equals(fConfidentialityMode)) {
-			return obfuscate(arr);
-		}
-		return randomize(arr);
-	}
-	private byte[] randomize(byte[] arr) {
-		byte[] orr = new byte[arr.length];
-		new Random().nextBytes(orr);
-		return orr;
-	}
-	private byte[] obfuscate(byte[] arr) {
-		byte[] orr = new byte[arr.length];
-		System.arraycopy(ScmSupportToolsConstants.LOREM_IPSUM.getBytes(), 0, orr, 0, arr.length);
-		return orr;
-	}
-//	private void writeRoots(ITeamRepository teamRepository, Collection<IComponentHierarchyNode> roots,
-//			IProgressMonitor monitor) throws TeamRepositoryException, UnsupportedEncodingException, IOException {
-//		logger.info("Roots...");
-//		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "rootcomponents.txt"));
-//		try {
-//			for (IComponentHierarchyNode node : roots) {
-//				IComponent comp = ComponentUtil.resolveComponent(teamRepository, node.getComponentHandle(), monitor);
-//				logger.info("Root '{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
-//				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
-//				out.write(componentInfo.getBytes("UTF-8"));
-//			}
-//			out.flush();
-//		} finally {
-//			out.close();
-//		}
-//	}
-//
-//	private void writeComponents(List<IComponent> components) throws UnsupportedEncodingException, IOException {
-//		logger.info("Components...");
-//		FileOutputStream out = new FileOutputStream(new File(fOutputFolder, "components.txt"));
-//		try {
-//			for (IComponent comp : components) {
-//				logger.info("'{}' UUID '{}'", comp.getName(), comp.getItemId().getUuidValue());
-//				String componentInfo = comp.getName() + " " + comp.getItemId().getUuidValue() + "\n";
-//				out.write(componentInfo.getBytes("UTF-8"));
-//			}
-//			out.flush();
-//		} finally {
-//			out.close();
-//		}
-//	}
-	private void showProgress() {
-		fProgress++;
-		if (fProgress % 10 == 9) {
-			System.out.print(".");
-		}
+	public ICommandFactory getCommandFactory() {
+		return commandFactory;
 	}
 }
-package com.ibm.js.team.supporttools.scm.commands;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URI;
-import java.util.ArrayList;
+# Define the root logger with appender file
+log = ./log4j
+log4j.rootLogger = INFO, FILE , CONSOLE
+
+# Define the file appender
+log4j.appender.FILE=org.apache.log4j.FileAppender
+log4j.appender.FILE.File=${log}/log.out
+
+# Define the layout for file appender
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.conversionPattern=%m%n
+
+# Define the file appender
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.Target=System.out
+
+# Define the layout for file appender
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.conversionPattern=%m%n
+
+/*******************************************************************************
+ * Copyright (c) 2015-2020 IBM Corporation
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ * 
+ *******************************************************************************/
+package com.ibm.js.team.supporttools.framework.commands;
+
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.Options;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.ibm.js.team.supporttools.framework.framework.ICommand;
+
+/**
+ * Factory class dealing with commands. A new command has to be added to the
+ * constructor.
+ *
+ */
+public abstract class AbstractCommandFactory implements ICommandFactory {
+
+	public static final Logger logger = LoggerFactory.getLogger(AbstractCommandFactory.class);
+	private HashMap<String, ICommand> commandMap = new HashMap<String, ICommand>();
+
+	/**
+	 * Creates the list of supported commands
+	 */
+	public AbstractCommandFactory() {
+		super();
+		setAvailableCommands();
+		// Enable sample command
+		// put(new SampleCommandCmd());
+	}
+
+	public abstract void setAvailableCommands();
+
+	/**
+	 * Add a command to the list of supported commands
+	 * 
+	 * @param cmd
+	 */
+	public void put(final ICommand cmd) {
+		commandMap.put(cmd.getCommandName(), cmd);
+	}
+
+	/**
+	 * Print the syntax for all supported commands
+	 */
+	public void printCommandSyntax() {
+		Collection<ICommand> commands = commandMap.values();
+		for (ICommand iCommand : commands) {
+			iCommand.printSyntax();
+			logger.info("\n");
+		}
+	}
+
+	/**
+	 * @return the commandMap, never null
+	 */
+	public HashMap<String, ICommand> getCommandMap() {
+		return commandMap;
+	}
+
+	/**
+	 * Get a command by its name
+	 * 
+	 * @param commandName
+	 * @return command or null
+	 */
+	public ICommand getCommand(final String commandName) {
+		return commandMap.get(commandName);
+	}
+
+}
+
+/*******************************************************************************
+ * Copyright (c) 2015-2020 IBM Corporation
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ * 
+ *******************************************************************************/
+package com.ibm.js.team.supporttools.framework.scenario;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.apache.commons.io.IOUtils;
+
+import com.ibm.team.repository.client.ITeamRepository;
+import com.ibm.team.repository.common.IContent;
+import com.ibm.team.repository.common.TeamRepositoryException;
+import com.ibm.team.repository.common.json.JSONObject;
+import com.ibm.team.repository.common.transport.TeamServiceException;
+import com.ibm.team.repository.transport.client.ITeamRawRestServiceClient.IRawRestClientConnection;
+import com.ibm.team.repository.transport.client.ITeamRawRestServiceClient.IRawRestClientConnection.Response;
+
+/**
+ * Service to execute a start and stop for an expensive scenario.
+ * 
+ * Uses JSON instead of x-www-form-urlencoded to make parsing easier.
+ * 
+ * The information to stop the expensive scenario is returned as a string.
+ *
+ */
+public class ExpensiveScenarioService implements IExpensiveScenarioService {
+
+	private static final String EXPENSIVE_SCENARIO_START_PATH = "/service/com.ibm.team.repository.service.serviceability.IScenarioRestService/scenarios/startscenario";
+	private static final String EXPENSIVE_SCENARIO_STOP_PATH = "/service/com.ibm.team.repository.service.serviceability.IScenarioRestService/scenarios/stopscenario";
+	private static final String ACCEPT_HEADER = "Accept";
+	private static final String APPLICATION_JSON = "application/json";
+	private static final String SCENARIO_NAME = "scenarioName";
+	private static final String SCENARIO_INSTANCE_ID = "scenarioInstanceId";
+
+	static final String START_COMMAND = "start";
+	static final String STOP_COMMAND = "stop";
+
+	private URI fPublicURI = null;
+	private ITeamRepository fTeamRepository;
+	private String fScenarioName;
+
+	/**
+	 * Start and stop expensive scenario counter are performed persisting the
+	 * scenario counter in a file or pass it as string. See option
+	 * persistStartAsFile.
+	 * 
+	 * @param teamRepository
+	 *            Team repository
+	 * @param scenarioName
+	 *            the name of the scenario
+	 * @throws URISyntaxException
+	 */
+	public ExpensiveScenarioService(final ITeamRepository teamRepository, final String scenarioName)
+			throws URISyntaxException, NullPointerException {
+		if (teamRepository == null)
+			throw new NullPointerException("TeamRepository can not be null");
+		fTeamRepository = teamRepository;
+		String publicURI = teamRepository.getRepositoryURI();
+		if (publicURI == null)
+			throw new NullPointerException("Public URI can not be null");
+		fPublicURI = new URI(publicURI.replaceAll("/$", ""));
+		if (scenarioName == null)
+			throw new NullPointerException("Scenario name can not be null");
+		fScenarioName = scenarioName;
+	}
+
+	/**
+	 * Start and stop expensive scenario counter are performed persisting the
+	 * scenario counter in a file or pass it as string. See option
+	 * persistStartAsFile.
+	 * 
+	 * @param teamRepository
+	 *            Team repository
+	 * @param publicURI
+	 *            Public URI of the target CLM server
+	 * @param scenarioName
+	 *            the name of the scenario
+	 * @throws URISyntaxException
+	 */
+	public ExpensiveScenarioService(final ITeamRepository teamRepository, final String publicURI,
+			final String scenarioName) throws URISyntaxException, NullPointerException {
+		if (teamRepository == null)
+			throw new NullPointerException("TeamRepository can not be null");
+		fTeamRepository = teamRepository;
+		if (publicURI == null)
+			throw new NullPointerException("Public URI can not be null");
+		fPublicURI = new URI(publicURI.replaceAll("/$", ""));
+		if (scenarioName == null)
+			throw new NullPointerException("Scenario name can not be null");
+		fScenarioName = scenarioName;
+	}
+
+	/**
+	 * Construct the service URI from the public URI.
+	 * 
+	 * @param path
+	 * @return
+	 */
+	private URI getServiceURI(String path) {
+		return URI.create(fPublicURI.toString() + path);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.monitoring.custom.expensivescenario.
+	 * IExpensiveScenarioService#start()
+	 */
+	public String start() throws Exception {
+		Response response = null;
+		try {
+			// Compose the request body
+			String body = "{\"" + SCENARIO_NAME + "\"" + ":" + "\"" + fScenarioName + "\"}";
+
+			// Get the connection
+			URI startUri = getServiceURI(EXPENSIVE_SCENARIO_START_PATH);
+			IRawRestClientConnection connection = fTeamRepository.getRawRestServiceClient().getConnection(startUri);
+			// Encode the start request
+			byte[] data = body.getBytes(IContent.ENCODING_UTF_8);
+			InputStream content = new ByteArrayInputStream(data);
+			// Request JSON to make parsing easier
+			connection.addRequestHeader(ACCEPT_HEADER, APPLICATION_JSON);
+			// We are sending JSON as content type
+			connection.doPost(content, data.length, APPLICATION_JSON);
+			// Get the response back
+			response = connection.getResponse();
+			int status = response.getStatusCode();
+			if (status == 200) {
+				String responseString = IOUtils.toString(response.getResponseStream(), IContent.ENCODING_UTF_8);
+				// System.out.println(responseString);
+				JSONObject json = JSONObject.parse(new StringReader(responseString));
+				String scenarioName = null;
+				if (json.containsKey(SCENARIO_NAME)) {
+					scenarioName = (String) json.get(SCENARIO_NAME);
+				}
+				if (scenarioName.equals(fScenarioName)) {
+					return responseString;
+				}
+				throw new Exception("Unexpected Response Body '" + responseString + "'");
+			}
+			throw new Exception("Unexpected Response Code '" + status + "'");
+		} finally {
+			if (response != null) {
+				response.close();
+			}
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ibm.js.team.monitoring.custom.expensivescenario.
+	 * IExpensiveScenarioService#stop(java.lang.String)
+	 */
+	public void stop(String startRequestResponse)
+			throws URISyntaxException, TeamServiceException, TeamRepositoryException, IOException, Exception {
+		Response response = null;
+		try {
+			String startRequest = startRequestResponse;
+			String scenarioInstanceID;
+			if (null == startRequest) {
+				throw new Exception("Missing Scenario Start Request");
+			}
+			try {
+				// Parse as JSON to get the scenario ID and the scenario name
+				// from the file
+				JSONObject json = JSONObject.parse(new StringReader(startRequest));
+				String scenarioName = null;
+				if (json.containsKey(SCENARIO_NAME)) {
+					scenarioName = (String) json.get(SCENARIO_NAME);
+				}
+				scenarioInstanceID = null;
+				if (json.containsKey(SCENARIO_INSTANCE_ID)) {
+					scenarioInstanceID = (String) json.get(SCENARIO_INSTANCE_ID);
+				}
+				if (!fScenarioName.equals(scenarioName)) {
+					throw new Exception("Incorrect Scenario Name Exception");
+				}
+			} catch (Exception e) {
+				throw new Exception("Error Parsing Scenario Start Request '" + startRequest + "'");
+			}
+			// Create the stop request
+			URI stopUri = getServiceURI(EXPENSIVE_SCENARIO_STOP_PATH);
+			IRawRestClientConnection connection = fTeamRepository.getRawRestServiceClient().getConnection(stopUri);
+
+			// create the request content
+			byte[] data = startRequest.getBytes(IContent.ENCODING_UTF_8);
+			InputStream content = new ByteArrayInputStream(data);
+
+			// Request JSON to make parsing easier
+			connection.addRequestHeader(ACCEPT_HEADER, APPLICATION_JSON);
+			connection.doPost(content, data.length, APPLICATION_JSON);
+
+			// process the result
+			response = connection.getResponse();
+			int status = response.getStatusCode();
+			if (status == 200) {
+				String responseString = IOUtils.toString(response.getResponseStream(), IContent.ENCODING_UTF_8);
+				if (responseString != null) {
+					// System.out.println(responseString);
+					if (responseString.equals("\"" + scenarioInstanceID + "\"")) {
+						return;
+					}
+					throw new Exception("Response Body Scenario Mismatch Exception");
+				}
+				throw new Exception("Missing Response Body Exception");
+			}
+			throw new Exception("Unexpected Response Code '" + status + "'");
+		} finally {
+			if (response != null) {
+				response.close();
+			}
+		}
+	}
+
+	@Override
+	public Object getScenarioName() {
+		return fScenarioName;
+	}
+}
+/*******************************************************************************
+ * Copyright (c) 2015-2020 IBM Corporation
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ * 
+ *******************************************************************************/
+package com.ibm.js.team.supporttools.framework.commands;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Options;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
-import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scm.utils.ArchiveToSCMExtractor;
-import com.ibm.js.team.supporttools.scm.utils.ComponentUtil;
-import com.ibm.team.filesystem.common.IFileContent;
-import com.ibm.team.process.client.IProcessClientService;
-import com.ibm.team.process.client.IProcessItemService;
-import com.ibm.team.process.common.IProcessArea;
-import com.ibm.team.process.common.IProjectArea;
-import com.ibm.team.repository.client.ITeamRepository;
-import com.ibm.team.repository.client.TeamPlatform;
-import com.ibm.team.repository.common.IAuditableHandle;
-import com.ibm.team.repository.common.TeamRepositoryException;
-import com.ibm.team.repository.common.UUID;
-import com.ibm.team.repository.common.json.JSONArray;
-import com.ibm.team.repository.common.json.JSONObject;
-import com.ibm.team.scm.client.IWorkspaceConnection;
-import com.ibm.team.scm.client.IWorkspaceManager;
-import com.ibm.team.scm.client.SCMPlatform;
-import com.ibm.team.scm.common.IChangeSetHandle;
-import com.ibm.team.scm.common.IComponentHandle;
-import com.ibm.team.scm.common.IWorkspaceHandle;
-import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
-import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
-public class ImportRepositoryWorkspace extends AbstractCommand implements ICommand {
-	public static final Logger logger = LoggerFactory.getLogger(ImportRepositoryWorkspace.class);
-	private File fInputFolder = null;
-	private IAuditableHandle fArea;
-	private String fNamePrefixr = null;
-	private int fProgress = 0;
-	private boolean reuseExistingWorkspace = false;
+
+/**
+ * 
+ * This class represents a minimal sample for a custom command.
+ * 
+ * To extend the tool with a new command, you must implement {@link ICommand }.
+ * 
+ * The easiest way to do this is to create a subclass of {@link AbstractCommand}
+ * and implement the abstract methods.
+ * 
+ * To finally enable this command, add this to {@link CommandFactory} in the
+ * constructor like below for this sample class.
+ * 
+ * {@code
+ * 
+ * private CommandFactory() { super(); put(new ExportConfigurationsCmd());
+ * put(new ImportTypeSystemCmd()); put(new DeliverTypeSystemCmd()); put(new
+ * SampleCommand()); } }
+ * 
+ * to finalize the integration.
+ * 
+ */
+public class SampleCommandCmd extends AbstractCommand implements ICommand {
+
+	public static final Logger logger = LoggerFactory.getLogger(SampleCommandCmd.class);
+
 	/**
-	 * Constructor, set the command name which will be used as option value for the
-	 * command option. The name is used in the UIs and the option parser.
+	 * Constructor, set the command name which will be used as option value for
+	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public ImportRepositoryWorkspace() {
-		super(ScmSupportToolsConstants.CMD_IMPORTWORKSPACE);
+	public SampleCommandCmd() {
+		super(SupportToolsFrameworkConstants.CMD_SAMPLE);
 	}
+
 	/**
 	 * Method to add the options this command requires.
 	 */
 	@Override
 	public Options addCommandOptions(Options options) {
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_URL, true,
-				SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_USER, true,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD, true,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION);
-		options.addOption(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA, true,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID, true,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER, true,
-				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER, true,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION);
-		options.addOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG, false,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION);
+		// Add Options required for the command
+		//
+		// Example code
+		options.addOption(SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION, true,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_DESCRIPTION);
+		options.addOption(SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT, true,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT_DESCRIPTION);
 		return options;
 	}
+
 	/**
-	 * Method to check if the required options/parameters required to perform the
-	 * command are available.
+	 * Method to check if the required options/parameters required to perform
+	 * the command are available.
 	 */
 	@Override
 	public boolean checkParameters(CommandLine cmd) {
 		// Check for required options
 		boolean isValid = true;
 
-		if (!(cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_URL)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_USER)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PASSWORD)
-				&& cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID)
-				&& cmd.hasOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER))) {
+		if (!cmd.hasOption(SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION)) {
 			isValid = false;
 		}
 		return isValid;
 	}
+
 	/**
 	 * Method to print the syntax in case of missing options.
 	 */
 	@Override
 	public void printSyntax() {
+		// Print syntax hint for the command
+		//
+		// Example code
 		logger.info("{}", getCommandName());
-		logger.info(
-				"\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the contents of each component from a into a set of zip files. ");
-		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
-				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
-				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_USER, SupportToolsFrameworkConstants.PARAMETER_USER_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_PROTOTYPE,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_PROTOTYPE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE);
-		logger.info("\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
-				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_URL,
-				SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE, SupportToolsFrameworkConstants.PARAMETER_USER,
-				SupportToolsFrameworkConstants.PARAMETER_USER_ID_EXAMPLE,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
-				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_EXAMPLE,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
-				ScmSupportToolsConstants.PARAMETER_WORKSPACE_EXAMPLE, ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
-				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
-	logger.info("\tOptional parameter: -{} {} -{}", ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
-		logger.info("\tExample optional parameter: -{} {} -{}",
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
-				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
+		logger.info("\n\tA sample command that can be used as template for adding custom commands.");
+		logger.info("\n\tSyntax : -{} {} -{} {} [ -{} {} ]", SupportToolsFrameworkConstants.PARAMETER_COMMAND,
+				getCommandName(), SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_PROTOTYPE,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT_PROTOTYPE);
+		logger.info("\tExample: -{} {} -{} {}", SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_EXAMPLE);
+		logger.info("\tOptional parameter: -{} {}", SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT_PROTOTYPE);
+		logger.info("\tExample optional parameter: -{} {}", SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT,
+				SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT_EXAMPLE);
 	}
+
 	/**
 	 * The main method that executes the behavior of this command.
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public boolean execute() {
 		logger.info("Executing Command {}", this.getCommandName());
 		boolean result = false;
 		// Execute the code
 		// Get all the option values
-		final String repositoryURI = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_URL);
-		final String userId = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_USER);
-		final String userPassword = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PASSWORD);
-		final String projectAreaName = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA);
-		final String scmWorkspace = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID);
-		final String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
-		final String componentNameModifier = getCmd()
-				.getOptionValue(ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER);
-		reuseExistingWorkspace = getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG);
+		String mandatoryOption = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION);
+		String optionalOption = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_SAMPLE_OPTION_OPT);
 
-		if (componentNameModifier != null) {
-			logger.info("Using prefix '{}' on component names to force creation of new components.",
-					componentNameModifier);
-			setComponentNameModifier(componentNameModifier);
-		}
-		TeamPlatform.startup();
-		try {
-			IProgressMonitor monitor = new NullProgressMonitor();
-			ITeamRepository teamRepository = TeamPlatform.getTeamRepositoryService().getTeamRepository(repositoryURI);
-			teamRepository.registerLoginHandler(new ITeamRepository.ILoginHandler() {
-				public ILoginInfo challenge(ITeamRepository repository) {
-					return new ILoginInfo() {
-						public String getUserId() {
-							return userId;
-						}
-
-						public String getPassword() {
-							return userPassword;
-						}
-					};
-				}
-			});
-			teamRepository.login(monitor);
-			File inputfolder = new File(inputFolderPath);
-			if (!inputfolder.exists()) {
-				logger.error("Error: Outputfolder '{}' does not exist.", inputFolderPath);
-				return result;
-			}
-			if (!inputfolder.isDirectory()) {
-				logger.error("Error: Outputfolder '{}' is not a directory.", inputFolderPath);
-				return result;
-			}
-			fInputFolder = inputfolder;
-			result = importWorkspace(teamRepository, projectAreaName, scmWorkspace, monitor);
-		} catch (TeamRepositoryException e) {
-			logger.error("TeamRepositoryException: {}", e.getMessage());
-			// e.printStackTrace();
-		} catch (IOException e) {
-			logger.error("IOException: {}", e.getMessage());
-			// e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			TeamPlatform.shutdown();
-		}
+		/**
+		 * TODO: Your code goes here
+		 * 
+		 */
+		result = true;
 
 		return result;
-	}
-	private boolean importWorkspace(ITeamRepository teamRepository, String projectAreaName, String scmConnection,
-			IProgressMonitor monitor) throws Exception {
-
-		// Find Or Create Workspace
-		logger.info("Find or create repository workspace '{}'...", scmConnection);
-
-		IWorkspaceConnection targetWorkspace = null;
-		List<IWorkspaceHandle> connections = ComponentUtil.findWorkspacesByName(teamRepository, scmConnection,
-				IWorkspaceSearchCriteria.WORKSPACES, monitor);
-		if (connections.size() > 0) {
-			if (!reuseExistingWorkspace) {
-				logger.error("WorkspaceConnection '{}' already exists.", scmConnection);
-				return false;
-			}
-			List<? extends IWorkspaceConnection> connection = ComponentUtil.getWorkspaceConnections(teamRepository,
-					connections, monitor);
-			targetWorkspace = connection.get(0);
-		}
-		if (targetWorkspace == null) {
-			IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
-			targetWorkspace = wm.createWorkspace(teamRepository.loggedInContributor(), scmConnection,
-					"Testworkspace " + scmConnection, monitor);
-		}
-		// Find Project Area
-		IProcessClientService processClient = (IProcessClientService) teamRepository
-				.getClientLibrary(IProcessClientService.class);
-		fArea = findProjectAreaByFQN(projectAreaName, processClient, monitor);
-		// Get the required components
-//		HashMap<String,UUID> sourceComponentMap = new HashMap<String,UUID>(3000);		
-		HashMap<String, UUID> sourceComponentName2UUIDMap = new HashMap<String, UUID>(3000);
-		HashMap<String, ArrayList<String>> sourcePar2ChildMap = new HashMap<String, ArrayList<String>>(3000);
-		File jsonInputFile = new File(fInputFolder, ScmSupportToolsConstants.HIERARCHY_JSON_FILE);
-		Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(jsonInputFile), IFileContent.ENCODING_UTF_8)); 
-		logger.info("Reading component structure from file '{}'...", jsonInputFile.getAbsolutePath());
-		JSONArray comps = JSONArray.parse(reader);
-		for (Object comp : comps) {
-			if (comp instanceof JSONObject) {
-				String componentName = null;
-				JSONObject jsonComp = (JSONObject) comp;
-				Object oname = jsonComp.get(ScmSupportToolsConstants.COMPONENT_NAME);
-				componentName = modifyNameForTests((String) oname);
-				String ouuid = (String) jsonComp.get(ScmSupportToolsConstants.COMPONENT_UUID);
-				sourceComponentName2UUIDMap.put(componentName, UUID.valueOf(ouuid));
-				ArrayList<String> childrenList = new ArrayList<String>(20);
-				Object ochildren = jsonComp.get(ScmSupportToolsConstants.COMPONENT_CHILDREN);
-				if (null != ochildren && ochildren instanceof JSONArray) {
-					JSONArray children = (JSONArray) ochildren;
-					for (Object ochild : children) {
-						if (ochild instanceof JSONObject) {
-							JSONObject child = (JSONObject) ochild;
-							String childname = (String) child.get(ScmSupportToolsConstants.COMPONENT_NAME);
-							childrenList.add(modifyNameForTests(childname));
-						}
-					}
-				}
-				sourcePar2ChildMap.put(componentName, childrenList);
-				logger.info("\tComponent -> '{}' done", componentName);
-			}
-		}
-		logger.info("Find or create components...");
-		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
-		JSONArray jsonComponentMap = new JSONArray();
-		// Run 1 to get a map for the components needed. Find or create the components.
-		HashMap<String, IComponentHandle> targetComponentMap = new HashMap<String, IComponentHandle>(
-				sourcePar2ChildMap.size());
-		Set<String> compKeys = sourcePar2ChildMap.keySet();
-		for (String compName : compKeys) {
-			logger.info("\tComponent '{}'", compName);
-			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
-			if (foundComponent == null) {
-				foundComponent = createComponent(teamRepository, monitor, wm, compName);
-			}
-			targetComponentMap.put(compName, foundComponent);
-			JSONObject jsonComponent = new JSONObject();
-			jsonComponent.put(ScmSupportToolsConstants.COMPONENT_NAME, compName);
-			jsonComponent.put(ScmSupportToolsConstants.SOURCE_COMPONENT_UUID,
-					sourceComponentName2UUIDMap.get(compName).getUuidValue());
-			jsonComponent.put(ScmSupportToolsConstants.TARGET_COMPONENT_UUID,
-					foundComponent.getItemId().getUuidValue());
-			jsonComponentMap.add(jsonComponent);
-		}
-		File jsonComponentMappingFile = new File(fInputFolder, ScmSupportToolsConstants.COMPONENT_MAPPING_JSON_FILE);
-		logger.info("Persist component source to target UUID mapping '{}'...",
-				jsonComponentMappingFile.getAbsolutePath());
-		jsonComponentMap.serialize(new FileWriter(jsonComponentMappingFile), true);
-
-		logger.info("Strip workspace from components...");
-		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
-		logger.info("Add components to workspace...");
-		addComponentsToWorkspaceConnection(targetWorkspace, targetComponentMap, monitor);
-		// Run 2 to get the child mapping
-		logger.info("Recreate subcomponent structure in workspace...");
-		Set<String> compKeys2 = sourcePar2ChildMap.keySet();
-		for (String compName : compKeys2) {
-			logger.info("\tComponent '{}'", compName);
-			IComponentHandle handle = targetComponentMap.get(compName);
-			Collection<IComponentHandle> subcomponentsToAdd = new ArrayList<IComponentHandle>();
-			ArrayList<String> children = sourcePar2ChildMap.get(compName);
-			if (!children.isEmpty()) {
-				for (String child : children) {
-					IComponentHandle childHandle = targetComponentMap.get(child);
-					subcomponentsToAdd.add(childHandle);
-				}
-				IChangeSetHandle subComponentChangeSet = targetWorkspace.createChangeSet(handle,
-						"Subcomponents for " + compName, true, monitor);
-				targetWorkspace.updateSubcomponentData(handle, subcomponentsToAdd, new ArrayList<IComponentHandle>(),
-						subComponentChangeSet, monitor);
-				targetWorkspace.closeChangeSets(Collections.singletonList(subComponentChangeSet), monitor);
-			}
-		}
-		// Run 3 upload the source code
-		logger.info("Import component data...");
-		Set<String> compKeys3 = sourcePar2ChildMap.keySet();
-		int currentComponent = 0;
-		int noOfComponents = compKeys3.size();
-		for (String compName : compKeys3) {
-			logger.info("\t {} of {} Component '{}'", currentComponent++, noOfComponents, compName);
-			IComponentHandle handle = targetComponentMap.get(compName);
-			ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
-			File archiveFile = new File(fInputFolder, normalizeName(compName) + ".zip");
-			if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
-					"Source for Component " + compName, monitor)) {
-				System.out.println();
-				throw new Exception("Exception extracting " + compName);
-			}
-			System.out.println();
-		}
-		return true;
-	}
-	private IComponentHandle createComponent(ITeamRepository teamRepository, IProgressMonitor monitor,
-			IWorkspaceManager wm, String compName) throws TeamRepositoryException {
-		IComponentHandle component;
-		// Create Component
-		component = wm.createComponent(compName, teamRepository.loggedInContributor(), monitor);
-		wm.setComponentOwner(component, fArea, monitor);
-		return component;
-	}
-	private IComponentHandle findComponentByName(IWorkspaceManager wm, String compName, IProgressMonitor monitor)
-			throws TeamRepositoryException {
-		IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY.newInstance();
-		criteria.setExactName(compName);
-		List<IComponentHandle> found = wm.findComponents(criteria, Integer.MAX_VALUE, monitor);
-		if (found.size() > 1) {
-			logger.error("Ambiguous Component Name '{}'", compName);
-			throw new RuntimeException("Ambiguous Component Name '{" + compName + "}'");
-		}
-		if (found.size() < 1) {
-			return null;
-		}
-		return found.get(0);
-	}
-	/**
-	 * Find a ProjectArea by fully qualified name The name has to be a fully
-	 * qualified name with the full path e.g. "JKE Banking(Change
-	 * Management)/Business Recovery Matters"
-	 * 
-	 * @param name
-	 * @param processClient
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	public static IProjectArea findProjectAreaByFQN(String name, IProcessClientService processClient,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		IProcessArea processArea = findProcessAreaByFQN(name, processClient, monitor);
-		if (null != processArea && processArea instanceof IProjectArea) {
-			return (IProjectArea) processArea;
-		}
-		return null;
-	}
-	/**
-	 * Find a ProcessArea by fully qualified name The name has to be a fully
-	 * qualified name with the full path e.g. "JKE Banking(Change
-	 * Management)/Business Recovery Matters"
-	 * 
-	 * @param name
-	 * @param processClient
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	public static IProcessArea findProcessAreaByFQN(String name, IProcessClientService processClient,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		URI uri = getURIFromName(name);
-		return (IProcessArea) processClient.findProcessArea(uri, IProcessItemService.ALL_PROPERTIES, monitor);
-	}
-	/**
-	 * URI conversion to be able to find from a URI
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public static URI getURIFromName(String name) {
-		URI uri = URI.create(name.replaceAll(" ", "%20"));
-		return uri;
-	}
-	/**
-	 * Removes all components from a workspace connection
-	 * 
-	 * @param workspaceConnection
-	 * @param monitor
-	 * @throws TeamRepositoryException
-	 */
-	@SuppressWarnings("rawtypes")
-	private void removeAllCompoentsFormWorkspaceConnection(IWorkspaceConnection workspaceConnection,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		// Remove all components
-		List wsComponents = workspaceConnection.getComponents();
-		for (Object comp : wsComponents) {
-			IComponentHandle cHandle = (IComponentHandle) comp;
-			workspaceConnection.applyComponentOperations(
-					Collections.singletonList(workspaceConnection.componentOpFactory().removeComponent(cHandle, false)),
-					true, monitor);
-		}
-	}
-	/**
-	 * Adds components to a workspace connection
-	 * 
-	 * @param workspaceConnection
-	 * @param extComponents
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	private IWorkspaceConnection addComponentsToWorkspaceConnection(IWorkspaceConnection workspaceConnection,
-			HashMap<String, IComponentHandle> extComponents, IProgressMonitor monitor) throws TeamRepositoryException {
-		// Add new components
-		Set<String> componentNames = extComponents.keySet();
-		for (String compName : componentNames) {
-			logger.info("\tComponent '{}'", compName);
-			IComponentHandle cHandle = (IComponentHandle) extComponents.get(compName);
-			workspaceConnection.applyComponentOperations(
-					Collections.singletonList(workspaceConnection.componentOpFactory().addComponent(cHandle, false)),
-					true, monitor);
-		}
-		return workspaceConnection;
-	}
-	private String modifyNameForTests(String name) {
-		if (fNamePrefixr != null) {
-			return fNamePrefixr + name;
-		}
-		return name;
-	}
-	private String normalizeName(String name) {
-		if (fNamePrefixr != null) {
-			return name.substring(fNamePrefixr.length());
-		}
-		return name;
-	}
-	private void setComponentNameModifier(String fNameModifier) {
-		this.fNamePrefixr = fNameModifier;
-	}
-	@SuppressWarnings("unused")
-	private void showProgress() {
-		fProgress++;
-		if (fProgress % 10 == 9) {
-			System.out.print(".");
-		}
 	}
 }
