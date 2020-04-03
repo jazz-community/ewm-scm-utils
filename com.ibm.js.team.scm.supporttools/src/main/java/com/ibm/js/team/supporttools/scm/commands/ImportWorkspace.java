@@ -290,28 +290,30 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		int currentComponent = 1;
 		int noOfComponents = compKeys.size();
 		for (String compName : compKeys) {
-			boolean componentExists = true;
+			boolean componentExists = false;
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
-			IComponentHandle foundComponent = findComponentByName(wm, compName, monitor);
-			if (foundComponent == null) {
-				logger.info("\t\tCreated...");
-				componentExists = false;
-				foundComponent = createComponent(teamRepository, wm, compName, owner, monitor);
-			}
-			addComponentToWorkspaceConnection(targetWorkspace, foundComponent, monitor);
-			if (!(componentExists && skipUploadExistingComponent)) {
-				uploadComponentContent2(targetWorkspace, compName, foundComponent, monitor);
+			IComponentHandle targetComponent = findComponentByName(wm, compName, monitor);
+			if (targetComponent == null) {
+				targetComponent = createComponent(teamRepository, wm, compName, owner, monitor);
+				logger.info("\t\tComponent created...");
 			} else {
-				logger.info("\t\tSkipped component data upload...");
+				componentExists = true;				
 			}
-
-			targetComponentMap.put(compName, foundComponent);
+			addComponentToWorkspaceConnection(targetWorkspace, targetComponent, monitor);
+			if (componentExists && this.skipUploadExistingComponent) {
+				logger.info("\t\tSkipped existing component data upload...");
+			} else {
+				logger.info("\t\tUploading...");
+				uploadComponentContent2(targetWorkspace, compName, targetComponent, monitor);
+				logger.info("\t\tContent uploaded...");
+			}
+			targetComponentMap.put(compName, targetComponent);
 			JSONObject jsonComponent = new JSONObject();
 			jsonComponent.put(ScmSupportToolsConstants.JSON_COMPONENT_NAME, compName);
 			jsonComponent.put(ScmSupportToolsConstants.JSON_SOURCE_COMPONENT_UUID,
 					sourceComponentName2UUIDMap.get(compName).getUuidValue());
 			jsonComponent.put(ScmSupportToolsConstants.JSON_TARGET_COMPONENT_UUID,
-					foundComponent.getItemId().getUuidValue());
+					targetComponent.getItemId().getUuidValue());
 			jsonComponentMap.add(jsonComponent);
 		}
 		File jsonComponentMappingFile = new File(fInputFolder, ScmSupportToolsConstants.COMPONENT_MAPPING_JSON_FILE);
@@ -371,7 +373,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 			System.out.println();
 			logger.error("Exception extracting component '{}'", compName);
 		}
-		System.out.println();
+		logger.info("");
 		scmExt = null;
 		archiveFile = null;
 	}

@@ -140,5 +140,3 @@ generateExternalChanges
 
 	Example: -command generateExternalChanges -sandboxFolder "C:\Temp\sandbox\sandboxFolder"
 
-
-Failed.

@@ -142,7 +142,6 @@ public class ArchiveToSCMExtractor {
 				if (entry.isDirectory()) {
 					logger.trace("\t\t\tExtracting Folder: " + targetEntry.getPath());
 					findOrCreateFolderWithParents(targetEntry);
-
 				} else {
 					logger.trace("\t\t\tExtracting File: " + targetEntry.getPath());
 					extractFile(targetEntry, entry);
