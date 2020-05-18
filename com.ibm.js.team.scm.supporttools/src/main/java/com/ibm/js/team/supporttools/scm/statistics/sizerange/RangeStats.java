@@ -29,7 +29,14 @@ import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
  *
  */
 public class RangeStats {
+	private static final int RANGE_LIMIT_COLUMN = 3;
+	private static final int RANGE_INDEX_COLUMN = 4;
+	private static final int FILE_COUNT_COLUMN = 5;
+	private static final int EXTENSION_COUNT_COLUMN = 6;
+	private static final int EXTENSION_DETAIL_COLUMN = 7;
+
 	public static final Logger logger = LoggerFactory.getLogger(RangeStats.class);
+
 	ArrayList<IRangeStat> rangeStats = new ArrayList<IRangeStat>();
 
 	public RangeStats() {
@@ -77,8 +84,8 @@ public class RangeStats {
 			workBook = SheetUtils.createWorkBook();
 		}
 		POICellHelper ch = new POICellHelper(workBook);
-		int sheetNo = 1;
-		int rowOffset = 4;
+		int sheetNo = 2;
+		int rowOffset = 1;
 		for (IRangeStat iRangeStat : rangeStats) {
 			IRangeCalculator rangeCalc = iRangeStat.getRangeCalculator();
 			logger.info("Creating sheet...");
@@ -88,17 +95,16 @@ public class RangeStats {
 
 			ch.setBoldText(header1.createCell(1), "Total Files");
 			ch.setBoldText(header1.createCell(2), POICellHelper.XLS_COLUMN_SEPARATOR);
+			
+			ch.setBoldText(header1.createCell(RANGE_INDEX_COLUMN), "Range index");
+			ch.setBoldText(header1.createCell(RANGE_LIMIT_COLUMN), "Range Top Limit");
+			ch.setBoldText(header1.createCell(FILE_COUNT_COLUMN), "File count");
+			ch.setBoldText(header1.createCell(EXTENSION_COUNT_COLUMN), "Extension count");
+			ch.setBoldText(header1.createCell(EXTENSION_DETAIL_COLUMN), "Extensions");
 
 			Row header1row = sheet.createRow(1);
 			ch.setNumber(header1row.createCell(1), iRangeStat.getTotalFiles());
 
-			Row header2 = sheet.createRow(3);
-
-			ch.setBoldText(header2.createCell(3), "Range index");
-			ch.setBoldText(header2.createCell(4), "Range Top Limit");
-			ch.setBoldText(header2.createCell(5), "File count");
-			ch.setBoldText(header2.createCell(6), "Extension count");
-			ch.setBoldText(header2.createCell(7), "Extensions");
 
 			for (Iterator<IRangeInfo> iterator = iRangeStat.iterator(); iterator.hasNext();) {
 				IRangeInfo iRangeInfo = iterator.next();
@@ -108,11 +114,11 @@ public class RangeStats {
 
 				Row row = sheet.createRow(index + rowOffset);
 
-				ch.setNumber(row.createCell(3), index);
-				ch.setNumber(row.createCell(4), threshold);
-				ch.setNumber(row.createCell(5), count);
-				ch.setNumber(row.createCell(6), iRangeInfo.getExtensionStatus().getNoExtensions());
-				ch.setText(row.createCell(7), iRangeInfo.getExtensionStatus().getExtensionsCompressed());
+				ch.setNumber(row.createCell(RANGE_INDEX_COLUMN), index);
+				ch.setNumber(row.createCell(RANGE_LIMIT_COLUMN), threshold);
+				ch.setNumber(row.createCell(FILE_COUNT_COLUMN), count);
+				ch.setNumber(row.createCell(EXTENSION_COUNT_COLUMN), iRangeInfo.getExtensionStatus().getNoExtensions());
+				ch.setText(row.createCell(EXTENSION_DETAIL_COLUMN), iRangeInfo.getExtensionStatus().getExtensionsCompressed());
 			}
 			logger.info("Autosizing...");
 			for (int i = 1; i < 8; i++) {

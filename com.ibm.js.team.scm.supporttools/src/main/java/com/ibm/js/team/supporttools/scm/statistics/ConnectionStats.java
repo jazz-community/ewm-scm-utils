@@ -47,7 +47,7 @@ public class ConnectionStats {
 	private long cumulatedFolderDepth = 0;
 	private long maxFolderDepth = 0;
 
-	private int activeRow = 0;
+	private int activeRow = -1;
 	private boolean showExtensions = false;
 
 	public void resetStats() {
@@ -119,129 +119,82 @@ public class ConnectionStats {
 	public Workbook updateWorkBook(Workbook workBook) throws IOException {
 		resetStats();
 		logger.info("\nComponent characteristics for connection '{}' : ", fConnectionName);
-		logger.info("Creating sheet...");
+		logger.info("Creating sheets...");
 
-		String safeName = WorkbookUtil.createSafeSheetName("0 - Connection");
-		Sheet sheet = workBook.createSheet(safeName);
+		String connectionSheetSafeName = WorkbookUtil.createSafeSheetName("0 - Connection");
+		Sheet connectionSheet = workBook.createSheet(connectionSheetSafeName);
+
+		String componentSheetSafeName = WorkbookUtil.createSafeSheetName("1 - Components");
+		Sheet componentSheet = workBook.createSheet(componentSheetSafeName);
 
 		POICellHelper ch = new POICellHelper(workBook);
-		Row groupheader = sheet.createRow(getActiveRow());
 
-		groupheader.createCell(4).setCellValue(ch.boldFace("Component Stats"));
-		groupheader.createCell(10).setCellValue(ch.boldFace("Folder Stats"));
-		groupheader.createCell(15).setCellValue(ch.boldFace("Folder Depth Limits"));
-		groupheader.createCell(18).setCellValue(ch.boldFace("File Stats"));
-
-		Row header1 = sheet.createRow(getNextActiveRow());
-		header1.createCell(1).setCellValue(ch.boldFace("Connection"));
-		header1.createCell(2).setCellValue(ch.boldFace("Components"));
-		header1.createCell(3).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header1.createCell(4).setCellValue(ch.boldFace("Hierarchy Depth (avg)"));
-		header1.createCell(5).setCellValue(ch.boldFace("Hierarchy Depth (sum)"));
-		header1.createCell(6).setCellValue(ch.boldFace("Hierarchy Depth (max)"));
-		header1.createCell(7).setCellValue(ch.boldFace("Folders (sum)"));
-		header1.createCell(8).setCellValue(ch.boldFace("Files (sum)"));
-		header1.createCell(9).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header1.createCell(10).setCellValue(ch.boldFace("Files/Folder"));
-		header1.createCell(11).setCellValue(ch.boldFace("Folder Depth(avg)"));
-		header1.createCell(12).setCellValue(ch.boldFace("Folder Depth(max)"));
-		header1.createCell(13).setCellValue(ch.boldFace("Folder Depth(sum)"));
-		header1.createCell(14).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header1.createCell(15).setCellValue(ch.boldFace("log(e)"));
-		header1.createCell(16).setCellValue(ch.boldFace("Max"));
-		header1.createCell(17).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header1.createCell(18).setCellValue(ch.boldFace("File Size(avg)"));
-		header1.createCell(19).setCellValue(ch.boldFace("File Size(max)"));
-		header1.createCell(20).setCellValue(ch.boldFace("File Size(sum)"));
-		header1.createCell(21).setCellValue(ch.boldFace("File Depth(avg)"));
-		header1.createCell(22).setCellValue(ch.boldFace("File Depth(max)"));
-		header1.createCell(23).setCellValue(ch.boldFace("File Depth(sum)"));
+		Row componentHeader = componentSheet.createRow(getNextActiveRow());
+		
+		componentHeader.createCell(1).setCellValue(ch.boldFace("Component"));
+		componentHeader.createCell(2).setCellValue(ch.boldFace("Hierarchy Depth"));
+		componentHeader.createCell(3).setCellValue(ch.boldFace("Folders (sum)"));
+		componentHeader.createCell(4).setCellValue(ch.boldFace("Files (sum)"));
+		componentHeader.createCell(5).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		componentHeader.createCell(6).setCellValue(ch.boldFace("Files/Folder"));
+		componentHeader.createCell(7).setCellValue(ch.boldFace("Folder Depth(avg)"));
+		componentHeader.createCell(8).setCellValue(ch.boldFace("Folder Depth(max)"));
+		componentHeader.createCell(9).setCellValue(ch.boldFace("Folder Depth(sum)"));
+		componentHeader.createCell(10).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		componentHeader.createCell(11).setCellValue(ch.boldFace("log(e)"));
+		componentHeader.createCell(12).setCellValue(ch.boldFace("Max"));
+		componentHeader.createCell(13).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		componentHeader.createCell(14).setCellValue(ch.boldFace("File Size(avg)"));
+		componentHeader.createCell(15).setCellValue(ch.boldFace("File Size(max)"));
+		componentHeader.createCell(16).setCellValue(ch.boldFace("File Size(sum)"));
+		componentHeader.createCell(17).setCellValue(ch.boldFace("File Depth(avg)"));
+		componentHeader.createCell(18).setCellValue(ch.boldFace("File Depth(max)"));
+		componentHeader.createCell(19).setCellValue(ch.boldFace("File Depth(sum)"));
 		if (showExtensions) {
-			header1.createCell(24).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-			header1.createCell(25).setCellValue(ch.boldFace("Extensions"));
-			header1.createCell(26).setCellValue(ch.boldFace("Extension Details"));
+			componentHeader.createCell(20).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+			componentHeader.createCell(21).setCellValue(ch.boldFace("Extensions"));
+			componentHeader.createCell(22).setCellValue(ch.boldFace("Extension Details"));
 		}
-
-		// Row for connection data
-		Row connectionRow = sheet.createRow(getNextActiveRow());
-		connectionRow.createCell(1).setCellValue(getConnectionName());
-
-		// Distance
-		sheet.createRow(getNextActiveRow());
-		sheet.createRow(getNextActiveRow());
-
-		Row groupheader2 = sheet.createRow(getNextActiveRow());
-
-		groupheader2.createCell(4).setCellValue(ch.boldFace("Component Stats"));
-		groupheader2.createCell(10).setCellValue(ch.boldFace("Folder Stats"));
-		groupheader2.createCell(15).setCellValue(ch.boldFace("Folder Depth Limits"));
-		groupheader2.createCell(18).setCellValue(ch.boldFace("File Stats"));
-
-		Row header2 = sheet.createRow(getNextActiveRow());
-		header2.createCell(1).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(2).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(3).setCellValue(ch.boldFace("Component"));
-		header2.createCell(4).setCellValue(ch.boldFace("Hierarchy Depth"));
-		header2.createCell(5).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(6).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(7).setCellValue(ch.boldFace("Folders (sum)"));
-		header2.createCell(8).setCellValue(ch.boldFace("Files (sum)"));
-		header2.createCell(9).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(10).setCellValue(ch.boldFace("Files/Folder"));
-		header2.createCell(11).setCellValue(ch.boldFace("Folder Depth(avg)"));
-		header2.createCell(12).setCellValue(ch.boldFace("Folder Depth(max)"));
-		header2.createCell(13).setCellValue(ch.boldFace("Folder Depth(sum)"));
-		header2.createCell(14).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(15).setCellValue(ch.boldFace("log(e)"));
-		header2.createCell(16).setCellValue(ch.boldFace("Max"));
-		header2.createCell(17).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(18).setCellValue(ch.boldFace("File Size(avg)"));
-		header2.createCell(19).setCellValue(ch.boldFace("File Size(max)"));
-		header2.createCell(20).setCellValue(ch.boldFace("File Size(sum)"));
-		header2.createCell(21).setCellValue(ch.boldFace("File Depth(avg)"));
-		header2.createCell(22).setCellValue(ch.boldFace("File Depth(max)"));
-		header2.createCell(23).setCellValue(ch.boldFace("File Depth(sum)"));
-		if (showExtensions) {
-			header2.createCell(24).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-			header2.createCell(25).setCellValue(ch.boldFace("Extensions"));
-			header2.createCell(26).setCellValue(ch.boldFace("Extension Details"));
-		}
+		
+		// Group header
+		componentHeader.createCell(0).setCellValue(ch.boldFace("Component Stats"));
+		componentHeader.createCell(5).setCellValue(ch.boldFace("Folder Stats"));
+		componentHeader.createCell(10).setCellValue(ch.boldFace("Folder Depth Limits"));
+		componentHeader.createCell(13).setCellValue(ch.boldFace("File Stats"));
 
 		Set<String> keys = getComponentStatisticsMap().keySet();
 		logger.info("Components: {}\n", getNoComponents());
-		connectionRow.createCell(2).setCellValue(new Double(getNoComponents()));
 
 		for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();) {
 			String key = (String) iterator.next();
 			ComponentStat comp = getComponentStatisticsMap().get(key);
-			Row row = sheet.createRow(getNextActiveRow());
-			row.createCell(3).setCellValue(comp.getComponentName());
-			ch.setNumber(row.createCell(4), comp.getComponentHierarchyDepth());
-			ch.setNumber(row.createCell(4), comp.getComponentHierarchyDepth());
+			Row row = componentSheet.createRow(getNextActiveRow());
+			row.createCell(1).setCellValue(comp.getComponentName());
+			ch.setNumber(row.createCell(2), comp.getComponentHierarchyDepth());
 
-			ch.setNumber(row.createCell(7), comp.getNoFolders());
-			ch.setNumber(row.createCell(8), comp.getNoFiles());
+			ch.setNumber(row.createCell(3), comp.getNoFolders());
+			ch.setNumber(row.createCell(4), comp.getNoFiles());
 
-			ch.setNumberP2(row.createCell(10), CalcUtil.divide(comp.getCumulatedFiles(), comp.getCumulatedFolders()));
-			ch.setNumberP2(row.createCell(11),
+			ch.setNumberP2(row.createCell(6), CalcUtil.divide(comp.getCumulatedFiles(), comp.getCumulatedFolders()));
+			ch.setNumberP2(row.createCell(7),
 					CalcUtil.divide(comp.getCumulatedFolderDepth(), comp.getCumulatedFolders()));
-			ch.setNumber(row.createCell(12), comp.getMaxFolderDepth());
-			ch.setNumber(row.createCell(13), comp.getCumulatedFolderDepth());
+			ch.setNumber(row.createCell(8), comp.getMaxFolderDepth());
+			ch.setNumber(row.createCell(9), comp.getCumulatedFolderDepth());
 
-			ch.setNumberP2(row.createCell(15), Math.log(comp.getCumulatedFolders()));
-			ch.setNumber(row.createCell(16), comp.getCumulatedFolders());
+			ch.setNumberP2(row.createCell(11), Math.log(comp.getCumulatedFolders()));
+			ch.setNumber(row.createCell(12), comp.getCumulatedFolders());
 
-			ch.setNumberP2(row.createCell(18), CalcUtil.divide(comp.getCumulatedFileSize(), comp.getCumulatedFiles()));
-			ch.setNumber(row.createCell(19), comp.getMaxFileSize());
-			ch.setNumber(row.createCell(20), comp.getCumulatedFileSize());
-			ch.setNumberP2(row.createCell(21), CalcUtil.divide(comp.getCumulatedFileDepth(), comp.getCumulatedFiles()));
-			ch.setNumber(row.createCell(22), comp.getMaxFileDepth());
-			ch.setNumber(row.createCell(23), comp.getCumulatedFileDepth());
+			ch.setNumberP2(row.createCell(14), CalcUtil.divide(comp.getCumulatedFileSize(), comp.getCumulatedFiles()));
+			ch.setNumber(row.createCell(15), comp.getMaxFileSize());
+			ch.setNumber(row.createCell(16), comp.getCumulatedFileSize());
+			ch.setNumberP2(row.createCell(17), CalcUtil.divide(comp.getCumulatedFileDepth(), comp.getCumulatedFiles()));
+			ch.setNumber(row.createCell(18), comp.getMaxFileDepth());
+			ch.setNumber(row.createCell(19), comp.getCumulatedFileDepth());
 
 			if (showExtensions) {
 				IExtensions ext = comp.getExtensions();
-				ch.setNumber(row.createCell(25), ext.getNoExtensions());
-				ch.setText(row.createCell(26), ext.getExtensionsCompressed());
+				ch.setNumber(row.createCell(21), ext.getNoExtensions());
+				ch.setText(row.createCell(22), ext.getExtensionsCompressed());
 			}
 			aggregateComponent(comp);
 			logger.info(comp.toString());
@@ -252,6 +205,53 @@ public class ConnectionStats {
 		message += " Hierarchy Depth(avg):\t " + CalcUtil.roundPrecision2(getAverageHierarchyDepth()).toString();
 		message += " Hierarchy Depth(sum):\t " + getCumulatedHierarchyDepth();
 		message += " Hierarchy Depth(max):\t " + getMaxHierarchyDepth() + "\n";
+		
+		logger.info("\nComponent characteristics for connection '{}' : ", fConnectionName);
+		logger.info("Output cumulative data on sheet '{}'sheet...", connectionSheetSafeName);
+		
+		Row connectionHeader = connectionSheet.createRow(0);
+
+		connectionHeader.createCell(1).setCellValue(ch.boldFace("Connection"));
+		connectionHeader.createCell(2).setCellValue(ch.boldFace("Components"));
+		connectionHeader.createCell(3).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		connectionHeader.createCell(4).setCellValue(ch.boldFace("Hierarchy Depth (avg)"));
+		connectionHeader.createCell(5).setCellValue(ch.boldFace("Hierarchy Depth (sum)"));
+		connectionHeader.createCell(6).setCellValue(ch.boldFace("Hierarchy Depth (max)"));
+		connectionHeader.createCell(7).setCellValue(ch.boldFace("Folders (sum)"));
+		connectionHeader.createCell(8).setCellValue(ch.boldFace("Files (sum)"));
+		connectionHeader.createCell(9).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		connectionHeader.createCell(10).setCellValue(ch.boldFace("Files/Folder"));
+		connectionHeader.createCell(11).setCellValue(ch.boldFace("Folder Depth(avg)"));
+		connectionHeader.createCell(12).setCellValue(ch.boldFace("Folder Depth(max)"));
+		connectionHeader.createCell(13).setCellValue(ch.boldFace("Folder Depth(sum)"));
+		connectionHeader.createCell(14).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		connectionHeader.createCell(15).setCellValue(ch.boldFace("log(e)"));
+		connectionHeader.createCell(16).setCellValue(ch.boldFace("Max"));
+		connectionHeader.createCell(17).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		connectionHeader.createCell(18).setCellValue(ch.boldFace("File Size(avg)"));
+		connectionHeader.createCell(19).setCellValue(ch.boldFace("File Size(max)"));
+		connectionHeader.createCell(20).setCellValue(ch.boldFace("File Size(sum)"));
+		connectionHeader.createCell(21).setCellValue(ch.boldFace("File Depth(avg)"));
+		connectionHeader.createCell(22).setCellValue(ch.boldFace("File Depth(max)"));
+		connectionHeader.createCell(23).setCellValue(ch.boldFace("File Depth(sum)"));
+		if (showExtensions) {
+			connectionHeader.createCell(24).setCellValue(ch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+			connectionHeader.createCell(25).setCellValue(ch.boldFace("Extensions"));
+			connectionHeader.createCell(26).setCellValue(ch.boldFace("Extension Details"));
+		}
+
+		// Group header
+		connectionHeader.createCell(0).setCellValue(ch.boldFace("Connection Stats"));
+		connectionHeader.createCell(3).setCellValue(ch.boldFace("Component Stats"));
+		connectionHeader.createCell(9).setCellValue(ch.boldFace("Folder Stats"));
+		connectionHeader.createCell(14).setCellValue(ch.boldFace("Folder Depth Limits"));
+		connectionHeader.createCell(17).setCellValue(ch.boldFace("File Stats"));
+
+		
+		// Row for connection data
+		Row connectionRow = connectionSheet.createRow(1);
+		connectionRow.createCell(1).setCellValue(getConnectionName());
+		connectionRow.createCell(2).setCellValue(new Double(getNoComponents()));
 
 		ch.setNumberP2(connectionRow.createCell(4), getAverageHierarchyDepth());
 		ch.setNumber(connectionRow.createCell(5), getCumulatedHierarchyDepth());
@@ -283,11 +283,14 @@ public class ConnectionStats {
 		message += "\n";
 		logger.info(message);
 		for (int i = 0; i < 27; i++) {
-			sheet.autoSizeColumn(i);
+			connectionSheet.autoSizeColumn(i);
+		}
+		for (int i = 0; i < 27; i++) {
+			componentSheet.autoSizeColumn(i);
 		}
 		return workBook;
 	}
-
+	
 	public HashMap<String, ComponentStat> getComponentStatisticsMap() {
 		return fComponents;
 	}
