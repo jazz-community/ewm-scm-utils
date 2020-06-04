@@ -33,7 +33,6 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 		put(new ImportWorkspace());
 		put(new ConvertLoadrule());
 		put(new FlattenLoadrule());
-		put(new GenerateExternalChanges());
 		// Enable sample command
 		// put(new SampleCommandCmd());
 	}
