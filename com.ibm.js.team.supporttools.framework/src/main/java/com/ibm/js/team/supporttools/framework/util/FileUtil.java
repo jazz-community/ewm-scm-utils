@@ -79,23 +79,6 @@ public class FileUtil {
 		}
 	}
 
-	/**
-	 * Delete recursively
-	 * 
-	 * @param aFile
-	 * @param prompt
-	 * @throws IOException
-	 */
-	public static void eraseRecursivePrompt(File aFile, boolean prompt) throws IOException {
-		if (prompt && aFile.exists() && aFile.isDirectory()) {
-			UserIO.prompt("Really delete: " + aFile.getAbsolutePath() + " ? (Y/N)");
-			String choice = UserIO.userInput();
-			if (!choice.equalsIgnoreCase("y")) {
-				return;
-			}
-		}
-		eraseAllRecursive(aFile);
-	}
 
 	/**
 	 * Erase a file or a
@@ -198,23 +181,5 @@ public class FileUtil {
 					copyFile(source, target);
 			}
 		}
-	}
-
-	/**
-	 * @param messagePrefix
-	 * @param folder
-	 * @return
-	 * @throws IOException
-	 */
-	public static File promptCreateFolder(String messagePrefix, File folder) throws IOException {
-		String choice = UserIO.userChoice(messagePrefix + ": Create folder " + folder.getCanonicalPath() + "? (y/n)",
-				"[ynYN]");
-		if (null != choice && choice.equalsIgnoreCase("y")) {
-			createFolderWithParents(folder);
-			if (folder.exists())
-				return folder;
-			return null;
-		}
-		return null;
 	}
 }
