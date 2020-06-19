@@ -31,7 +31,7 @@ public class SheetUtils {
 	 * @return
 	 */
 	public static Workbook createWorkBook() {
-		logger.info("Creating workbook '{}'...");
+		logger.info("\nCreating workbook...");
 		Workbook wb = new HSSFWorkbook();
 		return wb;
 	}

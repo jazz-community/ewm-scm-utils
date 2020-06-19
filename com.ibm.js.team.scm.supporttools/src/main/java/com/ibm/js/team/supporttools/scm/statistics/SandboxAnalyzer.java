@@ -49,6 +49,7 @@ public class SandboxAnalyzer {
 	 * @param sandboxFolder
 	 */
 	public void analyze(File sandboxFolder) {
+		logger.info("\nAnalyzing '{}'",sandboxFolder);
 		analyzeFolder(sandboxFolder, "", comp, 0);
 	}
 
