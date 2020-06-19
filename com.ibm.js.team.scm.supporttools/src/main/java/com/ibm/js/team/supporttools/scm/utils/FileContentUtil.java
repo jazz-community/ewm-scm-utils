@@ -40,7 +40,6 @@ public class FileContentUtil {
 	 * @throws IOException
 	 */
 	public FileContentUtil() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		initializeSampleLines();
 	}
 
 	/**
@@ -114,6 +113,9 @@ public class FileContentUtil {
 	 * @return
 	 */
 	private String getRandomSampleLine() {
+		if(this.fSampleLines==null){
+			initializeSampleLines();
+		}
 		String line = fSampleLines.get(getRandomSampleIndex());
 		return line;
 	}
@@ -206,24 +208,25 @@ public class FileContentUtil {
 	/**
 	 * Read a file with sample code lines that is used to obfuscate input data.
 	 * 
-	 * @throws UnsupportedEncodingException
-	 * @throws FileNotFoundException
-	 * @throws IOException
 	 */
-	private void initializeSampleLines() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(ScmSupportToolsConstants.CODE_SAMPLE_INPUT_FILE_NAME),
-						IFileContent.ENCODING_UTF_8));
-		fSampleLines = new ArrayList<String>(200);
-		String line;
-		do {
-			line = reader.readLine();
-			if (line != null) {
-				fSampleLines.add(line);
-			}
-		} while (line != null);
-		reader.close();
-		fNumberSamples = fSampleLines.size();
+	private void initializeSampleLines() {
+		
+		try {
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(ScmSupportToolsConstants.CODE_SAMPLE_INPUT_FILE_NAME),
+							IFileContent.ENCODING_UTF_8));
+			fSampleLines = new ArrayList<String>(200);
+			String line;
+			do {
+				line = reader.readLine();
+				if (line != null) {
+					fSampleLines.add(line);
+				}
+			} while (line != null);
+			reader.close();
+			fNumberSamples = fSampleLines.size();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
-
 }

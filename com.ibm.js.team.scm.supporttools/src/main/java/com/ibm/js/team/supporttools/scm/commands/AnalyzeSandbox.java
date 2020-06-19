@@ -23,6 +23,7 @@ import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scm.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scm.statistics.ComponentStat;
 import com.ibm.js.team.supporttools.scm.statistics.FileInfo;
+import com.ibm.js.team.supporttools.scm.statistics.SandboxAnalyzer;
 import com.ibm.js.team.supporttools.scm.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 
@@ -34,11 +35,6 @@ import com.ibm.js.team.supporttools.scm.utils.SheetUtils;
 public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeSandbox.class);
-	private int fProgress = 0;
-	private RangeStats rangeStats = new RangeStats();
-	private String fOutputFolder = null;
-	private HashSet<String> ignoreFolderSet = new HashSet<String>(20);
-	private HashSet<String> ignoreFileSet = new HashSet<String>(20);
 
 	/**
 	 * Constructor, set the command name which will be used as option value for
@@ -115,15 +111,8 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 		// Execute the code
 		// Get all the option values
 		String sandboxFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_SANDBOXFOLDER);
-		this.fOutputFolder = null;
-		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)) {
-			fOutputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
-		}
 
 		try {
-			addIgnoreDirectory(".metadata");
-			addIgnoreDirectory(".jazz5");
-			addIgnoreDirectory(".git");
 			result = analyzeSandbox(sandboxFolderPath);
 		} catch (IOException e) {
 			logger.error("IO Exception");
@@ -152,82 +141,92 @@ public class AnalyzeSandbox extends AbstractCommand implements ICommand {
 			logger.error("Error: Sandboxfolder '{}' is not a directory.", sandboxFolderPath);
 			return result;
 		}
-		ComponentStat compStat = new ComponentStat(sandboxFolderPath);
-		analyzeFolder(sandboxFolder, "", compStat, 0);
+		
+		String fOutputFolder = null;
+		if (getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER)) {
+			fOutputFolder = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
+		}
 
-		logger.info("\n\nShow results...");
-		logger.info(compStat.toString());
+		SandboxAnalyzer sandboxAnalyzer = new SandboxAnalyzer(sandboxFolderPath);
+	
+		sandboxAnalyzer.addIgnoreDirectory(".metadata");
+		sandboxAnalyzer.addIgnoreDirectory(".jazz5");
+		sandboxAnalyzer.addIgnoreDirectory(".git");
+		
+		sandboxAnalyzer.analyze(sandboxFolder);
 		String workbookName = sandboxFolder.getName() + ".xls";
 		Workbook workBook = SheetUtils.createWorkBook();
-		rangeStats.updateWorkBook(workBook);
-		SheetUtils.writeWorkBook(workBook, this.fOutputFolder, workbookName);
+		sandboxAnalyzer.updateWorkBook(workBook);
+		SheetUtils.writeWorkBook(workBook, fOutputFolder, workbookName);
+		logger.info("\n\nShow results...");
+		logger.info(sandboxAnalyzer.getResultAsString());
 		return true;
 	}
 
-	/**
-	 * @param sandboxFolder
-	 * @param path
-	 * @param compStat
-	 * @param depth
-	 */
-	private void analyzeFolder(File sandboxFolder, String path, ComponentStat compStat, int depth) {
-		File[] contents = sandboxFolder.listFiles();
-		long folders = 0;
-		long files = 0;
-		for (File file : contents) {
-			if (file.isDirectory()) {
-				if (!isIgnoredDirectory(file)) {
-					folders++;
-					compStat.addFolderStat(file, depth);
-					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
-				} else {
-					logger.info("\nIgnoring folder '{}'", file.getAbsolutePath());
-				}
-			} else {
-				if (!isIgnoredFile(file)) {
-					files++;
-					FileInfo fInfo = FileInfo.getFileInfo(file);
-					compStat.addFileStat(fInfo, depth);
-					rangeStats.analyze(fInfo);
-				} else {
-					logger.info("\nIgnoring file '{}'", file.getAbsolutePath());
-				}
-			}
-		}
-		compStat.addFolderStats(folders, files, depth);
-		showProgress();
-	}
+//	/**
+//	 * @param sandboxFolder
+//	 * @param path
+//	 * @param compStat
+//	 * @param depth
+//	 */
+//	private void analyzeFolder(File sandboxFolder, String path, ComponentStat compStat, int depth) {
+//		File[] contents = sandboxFolder.listFiles();
+//		long folders = 0;
+//		long files = 0;
+//		for (File file : contents) {
+//			if (file.isDirectory()) {
+//				if (!isIgnoredDirectory(file)) {
+//					folders++;
+//					compStat.addFolderStat(file, depth);
+//					analyzeFolder(file, file.getAbsolutePath(), compStat, depth + 1);
+//				} else {
+//					logger.info("\nIgnoring folder '{}'", file.getAbsolutePath());
+//				}
+//			} else {
+//				if (!isIgnoredFile(file)) {
+//					files++;
+//					FileInfo fInfo = FileInfo.getFileInfo(file);
+//					compStat.addFileStat(fInfo, depth);
+//					rangeStats.analyze(fInfo);
+//				} else {
+//					logger.info("\nIgnoring file '{}'", file.getAbsolutePath());
+//				}
+//			}
+//		}
+//		compStat.addFolderStats(folders, files, depth);
+//		showProgress();
+//	}
+//
+//	/**
+//	 * This prints one '.' for every for 10 times it is called to show some
+//	 * progress. Can be used to show more fine grained progress.
+//	 */
+//	private void showProgress() {
+//		fProgress++;
+//		if (fProgress % 10 == 9) {
+//			System.out.print(".");
+//		}
+//	}
 
-	/**
-	 * This prints one '.' for every for 10 times it is called to show some
-	 * progress. Can be used to show more fine grained progress.
-	 */
-	private void showProgress() {
-		fProgress++;
-		if (fProgress % 10 == 9) {
-			System.out.print(".");
-		}
-	}
-
-	public void addIgnoreDirectory(String name) {
-		ignoreFolderSet.add(name);
-	}
-
-	public void addIgnoreFile(String name) {
-		ignoreFileSet.add(name);
-	}
-
-	private boolean isIgnoredDirectory(File file) {
-		if (file == null) {
-			return false;
-		}
-		return ignoreFolderSet.contains(file.getName());
-	}
-
-	private boolean isIgnoredFile(File file) {
-		if (file == null) {
-			return false;
-		}
-		return ignoreFolderSet.contains(file.getName());
-	}
+//	public void addIgnoreDirectory(String name) {
+//		ignoreFolderSet.add(name);
+//	}
+//
+//	public void addIgnoreFile(String name) {
+//		ignoreFileSet.add(name);
+//	}
+//
+//	private boolean isIgnoredDirectory(File file) {
+//		if (file == null) {
+//			return false;
+//		}
+//		return ignoreFolderSet.contains(file.getName());
+//	}
+//
+//	private boolean isIgnoredFile(File file) {
+//		if (file == null) {
+//			return false;
+//		}
+//		return ignoreFolderSet.contains(file.getName());
+//	}
 }

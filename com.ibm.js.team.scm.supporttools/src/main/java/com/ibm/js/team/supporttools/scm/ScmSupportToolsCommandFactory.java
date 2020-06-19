@@ -14,7 +14,6 @@ import com.ibm.js.team.supporttools.scm.commands.AnalyzeWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.ConvertLoadrule;
 import com.ibm.js.team.supporttools.scm.commands.ExportWorkspace;
 import com.ibm.js.team.supporttools.scm.commands.FlattenLoadrule;
-import com.ibm.js.team.supporttools.scm.commands.GenerateExternalChanges;
 import com.ibm.js.team.supporttools.scm.commands.ImportWorkspace;
 
 /**
