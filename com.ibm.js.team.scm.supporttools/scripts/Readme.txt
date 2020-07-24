@@ -113,7 +113,7 @@ convertLoadrule
 	Parameter Description: 
 	 -inputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace. In addtion the command importScmWorkspace must have been ecxecuted using this folder creating the UUID mapping required. 
 	 -sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
-	 -targetLoadruleFile 	 Full path and filename of the resulting loadrule of the conversion.
+	 -targetLoadruleFile 	Full path and filename of the resulting loadrule of the conversion.
 
 	Example: -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
 

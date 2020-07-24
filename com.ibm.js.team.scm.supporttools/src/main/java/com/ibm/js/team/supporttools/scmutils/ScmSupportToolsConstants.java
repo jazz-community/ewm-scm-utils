@@ -68,7 +68,7 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_INPUTFOLDER_DESCRIPTION = "The folder where the input information is expected to be. This is the folder and content created in the command "
 			+ CMD_EXPORT_WORKSPACE + ".";
 	public static final String PARAMETER_INPUTFOLDER_CONVERT_DESCRIPTION = " In addtion the command "
-			+ CMD_IMPORT_WORKSPACE + " must have been ecxecuted using this folder creating the UUID mapping required.";
+			+ CMD_IMPORT_WORKSPACE + " must have been ecxecuted using this folder creating the required UUID mapping file.";
 	public static final String PARAMETER_INPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
 
 	public static final String PARAMETER_SOURCE_LOADRULE_FILE_PATH = "sourceLoadruleFile";
