@@ -20,7 +20,7 @@ SCMTools Version: 2.5
 
 ## analyzeScmRepository
 
-Analyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.
+Analyzes a RTC SCM workspace (a repository workspace or stream), the referenced components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.
 
 ###	Required parameter
 ```bash
