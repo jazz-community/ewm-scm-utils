@@ -13,8 +13,8 @@ package com.ibm.js.team.supporttools.scmutils;
  */
 public interface ScmSupportToolsConstants {
 
-	public static final Object SCMTOOLS = "SCMTools";
-	public static final String SCMTOOLS_VERSION = "2.4";
+	public static final Object SCMTOOLS = "SCMUtils";
+	public static final String SCMTOOLS_VERSION = "2.5";
 
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 

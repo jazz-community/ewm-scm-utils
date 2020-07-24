@@ -1,6 +1,6 @@
 IMPORTANT
 
-Edit the SCMTools batch/shell script and provide a valid JDK 8 and a valid RTC Plain Java Client Libraries folder
+Edit the SCMUtils batch/shell script and provide a valid JDK 8 and a valid RTC Plain Java Client Libraries folder
 
 Use Case: Exporting and persist randomized data from a repository workspace.
 
@@ -10,7 +10,7 @@ Step 1: Export a repository workspace.
 Use the command exportScmWorkspace to export a repository workspace and its data into a folder.
 
 Example run: 
-SCMTools -command exportScmWorkspace -url "https://clm.example.com:9443/ccm/" -user myadmin -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+SCMUtils -command exportScmWorkspace -url "https://clm.example.com:9443/ccm/" -user myadmin -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
 
 The command connects to the repository workspace and writes the structural information and the component content to the output folder. 
 The output folder will contain

@@ -1,0 +1,17 @@
+Export Workspace
+
+SCMUtils -command exportScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -workspaceConnection "Hierarchical JKE Banking Stream Workspace" -outputFolder "C:\temp\ScmExport"
+SCMUtils -command exportScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -workspaceConnection "Hierarchical JKE Banking Stream Workspace" -outputFolder "C:\temp\ScmExportObfuscate" -exportmode=obfuscate
+SCMUtils -command exportScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -workspaceConnection "Hierarchical JKE Banking Stream Workspace" -outputFolder "C:\temp\ScmExportPreserve"  -exportmode=preserve
+SCMUtils -command exportScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -workspaceConnection "Hierarchical JKE Banking Stream Workspace" -outputFolder "C:\temp\ScmExportRandomize"  -exportmode=randomize
+
+Import Workspace
+
+SCMUtils -command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -projectarea "JKE Banking (Change Management)" -workspaceConnection "New default  Hierarchical JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExport" -componentNameModifier="IBMTestDefault_" -reuseExistingWorkspace
+SCMUtils -command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -projectarea "JKE Banking (Change Management)" -workspaceConnection "New Obfuscate Hierarchical JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExportObfuscate" -componentNameModifier="IBMTestObfuscate_" -reuseExistingWorkspace
+SCMUtils -command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -projectarea "JKE Banking (Change Management)" -workspaceConnection "New Preserve Hierarchical JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExportPreserve" -componentNameModifier="IBMTestPreserve_" -reuseExistingWorkspace
+SCMUtils -command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -projectarea "JKE Banking (Change Management)" -workspaceConnection "New Randomize Hierarchical JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExportRandomize" -componentNameModifier="IBMTestRandomize_" -reuseExistingWorkspace
+
+Convert LoadRule
+
+SCMUtils -command convertLoadrule -inputFolder  "C:\temp\ScmExport" -sourceLoadruleFile "C:\Temp\LoadRule\myadmin.loadrule" -targetLoadruleFile "C:\Temp\LoadRule\converted_myadmin.loadrule"

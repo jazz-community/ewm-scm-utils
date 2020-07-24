@@ -1,4 +1,4 @@
-SCMTools Version: 2.2
+SCMUtils
 
 Syntax: -command commandName {[-parameter] [parameterValue]}
 Available commands: 
