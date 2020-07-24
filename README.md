@@ -1,7 +1,7 @@
 # jazz-scm-content-obfuscator
 Supports special SCM operation to export and obfuscate SCM content, import obfuscated content and analyse SCM Workspaces and sandboxes.
 
-SCMTools Version: 2.1
+SCMTools Version: 2.5
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
@@ -20,16 +20,26 @@ SCMTools Version: 2.1
 # Command Description
 
 ## analyzeScmRepository
+
+Analyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
+###	Required parameter
 ```bash
 -command analyzeScmRepository
 -url "https://<server>:port/<context>/" 
 -user <userId> 
 -password <password> 
 ```
-### Description
-Analyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
 
-###	Optional parameter syntax
+###	Required parameter description
+```bash 
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
+```
+
+###	Optional parameter
 ```bash
 -connectionOwnerScope "<processAreaName>{&<processAreaName>}"
 -outputFolder <outputFolderPath>
@@ -37,7 +47,7 @@ Analyses a RTC SCM repository streams, the referencecd components and the compon
 
 ###	Optional parameter description
 ```bash
--connectionOwnerScope	Filter and analyze only the connections owned by the process area in the scope 
+-connectionOwnerScope	Filter and analyze only the connections owned by the process areas in the scope 
 -outputFolder	The folder where the resulting data is written.
 ```
 ###	Example
@@ -46,59 +56,21 @@ Analyses a RTC SCM repository streams, the referencecd components and the compon
 ```
 
 ## analyzeSandbox
-```bash
--command analyzeSandbox
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password> 
--workspaceConnection <workspaceNameOrId> 
-```
-### Description
 Analyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.
 
-###	Syntax
+###	Required parameter
 ```bash
--command analyzeScmRepository -url "https://<server>:port/<context>/" -user <userId> -password <password> -connectionOwnerScope <processarea1_name>[&<processarea_name>] -outputFolder <outputFolderPath>
+-command analyzeSandbox
+-sandboxFolder <sandboxFolderPath> 
 ```
 
-###	Parameter description
+###	Required parameter description
 ```bash 
 -command 	The command to execute. 
--url 		The Public URI of the application. 
--user 	 	The user ID of a user. 
--password 	The password of the user. 
+-sandboxFolder 	The folder to be analyzed.
 ```
 
-###	Example
-```bash
- -command analyzeSandbox -sandboxFolder="C:\CLM2019\6.0.6.1\workspaces\Sandboxes\Sandbox2"
-```
-## analyzeScmWorkspace
-```bash
--command exportScmWorkspace
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password> 
--workspaceConnection <workspaceNameOrId>
--outputFolder <outputFolderPath>
-```
-### Description
-Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
-
-###	Syntax
-```bash
--command analyzeScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath> -outputFolder
-```
-
-###	Parameter description
-```bash 
--command 	 The command to execute. 
--url 	The Public URI of the application. 
--user 	 The user ID of a user. 
--password 	 The password of the user. 
--workspaceConnection 	 The repository workspace to export 
-```
-###	Optional parameter syntax
+##	Optional parameter
 ```bash
 -outputFolder <outputFolderPath>
 ```
@@ -110,7 +82,43 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 
 ###	Example
 ```bash
--command analyzeScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+-command=analyzeSandbox -sandboxFolder="C:\Temp\ExampleSandbox" -outputFolder="C:\temp\AnalyzeSandboxReport"
+```
+## analyzeScmWorkspace
+
+Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+
+###	Required parameter
+```bash
+-command analyzeScmWorkspace
+-url "https://<server>:port/<context>/" 
+-user <userId> 
+-password <password>
+-workspaceConnection <workspaceNameOrId>
+```
+
+###	Required parameter description
+```bash 
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
+-workspaceConnection  The repository workspace to export.
+```
+
+##	Optional parameter
+```bash
+-outputFolder <outputFolderPath>
+```
+
+###	Optional parameter description
+```bash
+-outputFolder	The folder where the resulting data is written.
+```
+
+###	Example
+```bash
+-command analyzeScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -workspaceConnection "JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmAnalyzeWorkspace"
 ```
 
 ## exportScmWorkspace
