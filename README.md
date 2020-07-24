@@ -15,7 +15,6 @@ SCMTools Version: 2.5
 ### importScmWorkspace
 ### convertLoadrule
 ### flattenLoadrule
-### generateExternalChanges
 
 # Command Description
 
@@ -209,6 +208,9 @@ Imports a repository workspace from export data conforming to the result of the 
 ```
 
 ## convertLoadrule
+Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command importScmWorkspace.
+
+###	Required parameter
 ```bash
 -command convertLoadrule 
 -inputFolder <inputFolderPath> 
@@ -216,43 +218,29 @@ Imports a repository workspace from export data conforming to the result of the 
 -targetLoadruleFile <targetLoadRule>
 ```
 
-### Description
-Convertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command importScmWorkspace.
-
-### Syntax
-
+###	Required parameter description
 ```bash
--command convertLoadrule -inputFolder <inputFolderPath> -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule> 
-```
-
-###	Parameter Description
-```bash 
--inputFolder The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace. In addtion the command importScmWorkspace must have been ecxecuted using this folder creating the UUID mapping required. 
--sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
--targetLoadruleFile Full path and filename of the resulting loadrule of the conversion.
+-command  The command to execute. 
+-inputFolder  The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace. In addtion the command importScmWorkspace must have been ecxecuted using this folder creating the UUID mapping required. 
+-sourceLoadruleFile  Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's.  
+-targetLoadruleFile  Full path and filename of the resulting loadrule of the conversion.
 ```
 
 ### Example
 ```bash
 -command convertLoadrule -inputFolder "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
 ```
+
 ## flattenLoadrule
+Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.
+
+###	Required parameter
 ```bash
 -command flattenLoadrule 
 -sourceLoadruleFile <sourceLoadRule> 
 -targetLoadruleFile <targetLoadRule> 
 ```
-
-### Description
-Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.
-
-### Syntax
-
-```bash
--command flattenLoadrule -sourceLoadruleFile <sourceLoadRule> -targetLoadruleFile <targetLoadRule> 
-```
-
-###	Parameter Description
+###	Required parameter description
 ```bash 
 -sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
 -targetLoadruleFile 	Full path and filename of the resulting loadrule of the conversion. 
@@ -261,39 +249,4 @@ Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The
 ### Example
 ```bash
 -command sourceLoadruleFile -"C:\Temp\example.loadrule" targetLoadruleFile -"C:\Temp\converted.loadrule"
-```
-
-## analyzeScmWorkspace
-```bash
--command exportScmWorkspace
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password> 
--workspaceConnection <workspaceNameOrId>
--outputFolder <outputFolderPath>
-```
-### Description
-Analyses a RTC SCM workspace connection, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
-
-###	Syntax
-```bash
--command analyzeScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath> -outputFolder
-```
-## generateExternalChanges
-
-```bash
--command generateExternalChanges -sandboxFolder <sandboxFolderPath>
-```
-### Description
-Generates external changes on an Eclipse sandbox.
-
-###	Parameter description
-```bash 
--command The command to execute. 
--sandboxFolder The folder to be perform the changes in.
-```
-
-###	Example
-```bash
--command generateExternalChanges -sandboxFolder "C:\Temp\sandbox\sandboxFolder"
 ```
