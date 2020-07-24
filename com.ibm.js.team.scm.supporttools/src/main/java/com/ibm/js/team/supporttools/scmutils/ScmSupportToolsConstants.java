@@ -32,13 +32,13 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.";
 
 	public static final String CMD_ANYLYZE_WORKSPACECONNECTION = "analyzeScmWorkspace";
-	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.";
 
 	public static final String CMD_ANYLYZE_REPOSITORY = "analyzeScmRepository";
-	public static final String CMD_ANYLYZE_REPOSITORY_DESCRIPTION = "\n\tAnalyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+	public static final String CMD_ANYLYZE_REPOSITORY_DESCRIPTION = "\n\tAnalyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.";
 
 	public static final String CMD_ANYLYZE_SANDBOX = "analyzeSandbox";
-	public static final String CMD_ANALYZE_SANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.";
+	public static final String CMD_ANALYZE_SANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.";
 
 	public static final String CMD_GENERATE_EXTERNAL_CHANGES = "generateExternalChanges";
 	public static final String CMD_GENERATE_EXTERNAL_CHANGES_DESCRIPTION = "\n\tGenerates external changes on an Eclipse sandbox.";

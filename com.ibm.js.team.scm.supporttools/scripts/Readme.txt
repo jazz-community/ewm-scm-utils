@@ -1,12 +1,11 @@
 SCMUtils Version: 2.5
 
-
 Syntax: -command commandName {[-parameter] [parameterValue]}
 Available commands: 
 
 analyzeScmWorkspace
 
-	Analyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+	Analyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.
 
 	Syntax: -command analyzeScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
 
@@ -77,7 +76,7 @@ importScmWorkspace
 
 analyzeSandbox
 
-	Analyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+	Analyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.
 
 	Syntax: -command analyzeSandbox -sandboxFolder <sandboxFolderPath>
 
@@ -90,7 +89,7 @@ analyzeSandbox
 
 analyzeScmRepository
 
-	Analyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information.
+	Analyses a RTC SCM repository streams, the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.
 
 	Syntax: -command analyzeScmRepository -url "https://<server>:port/<context>/" -user <userId> -password <password> -connectionOwnerScope <processarea1_name>[&<processarea_name>] -outputFolder <outputFolderPath>
 
@@ -131,4 +130,4 @@ flattenLoadrule
 
 
 	Example: -command flattenLoadrule -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
-
+	
