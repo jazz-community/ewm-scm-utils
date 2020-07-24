@@ -1,5 +1,6 @@
 SCMUtils Version: 2.5
 
+
 Syntax: -command commandName {[-parameter] [parameterValue]}
 Available commands: 
 
@@ -14,7 +15,7 @@ analyzeScmWorkspace
 	 -url 	The Public URI of the application. 
 	 -user 	 The user ID of a user. 
 	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
+	 -workspaceConnection 	 The repository workspace to export/import. 
 	 -outputFolder 	 The folder where the resulting data is written.
 
 	Example: -command analyzeScmWorkspace -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
@@ -22,7 +23,7 @@ analyzeScmWorkspace
 
 exportScmWorkspace
 
-	Exports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file.
+	Exports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file. The structure, file- and folder names are preserved, the file content can be randomized.
 
 	Syntax: -command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
 
@@ -31,13 +32,16 @@ exportScmWorkspace
 	 -url 	The Public URI of the application. 
 	 -user 	 The user ID of a user. 
 	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
+	 -workspaceConnection 	 The repository workspace to export/import. 
 	 -outputFolder 	 The folder where the resulting data is written.
 
 	Optional parameter syntax: -exportmode <exportmode>
 
 	Optional parameter description: 
 	 -exportmode 	 The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
+ 				- Export mode randomize changes all bytes of the filecontent with random bytes.
+ 				- Export mode obfuscate replaces all lines in the files with lines of sample text of similar length, taken from the file CodeSampleInput.txt.
+ 				- Export mode preserve keeps the file content as it is.
 
 	Example: -command exportScmWorkspace -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
 
@@ -46,7 +50,7 @@ exportScmWorkspace
 
 importScmWorkspace
 
-	Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
+	Imports a repository workspace from export data conforming to the result of the command exportScmWorkspace. Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
 
 	Syntax : -command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
 
@@ -55,8 +59,9 @@ importScmWorkspace
 	 -url 	The Public URI of the application. 
 	 -user 	 The user ID of a user. 
 	 -password 	 The password of the user. 
-	 -workspaceConnection 	 The repository workspace to export 
-	 -outputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
+	 -projectarea 	 "<project_area>" 
+	 -workspaceConnection 	 The repository workspace to export/import. 
+	 -inputFolder 	 The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
 
 	Optional parameter syntax: -componentNameModifier <modifier> -reuseExistingWorkspace -skipUploadingExistingComponents
 
@@ -126,3 +131,4 @@ flattenLoadrule
 
 
 	Example: -command flattenLoadrule -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
+
