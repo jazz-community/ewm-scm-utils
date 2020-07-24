@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/com.ibm.js.team.supporttools.scm/src/main/java/com/ibm/js/team/supporttools/scm/ScmSupportTools.java"/>
+<listEntry value="/com.ibm.js.team.supporttools.scmutils/src/main/java/com/ibm/js/team/supporttools/scmutils/ScmSupportTools.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -10,8 +10,8 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.ibm.js.team.supporttools.scm.ScmSupportTools"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.ibm.js.team.supporttools.scmutils.ScmSupportTools"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command=analyzeSandbox -sandboxFolder=&quot;C:\Dev\workspaces\6.0.6.1\Dev6\ExampleExtensions&quot; -outputFolder &quot;C:\Temp\ScmAnalyzeSandbox&quot;"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.ibm.js.team.supporttools.scm"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.ibm.js.team.supporttools.scmutils"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

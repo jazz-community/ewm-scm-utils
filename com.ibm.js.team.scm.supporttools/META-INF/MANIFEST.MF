@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jazz SCM Support Tools
-Bundle-SymbolicName: com.ibm.js.team.supporttools.scm
+Bundle-SymbolicName: com.ibm.js.team.supporttools.scmutils
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: IBM
 Automatic-Module-Name: com.ibm.js.team.scm.supporttools
