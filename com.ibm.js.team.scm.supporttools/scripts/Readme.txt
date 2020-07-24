@@ -1,4 +1,4 @@
-SCMUtils
+SCMUtils Version: 2.5
 
 Syntax: -command commandName {[-parameter] [parameterValue]}
 Available commands: 
@@ -126,17 +126,3 @@ flattenLoadrule
 
 
 	Example: -command flattenLoadrule -sourceLoadruleFile "C:\Temp\example.loadrule" -targetLoadruleFile "C:\Temp\converted.loadrule"
-
-
-generateExternalChanges
-
-	Generates external changes on an Eclipse sandbox.
-
-	Syntax: -command generateExternalChanges -sandboxFolder <sandboxFolderPath>
-
-	Parameter description: 
-	 -command 	 The command to execute. 
-	 -sandboxFolder 	The folder to be analyzed.
-
-	Example: -command generateExternalChanges -sandboxFolder "C:\Temp\sandbox\sandboxFolder"
-
