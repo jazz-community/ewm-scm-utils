@@ -152,8 +152,8 @@ Exports the contents of a workspace (a repository workspace or stream) into a se
 ```bash
 -outputFolder	 The folder where the resulting data is written.
 -exportmode   The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
- 				- Export mode randomize replaces all bytes in the files with a random byte.
- 				- Export mode obfuscate replaces the lines in the files with lines of sample text of similar length, taken from the file CodeSampleInput.txt.
+ 				- Export mode randomize changes all bytes of the filecontent with random bytes.
+ 				- Export mode obfuscate replaces all lines in the files with lines of sample text of similar length, taken from the file CodeSampleInput.txt.
  				- Export mode preserve keeps the file content as it is.
 ```
 
@@ -163,56 +163,49 @@ Exports the contents of a workspace (a repository workspace or stream) into a se
 ```
 
 ## importScmWorkspace
+
+Imports a repository workspace from export data conforming to the result of the command exportScmWorkspace. Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
+
+-command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -projectarea "JKE Banking (Change Management)" -workspaceConnection "New default  Hierarchical JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExport" -componentNameModifier="IBMTestDefault_" -reuseExistingWorkspace
+
+###	Required parameter
+
 ```bash
 -command importScmWorkspace
 -url "https://<server>:port/<context>/" 
 -user <userId> 
--password <password> 
+-password <password>
+-projectarea "<project_area>" 
 -workspaceConnection <workspaceNameOrId> 
 -inputFolder <inputFolderPath>
-[-componentNameModifier <modifier>]
-[-reuseExistingWorkspace]
-[-skipUploadingExistingComponents]
+```
+###	Required parameter description
+```bash 
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
+-projectarea  A project Area name, for the project area to import into. 
+-workspaceConnection  The repository workspace to import.. 
+-inputFolder  The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
 ```
 
-### Description
-Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
-
-### Syntax 
+###	Optional parameter
 ```bash
--command importScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -projectarea "<project_area>" -workspaceConnection <workspaceNameOrId> -inputFolder <inputFolderPath>
+-componentNameModifier <modifier>
+-reuseExistingWorkspace
+-skipUploadingExistingComponents
 ```
 
-### Parameter description
+###	Optional parameter description
 ```bash
--command The command to execute. 
--url The Public URI of the application. 
--user The user ID of a user. 
--password The password of the user. 
--workspaceConnection The repository workspace to export 
--outputFolder The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
+-componentNameModifier  A prefix to be added to component names to force creation of new components and support component name uniqueness.
+-reuseExistingWorkspace  If provided, an existing workspace is used and the configuration is overwritten by the import.
+-skipUploadingExistingComponents  If provided, components that already exist are not recreated and and no data is uploaded. This allows to recover and restart after a problem. e.g. rename the component that failed and restart the import to continue.
 ```
-
-###	Optional parameter syntax
-```bash
--componentNameModifier <modifier> -reuseExistingWorkspace -skipUploadingExistingComponents
- ```
-
-### Optional parameter description 
-```bash
--componentNameModifier A prefix to be added to component names to force creation of new components and support component name uniqueness. 
--reuseExistingWorkspace When providing this flag, the import operation continues if the workspace already exists. It strips the workspace from its components and adds the imported components.
--skipUploadingExistingComponents Don't reupload content to existing components. This can be used when imports of large numbers of components or folders fail to skip data that is already successfully imported.
-```
-
 ###	Example
 ```bash
--command importScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -inputFolder "C:\Temp\ScmExport"
-```
-
-### Example optional parameter
-```bash
--componentNameModifier "TestImport_" -reuseExistingWorkspace -skipUploadingExistingComponents
+-command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password ******* -projectarea "JKE Banking (Change Management)" -workspaceConnection "Imported JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExport" -componentNameModifier="TestImport1_" -reuseExistingWorkspace -skipUploadingExistingComponents
 ```
 
 ## convertLoadrule
