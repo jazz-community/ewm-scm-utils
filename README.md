@@ -52,7 +52,7 @@ Analyses a RTC SCM repository streams, the referencecd components and the compon
 ```
 ###	Example
 ```bash
--command analyzeScmRepository -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -connectionOwnerScope "Project1 (Change Management)&Project2 (Change Management)/SCM Expert Team" -outputFolder "C:\Temp\ScmExport"
+-command analyzeScmRepository -url https://clm.example.com:9443/rm/ -user myadmin -password ****** -connectionOwnerScope "Project1 (Change Management)&Project2 (Change Management)/SCM Expert Team" -outputFolder "C:\Temp\ScmExport"
 ```
 
 ## analyzeSandbox
@@ -118,56 +118,48 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 
 ###	Example
 ```bash
--command analyzeScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -workspaceConnection "JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmAnalyzeWorkspace"
+-command analyzeScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password ******* -workspaceConnection "JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmAnalyzeWorkspace"
 ```
 
 ## exportScmWorkspace
+
+Exports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file. The structure, file- and folder names are preserved, the file content can be randomized.
+
+###	Required parameter
 ```bash
 -command exportScmWorkspace
 -url "https://<server>:port/<context>/" 
 -user <userId> 
--password <password> 
+-password <password>
 -workspaceConnection <workspaceNameOrId> 
--outputFolder <outputFolderPath>
-[-exportmode <exportmode>]
 ```
 
-### Description
-Exports the contents of a repository workspace into a set of zip files. Exports the repository workspace component hierarchy structure into a JSON file.
-
-###	Syntax
-```bash
--command exportScmWorkspace -url "https://<server>:port/<context>/" -user <userId> -password <password> -workspaceConnection <workspaceNameOrId> -outputFolder <outputFolderPath>
-```
-
-###	Parameter description
+###	Required parameter description
 ```bash 
--command 	 The command to execute. 
--url 	The Public URI of the application. 
--user 	 The user ID of a user. 
--password 	 The password of the user. 
--workspaceConnection 	 The repository workspace to export 
--outputFolder 	 The folder where the resulting data is written.
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
 ```
 
-###	Optional parameter syntax
+###	Optional parameter
 ```bash
+-outputFolder <outputFolderPath>
 -exportmode <exportmode>
 ```
 
 ###	Optional parameter description
 ```bash
--exportmode 	 The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize.
+-outputFolder	 The folder where the resulting data is written.
+-exportmode   The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
+ 				- Export mode randomize replaces all bytes in the files with a random byte.
+ 				- Export mode obfuscate replaces the lines in the files with lines of sample text of similar length, taken from the file CodeSampleInput.txt.
+ 				- Export mode preserve keeps the file content as it is.
 ```
 
 ###	Example
 ```bash
--command exportScmWorkspace -url https://clm.example.com:9443/rm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
-```bash
-
-### Example optional parameter
-```bash
--exportmode obfuscate
+-command exportScmWorkspace -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
 ```
 
 ## importScmWorkspace
