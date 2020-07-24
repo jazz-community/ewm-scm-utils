@@ -19,10 +19,10 @@ public interface ScmSupportToolsConstants {
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
 	public static final String CMD_EXPORT_WORKSPACE = "exportScmWorkspace";
-	public static final String CMD_EXPORT_WORKSPACE_DESCRIPTION = "\n\tExports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file.";
+	public static final String CMD_EXPORT_WORKSPACE_DESCRIPTION = "\n\tExports the contents of a workspace (a repository workspace or stream) into a set of zip files. Exports the component hierarchy structure of the workspace into a JSON file. The structure, file- and folder names are preserved, the file content can be randomized.";
 
 	public static final String CMD_IMPORT_WORKSPACE = "importScmWorkspace";
-	public static final String CMD_IMPORT_WORKSPACE_DESCRIPTION = "\n\tCreates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. ";
+	public static final String CMD_IMPORT_WORKSPACE_DESCRIPTION = "\n\tImports a repository workspace from export data conforming to the result of the command "+ CMD_EXPORT_WORKSPACE +". Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. ";
 
 	public static final String CMD_CONVERT_LOADRULE = "convertLoadrule";
 	public static final String CMD_CONVERT_LOADRULE_DESCRIPTION = "\n\tConvertes the component ID's in an existing Load Rule File based on the mapping created for an import using the command "
@@ -46,7 +46,7 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
 	public static final String PARAMETER_WORKSPACE_EXAMPLE = "\"Debs JKE Banking Integration Stream Workspace\"";
-	public static final String PARAMETER_WORKSPACE_DESCRIPTION = "The repository workspace to export";
+	public static final String PARAMETER_WORKSPACE_DESCRIPTION = "The repository workspace to export/import.";
 
 	public static final String PARAMETER_OUTPUTFOLDER = "outputFolder";
 	public static final String PARAMETER_OUTPUTFOLDER_PROTOTYPE = "<outputFolderPath>";
@@ -91,7 +91,10 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_EXPORT_MODE = "exportmode";
 	public static final String PARAMETER_EXPORT_MODE_DESCRIPTION = "The mode to export the data. Available modes are: "
 			+ EXPORT_MODE_RANDOMIZE + ", " + EXPORT_MODE_OBFUSCATE + ", " + EXPORT_MODE_PRESERVE
-			+ ". Default mode if parameter is omitted is: " + EXPORT_MODE_RANDOMIZE;
+			+ ". Default mode if parameter is omitted is: " + EXPORT_MODE_RANDOMIZE
+			+"\n \t\t\t\t- Export mode " + EXPORT_MODE_RANDOMIZE + " changes all bytes of the filecontent with random bytes." 
+			+"\n \t\t\t\t- Export mode " + EXPORT_MODE_OBFUSCATE + " replaces all lines in the files with lines of sample text of similar length, taken from the file CodeSampleInput.txt." 
+			+"\n \t\t\t\t- Export mode " + EXPORT_MODE_PRESERVE + " keeps the file content as it is." ;
 	public static final String PARAMETER_EXPORT_MODE_PROTOTYPE = "<exportmode>";
 	public static final String PARAMETER_EXPORT_MODE_EXAMPLE = EXPORT_MODE_OBFUSCATE;
 

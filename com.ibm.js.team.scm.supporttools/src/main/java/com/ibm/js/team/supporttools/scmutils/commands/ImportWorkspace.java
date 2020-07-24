@@ -142,7 +142,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_PROTOTYPE);
 		// Parameter and description
 		logger.info(
-				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
+				"\n\tParameter description: \n\t -{} \t {} \n\t -{} \t{} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {} \n\t -{} \t {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND,
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_DESCRIPTION,
@@ -150,9 +150,11 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				SupportToolsFrameworkConstants.PARAMETER_USER_ID_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
+				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
+				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_PROTOTYPE,				
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION,
-				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
+				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
 		// Optional parameters
 		logger.info("\n\tOptional parameter syntax: -{} {} -{} -{}",
