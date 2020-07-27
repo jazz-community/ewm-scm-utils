@@ -102,8 +102,8 @@ public class RangeStats {
 			ch.setBoldText(header1.createCell(EXTENSION_COUNT_COLUMN), "Extension count");
 			ch.setBoldText(header1.createCell(EXTENSION_DETAIL_COLUMN), "Extensions");
 
-			Row header1row = sheet.createRow(1);
-			ch.setNumber(header1row.createCell(1), iRangeStat.getTotalFiles());
+//			Row header1row = sheet.createRow(1);
+//			ch.setNumber(header1row.createCell(1), iRangeStat.getTotalFiles());
 
 
 			for (Iterator<IRangeInfo> iterator = iRangeStat.iterator(); iterator.hasNext();) {
@@ -113,9 +113,12 @@ public class RangeStats {
 				double threshold = rangeCalc.getTopThreshold(index);
 
 				Row row = sheet.createRow(index + rowOffset);
-
-				ch.setNumber(row.createCell(RANGE_INDEX_COLUMN), index);
+				if(index==0){
+					ch.setNumber(row.createCell(1), iRangeStat.getTotalFiles());
+				}
+				
 				ch.setNumber(row.createCell(RANGE_LIMIT_COLUMN), threshold);
+				ch.setNumber(row.createCell(RANGE_INDEX_COLUMN), index);
 				ch.setNumber(row.createCell(FILE_COUNT_COLUMN), count);
 				ch.setNumber(row.createCell(EXTENSION_COUNT_COLUMN), iRangeInfo.getExtensionStatus().getNoExtensions());
 				ch.setText(row.createCell(EXTENSION_DETAIL_COLUMN), iRangeInfo.getExtensionStatus().getExtensionsCompressed());
