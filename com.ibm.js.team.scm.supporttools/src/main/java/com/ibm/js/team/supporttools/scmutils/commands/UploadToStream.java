@@ -109,7 +109,7 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
-		logger.info(ScmSupportToolsConstants.CMD_IMPORT_WORKSPACE_DESCRIPTION);
+		logger.info(ScmSupportToolsConstants.CMD_UPLOAD_TO_STREAM_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -135,7 +135,7 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_PROTOTYPE,				
+				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_DESCRIPTION,				
 				ScmSupportToolsConstants.PARAMETER_STREAM_NAME,
 				ScmSupportToolsConstants.PARAMETER_STREAM_NAME_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,

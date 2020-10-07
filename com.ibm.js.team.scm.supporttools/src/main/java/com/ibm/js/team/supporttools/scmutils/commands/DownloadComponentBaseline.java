@@ -99,6 +99,7 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 	public void printSyntax() {
 		// Command name and description
 		logger.info("{}", getCommandName());
+		logger.info(ScmSupportToolsConstants.CMD_DOWNLOAD_COMPONENT_BASELINE_DESCRIPTION);
 		// General syntax
 		logger.info("\n\tSyntax : -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -124,7 +125,7 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME,
-				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_PROTOTYPE,				
+				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_DESCRIPTION,				
 				ScmSupportToolsConstants.PARAMETER_BASELINENAME,
 				ScmSupportToolsConstants.PARAMETER_BASELINENAME_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,

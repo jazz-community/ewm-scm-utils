@@ -22,12 +22,12 @@ public interface SupportToolsFrameworkConstants {
 	public static final String PARAMETER_COMMAND_EXAMPLE = "exportConfigurations";
 
 	public static final String PARAMETER_URL = "url";
-	public static final String PARAMETER_URL_DESCRIPTION = "The Public URI of the application.";
+	public static final String PARAMETER_URL_DESCRIPTION = "\tThe Public URI of the application.";
 	public static final String PARAMETER_URL_EXAMPLE = "https://clm.example.com:9443/ccm/";
 	public static final String PARAMETER_URL_PROTOTYPE = "\"https://<server>:port/<context>/\"";
 
 	public static final String PARAMETER_USER = "user";
-	public static final String PARAMETER_USER_ID_DESCRIPTION = "The user ID of a user.";
+	public static final String PARAMETER_USER_ID_DESCRIPTION = "\tThe user ID of a user.";
 	public static final String PARAMETER_USER_ID_EXAMPLE = "ADMIN";
 	public static final String PARAMETER_USER_ID_PROTOTYPE = "<userId>";
 
@@ -37,9 +37,9 @@ public interface SupportToolsFrameworkConstants {
 	public static final String PARAMETER_PASSWORD_PROTOTYPE = "<password>";
 
 	public static final String PARAMETER_PROJECT_AREA = "projectarea";
-	public static final String PARAMETER_PROJECT_AREA_DESCRIPTION = "A project Area name.";
+	public static final String PARAMETER_PROJECT_AREA_DESCRIPTION = "A Project Area name.";
 	public static final String PARAMETER_PROJECT_AREA_EXAMPLE = "\"JKE Banking (Requirements Management)\"";
-	public static final String PARAMETER_PROJECT_AREA_PROTOTYPE = "\"<project_area>\"";
+	public static final String PARAMETER_PROJECT_AREA_PROTOTYPE = "<project_area>";
 
 	// Sample
 	public static final String CMD_SAMPLE = "sampleCommand";

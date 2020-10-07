@@ -29,7 +29,7 @@ public interface ScmSupportToolsConstants {
 			+ CMD_IMPORT_WORKSPACE + ".";
 
 	public static final String CMD_FLATTEN_LOADRULE = "flattenLoadrule";
-	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all / by _ except for the first /. This creates a flat loadrule from a loadrule that has hierarcy.";
+	public static final String CMD_FLATTEN_LOADRULE_DESCRIPTION = "\n\tIterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The modification replaces all '/' characters by '_' except for the first '/'. This creates a flat loadrule from a loadrule that has hierarcy.";
 
 	public static final String CMD_ANYLYZE_WORKSPACECONNECTION = "analyzeScmWorkspace";
 	public static final String CMD_ANALYSE_WORKSPACECONNECTION_DESCRIPTION = "\n\tAnalyses a RTC SCM workspace (a repository workspace or stream), the referencecd components and the component substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.";
@@ -41,9 +41,10 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_ANALYZE_SANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.";
 
 	public static final String CMD_UPLOAD_TO_STREAM = "uploadToStream";
-	public static final String CMD_UPLOAD_TO_STREAM_DESCRIPTION = "\n\tUploads a file or a folder with contents to a component in a workspace connection. The component name is derived from the filename. If necessary a new component is created. The changes are delivered to the stream, including the component addition.";
+	public static final String CMD_UPLOAD_TO_STREAM_DESCRIPTION = "\n\tUploads a folder and its content as component to a stream and baselines the content. The folder name is used as the component name. The component is created if it does not yet exists. Ownership and visibility of the component is the project area. The component is added to the stream if it is not yet in it. All changes are contained in one change set.";
 
 	public static final String CMD_DOWNLOAD_COMPONENT_BASELINE = "downloadComponentBaseline";
+	public static final String CMD_DOWNLOAD_COMPONENT_BASELINE_DESCRIPTION = "\n\tDownloads the content of a component selected by a baseline into a local file system folder. The component name is created as folder and the content of the component is loaded into that folder.";
 	
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";

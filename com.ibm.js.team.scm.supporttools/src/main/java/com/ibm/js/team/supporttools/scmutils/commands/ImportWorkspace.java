@@ -150,7 +150,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA,
-				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_PROTOTYPE,				
+				SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA_DESCRIPTION,				
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_NAME_OR_ID,
 				ScmSupportToolsConstants.PARAMETER_WORKSPACE_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
