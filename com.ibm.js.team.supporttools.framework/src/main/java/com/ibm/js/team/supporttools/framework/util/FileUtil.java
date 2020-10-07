@@ -86,7 +86,7 @@ public class FileUtil {
 	 * @param aFile
 	 * @throws IOException
 	 */
-	private static void eraseAllRecursive(File aFile) throws IOException {
+	public static void eraseAllRecursive(File aFile) throws IOException {
 		if (!aFile.exists()) {
 			return;
 		}

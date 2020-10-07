@@ -38,7 +38,6 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements ICommand {
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeRepository.class);
-	private int fProgress = 0;
 	private String fOutputFolder = null;
 
 	/**
@@ -190,18 +189,5 @@ public class AnalyzeRepository extends AbstractTeamrepositoryCommand implements 
 		URI uri = URI.create(name.replaceAll(" ", "%20"));
 		IProcessArea area = service.findProcessArea(uri, IProcessItemService.ALL_PROPERTIES, getMonitor());
 		return area;
-	}
-
-	/**
-	 * This prints one '.' for every for 10 times it is called to show some
-	 * progress. Can be used to show more fine grained progress.
-	 */
-	@SuppressWarnings("unused")
-	private void showProgress() {
-		fProgress++;
-		if (fProgress > 8) {
-			System.out.print(".");
-			fProgress = 0;
-		}
 	}
 }

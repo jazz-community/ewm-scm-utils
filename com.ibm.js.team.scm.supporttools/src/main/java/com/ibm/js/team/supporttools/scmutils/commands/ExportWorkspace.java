@@ -79,7 +79,6 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	public static final Logger logger = LoggerFactory.getLogger(ExportWorkspace.class);
 	public ExportMode fExportMode = ExportMode.RANDOMIZE;
 	private File fOutputFolder = null;
-	private int fProgress = 0;
 	private FileContentUtil fFileUtil = null;
 
 	/**
@@ -405,7 +404,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 
 		FileOutputStream out = new FileOutputStream(new File(base, component.getName().trim() + ".zip"));
 		try {
-			ZipOutputStream zos = new ZipOutputStream(out);
+			ZipOutputStream os = new ZipOutputStream(out);
 
 			IConfiguration compConfig = connection.configuration(component);
 			// Fetch the items at the root of each component. We do this to
@@ -417,9 +416,9 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 					.fetchCompleteItems(new ArrayList<IVersionableHandle>(handles.values()), monitor);
 
 			// Recursion into each folder in the root
-			storeDirectory(contentManager, compConfig, zos, "", items, monitor);
+			storeDirectory(contentManager, compConfig, os, "", items, monitor);
 
-			zos.close();
+			os.close();
 			result = true;
 		} finally {
 			out.close();
@@ -431,14 +430,14 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	/**
 	 * @param contentManager
 	 * @param compConfig
-	 * @param zos
+	 * @param os
 	 * @param path
 	 * @param items
 	 * @param monitor
 	 * @throws IOException
 	 * @throws TeamRepositoryException
 	 */
-	private void storeDirectory(IFileContentManager contentManager, IConfiguration compConfig, ZipOutputStream zos,
+	private void storeDirectory(IFileContentManager contentManager, IConfiguration compConfig, ZipOutputStream os,
 			String path, List<IVersionable> items, IProgressMonitor monitor)
 			throws IOException, TeamRepositoryException {
 
@@ -446,7 +445,7 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 			if (v instanceof IFolder) {
 				// Write the directory
 				String dirPath = path + v.getName() + "/";
-				zos.putNextEntry(new ZipEntry(dirPath));
+				os.putNextEntry(new ZipEntry(dirPath));
 
 				@SuppressWarnings("unchecked")
 				Map<String, IVersionableHandle> children = compConfig.childEntries((IFolderHandle) v, monitor);
@@ -455,15 +454,15 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 						.fetchCompleteItems(new ArrayList<IVersionableHandle>(children.values()), monitor);
 
 				// Recursion into the contained folders
-				storeDirectory(contentManager, compConfig, zos, dirPath, completeChildren, monitor);
+				storeDirectory(contentManager, compConfig, os, dirPath, completeChildren, monitor);
 
 			} else if (v instanceof IFileItem) {
 				// Get the file contents. Generate contents to save them into
 				// the directory
 				IFileItem file = (IFileItem) v;
-				zos.putNextEntry(new ZipEntry(path + v.getName()));
-				generateContent(file, contentManager, zos, monitor);
-				zos.closeEntry();
+				os.putNextEntry(new ZipEntry(path + v.getName()));
+				generateContent(file, contentManager, os, monitor);
+				os.closeEntry();
 			}
 			showProgress();
 		}
@@ -488,37 +487,43 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	 * 
 	 * @param file
 	 * @param contentManager
-	 * @param zos
+	 * @param os
 	 * @param monitor
 	 * @throws TeamRepositoryException
 	 * @throws IOException
 	 */
-	private void generateContent(IFileItem file, IFileContentManager contentManager, ZipOutputStream zos,
+	private void generateContent(IFileItem file, IFileContentManager contentManager, ZipOutputStream os,
 			IProgressMonitor monitor) throws TeamRepositoryException, IOException {
-		FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
-		String encoding = null;
-		IFileContent filecontent = file.getContent();
-		if (filecontent != null) {
-			encoding = filecontent.getCharacterEncoding();
-			lineDelimiter = filecontent.getLineDelimiter();
-		}
-		logger.trace(" Filename: '{}' encoding: '{}' delimiter: '{}' content type: '{}'", file.getName(), encoding,
-				lineDelimiter.toString(), file.getContentType());
+		try {
+			FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
+			String encoding = null;
+			IFileContent filecontent = file.getContent();
+			if (filecontent != null) {
+				encoding = filecontent.getCharacterEncoding();
+				lineDelimiter = filecontent.getLineDelimiter();
+			}
+			logger.trace(" Filename: '{}' encoding: '{}' delimiter: '{}' content type: '{}'", file.getName(), encoding,
+					lineDelimiter.toString(), file.getContentType());
 
-		InputStream in = contentManager.retrieveContentStream(file, filecontent, monitor);
-		switch (fExportMode) {
-		case OBFUSCATE:
-			getFileContentUtil().obfuscateSource(in, zos, lineDelimiter, encoding);
-			break;
-		case PRESERVE:
-			getFileContentUtil().copyInput(in, zos);
-			break;
-		case RANDOMIZE:
-			getFileContentUtil().randomizeBinary(in, zos);
-			break;
-		default:
-			getFileContentUtil().randomizeBinary(in, zos);
-			break;
+			InputStream in = contentManager.retrieveContentStream(file, filecontent, monitor);
+			switch (fExportMode) {
+			case OBFUSCATE:
+				getFileContentUtil().obfuscateSource(in, os, lineDelimiter, encoding);
+				break;
+			case PRESERVE:
+				getFileContentUtil().copyInput(in, os);
+				break;
+			case RANDOMIZE:
+				getFileContentUtil().randomizeBinary(in, os);
+				break;
+			default:
+				getFileContentUtil().randomizeBinary(in, os);
+				break;
+			}
+		} finally {
+			if (os != null) {
+				os.closeEntry();
+			}
 		}
 	}
 
@@ -535,16 +540,5 @@ public class ExportWorkspace extends AbstractTeamrepositoryCommand implements IC
 			return new FileContentUtil();
 		}
 		return fFileUtil;
-	}
-
-	/**
-	 * This prints one '.' for every for 10 times it is called to show some
-	 * progress. Can be used to show more fine grained progress.
-	 */
-	private void showProgress() {
-		fProgress++;
-		if (fProgress % 10 == 9) {
-			System.out.print(".");
-		}
 	}
 }

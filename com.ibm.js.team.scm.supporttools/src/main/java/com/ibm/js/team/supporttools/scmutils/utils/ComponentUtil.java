@@ -12,21 +12,75 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ibm.team.repository.client.IItemManager;
 import com.ibm.team.repository.client.ITeamRepository;
+import com.ibm.team.repository.common.IAuditableHandle;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.scm.client.IWorkspaceConnection;
 import com.ibm.team.scm.client.IWorkspaceManager;
 import com.ibm.team.scm.common.IComponent;
 import com.ibm.team.scm.common.IComponentHandle;
 import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
+import com.ibm.team.scm.common.dto.IReadScope;
 
 /**
  * Utility Class to provide component operations.
  *
  */
 public class ComponentUtil {
+
+	public static final Logger logger = LoggerFactory.getLogger(ComponentUtil.class);
+
+	/**
+	 * Create the component.
+	 * 
+	 * @param teamRepository
+	 * @param wm
+	 * @param compName
+	 * @param monitor
+	 * @return
+	 * @throws TeamRepositoryException
+	 */
+	public static IComponentHandle createComponent(ITeamRepository teamRepository, IWorkspaceManager wm, String compName,
+			IAuditableHandle owner, IProgressMonitor monitor) throws TeamRepositoryException {
+		IComponentHandle component;
+		// Create Component
+		component = wm.createComponent(compName, teamRepository.loggedInContributor(), monitor);
+		wm.setComponentOwner(component, owner, monitor);
+		return component;
+	}
+	
+	/**
+	 * Find a component by its name.
+	 * 
+	 * @param wm
+	 * @param compName
+	 * @param monitor
+	 * @return
+	 * @throws TeamRepositoryException
+	 */
+	public static IComponentHandle findComponentByName(IWorkspaceManager wm, String compName, IProgressMonitor monitor)
+			throws TeamRepositoryException {
+		IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY.newInstance();
+		criteria.setExactName(compName);
+		List<IComponentHandle> found = wm.findComponents(criteria, Integer.MAX_VALUE, monitor);
+
+		if (found.size() > 1) {
+			logger.error("Ambiguous Component Name '{}'", compName);
+			throw new RuntimeException("Ambiguous Component Name '{" + compName + "}'");
+		}
+		if (found.size() < 1) {
+			return null;
+		}
+		return found.get(0);
+	}
+	
+	public static void setComponentOwnerAndVisibility(IWorkspaceManager wm, IComponentHandle componentHandle, IAuditableHandle owner, IReadScope readScope, IProgressMonitor monitor) throws TeamRepositoryException{
+		wm.setComponentOwnerAndVisibility(componentHandle, owner, readScope, monitor);
+	}
 
 	/**
 	 * Resolve a component from a handle.

@@ -32,7 +32,6 @@ import com.ibm.team.repository.common.TeamRepositoryException;
 public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements ICommand {
 
 	public static final Logger logger = LoggerFactory.getLogger(AnalyzeWorkspace.class);
-	private int fProgress = 0;
 	private String fOutputFolder = null;
 
 	/**
@@ -178,16 +177,4 @@ public class AnalyzeWorkspace extends AbstractTeamrepositoryCommand implements I
 		return result;
 	}
 
-	/**
-	 * This prints one '.' for every for 10 times it is called to show some
-	 * progress. Can be used to show more fine grained progress.
-	 */
-	@SuppressWarnings("unused")
-	private void showProgress() {
-		fProgress++;
-		if (fProgress > 8) {
-			System.out.print(".");
-			fProgress = 0;
-		}
-	}
 }

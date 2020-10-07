@@ -14,7 +14,7 @@ package com.ibm.js.team.supporttools.scmutils;
 public interface ScmSupportToolsConstants {
 
 	public static final Object SCMTOOLS = "SCMUtils";
-	public static final String SCMTOOLS_VERSION = "2.5";
+	public static final String SCMTOOLS_VERSION = "2.6";
 
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
@@ -40,14 +40,22 @@ public interface ScmSupportToolsConstants {
 	public static final String CMD_ANYLYZE_SANDBOX = "analyzeSandbox";
 	public static final String CMD_ANALYZE_SANDBOX_DESCRIPTION = "\n\tAnalyses a folder and its substructure to provide metrics information such as number of folders, files, depth, content size and other information. The analysis data is stored in a set of Excel shets.";
 
-	public static final String CMD_GENERATE_EXTERNAL_CHANGES = "generateExternalChanges";
-	public static final String CMD_GENERATE_EXTERNAL_CHANGES_DESCRIPTION = "\n\tGenerates external changes on an Eclipse sandbox.";
+	public static final String CMD_UPLOAD_TO_STREAM = "uploadToStream";
+	public static final String CMD_UPLOAD_TO_STREAM_DESCRIPTION = "\n\tUploads a file or a folder with contents to a component in a workspace connection. The component name is derived from the filename. If necessary a new component is created. The changes are delivered to the stream, including the component addition.";
 
+	public static final String CMD_DOWNLOAD_COMPONENT_BASELINE = "downloadComponentBaseline";
+	
 	public static final String PARAMETER_WORKSPACE_NAME_OR_ID = "workspaceConnection";
 	public static final String PARAMETER_WORKSPACE_PROTOTYPE = "<workspaceNameOrId>";
 	public static final String PARAMETER_WORKSPACE_EXAMPLE = "\"Debs JKE Banking Integration Stream Workspace\"";
 	public static final String PARAMETER_WORKSPACE_DESCRIPTION = "The repository workspace to export/import.";
 
+	public static final String PARAMETER_STREAM_NAME = "streamName";
+	public static final String PARAMETER_STREAM_NAME_PROTOTYPE = "<stream name>";
+	public static final String PARAMETER_STREAM_NAME_EXAMPLE = "\"JKE Banking Integration Stream\"";
+	public static final String PARAMETER_STREAM_NAME_DESCRIPTION = "The stream to deliver the changes.";
+
+	
 	public static final String PARAMETER_OUTPUTFOLDER = "outputFolder";
 	public static final String PARAMETER_OUTPUTFOLDER_PROTOTYPE = "<outputFolderPath>";
 	public static final String PARAMETER_OUTPUTFOLDER_EXAMPLE = "\"C:\\Temp\\ScmExport\"";
@@ -98,6 +106,16 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_EXPORT_MODE_PROTOTYPE = "<exportmode>";
 	public static final String PARAMETER_EXPORT_MODE_EXAMPLE = EXPORT_MODE_OBFUSCATE;
 
+	public static final String PARAMETER_BASELINENAME = "baseline";
+	public static final String PARAMETER_BASELINENAME_DESCRIPTION = "The name of a baseline of a component.";
+	public static final Object PARAMETER_BASELINENAME_PROTOTYPE = "<component name>";
+	public static final Object PARAMETER_BASELINENAME_EXAMPLE = "\"Baseline V2\"";
+	
+	public static final String PARAMETER_COMPONENTNAME = "component";
+	public static final String PARAMETER_COMPONENTNAME_DESCRIPTION = "The name of a component.";
+	public static final Object PARAMETER_COMPONENTNAME_PROTOTYPE = "<component name>";
+	public static final Object PARAMETER_COMPONENTNAME_EXAMPLE = "\"Test Component\"";
+	
 	public static final String CODE_SAMPLE_INPUT_FILE_NAME = "./CodeSampleInput.txt";
 
 	public static final String PARAMETER_SCM_SCOPE = "connectionOwnerScope";
@@ -119,5 +137,5 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_SOURCE_COMPONENT_UUID = "SourceUUID";
 	public static final Object JSON_TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
-	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
+	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";	
 }

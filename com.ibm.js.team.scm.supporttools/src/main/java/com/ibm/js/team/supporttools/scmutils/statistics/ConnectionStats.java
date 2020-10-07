@@ -422,6 +422,7 @@ public class ConnectionStats {
 		return getComponentStatisticsMap().get(itemId);
 	}
 
+	@SuppressWarnings("unused")
 	private int getActiveRow() {
 		return activeRow;
 	}

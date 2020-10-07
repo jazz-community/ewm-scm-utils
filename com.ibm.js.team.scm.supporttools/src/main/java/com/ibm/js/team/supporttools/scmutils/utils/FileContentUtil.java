@@ -17,7 +17,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.zip.ZipOutputStream;
 
 import com.ibm.js.team.supporttools.scmutils.ScmSupportToolsConstants;
 import com.ibm.team.filesystem.common.FileLineDelimiter;
@@ -28,7 +27,7 @@ import com.ibm.team.filesystem.common.IFileContent;
  *
  */
 public class FileContentUtil {
-
+	
 	private ArrayList<String> fSampleLines = null;
 	private int fNumberSamples = 0;
 
@@ -55,7 +54,7 @@ public class FileContentUtil {
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 */
-	public void obfuscateSource(InputStream in, ZipOutputStream zos, FileLineDelimiter lineDelimiter, String encoding)
+	public void obfuscateSource(InputStream in, OutputStream zos, FileLineDelimiter lineDelimiter, String encoding)
 			throws IOException, UnsupportedEncodingException {
 		String delimiter = getLineDelimiter(lineDelimiter);
 		if (FileLineDelimiter.LINE_DELIMITER_NONE.equals(lineDelimiter)) {
@@ -71,7 +70,6 @@ public class FileContentUtil {
 			line += delimiter;
 			zos.write(line.getBytes(encoding));
 		}
-		zos.closeEntry();
 	}
 
 	/**
@@ -83,7 +81,7 @@ public class FileContentUtil {
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 */
-	public void obfuscateBinary(InputStream in, ZipOutputStream zos) throws IOException, UnsupportedEncodingException {
+	public void obfuscateBinary(InputStream in, OutputStream zos) throws IOException, UnsupportedEncodingException {
 		byte[] arr = new byte[1024];
 		int w;
 		while (-1 != (w = in.read(arr))) {
@@ -138,7 +136,7 @@ public class FileContentUtil {
 	 * @param zos
 	 * @throws IOException
 	 */
-	public void randomizeBinary(InputStream in, ZipOutputStream zos) throws IOException {
+	public void randomizeBinary(InputStream in, OutputStream zos) throws IOException {
 		byte[] arr = new byte[1024];
 		int w;
 		while (-1 != (w = in.read(arr))) {
@@ -174,7 +172,7 @@ public class FileContentUtil {
 	 * @param zos
 	 * @throws IOException
 	 */
-	public void copyInput(InputStream in, ZipOutputStream zos) throws IOException {
+	public void copyInput(InputStream in, OutputStream zos) throws IOException {
 		byte[] arr = new byte[1024];
 		int w;
 		while (-1 != (w = in.read(arr))) {

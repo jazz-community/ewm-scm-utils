@@ -47,12 +47,25 @@ public class FileUtil {
 		if (result.length == 2) {
 			String ext = result[1];
 			return ext;
-		} else {
-			// if(result.length == 1 ){
-			// logger.info("No Extension: {}" , result[0]);
-			// }
-		}
+		} 
 		return null;
-
+	}
+	
+	public static String getRelativePath(String filepath, String rootFolder){
+		if(filepath==null){
+			throw new RuntimeException("File path can not be null.");
+		}
+		if(rootFolder==null){
+			throw new RuntimeException("Root folder can not be null.");
+		}
+		
+		if(!filepath.startsWith(rootFolder)){
+			throw new RuntimeException("File must have root folder as prefix.");
+		}
+		String relativePAth = filepath.substring(rootFolder.length());		
+		if("".equals(relativePAth)){
+			return null;
+		}
+		return relativePAth;
 	}
 }

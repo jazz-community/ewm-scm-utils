@@ -34,6 +34,7 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCo
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scmutils.ScmSupportToolsConstants;
 import com.ibm.js.team.supporttools.scmutils.utils.ArchiveToSCMExtractor;
+import com.ibm.js.team.supporttools.scmutils.utils.ComponentUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.ConnectionUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.ProjectAreaUtil;
 import com.ibm.team.filesystem.common.IFileContent;
@@ -50,7 +51,6 @@ import com.ibm.team.scm.client.SCMPlatform;
 import com.ibm.team.scm.common.IChangeSetHandle;
 import com.ibm.team.scm.common.IComponentHandle;
 import com.ibm.team.scm.common.IWorkspaceHandle;
-import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
@@ -65,7 +65,6 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 	public static final Logger logger = LoggerFactory.getLogger(ImportWorkspace.class);
 	private File fInputFolder = null;
 	private String fNamePrefix = null;
-	private int fProgress = 0;
 	private boolean reuseExistingWorkspace = false;
 	private boolean skipUploadExistingComponent = false;
 
@@ -215,11 +214,11 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		try {
 			File inputfolder = new File(inputFolderPath);
 			if (!inputfolder.exists()) {
-				logger.error("Error: Outputfolder '{}' does not exist.", inputFolderPath);
+				logger.error("Error: Inputfolder '{}' does not exist.", inputFolderPath);
 				return result;
 			}
 			if (!inputfolder.isDirectory()) {
-				logger.error("Error: Outputfolder '{}' is not a directory.", inputFolderPath);
+				logger.error("Error: Inputfolder '{}' is not a directory.", inputFolderPath);
 				return result;
 			}
 			fInputFolder = inputfolder;
@@ -274,7 +273,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		IAuditableHandle owner = ProjectAreaUtil.findProjectAreaByFQN(projectAreaName, processClient, monitor);
 
 		logger.info("Strip workspace from components...");
-		removeAllCompoentsFormWorkspaceConnection(targetWorkspace, monitor);
+		ConnectionUtil.removeAllComponentsFormWorkspaceConnection(targetWorkspace, monitor);
 
 		// Get the component mapping
 		HashMap<String, UUID> sourceComponentName2UUIDMap = new HashMap<String, UUID>(3000);
@@ -294,9 +293,9 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		for (String compName : compKeys) {
 			boolean componentExists = false;
 			logger.info("\tComponent {} of {} '{}'", currentComponent++, noOfComponents, compName);
-			IComponentHandle targetComponent = findComponentByName(wm, compName, monitor);
+			IComponentHandle targetComponent = ComponentUtil.findComponentByName(wm, compName, monitor);
 			if (targetComponent == null) {
-				targetComponent = createComponent(teamRepository, wm, compName, owner, monitor);
+				targetComponent = ComponentUtil.createComponent(teamRepository, wm, compName, owner, monitor);
 				logger.info("\t\tComponent created...");
 			} else {
 				componentExists = true;				
@@ -306,7 +305,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 				logger.info("\t\tSkipped existing component data upload...");
 			} else {
 				logger.info("\t\tUploading...");
-				uploadComponentContent2(targetWorkspace, compName, targetComponent, monitor);
+				uploadComponentContent(targetWorkspace, compName, targetComponent, monitor);
 				logger.info("\t\tContent uploaded...");
 			}
 			targetComponentMap.put(compName, targetComponent);
@@ -365,12 +364,12 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		}
 	}
 
-	private void uploadComponentContent2(final IWorkspaceConnection targetWorkspace, String compName,
+	private void uploadComponentContent(final IWorkspaceConnection targetWorkspace, String compName,
 			IComponentHandle handle, IProgressMonitor monitor) throws TeamRepositoryException {
 		logger.info("\t\tImport component data...");
 		File archiveFile = new File(fInputFolder, stripComponentNamePrefix(compName) + ".zip");
 		ArchiveToSCMExtractor scmExt = new ArchiveToSCMExtractor();
-		if (!scmExt.extractFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
+		if (!scmExt.extractArchiveFileToComponent(archiveFile.getAbsolutePath(), targetWorkspace, handle,
 				"Source for Component " + compName, monitor)) {
 			System.out.println();
 			logger.error("Exception extracting component '{}'", compName);
@@ -425,69 +424,7 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		}
 	}
 
-	/**
-	 * Create the component.
-	 * 
-	 * @param teamRepository
-	 * @param wm
-	 * @param compName
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	private IComponentHandle createComponent(ITeamRepository teamRepository, IWorkspaceManager wm, String compName,
-			IAuditableHandle owner, IProgressMonitor monitor) throws TeamRepositoryException {
-		IComponentHandle component;
-		// Create Component
-		component = wm.createComponent(compName, teamRepository.loggedInContributor(), monitor);
-		wm.setComponentOwner(component, owner, monitor);
-		return component;
-	}
 
-	/**
-	 * Find a component by its name.
-	 * 
-	 * @param wm
-	 * @param compName
-	 * @param monitor
-	 * @return
-	 * @throws TeamRepositoryException
-	 */
-	private IComponentHandle findComponentByName(IWorkspaceManager wm, String compName, IProgressMonitor monitor)
-			throws TeamRepositoryException {
-		IComponentSearchCriteria criteria = IComponentSearchCriteria.FACTORY.newInstance();
-		criteria.setExactName(compName);
-		List<IComponentHandle> found = wm.findComponents(criteria, Integer.MAX_VALUE, monitor);
-
-		if (found.size() > 1) {
-			logger.error("Ambiguous Component Name '{}'", compName);
-			throw new RuntimeException("Ambiguous Component Name '{" + compName + "}'");
-		}
-		if (found.size() < 1) {
-			return null;
-		}
-		return found.get(0);
-	}
-
-	/**
-	 * Removes all components from a workspace connection
-	 * 
-	 * @param workspaceConnection
-	 * @param monitor
-	 * @throws TeamRepositoryException
-	 */
-	@SuppressWarnings("rawtypes")
-	private void removeAllCompoentsFormWorkspaceConnection(IWorkspaceConnection workspaceConnection,
-			IProgressMonitor monitor) throws TeamRepositoryException {
-		// Remove all components
-		List wsComponents = workspaceConnection.getComponents();
-		for (Object comp : wsComponents) {
-			IComponentHandle cHandle = (IComponentHandle) comp;
-			workspaceConnection.applyComponentOperations(
-					Collections.singletonList(workspaceConnection.componentOpFactory().removeComponent(cHandle, false)),
-					true, monitor);
-		}
-	}
 
 	/**
 	 * Adds a component to a workspace connection
@@ -537,15 +474,4 @@ public class ImportWorkspace extends AbstractTeamrepositoryCommand implements IC
 		this.fNamePrefix = fNameModifier;
 	}
 
-	/**
-	 * This prints one '.' for every for 10 times it is called to show some
-	 * progress. Can be used to show more fine grained progress.
-	 */
-	@SuppressWarnings("unused")
-	private void showProgress() {
-		fProgress++;
-		if (fProgress % 10 == 9) {
-			System.out.print(".");
-		}
-	}
 }

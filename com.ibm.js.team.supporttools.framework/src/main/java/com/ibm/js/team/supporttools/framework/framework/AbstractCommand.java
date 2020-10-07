@@ -23,6 +23,7 @@ public abstract class AbstractCommand implements ICommand {
 	public static final Logger logger = LoggerFactory.getLogger(AbstractCommand.class);
 	private CommandLine cmd = null;
 	private String commandName;
+	private int fProgress = 0;
 
 	/**
 	 * @param commandName
@@ -103,5 +104,17 @@ public abstract class AbstractCommand implements ICommand {
 	 * @return
 	 */
 	public abstract boolean execute();
+	
+	/**
+	 * This prints one '.' for every for 10 times it is called to show some
+	 * progress. Can be used to show more fine grained progress.
+	 */
+	public void showProgress() {
+		fProgress++;
+		if (fProgress % 10 == 9) {
+			System.out.print(".");
+		}
+	}
+
 
 }

@@ -13,11 +13,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -50,13 +51,11 @@ import com.ibm.team.scm.common.IVersionableHandle;
  * @see com.ibm.team.repository.service.tests.migration.ZipUtils
  * 
  */
-public class ArchiveToSCMExtractor {
+public class FileSystemToSCMUploader {
 
 	public static final String SUBCOMPONENT_INFO = ".subcomponent_info";
 	public static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
-	public static final Logger logger = LoggerFactory.getLogger(ArchiveToSCMExtractor.class);
-	// The ZipInputStream
-	private ZipInputStream fZipInStream = null;
+	public static final Logger logger = LoggerFactory.getLogger(FileSystemToSCMUploader.class);
 	// The team repository
 	private ITeamRepository fTeamRepository = null;
 	// The workspace connection
@@ -68,12 +67,13 @@ public class ArchiveToSCMExtractor {
 	// The progress monitor we are using
 	private IProgressMonitor fMonitor = new NullProgressMonitor();
 	private int fProgress = 0;
+	private boolean dirty = false;
 
 	/**
 	 * Simple constructor
 	 * 
 	 */
-	public ArchiveToSCMExtractor() {
+	public FileSystemToSCMUploader() {
 		super();
 	}
 
@@ -91,73 +91,73 @@ public class ArchiveToSCMExtractor {
 	 * @throws TeamRepositoryException
 	 * @throws Exception
 	 */
-	public boolean extractArchiveFileToComponent(final String archiveFileName, final IWorkspaceConnection targetWorkspace,
+	public boolean uploadFileToComponent(final String fileName, final IWorkspaceConnection targetWorkspace,
 			final IComponentHandle component, final String changeSetComment, IProgressMonitor monitor)
 			throws TeamRepositoryException {
 
-		File archiveFile = new File(archiveFileName);
+		String sandbox = getSandbox(fileName);
 		fMonitor = monitor;
 		fTeamRepository = (ITeamRepository) component.getOrigin();
 		fWorkspace = targetWorkspace;
 		fChangeSet = fWorkspace.createChangeSet(component, changeSetComment, true, monitor);
 		fConfiguration = fWorkspace.configuration(component);
-		logger.trace("\t\t\tExtract: " + archiveFile.getPath());
+		logger.trace("\t\t\tUpload: " + fileName);
+		
 		try {
-			FileInputStream fileInputStream = new FileInputStream(archiveFile);
-			fZipInStream = new ZipInputStream(fileInputStream);
 			try {
-				return extractArchive();
+				return upload(fileName, sandbox);
 			} finally {
-				fileInputStream.close();
-				fileInputStream = null;
 			}
 		} catch (Exception e) {
-			logger.error("Exception extract file '{}': {}", archiveFile.getPath(), e.getMessage());
+			logger.error("Exception upload file '{}': {}", fileName, e.getMessage());
 			e.printStackTrace();
 			return false;
 		} finally {
-			fZipInStream = null;
 			fChangeSet = null;
 			fConfiguration = null;
-			archiveFile = null;
 		}
 	}
 
-	/**
-	 * Extract the content of an archive to a component. This assumes that the
-	 * archive contains folders on top level. These folders can act as projects
-	 * when loading,
-	 * 
-	 * @return
-	 * @throws IOException
-	 * @throws TeamRepositoryException
-	 */
-	private boolean extractArchive() throws IOException, TeamRepositoryException {
-		ZipEntry entry = fZipInStream.getNextEntry();
-		boolean result = true;
-		initializeProgress();
-		while (entry != null) {
-			File targetEntry = new File(entry.toString());
-			try {
-				if (entry.isDirectory()) {
-					logger.trace("\t\t\tExtracting Folder: " + targetEntry.getPath());
-					findOrCreateFolderWithParents(targetEntry);
-				} else {
-					logger.trace("\t\t\tExtracting File: " + targetEntry.getPath());
-					extractFile(targetEntry, entry);
-				}
-			} catch (Exception e) {
-				logger.error("Exception extract file '{}': {}", targetEntry.getPath(), e.getMessage());
-				e.printStackTrace();
-				result = false;
-			} finally {
-				fZipInStream.closeEntry();
-			}
-			entry = fZipInStream.getNextEntry();
-			showProgress();
+	private String getSandbox(final String fileName) {
+		File localFile = new File(fileName);
+		File fSandboxRoot = localFile.getParentFile();
+		if(!(fSandboxRoot.exists()&&fSandboxRoot.isDirectory())){
+			throw new RuntimeException("Illegal sandbox location '" + fSandboxRoot.getPath()+"'");
 		}
-		fWorkspace.closeChangeSets(Collections.singletonList(fChangeSet), fMonitor);
-		return result;
+		return fSandboxRoot.getAbsolutePath();
+	}
+
+	private boolean upload(String fileName, String sandbox) throws TeamRepositoryException, FileNotFoundException, IOException, InterruptedException {
+		initializeProgress();
+		File file = new File(fileName);
+
+		if(file.isDirectory()){
+			uploadFolder(file, sandbox);
+		} else {
+			uploadFile(file, sandbox);
+		}
+		if(!dirty){
+			fWorkspace.discardChangeSets(false, Collections.singletonList(fChangeSet), fMonitor);
+			return false;
+		} else {
+			fWorkspace.closeChangeSets(Collections.singletonList(fChangeSet), fMonitor);
+			return true;
+		}
+	}
+
+
+private void uploadFolder(File folder, String sandbox) throws TeamRepositoryException, FileNotFoundException, IOException, InterruptedException {
+	findOrCreateFolderWithParents(folder, sandbox);
+	logger.trace("\t\t\tUploading Folder: " + folder.getAbsolutePath());
+	File[] contents = folder.listFiles();
+		for (File file : contents) {
+			if(file.isDirectory()){
+				uploadFolder(file, sandbox);
+			} else {
+				uploadFile(file, sandbox);
+			}
+			showProgress();		
+		}
 	}
 
 	/**
@@ -168,33 +168,41 @@ public class ArchiveToSCMExtractor {
 	 * there are changes in the new content compared to the existing file.
 	 * 
 	 * @param targetFile
-	 * @param zipEntry
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws TeamRepositoryException
 	 * @throws InterruptedException
 	 */
-	private void extractFile(File targetFile, ZipEntry zipEntry)
+	private void uploadFile(File folder, String sandbox)
 			throws FileNotFoundException, IOException, InterruptedException, TeamRepositoryException {
-
+	
 		// Ignore the subcomponent.info
-		if (SUBCOMPONENT_INFO.equals(targetFile.getName())) {
+		if (SUBCOMPONENT_INFO.equals(folder.getName())) {
 			logger.trace("\tSkipping: " + SUBCOMPONENT_INFO);
 			return;
+		} else {
+			logger.trace("\t\t\tUploading File: " + folder.getPath());
+			showProgress();		
 		}
 
-		IFolder parentFolder = findOrCreateFolderWithParents(targetFile.getParentFile());
-		IFileItem aFile = getFile(targetFile, parentFolder);
+		IFolder parentFolder = findOrCreateFolderWithParents(folder.getParentFile(), sandbox);
+		IFileItem aFile = getFile(folder, parentFolder);
 		if (aFile == null) {
-			aFile = createFileItem(targetFile.getName(), zipEntry, parentFolder);
+			aFile = createFileItem(folder.getName(), parentFolder);
 			logger.trace(" ... Created");
 		}
-		ByteArrayOutputStream contents = copyFileData(fZipInStream);
+		ByteArrayOutputStream contents = copyFileData(new FileInputStream(folder)); 
+		
+		// Set the modification date.
+		BasicFileAttributes attr = Files.readAttributes(Paths.get(folder.getPath()), BasicFileAttributes.class);
+		aFile.setFileTimestamp(new Date(attr.lastModifiedTime().toMillis()));
+		IFileContent filecontent = null;
+		IFileContent content = null;
 		try {
 			IFileContentManager contentManager = FileSystemCore.getContentManager(fTeamRepository);
 			FileLineDelimiter lineDelimiter = FileLineDelimiter.LINE_DELIMITER_NONE;
 			String encoding = null;
-			IFileContent filecontent = aFile.getContent();
+			filecontent = aFile.getContent();
 			if (filecontent != null) {
 				encoding = filecontent.getCharacterEncoding();
 				lineDelimiter = filecontent.getLineDelimiter();
@@ -206,25 +214,25 @@ public class ArchiveToSCMExtractor {
 					encoding = IFileContent.ENCODING_US_ASCII;
 				}
 			}
-			IFileContent storedzipContent = contentManager.storeContent(encoding, lineDelimiter,
+			content = contentManager.storeContent(encoding, lineDelimiter,
 					new VersionedContentManagerByteArrayInputStreamPovider(contents.toByteArray()), null, fMonitor);
 			// Compare the files. If there is a difference, set the new content
 			// and commit the change
-			if (!storedzipContent.sameContent(aFile.getContent())) {
+			if (!content.sameContent(aFile.getContent())) {
 				IFileItem fileWorkingCopy = (IFileItem) aFile.getWorkingCopy();
-				fileWorkingCopy.setContent(storedzipContent);
+				fileWorkingCopy.setContent(content);
 				fWorkspace.commit(fChangeSet,
 						Collections.singletonList(fWorkspace.configurationOpFactory().save(fileWorkingCopy)), fMonitor);
 				logger.trace(" ... Content");
+				this.dirty=true;
 				fileWorkingCopy = null;
-
 			}
-			storedzipContent = null;
-			filecontent = null;
 		} catch (TeamRepositoryException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
+			filecontent = null;
+			content = null;
 			contents.close();
 			contents = null;
 		}
@@ -260,13 +268,13 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFileItem createFileItem(String name, ZipEntry zipEntry, IFolder parentFolder)
+	private IFileItem createFileItem(String name, IFolder parentFolder)
 			throws TeamRepositoryException {
 		IFileItem aFile = (IFileItem) IFileItem.ITEM_TYPE.createItem();
 		aFile.setParent(parentFolder);
 		aFile.setName(name);
 		aFile.setContentType(IFileItem.CONTENT_TYPE_TEXT);
-		aFile.setFileTimestamp(new Date(zipEntry.getTime()));
+		//aFile.setFileTimestamp(timestamp);
 		return aFile;
 	}
 
@@ -302,19 +310,22 @@ public class ArchiveToSCMExtractor {
 	 * @return
 	 * @throws TeamRepositoryException
 	 */
-	private IFolder findOrCreateFolderWithParents(File folder) throws TeamRepositoryException {
-
+	private IFolder findOrCreateFolderWithParents(File folder, String sandbox) throws TeamRepositoryException {
+		
 		if (folder == null) {
 			return fConfiguration.completeRootFolder(fMonitor);
 		}
+//		String relative = FileUtil.getRelativePath(folderName, sandbox);
+
 		IFolder parent = null;
 		String folderName = folder.getName();
 		String parentName = folder.getParent();
-		if (parentName == null) {
+		String relativePath = FileUtil.getRelativePath(parentName, sandbox);
+		if (relativePath == null) {
 			parent = fConfiguration.completeRootFolder(fMonitor);
 		} else {
 			// Recursively find the parent folders
-			parent = findOrCreateFolderWithParents(new File(parentName));
+			parent = findOrCreateFolderWithParents(new File(parentName), sandbox);
 		}
 		IFolder found = getFolder(folderName, parent);
 		if (found == null) {
@@ -323,6 +334,30 @@ public class ArchiveToSCMExtractor {
 		return found;
 	}
 
+//	private IFolder findOrCreateFolderWithParents(String folderName, String sandbox) throws TeamRepositoryException {
+//		
+//		if (folder == null) {
+//			return fConfiguration.completeRootFolder(fMonitor);
+//		}
+//		String relative = FileUtil.getRelativePath(folder.getPath(), "C:\\Temp\\");
+//
+//		IFolder parent = null;
+//		String folderName = folder.getName();
+//		String parentName = folder.getParent();
+//		if (parentName == null) {
+//			parent = fConfiguration.completeRootFolder(fMonitor);
+//		} else {
+//			// Recursively find the parent folders
+//			parent = findOrCreateFolderWithParents(new File(parentName));
+//		}
+//		IFolder found = getFolder(folderName, parent);
+//		if (found == null) {
+//			found = createFolder(folderName, parent);
+//		}
+//		return found;
+//	}
+
+	
 	/**
 	 * Find a folder in an existing parent folder.
 	 * 

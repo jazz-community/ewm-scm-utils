@@ -13,7 +13,7 @@ import org.apache.commons.cli.Options;
  * Interface that commands must implement.
  *
  */
-public interface ICommand {
+public interface ICommand extends IProgress{
 
 	/**
 	 * @return the command name of the current command

@@ -9,7 +9,6 @@ package com.ibm.js.team.supporttools.scmutils.commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
@@ -21,10 +20,7 @@ import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scmutils.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scmutils.statistics.ComponentStat;
-import com.ibm.js.team.supporttools.scmutils.statistics.FileInfo;
 import com.ibm.js.team.supporttools.scmutils.statistics.SandboxAnalyzer;
-import com.ibm.js.team.supporttools.scmutils.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scmutils.utils.SheetUtils;
 
 /**

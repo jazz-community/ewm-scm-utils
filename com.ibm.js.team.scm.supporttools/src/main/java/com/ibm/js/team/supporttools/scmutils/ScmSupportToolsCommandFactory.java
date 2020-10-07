@@ -12,9 +12,11 @@ import com.ibm.js.team.supporttools.scmutils.commands.AnalyzeRepository;
 import com.ibm.js.team.supporttools.scmutils.commands.AnalyzeSandbox;
 import com.ibm.js.team.supporttools.scmutils.commands.AnalyzeWorkspace;
 import com.ibm.js.team.supporttools.scmutils.commands.ConvertLoadrule;
+import com.ibm.js.team.supporttools.scmutils.commands.DownloadComponentBaseline;
 import com.ibm.js.team.supporttools.scmutils.commands.ExportWorkspace;
 import com.ibm.js.team.supporttools.scmutils.commands.FlattenLoadrule;
 import com.ibm.js.team.supporttools.scmutils.commands.ImportWorkspace;
+import com.ibm.js.team.supporttools.scmutils.commands.UploadToStream;
 
 /**
  * Factory class dealing with commands. A new command has to be added to the
@@ -32,6 +34,8 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 		put(new ImportWorkspace());
 		put(new ConvertLoadrule());
 		put(new FlattenLoadrule());
+		put(new UploadToStream());
+		put(new DownloadComponentBaseline());
 		// Enable sample command
 		// put(new SampleCommandCmd());
 	}
