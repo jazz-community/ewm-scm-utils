@@ -3,3 +3,4 @@
 *.xls
 *.class
 com.ibm.js.team.scm.supporttools/log4j/log.out
+/bin/
