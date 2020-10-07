@@ -104,7 +104,7 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 -command 	The command to execute. 
 -url 		The Public URI of the application. 
 -user 	 	The user ID of a user. 
--password 	The password of the user. 
+-password 	  The password of the user. 
 -workspaceConnection  The repository workspace to export.
 ```
 
