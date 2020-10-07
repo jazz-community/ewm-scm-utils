@@ -1,8 +1,9 @@
 # ewm-scm-utils
 
-Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils
-
-A collection of utility commands providing custom SCM operations. A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
+Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils - A collection of utility commands providing custom SCM operations. 
+- A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. 
+- Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
+- A third group akkows to share and update data in components in a stream as well as download component data into the local file system. A temporary repository workspace will be used for upload. The local data will not be a sandbox connected to Jazz SCM but remain diconnected. 
 
 SCMUtils Version: 2.6
 
