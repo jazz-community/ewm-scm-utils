@@ -50,7 +50,11 @@ import com.ibm.team.scm.common.dto.IReadScope;
 import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
 
 /**
- * Command to 
+ * Uploads a folder and its content as component to a stream and baselines the
+ * content. The folder name is used as the component name. The component is
+ * created if it does not yet exists. Ownership and visibility of the component
+ * is the project area. The component is added to the stream if it is not yet in
+ * it. All changes are contained in one change set. 
  * 
  */
 public class UploadToStream extends AbstractTeamrepositoryCommand implements ICommand {
@@ -141,19 +145,6 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
 		// Optional parameters
-//		logger.info("\n\tOptional parameter syntax: -{} {} -{} -{}",
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
-		// Optional parameters description
-//		logger.info("\n\tOptional parameter description: \n\t -{} \t{} \n\t -{} \t {}\n\t -{} \t {}",
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG_DESCRIPTION);
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -168,11 +159,6 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
 		// Optional parameter examples
-//		logger.info("\n\tExample optional parameter: -{} {} -{} -{}",
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
 	}
 
 	/**
@@ -263,18 +249,22 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 			componentHandle=ComponentUtil.createComponent(teamRepository, wm, componentName, owner, monitor);
 			ComponentUtil.setComponentOwnerAndVisibility(wm, componentHandle,owner , IReadScope.FACTORY.createProcessAreaScope(), monitor);
 		}
-		// add component to workspace and stream
+		// add component to stream
 		if(!ConnectionUtil.isComponentInWorkspace(targetStream,componentHandle)){
 			ConnectionUtil.addComponentToWorkspaceConnection(targetStream, componentHandle, monitor);
 		}
+		// add component to workspace
 		if(!ConnectionUtil.isComponentInWorkspace(tempWorkspace,componentHandle)){
 			ConnectionUtil.addComponentFromSeedToWorkspaceConnection(tempWorkspace, componentHandle,targetStream, monitor);
 		}
+		
+		// Set the component Flow
 		Collection<IComponentHandle> components = new ArrayList<IComponentHandle>(1); 
 		components.add(componentHandle);
 		setFlow(tempWorkspace, targetStream, components, monitor);
 		
-		String changeSetComment = "Share " + userID + " " + timeStampNow;
+		// Share/upload 
+		String changeSetComment = "upload " + userID + " " + timeStampNow;
 		logger.info("Uploading changes...");
 		FileSystemToSCMUploader scmUploader = new FileSystemToSCMUploader();
 		if(!scmUploader.uploadFileToComponent(inputFile.getAbsolutePath(), tempWorkspace, componentHandle, changeSetComment, monitor)){

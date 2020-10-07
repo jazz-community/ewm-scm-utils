@@ -40,7 +40,9 @@ import com.ibm.team.scm.common.IComponentHandle;
 import com.ibm.team.scm.common.dto.IBaselineSearchCriteria;
 
 /**
- * Command to download a component baseline into a local folder on disk.
+ * Downloads the content of a component selected by a baseline into a local file
+ * system folder. The component name is created as folder and the content of the
+ * component is loaded into that folder.
  * 
  */
 public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand implements ICommand, IProgress {
@@ -64,7 +66,7 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 		options.addOption(ScmSupportToolsConstants.PARAMETER_COMPONENTNAME, true,
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_BASELINENAME, true,
-				ScmSupportToolsConstants.PARAMETER_BASELINENAME_DESCRIPTION);		
+				ScmSupportToolsConstants.PARAMETER_BASELINENAME_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER, true,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
 		return options;
@@ -111,7 +113,7 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME,
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_BASELINENAME,
-				ScmSupportToolsConstants.PARAMETER_BASELINENAME_PROTOTYPE, 
+				ScmSupportToolsConstants.PARAMETER_BASELINENAME_PROTOTYPE,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_PROTOTYPE);
 		// Parameter and description
@@ -125,26 +127,11 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD,
 				SupportToolsFrameworkConstants.PARAMETER_PASSWORD_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME,
-				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_DESCRIPTION,				
+				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_BASELINENAME,
 				ScmSupportToolsConstants.PARAMETER_BASELINENAME_DESCRIPTION,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_DESCRIPTION);
-		// Optional parameters
-//		logger.info("\n\tOptional parameter syntax: -{} {} -{} -{}",
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_PROTOTYPE,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
-		// Optional parameters description
-//		logger.info("\n\tOptional parameter description: \n\t -{} \t{} \n\t -{} \t {}\n\t -{} \t {}",
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_DESCRIPTION,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG_DESCRIPTION,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG_DESCRIPTION);
-		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
 				SupportToolsFrameworkConstants.PARAMETER_URL, SupportToolsFrameworkConstants.PARAMETER_URL_EXAMPLE,
@@ -154,15 +141,9 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME,
 				ScmSupportToolsConstants.PARAMETER_COMPONENTNAME_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_BASELINENAME,
-				ScmSupportToolsConstants.PARAMETER_BASELINENAME_EXAMPLE, 
+				ScmSupportToolsConstants.PARAMETER_BASELINENAME_EXAMPLE,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER_EXAMPLE);
-		// Optional parameter examples
-//		logger.info("\n\tExample optional parameter: -{} {} -{} -{}",
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER,
-//				ScmSupportToolsConstants.PARAMETER_COMPONENT_NAME_MODIFIER_EXAMPLE,
-//				ScmSupportToolsConstants.PARAMETER_REUSE_EXISTING_WORKSPACE_FLAG,
-//				ScmSupportToolsConstants.PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG);
 	}
 
 	/**
@@ -177,7 +158,8 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 		final String baselineName = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_BASELINENAME);
 		final String basePath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_OUTPUTFOLDER);
 		try {
-			result = downloadComponentBaseline(getTeamRepository(), componentName, baselineName, basePath,  getMonitor());
+			result = downloadComponentBaseline(getTeamRepository(), componentName, baselineName, basePath,
+					getMonitor());
 		} catch (IOException e) {
 			logger.error("IOException: {}", e.getMessage());
 		}
@@ -185,7 +167,7 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 	}
 
 	/**
-	 * Import the repository workspace information.
+	 * execute the steps to be able to download.
 	 * 
 	 * @param teamRepository
 	 * @param projectAreaName
@@ -198,61 +180,68 @@ public class DownloadComponentBaseline extends AbstractTeamrepositoryCommand imp
 	 * @throws UnsupportedEncodingException
 	 * @throws Exception
 	 */
-	private boolean downloadComponentBaseline(ITeamRepository teamRepository, String componentName, String baselineName, String basePath,
-			IProgressMonitor monitor)
+	private boolean downloadComponentBaseline(ITeamRepository teamRepository, String componentName, String baselineName,
+			String basePath, IProgressMonitor monitor)
 			throws TeamRepositoryException, UnsupportedEncodingException, FileNotFoundException, IOException {
-		boolean result= false;
+		boolean result = false;
 		IWorkspaceConnection tempWorkspace = null;
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
-		try{
-		
-		Date now = new Date();
-		String userID= teamRepository.loggedInContributor().getUserId();
-		String timeStampNow = TimeStampUtil.getDate(now, null);
-		String tempWorkspaceName = "Download Workspace " + userID + " " + timeStampNow;
-		
-		tempWorkspace = wm.createWorkspace(teamRepository.loggedInContributor(), tempWorkspaceName,
-				"Temporary workspace to download a component baseline." + tempWorkspaceName, monitor);
-		
-		fRootFolder = basePath;
-		logger.info("Find component...");
-		IComponentHandle componentHandle = ComponentUtil.findComponentByName(wm, componentName, monitor); // Find the component
-		logger.info("Find component baseline...");
-        IBaselineSearchCriteria criteria = IBaselineSearchCriteria.FACTORY.newInstance().setComponentRequired(componentHandle);
-        criteria.setExactName(baselineName);
+		try {
 
-		List<IBaselineHandle> baselines = wm.findBaselines(criteria, 4, monitor);
-		if(baselines.size()==0){
-			logger.info("Baseline '{}' not found...", baselineName);
-			return false;		
-		}
-		if(baselines.size()>1){
-			logger.info("Baseline name '{}' not unique...", baselineName);
-			return false;		
-		}
-		
-		IBaselineHandle baselineHandle = baselines.get(0);
-		IBaselineConnection baselineConnection = wm.getBaselineConnection(baselineHandle, monitor);
-		if(!ConnectionUtil.isComponentInWorkspace(tempWorkspace,componentHandle)){
-			ConnectionUtil.addComponentToWorkspaceConnection(tempWorkspace, componentHandle, monitor);
-		}
+			Date now = new Date();
+			String userID = teamRepository.loggedInContributor().getUserId();
+			String timeStampNow = TimeStampUtil.getDate(now, null);
+			String tempWorkspaceName = "Download Workspace " + userID + " " + timeStampNow;
 
-		logger.info("Set Active Baseline...");
-		tempWorkspace.applyComponentOperations(Collections.singletonList(tempWorkspace
-				.componentOpFactory().replaceComponent(componentHandle,
-						baselineConnection, false)), monitor);
-		logger.info("Set Active Baseline successful...");
+			tempWorkspace = wm.createWorkspace(teamRepository.loggedInContributor(), tempWorkspaceName,
+					"Temporary workspace to download a component baseline." + tempWorkspaceName, monitor);
 
+			fRootFolder = basePath;
+			logger.info("Find component...");
+			IComponentHandle componentHandle = ComponentUtil.findComponentByName(wm, componentName, monitor); 
+			
+			logger.info("Find component baseline...");
+			IBaselineSearchCriteria criteria = IBaselineSearchCriteria.FACTORY.newInstance()
+					.setComponentRequired(componentHandle);
+			criteria.setExactName(baselineName);
 
-		logger.info("Downloading Component Baseline...");
-		ComponentConfigurationDownloadUtil downloader = new ComponentConfigurationDownloadUtil(ComponentConfigurationDownloadUtil.ExportMode.PRESERVE, this);
-		downloader.download(teamRepository, tempWorkspace, componentHandle, fRootFolder, monitor);
-		logger.info("Downloading Component Baseline successful...");
-		result=true;
-		return result;
+			List<IBaselineHandle> baselines = wm.findBaselines(criteria, 4, monitor);
+			if (baselines.size() == 0) {
+				logger.info("Baseline '{}' not found...", baselineName);
+				return false;
+			}
+			if (baselines.size() > 1) {
+				logger.info("Baseline name '{}' not unique...", baselineName);
+				return false;
+			}
+
+			// get baseline handle
+			IBaselineHandle baselineHandle = baselines.get(0);
+			IBaselineConnection baselineConnection = wm.getBaselineConnection(baselineHandle, monitor);
+			
+			// add the component to the temporary workspace
+			if (!ConnectionUtil.isComponentInWorkspace(tempWorkspace, componentHandle)) {
+				ConnectionUtil.addComponentToWorkspaceConnection(tempWorkspace, componentHandle, monitor);
+			}
+
+			// 
+			logger.info("Replace baseline of component '{}' to baseline '{}'.", componentName, baselineName);
+			tempWorkspace.applyComponentOperations(Collections.singletonList(
+					tempWorkspace.componentOpFactory().replaceComponent(componentHandle, baselineConnection, false)),
+					monitor);
+			logger.info("Replace baseline successful...");
+
+			logger.info("Downloading component baseline...");
+			ComponentConfigurationDownloadUtil downloader = new ComponentConfigurationDownloadUtil(
+					ComponentConfigurationDownloadUtil.ExportMode.PRESERVE, this);
+			downloader.download(teamRepository, tempWorkspace, componentHandle, fRootFolder, monitor);
+			logger.info("Downloading Component Baseline successful...");
+			result = true;
+			return result;
 		} finally {
-			if(tempWorkspace!=null){
-				wm.deleteWorkspace(tempWorkspace.getResolvedWorkspace(), monitor);				
+			// delete the temporary repository workspace if it exists.
+			if (tempWorkspace != null) {
+				wm.deleteWorkspace(tempWorkspace.getResolvedWorkspace(), monitor);
 			}
 		}
 	}
