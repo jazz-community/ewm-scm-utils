@@ -4,7 +4,7 @@ Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SC
 
 A collection of utility commands providing custom SCM operations. A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
 
-SCMTools Version: 2.6
+SCMUtils Version: 2.6
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
