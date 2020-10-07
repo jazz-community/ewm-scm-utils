@@ -18,8 +18,10 @@ SCMUtils Version: 2.6
 ### importScmWorkspace
 ### convertLoadrule
 ### flattenLoadrule
+### uploadToStream
+### downloadComponentBaseline
 
-# Command Description
+# Command Descriptions
 
 ## analyzeScmRepository
 
