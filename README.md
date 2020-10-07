@@ -1,7 +1,10 @@
 # ewm-scm-utils
-A collection of utility commands providing custom SCM operations. A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics.
 
-SCMTools Version: 2.5
+Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils
+
+A collection of utility commands providing custom SCM operations. A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
+
+SCMTools Version: 2.6
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
@@ -51,7 +54,7 @@ Analyzes a RTC SCM workspace (a repository workspace or stream), the referenced 
 ```
 ###	Example
 ```bash
--command analyzeScmRepository -url https://clm.example.com:9443/rm/ -user myadmin -password ****** -connectionOwnerScope "Project1 (Change Management)&Project2 (Change Management)/SCM Expert Team" -outputFolder "C:\Temp\ScmExport"
+-command analyzeScmRepository -url https://elm.example.com:9443/rm/ -user myadmin -password ****** -connectionOwnerScope "Project1 (Change Management)&Project2 (Change Management)/SCM Expert Team" -outputFolder "C:\Temp\ScmExport"
 ```
 
 ## analyzeSandbox
@@ -117,7 +120,7 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 
 ###	Example
 ```bash
--command analyzeScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password ******* -workspaceConnection "JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmAnalyzeWorkspace"
+-command analyzeScmWorkspace -url "https://elm.example.com:9443/ccm/" -user myadmin -password ******* -workspaceConnection "JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmAnalyzeWorkspace"
 ```
 
 ## exportScmWorkspace
@@ -158,14 +161,12 @@ Exports the contents of a workspace (a repository workspace or stream) into a se
 
 ###	Example
 ```bash
--command exportScmWorkspace -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
+-command exportScmWorkspace -url https://elm.example.com:9443/ccm/ -user ADMIN -password ****** -workspaceConnection "Debs JKE Banking Integration Stream Workspace" -outputFolder "C:\Temp\ScmExport"
 ```
 
 ## importScmWorkspace
 
 Imports a repository workspace from export data conforming to the result of the command exportScmWorkspace. Creates a repository workspace and its components from a JSON file describing the workspace component hierarchy structure. Imports the folder and file content for each component from a zip file representing the component. 
-
--command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password myadmin -projectarea "JKE Banking (Change Management)" -workspaceConnection "New default  Hierarchical JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExport" -componentNameModifier="IBMTestDefault_" -reuseExistingWorkspace
 
 ###	Required parameter
 
@@ -174,7 +175,7 @@ Imports a repository workspace from export data conforming to the result of the 
 -url "https://<server>:port/<context>/" 
 -user <userId> 
 -password <password>
--projectarea "<project_area>" 
+-projectarea <project_area> 
 -workspaceConnection <workspaceNameOrId> 
 -inputFolder <inputFolderPath>
 ```
@@ -204,7 +205,7 @@ Imports a repository workspace from export data conforming to the result of the 
 ```
 ###	Example
 ```bash
--command importScmWorkspace -url "https://localhost:9443/ccm/" -user myadmin -password ******* -projectarea "JKE Banking (Change Management)" -workspaceConnection "Imported JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExport" -componentNameModifier="TestImport1_" -reuseExistingWorkspace -skipUploadingExistingComponents
+-command importScmWorkspace -url "https://elm.example.com:9443/ccm/" -user myadmin -password ******* -projectarea "JKE Banking (Change Management)" -workspaceConnection "Imported JKE Banking Stream Workspace" -inputFolder "C:\temp\ScmExport" -componentNameModifier="TestImport1_" -reuseExistingWorkspace -skipUploadingExistingComponents
 ```
 
 ## convertLoadrule
@@ -250,3 +251,64 @@ Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The
 ```bash
 -command sourceLoadruleFile -"C:\Temp\example.loadrule" targetLoadruleFile -"C:\Temp\converted.loadrule"
 ```
+
+## uploadToStream
+Uploads a folder and its content as component to a stream and baselines the content. The folder name is used as the component name. The component is created if it does not yet exists. Ownership and visibility of the component is the project area. The component is added to the stream if it is not yet in it. All changes are contained in one change set.
+
+###	Required parameter
+```bash
+-command uploadToStream 
+-url "https://<server>:port/<context>/" 
+-user <userId> 
+-password <password>
+-projectarea <project_area>
+-streamName <streame_name> 
+-inputFolder <inputFolder>
+```
+```
+###	Required parameter description
+```bash 
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
+-projectarea The name of the project area 
+-streamName The name of the stream to add the component if it is not already in it.
+-inputFolder The path to the folder that is the source to upload.
+```
+
+### Example
+```bash
+-command uploadToStream -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -streamName "JKE Banking Integration Stream" -inputFolder "C:\Temp\ScmExport"
+```
+
+## downloadComponentBaseline
+Downloads the content of a component selected by a baseline into a local file system folder. The component name is created as folder and the content of the component is loaded into that folder.
+
+###	Required parameter
+```bash
+-command downloadComponentBaseline 
+-url "https://<server>:port/<context>/" 
+-user <userId> 
+-password <password>
+-component <component_name> 
+-baseline <baseline_name> 
+-outputFolder <outputFolderPath>
+```
+```
+###	Required parameter description
+```bash 
+-command 	The command to execute. 
+-url 		The Public URI of the application. 
+-user 	 	The user ID of a user. 
+-password 	The password of the user. 
+-component  The name of the component.
+-baseline The name of the baseline on the component.
+-outputFolder The path to the folder that is the target of the download.
+```
+
+### Example
+```bash
+-command downloadComponentBaseline -url https://elm.example.com:9443/ccm/ -user ADMIN -password ****** -component "Test Component" -baseline "Baseline V2" -outputFolder "C:\Temp\ScmExport"
+```
+
