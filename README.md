@@ -4,7 +4,7 @@ Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SC
 
 A collection of utility commands providing custom SCM operations. A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
 
-SCMTools Version: 2.6
+SCMUtils Version: 2.6
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
@@ -104,7 +104,7 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 -command 	The command to execute. 
 -url 		The Public URI of the application. 
 -user 	 	The user ID of a user. 
--password 	The password of the user. 
+-password 	  The password of the user. 
 -workspaceConnection  The repository workspace to export.
 ```
 
@@ -265,7 +265,7 @@ Uploads a folder and its content as component to a stream and baselines the cont
 -streamName <streame_name> 
 -inputFolder <inputFolder>
 ```
-```
+
 ###	Required parameter description
 ```bash 
 -command 	The command to execute. 
@@ -295,7 +295,7 @@ Downloads the content of a component selected by a baseline into a local file sy
 -baseline <baseline_name> 
 -outputFolder <outputFolderPath>
 ```
-```
+
 ###	Required parameter description
 ```bash 
 -command 	The command to execute. 
