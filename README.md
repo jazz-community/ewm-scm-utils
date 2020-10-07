@@ -1,5 +1,5 @@
-# jazz-scm-content-obfuscator
-Supports special SCM operation to export and obfuscate SCM content, import obfuscated content and analyse SCM Workspaces and sandboxes.
+# ewm-scm-utils
+A collection of utility commands providing custom SCM operations. A group of SCM operatios support exporting and obfuscating SCM content. The exported data can be imported using related commands. Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics.
 
 SCMTools Version: 2.5
 
