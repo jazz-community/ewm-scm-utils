@@ -265,7 +265,7 @@ Uploads a folder and its content as component to a stream and baselines the cont
 -streamName <streame_name> 
 -inputFolder <inputFolder>
 ```
-```
+
 ###	Required parameter description
 ```bash 
 -command 	The command to execute. 
@@ -295,7 +295,7 @@ Downloads the content of a component selected by a baseline into a local file sy
 -baseline <baseline_name> 
 -outputFolder <outputFolderPath>
 ```
-```
+
 ###	Required parameter description
 ```bash 
 -command 	The command to execute. 
