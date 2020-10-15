@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,13 +29,16 @@ import com.ibm.js.team.supporttools.framework.framework.AbstractTeamrepositoryCo
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.framework.util.TimeStampUtil;
 import com.ibm.js.team.supporttools.scmutils.ScmSupportToolsConstants;
+import com.ibm.js.team.supporttools.scmutils.utils.BuildUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.ComponentUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.ConnectionUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.FileSystemToSCMUploader;
 import com.ibm.js.team.supporttools.scmutils.utils.ProjectAreaUtil;
+import com.ibm.js.team.supporttools.scmutils.utils.URIUtil;
+import com.ibm.team.build.common.model.IBuildResult;
 import com.ibm.team.process.client.IProcessClientService;
+import com.ibm.team.process.common.IProjectArea;
 import com.ibm.team.repository.client.ITeamRepository;
-import com.ibm.team.repository.common.IAuditableHandle;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.scm.client.IBaselineConnection;
 import com.ibm.team.scm.client.IWorkspaceConnection;
@@ -81,6 +85,8 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				ScmSupportToolsConstants.PARAMETER_STREAM_NAME_DESCRIPTION);
 		options.addOption(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER, true,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
+		options.addOption(ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID, true,
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID_DESCRIPTION);
 		return options;
 	}
 
@@ -145,6 +151,13 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_DESCRIPTION);
 		// Optional parameters
+		logger.info("\n\tOptional parameter syntax: -{} {}",
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID,
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID_PROTOTYPE);
+		// Optional parameters description
+		logger.info("\n\tOptional parameter description: \n\t -{} \t{}",
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID,
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID_DESCRIPTION);
 		// Examples
 		logger.info("\n\tExample: -{} {} -{} {} -{} {} -{} {} -{} {} -{} {} -{} {}",
 				SupportToolsFrameworkConstants.PARAMETER_COMMAND, getCommandName(),
@@ -159,6 +172,9 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER,
 				ScmSupportToolsConstants.PARAMETER_INPUTFOLDER_EXAMPLE);
 		// Optional parameter examples
+		logger.info("\n\tExample optional parameter: -{} {}",
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID,
+				ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID_EXAMPLE);
 	}
 
 	/**
@@ -172,6 +188,7 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 		final String projectAreaName = getCmd().getOptionValue(SupportToolsFrameworkConstants.PARAMETER_PROJECT_AREA);
 		final String scmStream = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_STREAM_NAME);
 		final String inputFolderPath = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_INPUTFOLDER);
+		final String buildResultUUID = getCmd().getOptionValue(ScmSupportToolsConstants.PARAMETER_BUILD_RESULT_UUID);
 		
 		try {
 			File inputfolder = new File(inputFolderPath);
@@ -184,7 +201,7 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 				return result;
 			}
 			fInputFolder = inputfolder;
-			result = uploadFilesToComponent(getTeamRepository(), projectAreaName, scmStream, getMonitor());
+			result = uploadFilesToComponent(getTeamRepository(), projectAreaName, scmStream, buildResultUUID, getMonitor());
 		} catch (IOException e) {
 			logger.error("IOException: {}", e.getMessage());
 		}
@@ -206,114 +223,127 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 	 * @throws Exception
 	 */
 	private boolean uploadFilesToComponent(ITeamRepository teamRepository, String projectAreaName, String scmConnection,
-			IProgressMonitor monitor)
+			String buildResultUUID, IProgressMonitor monitor)
 			throws TeamRepositoryException, UnsupportedEncodingException, FileNotFoundException, IOException {
-		boolean result= false;
+		boolean result = false;
 		IWorkspaceConnection tempWorkspace = null;
 		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
-		try{
-		// Find Stream
-		logger.info("Find stream '{}'...", scmConnection);
-		IWorkspaceConnection targetStream = null;
-		List<IWorkspaceHandle> streams = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
-				IWorkspaceSearchCriteria.STREAMS, monitor);
-		if (streams.size() == 0) {
-			logger.error("The stream '{}' does not exist.", scmConnection);
+		try {
+			// Find Stream
+			logger.info("Find stream '{}'...", scmConnection);
+			IWorkspaceConnection targetStream = null;
+			List<IWorkspaceHandle> streams = ConnectionUtil.findWorkspacesByName(teamRepository, scmConnection,
+					IWorkspaceSearchCriteria.STREAMS, monitor);
+			if (streams.size() == 0) {
+				logger.error("The stream '{}' does not exist.", scmConnection);
+				return result;
+			}
+			if (streams.size() > 1) {
+				logger.error("Ambiguous stream name '{}'.", scmConnection);
+				return result;
+			}
+
+			targetStream = wm.getWorkspaceConnection(streams.get(0), monitor);
+
+			String userID = teamRepository.loggedInContributor().getUserId();
+			String timeStampNow = TimeStampUtil.getDate(new Date(), null);
+			String tempWorkspaceName = "Upload Workspace " + userID + " " + timeStampNow;
+
+			tempWorkspace = wm.createWorkspace(teamRepository.loggedInContributor(), tempWorkspaceName,
+					"Temporary workspace to share and upload " + tempWorkspaceName, monitor);
+
+			IProcessClientService processClient = (IProcessClientService) teamRepository
+					.getClientLibrary(IProcessClientService.class);
+
+			IProjectArea owner = ProjectAreaUtil.findProjectAreaByFQN(projectAreaName, processClient, monitor);
+			// URI paUri = URI.create(projectAreaName.replaceAll(" ", "%20"));
+
+			// We get a folder name .../test and want to upload /Test/Test
+			File inputFile = fInputFolder;
+			String componentName = inputFile.getName();
+			logger.info("Find or create component...");
+
+			// Find the component
+			IComponentHandle componentHandle = ComponentUtil.findComponentByName(wm, componentName, monitor); 
+			if (null == componentHandle) {
+				componentHandle = ComponentUtil.createComponent(teamRepository, wm, componentName, owner, monitor);
+				ComponentUtil.setComponentOwnerAndVisibility(wm, componentHandle, owner,
+						IReadScope.FACTORY.createProcessAreaScope(), monitor);
+			}
+			// add component to stream
+			if (!ConnectionUtil.isComponentInWorkspace(targetStream, componentHandle)) {
+				ConnectionUtil.addComponentToWorkspaceConnection(targetStream, componentHandle, monitor);
+			}
+			// add component to workspace
+			if (!ConnectionUtil.isComponentInWorkspace(tempWorkspace, componentHandle)) {
+				ConnectionUtil.addComponentFromSeedToWorkspaceConnection(tempWorkspace, componentHandle, targetStream,
+						monitor);
+			}
+
+			// Set the component Flow
+			Collection<IComponentHandle> components = new ArrayList<IComponentHandle>(1);
+			components.add(componentHandle);
+			setFlow(tempWorkspace, targetStream, components, monitor);
+
+			// Share/upload
+			String changeSetComment = "upload " + userID + " " + timeStampNow;
+			logger.info("Uploading changes...");
+			FileSystemToSCMUploader scmUploader = new FileSystemToSCMUploader();
+			if (!scmUploader.uploadFileToComponent(inputFile.getAbsolutePath(), tempWorkspace, componentHandle,
+					changeSetComment, monitor)) {
+				logger.info("No changes to deliver.");
+				result = false;
+			}
+
+			// Compare the repository workspace with the stream to 
+			// find the changes then Deliver the change sets
+			logger.info("\nComparing Change Sets...");
+			IChangeHistorySyncReport changeSetSync = tempWorkspace.compareTo(targetStream,
+					WorkspaceComparisonFlags.CHANGE_SET_COMPARISON_ONLY, Collections.EMPTY_LIST, monitor);
+
+			logger.info("Deliver Change Sets...");
+			tempWorkspace.deliver(targetStream, changeSetSync, Collections.EMPTY_LIST,
+					changeSetSync.outgoingChangeSets(componentHandle), monitor);
+			String baselineName = componentName + " - " + userID + " " + timeStampNow;
+			String baselineComment = baselineName + " created by automation.";
+			// Create a baseline and compare the repository workspace with the
+			// stream to find the changes and deliver the baselines
+			logger.info("Creating Baseline...");
+
+			IBaselineConnection baseline = tempWorkspace.createBaseline(componentHandle, baselineName, baselineComment,
+					monitor);
+
+			IBuildResult buildResult = BuildUtil.getBuildResult(teamRepository, buildResultUUID, monitor);
+
+			URI componentURI = URIUtil.getURIForItem(componentHandle);
+			BuildUtil.publishLink(teamRepository, buildResult, "IP Links", componentURI.toString(),
+					"Component - " + componentName, monitor);
+
+			URI baselineURI = URIUtil.getURIForItem(baseline.getBaseline());
+			BuildUtil.publishLink(teamRepository, buildResult, "IP Links", baselineURI.toString(),
+					"Baseline - " + baselineName, monitor);
+
+			URI streamURI = URIUtil.getURIForItem(targetStream.getResolvedWorkspace().getItemHandle());
+			BuildUtil.publishLink(teamRepository, buildResult, "IP Links", streamURI.toString(),
+					"Stream - " + scmConnection, monitor);
+
+			logger.info("Comparing Baselines...");
+			IChangeHistorySyncReport baselineSync = tempWorkspace.compareTo(targetStream,
+					WorkspaceComparisonFlags.INCLUDE_BASELINE_INFO, Collections.EMPTY_LIST, monitor);
+
+			// Deliver the baselines
+			logger.info("Deliver Baselines...");
+			tempWorkspace.deliver(targetStream, baselineSync, baselineSync.outgoingBaselines(componentHandle),
+					baselineSync.outgoingChangeSets(componentHandle), monitor);
+			logger.info("Operation successful, baseline name is '{}'.", baselineName);
+			result = true;
 			return result;
-		}
-		if (streams.size() >1 ) {
-			logger.error("Ambiguous stream name '{}'.", scmConnection);
-			return result;
-		}
-		
-		targetStream=wm.getWorkspaceConnection(streams.get(0), monitor);
-		
-		String userID= teamRepository.loggedInContributor().getUserId();
-		String timeStampNow = TimeStampUtil.getDate(new Date(), null);
-		String tempWorkspaceName = "Upload Workspace " + userID + " " + timeStampNow;
-		
-		tempWorkspace = wm.createWorkspace(teamRepository.loggedInContributor(), tempWorkspaceName,
-				"Temporary workspace to share and upload " + tempWorkspaceName, monitor);
-		
-		// Find Project Area
-		IProcessClientService processClient = (IProcessClientService) teamRepository
-				.getClientLibrary(IProcessClientService.class);
-		IAuditableHandle owner = ProjectAreaUtil.findProjectAreaByFQN(projectAreaName, processClient, monitor);
-		
-
-		File inputFile = fInputFolder;
-		String componentName=inputFile.getName();
-		logger.info("Find or create component...");
-		IComponentHandle componentHandle = ComponentUtil.findComponentByName(wm, componentName, monitor); // Find the component
-		if(null==componentHandle){
-			componentHandle=ComponentUtil.createComponent(teamRepository, wm, componentName, owner, monitor);
-			ComponentUtil.setComponentOwnerAndVisibility(wm, componentHandle,owner , IReadScope.FACTORY.createProcessAreaScope(), monitor);
-		}
-		// add component to stream
-		if(!ConnectionUtil.isComponentInWorkspace(targetStream,componentHandle)){
-			ConnectionUtil.addComponentToWorkspaceConnection(targetStream, componentHandle, monitor);
-		}
-		// add component to workspace
-		if(!ConnectionUtil.isComponentInWorkspace(tempWorkspace,componentHandle)){
-			ConnectionUtil.addComponentFromSeedToWorkspaceConnection(tempWorkspace, componentHandle,targetStream, monitor);
-		}
-		
-		// Set the component Flow
-		Collection<IComponentHandle> components = new ArrayList<IComponentHandle>(1); 
-		components.add(componentHandle);
-		setFlow(tempWorkspace, targetStream, components, monitor);
-		
-		// Share/upload 
-		String changeSetComment = "upload " + userID + " " + timeStampNow;
-		logger.info("Uploading changes...");
-		FileSystemToSCMUploader scmUploader = new FileSystemToSCMUploader();
-		if(!scmUploader.uploadFileToComponent(inputFile.getAbsolutePath(), tempWorkspace, componentHandle, changeSetComment, monitor)){
-			logger.info("No changes to deliver.");
-			result = false;
-		}
-		
-		// Compare the repository workspace with the stream to find the changes
-		// Deliver the change sets
-		logger.info("\nComparing Change Sets...");
-		IChangeHistorySyncReport changeSetSync = tempWorkspace.compareTo(
-				targetStream,
-				WorkspaceComparisonFlags.CHANGE_SET_COMPARISON_ONLY,
-				Collections.EMPTY_LIST, monitor);
-
-		logger.info("Deliver Change Sets...");
-		tempWorkspace.deliver(targetStream, changeSetSync,
-				Collections.EMPTY_LIST,
-				changeSetSync.outgoingChangeSets(componentHandle), monitor);
-		String baselineName="Baseline " + userID + " " + timeStampNow;
-		String baselineComment= baselineName +" created by automation.";
-		// Create a baseline and compare the repository workspace with the
-		// stream to find the changes and deliver the baselines
-		logger.info("Creating Baseline...");
-		@SuppressWarnings("unused")
-		IBaselineConnection baseline = tempWorkspace.createBaseline(componentHandle,
-				baselineName, baselineComment, monitor);
-		
-		logger.info("Comparing Baselines...");
-		IChangeHistorySyncReport baselineSync = tempWorkspace.compareTo(
-				targetStream, WorkspaceComparisonFlags.INCLUDE_BASELINE_INFO,
-				Collections.EMPTY_LIST, monitor);
-
-		// Deliver the baselines
-		logger.info("Deliver Baselines...");
-		tempWorkspace.deliver(targetStream, baselineSync,
-				baselineSync.outgoingBaselines(componentHandle),
-				baselineSync.outgoingChangeSets(componentHandle), monitor);
-		logger.info("Operation successful, baseline name is '{}'.", baselineName);
-		result=true;
-		return result;
 		} finally {
-			if(tempWorkspace!=null){
-				wm.deleteWorkspace(tempWorkspace.getResolvedWorkspace(), monitor);				
+			if (tempWorkspace != null) {
+				wm.deleteWorkspace(tempWorkspace.getResolvedWorkspace(), monitor);
 			}
 		}
 	}
-
-
 
 	/**
 	 * Set the flow targets and the component scope
@@ -324,32 +354,27 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 	 * @param monitor
 	 * @throws TeamRepositoryException
 	 */
-	private void setFlow(IWorkspaceConnection source,
-			IWorkspaceConnection dest, Collection<IComponentHandle> components,
-			IProgressMonitor monitor) throws TeamRepositoryException {
+	private void setFlow(IWorkspaceConnection source, IWorkspaceConnection dest,
+			Collection<IComponentHandle> components, IProgressMonitor monitor) throws TeamRepositoryException {
 		// Get the current flow table
 		IFlowTable cflowTable = source.getFlowTable().getWorkingCopy();
 		// Set the accept and deliver flow to the target
-		cflowTable.addAcceptFlow(dest.getResolvedWorkspace(), dest
-				.teamRepository().getId(), dest.teamRepository()
-				.getRepositoryURI(), components /* Collections.EMPTY_LIST */,
-				"Accept Flow");
-		cflowTable.addDeliverFlow(dest.getResolvedWorkspace(), dest
-				.teamRepository().getId(), dest.teamRepository()
-				.getRepositoryURI(), components /* Collections.EMPTY_LIST */,
-				"Deliver Flow");
+		cflowTable.addAcceptFlow(dest.getResolvedWorkspace(), dest.teamRepository().getId(),
+				dest.teamRepository().getRepositoryURI(),
+				components /* Collections.EMPTY_LIST */, "Accept Flow");
+		cflowTable.addDeliverFlow(dest.getResolvedWorkspace(), dest.teamRepository().getId(),
+				dest.teamRepository().getRepositoryURI(),
+				components /* Collections.EMPTY_LIST */, "Deliver Flow");
 		// Limit the scope for accept and delivery to the components that are
 		// needed
 		cflowTable.setComponentScopes(dest.getResolvedWorkspace(), components);
 		// We want incoming and outgoing default and current flow
 		// Set the incoming flow for current and default
-		IFlowEntry acceptEntry = cflowTable.getAcceptFlow(dest
-				.getResolvedWorkspace());
+		IFlowEntry acceptEntry = cflowTable.getAcceptFlow(dest.getResolvedWorkspace());
 		cflowTable.setCurrent(acceptEntry);
 		cflowTable.setDefault(acceptEntry);
 		// Set the incoming flow for current and default
-		IFlowEntry deliverEntry = cflowTable.getDeliverFlow(dest
-				.getResolvedWorkspace());
+		IFlowEntry deliverEntry = cflowTable.getDeliverFlow(dest.getResolvedWorkspace());
 		cflowTable.setCurrent(deliverEntry);
 		cflowTable.setDefault(deliverEntry);
 

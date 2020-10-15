@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Supports general file operations.
+ * Supports general file and file name operations.
  *
  */
 public class FileUtil {

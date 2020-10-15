@@ -128,6 +128,12 @@ public interface ScmSupportToolsConstants {
 	public static final String PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG = "skipUploadingExistingComponents";
 	public static final String PARAMETER_SKIP_UPLOADING_EXISTING_COMPONENT_FLAG_DESCRIPTION = "Don't reupload content to existing components. This can be used when imports of large numbers of components or folders fail to skip data that is already successfully imported.";
 
+	// UploadToStream
+	public static final String PARAMETER_BUILD_RESULT_UUID = "buildResultId";	
+	public static final String PARAMETER_BUILD_RESULT_UUID_DESCRIPTION = "The UUID of an existing build result";
+	public static final String PARAMETER_BUILD_RESULT_UUID_PROTOTYPE = "<buildResultUUID>";
+	public static final String PARAMETER_BUILD_RESULT_UUID_EXAMPLE = "_oS2f0A1iEeuxvceFG0DbZg";
+
 	// JSON format for hierarchy export/import
 	public static final String JSON_COMPONENT_CHILDREN = "Children";
 	public static final String JSON_COMPONENT_UUID = "UUID";
@@ -138,5 +144,5 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_SOURCE_COMPONENT_UUID = "SourceUUID";
 	public static final Object JSON_TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
-	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";	
+	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
 }

@@ -17,7 +17,7 @@ import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * Helper class to help creating cells in excel.
+ * Helper class to help creating cells in excel files.
  *
  */
 public class POICellHelper {

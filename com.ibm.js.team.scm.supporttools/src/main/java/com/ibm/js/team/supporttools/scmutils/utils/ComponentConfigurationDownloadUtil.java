@@ -37,7 +37,7 @@ import com.ibm.team.scm.common.IVersionable;
 import com.ibm.team.scm.common.IVersionableHandle;
 
 /**
- * Supports downloading a component configuration from a workspaceconnection directly into a folder on disk.
+ * Supports downloading a component configuration from a workspace connection directly into a folder on disk.
  *
  */
 public class ComponentConfigurationDownloadUtil {
