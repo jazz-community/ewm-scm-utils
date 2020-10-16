@@ -47,7 +47,7 @@ Analyzes a RTC SCM workspace (a repository workspace or stream), the referenced 
 
 ###	Optional parameter
 ```bash
--connectionOwnerScope  "<processAreaName>{&<processAreaName>}"
+-connectionOwnerScope   "<processAreaName>{&<processAreaName>}"
 -outputFolder   <outputFolderPath>
 ```
 
