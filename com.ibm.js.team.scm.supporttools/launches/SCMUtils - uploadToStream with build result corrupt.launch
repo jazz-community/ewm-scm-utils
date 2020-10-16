@@ -11,7 +11,7 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.ibm.js.team.supporttools.scmutils.ScmSupportTools"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command uploadToStream -url &quot;https://localhost:9443/ccm/&quot; -user myadmin -password myadmin -projectarea &quot;JKE Banking (Change Management)&quot; -streamName &quot;TestStream&quot; -inputFolder &quot;C:\Temp\ARM v8-A CPU&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command uploadToStream -url &quot;https://localhost:9443/ccm/&quot; -user myadmin -password myadmin -projectarea &quot;JKE Banking (Change Management)&quot; -streamName &quot;TestStream&quot; -inputFolder &quot;C:\Temp\ARM v8-A CPU&quot; -buildResultId &quot;&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.ibm.js.team.supporttools.scmutils"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

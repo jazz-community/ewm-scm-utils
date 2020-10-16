@@ -60,6 +60,10 @@ import com.ibm.team.scm.common.dto.IWorkspaceSearchCriteria;
  * is the project area. The component is added to the stream if it is not yet in
  * it. All changes are contained in one change set. 
  * 
+ * If an optional build result UUID is provided the command will publish the URIs 
+ * for the stream, the baseline and the component as external links to the 
+ * build result.
+ * 
  */
 public class UploadToStream extends AbstractTeamrepositoryCommand implements ICommand {
 
@@ -313,20 +317,6 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 			IBaselineConnection baseline = tempWorkspace.createBaseline(componentHandle, baselineName, baselineComment,
 					monitor);
 
-			IBuildResult buildResult = BuildUtil.getBuildResult(teamRepository, buildResultUUID, monitor);
-
-			URI componentURI = URIUtil.getURIForItem(componentHandle);
-			BuildUtil.publishLink(teamRepository, buildResult, "IP Links", componentURI.toString(),
-					"Component - " + componentName, monitor);
-
-			URI baselineURI = URIUtil.getURIForItem(baseline.getBaseline());
-			BuildUtil.publishLink(teamRepository, buildResult, "IP Links", baselineURI.toString(),
-					"Baseline - " + baselineName, monitor);
-
-			URI streamURI = URIUtil.getURIForItem(targetStream.getResolvedWorkspace().getItemHandle());
-			BuildUtil.publishLink(teamRepository, buildResult, "IP Links", streamURI.toString(),
-					"Stream - " + scmConnection, monitor);
-
 			logger.info("Comparing Baselines...");
 			IChangeHistorySyncReport baselineSync = tempWorkspace.compareTo(targetStream,
 					WorkspaceComparisonFlags.INCLUDE_BASELINE_INFO, Collections.EMPTY_LIST, monitor);
@@ -336,6 +326,25 @@ public class UploadToStream extends AbstractTeamrepositoryCommand implements ICo
 			tempWorkspace.deliver(targetStream, baselineSync, baselineSync.outgoingBaselines(componentHandle),
 					baselineSync.outgoingChangeSets(componentHandle), monitor);
 			logger.info("Operation successful, baseline name is '{}'.", baselineName);
+			
+			// Publish to build result
+			if (buildResultUUID != null && ! "".equals(buildResultUUID)) {
+				logger.info("Publish links to build result...");
+				IBuildResult buildResult = BuildUtil.getBuildResult(teamRepository, buildResultUUID, monitor);
+
+				URI componentURI = URIUtil.getURIForItem(componentHandle);
+				BuildUtil.publishLink(teamRepository, buildResult, "IP Links", componentURI.toString(),
+						"Component - " + componentName, monitor);
+
+				URI baselineURI = URIUtil.getURIForItem(baseline.getBaseline());
+				BuildUtil.publishLink(teamRepository, buildResult, "IP Links", baselineURI.toString(),
+						"Baseline - " + baselineName, monitor);
+
+				URI streamURI = URIUtil.getURIForItem(targetStream.getResolvedWorkspace().getItemHandle());
+				BuildUtil.publishLink(teamRepository, buildResult, "IP Links", streamURI.toString(),
+						"Stream - " + scmConnection, monitor);
+			}
+
 			result = true;
 			return result;
 		} finally {
