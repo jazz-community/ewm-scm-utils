@@ -1,6 +1,7 @@
 # ewm-scm-utils
 
-Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils - A collection of utility commands providing custom SCM operations. 
+Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils - A collection of utility commands providing custom operations on EWM/RTC data related to SCM.
+
 - A group of SCM operations support exporting and SCM content. The export operation stores the current component content as zip files and the workspace and compoennt structure as a JSON file. The exported component data can be randomized, obfuscated or left unchanged. The data can be imported into the same or another repository using related commands.
 - Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
 - A third group allows to share and update data in components in a stream as well as download component data into the local file system. A temporary repository workspace will be used for upload. The local data will not be a sandbox connected to Jazz SCM but remain diconnected. 
@@ -30,10 +31,10 @@ Analyzes a RTC SCM workspace (a repository workspace or stream), the referenced 
 
 ###	Required parameter
 ```bash
--command analyzeScmRepository
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password> 
+-command 	analyzeScmRepository
+-url 		"https://<server>:port/<context>/" 
+-user 	 	<userId> 
+-password 	<password> 
 ```
 
 ###	Required parameter description
@@ -47,7 +48,7 @@ Analyzes a RTC SCM workspace (a repository workspace or stream), the referenced 
 ###	Optional parameter
 ```bash
 -connectionOwnerScope "<processAreaName>{&<processAreaName>}"
--outputFolder <outputFolderPath>
+-outputFolder  <outputFolderPath>
 ```
 
 ###	Optional parameter description
@@ -96,10 +97,10 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 ###	Required parameter
 ```bash
 -command analyzeScmWorkspace
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password>
--workspaceConnection <workspaceNameOrId>
+-url  "https://<server>:port/<context>/" 
+-user    <userId> 
+-password  <password>
+-workspaceConnection  <workspaceNameOrId>
 ```
 
 ###	Required parameter description
@@ -113,12 +114,12 @@ Analyses a RTC SCM workspace connection, the referencecd components and the comp
 
 ##	Optional parameter
 ```bash
--outputFolder <outputFolderPath>
+-outputFolder  <outputFolderPath>
 ```
 
 ###	Optional parameter description
 ```bash
--outputFolder	The folder where the resulting data is written.
+-outputFolder  The folder where the resulting data is written.
 ```
 
 ###	Example
@@ -133,10 +134,10 @@ Exports the contents of a workspace (a repository workspace or stream) into a se
 ###	Required parameter
 ```bash
 -command exportScmWorkspace
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password>
--workspaceConnection <workspaceNameOrId> 
+-url   "https://<server>:port/<context>/" 
+-user   <userId> 
+-password  <password>
+-workspaceConnection  <workspaceNameOrId> 
 ```
 
 ###	Required parameter description
@@ -149,14 +150,14 @@ Exports the contents of a workspace (a repository workspace or stream) into a se
 
 ###	Optional parameter
 ```bash
--outputFolder <outputFolderPath>
--exportmode <exportmode>
+-outputFolder  <outputFolderPath>
+-exportmode  <exportmode>
 ```
 
 ###	Optional parameter description
 ```bash
 -outputFolder	 The folder where the resulting data is written.
--exportmode   The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
+-exportmode  The mode to export the data. Available modes are: randomize, obfuscate, preserve. Default mode if parameter is omitted is: randomize
  				- Export mode randomize changes all bytes of the filecontent with random bytes.
  				- Export mode obfuscate replaces all lines in the files with lines of sample text of similar length, taken from the file CodeSampleInput.txt.
  				- Export mode preserve keeps the file content as it is.
@@ -175,12 +176,12 @@ Imports a repository workspace from export data conforming to the result of the 
 
 ```bash
 -command importScmWorkspace
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password>
--projectarea <project_area> 
--workspaceConnection <workspaceNameOrId> 
--inputFolder <inputFolderPath>
+-url  "https://<server>:port/<context>/" 
+-user  <userId> 
+-password  <password>
+-projectarea  <project_area> 
+-workspaceConnection  <workspaceNameOrId> 
+-inputFolder  <inputFolderPath>
 ```
 ###	Required parameter description
 ```bash 
@@ -190,12 +191,12 @@ Imports a repository workspace from export data conforming to the result of the 
 -password 	The password of the user. 
 -projectarea  A project Area name, for the project area to import into. 
 -workspaceConnection  The repository workspace to import.. 
--inputFolder  The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
+-inputFolder   The folder where the input information is expected to be. This is the folder and content created in the command exportScmWorkspace.
 ```
 
 ###	Optional parameter
 ```bash
--componentNameModifier <modifier>
+-componentNameModifier  <modifier>
 -reuseExistingWorkspace
 -skipUploadingExistingComponents
 ```
@@ -216,10 +217,10 @@ Convertes the component ID's in an existing Load Rule File based on the mapping 
 
 ###	Required parameter
 ```bash
--command convertLoadrule 
--inputFolder <inputFolderPath> 
--sourceLoadruleFile <sourceLoadRule> 
--targetLoadruleFile <targetLoadRule>
+-command  convertLoadrule 
+-inputFolder  <inputFolderPath> 
+-sourceLoadruleFile  <sourceLoadRule> 
+-targetLoadruleFile  <targetLoadRule>
 ```
 
 ###	Required parameter description
@@ -240,13 +241,13 @@ Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The
 
 ###	Required parameter
 ```bash
--command flattenLoadrule 
--sourceLoadruleFile <sourceLoadRule> 
--targetLoadruleFile <targetLoadRule> 
+-command  flattenLoadrule 
+-sourceLoadruleFile  <sourceLoadRule> 
+-targetLoadruleFile  <targetLoadRule> 
 ```
 ###	Required parameter description
 ```bash 
--sourceLoadruleFile 	Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
+-sourceLoadruleFile  Full path and filename to an existing loadrule file that needs the source UUID's to be converted to the target UUID's. 
 -targetLoadruleFile 	Full path and filename of the resulting loadrule of the conversion. 
 ```
 
@@ -258,15 +259,17 @@ Iterates a loadrule and modifies pathPrefix entries for sandboxRelativePath. The
 ## uploadToStream
 Uploads a folder and its content as component to a stream and baselines the content. The folder name is used as the component name. The component is created if it does not yet exists. Ownership and visibility of the component is the project area. The component is added to the stream if it is not yet in it. All changes are contained in one change set.
 
+When a build result UUID is provided as optional parameter the command will publish the URIs for the stream, the baseline and the component as external links to the build result.
+
 ###	Required parameter
 ```bash
--command uploadToStream 
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password>
--projectarea <project_area>
--streamName <streame_name> 
--inputFolder <inputFolder>
+-command  uploadToStream 
+-url  "https://<server>:port/<context>/" 
+-user  <userId> 
+-password  <password>
+-projectarea  <project_area>
+-streamName  <streame_name> 
+-inputFolder  <inputFolder>
 ```
 
 ###	Required parameter description
@@ -280,9 +283,19 @@ Uploads a folder and its content as component to a stream and baselines the cont
 -inputFolder The path to the folder that is the source to upload.
 ```
 
+##	Optional parameter
+```bash
+-buildResultId  <buildResultUUID>
+```
+
+###	Optional parameter description
+```bash
+-buildResultId  The UUID of an existing build result.
+```
+
 ### Example
 ```bash
--command uploadToStream -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -streamName "JKE Banking Integration Stream" -inputFolder "C:\Temp\ScmExport"
+-command uploadToStream -url https://clm.example.com:9443/ccm/ -user ADMIN -password ****** -projectarea "JKE Banking (Requirements Management)" -streamName "JKE Banking Integration Stream" -inputFolder "C:\Temp\ScmExport" -buildResultId _oS2f0A1iEeuxvceFG0DbZg
 ```
 
 ## downloadComponentBaseline
@@ -291,12 +304,12 @@ Downloads the content of a component selected by a baseline into a local file sy
 ###	Required parameter
 ```bash
 -command downloadComponentBaseline 
--url "https://<server>:port/<context>/" 
--user <userId> 
--password <password>
--component <component_name> 
--baseline <baseline_name> 
--outputFolder <outputFolderPath>
+-url  "https://<server>:port/<context>/" 
+-user    <userId> 
+-password  <password>
+-component  <component_name> 
+-baseline  <baseline_name> 
+-outputFolder  <outputFolderPath>
 ```
 
 ###	Required parameter description
@@ -306,8 +319,8 @@ Downloads the content of a component selected by a baseline into a local file sy
 -user 	 	The user ID of a user. 
 -password 	The password of the user. 
 -component  The name of the component.
--baseline The name of the baseline on the component.
--outputFolder The path to the folder that is the target of the download.
+-baseline  The name of the baseline on the component.
+-outputFolder  The path to the folder that is the target of the download.
 ```
 
 ### Example
