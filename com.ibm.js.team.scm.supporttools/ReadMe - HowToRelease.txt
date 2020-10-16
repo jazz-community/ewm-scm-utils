@@ -1,6 +1,33 @@
+To start developing
+1. Import the projects of the local GIT repository into Eclipse. You should see the Eclipse projects 
+	- com.ibm.js.team.supporttools.scmutils
+	- com.ibm.js.team.supporttools.framework
+	- ewm-scm-utils 
+2. In order to be able to build the project in Eclipse, make sure to install and activate a current Java 8 SDK. A JRE is not sufficient. 
+	- Use Windows Preferences>Java>Installed JREs and add the JDK folder.
+	- Use Windows Preferences>Java>Installed JREs>Execution Environments and configure a Java 1.8 execution environment with the JDK.
+ 
+3. Provide the EWM/RTC plain Java client libraries. 
+	- Download them from https://jazz.net.
+	- Unpack the plain Java client libraries into a folder e.g. C:\ewm6.0.6.1\PlainJavaClientLibraries
+	- Rightclick the project com.ibm.js.team.supporttools.scmutils and open Build Path>Configure Build path
+	- Open the tab Libraries, the library PlainJavaApi is missing.
+	- Click Add Library, select user library. Click the button User Library.
+	- Click New name the library PlainJavaApi.
+	- With the new library selected click Add External Jars. Browse to the folder C:\ewm6.0.6.1\PlainJavaClientLibraries and select all files.
+	- Click Open, click OK.
+	 
+4. Right click the project com.ibm.js.team.supporttools.scmutils
+   - Select 'Project>Clean'
+   - Right click on the file pom.xml in the project folder and select 'Run as>Maven clean' 
+   - Right click on the file pom.xml in the project folder and select 'Run as>Maven install' 
+   - If the compiler complains about missing folders, create these folders and repeat.
+
+
+ 
 To Build for usage
 
-1. Open the project com.ibm.rm.typemanagement in Eclipse. 
+1. Open the project com.ibm.js.team.supporttools.scmutils in Eclipse. See details above. If not done already follow the steps above. 
 2. Right click the project com.ibm.rm.typemanagement
    - Select 'Project>Clean'
    - Right click on the file pom.xml in the project folder and select 'Run as>Maven clean' 
