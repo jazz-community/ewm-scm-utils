@@ -47,14 +47,14 @@ Analyzes a RTC SCM workspace (a repository workspace or stream), the referenced 
 
 ###	Optional parameter
 ```bash
--connectionOwnerScope "<processAreaName>{&<processAreaName>}"
--outputFolder  <outputFolderPath>
+-connectionOwnerScope  "<processAreaName>{&<processAreaName>}"
+-outputFolder    <outputFolderPath>
 ```
 
 ###	Optional parameter description
 ```bash
--connectionOwnerScope	Filter and analyze only the connections owned by the process areas in the scope 
--outputFolder	The folder where the resulting data is written.
+-connectionOwnerScope  Filter and analyze only the connections owned by the process areas in the scope 
+-outputFolder  The folder where the resulting data is written.
 ```
 ###	Example
 ```bash
