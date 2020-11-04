@@ -1,6 +1,6 @@
 # ewm-scm-utils
 
-Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils - A collection of utility commands providing custom operations on EWM/RTC data related to SCM.
+Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SCM Utils - A collection of utility commands providing custom operations on EWM/RTC data related to a file system and EWM SCM.
 
 - A group of SCM operations support exporting and SCM content. The export operation stores the current component content as zip files and the workspace and compoennt structure as a JSON file. The exported component data can be randomized, obfuscated or left unchanged. The data can be imported into the same or another repository using related commands.
 - Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
