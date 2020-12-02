@@ -14,7 +14,6 @@ import com.ibm.js.team.supporttools.scmutils.commands.AnalyzeWorkspace;
 import com.ibm.js.team.supporttools.scmutils.commands.ConvertLoadrule;
 import com.ibm.js.team.supporttools.scmutils.commands.DownloadComponentBaseline;
 import com.ibm.js.team.supporttools.scmutils.commands.ExportWorkspace;
-import com.ibm.js.team.supporttools.scmutils.commands.AnalyzeSpecialFolderStructure;
 import com.ibm.js.team.supporttools.scmutils.commands.FlattenLoadrule;
 import com.ibm.js.team.supporttools.scmutils.commands.ImportWorkspace;
 import com.ibm.js.team.supporttools.scmutils.commands.UploadToStream;
@@ -37,7 +36,6 @@ public class ScmSupportToolsCommandFactory extends AbstractCommandFactory {
 		put(new FlattenLoadrule());
 		put(new UploadToStream());
 		put(new DownloadComponentBaseline());
-		put(new AnalyzeSpecialFolderStructure());
 		// Enable sample command
 		// put(new SampleCommandCmd());
 	}

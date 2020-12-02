@@ -11,7 +11,6 @@ package com.ibm.js.team.supporttools.scmutils.utils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
