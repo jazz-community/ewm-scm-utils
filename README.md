@@ -13,7 +13,7 @@ SCMUtils Version: 2.6
 
 The source code ships start scripts, a batch file and a sell script, that can be used to launch the tool. Please note that long running operations on large sets of data can cause out of memory exceptions. The scripts have a built in option to set the heap size, consider increasing the value if you run into out of memory errors.
 
-The tool requires the EWM/RTC Plain Java Client Libraries. https://github.ibm.com/ralph-schoon/ewm-scm-utils/blob/master/com.ibm.js.team.scm.supporttools/ReadMe%20-%20HowToRelease.txt explains how to release the tool.
+The tool requires the EWM/RTC Plain Java Client Libraries. https://github.com/jazz-community/ewm-scm-utils/blob/master/com.ibm.js.team.scm.supporttools/ReadMe%20-%20HowToRelease.txt explains how to release the tool.
 
 ## Available commands 
 
