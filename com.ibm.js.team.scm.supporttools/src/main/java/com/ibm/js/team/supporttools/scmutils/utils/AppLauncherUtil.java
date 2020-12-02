@@ -1,12 +1,10 @@
-﻿/**
- * Licensed Materials - Property of IBM
+﻿/*******************************************************************************
+ * Copyright (c) 2015-2020 IBM Corporation
  *
- * AppLauncher.java
- * © Copyright IBM Corporation 2010.
- * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
  * 
- */
-
+ *******************************************************************************/
 package com.ibm.js.team.supporttools.scmutils.utils;
 
 import java.io.File;
