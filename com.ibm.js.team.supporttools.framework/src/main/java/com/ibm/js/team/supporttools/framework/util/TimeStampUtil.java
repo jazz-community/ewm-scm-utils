@@ -8,6 +8,7 @@
 package com.ibm.js.team.supporttools.framework.util;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -65,6 +66,16 @@ public class TimeStampUtil {
 	 */
 	public static String getTimestamp() {
 		return getDate(new Timestamp((new Date()).getTime()), null);
+	}
+
+	public static Date getDateFromString(String date, String timeFormatPattern) throws ParseException {
+		String pattern = SIMPLE_DATE_FORMAT_PATTERN_YYYY_MM_DD_HH_MM_SS_Z;
+		if (null != timeFormatPattern) {
+			pattern = timeFormatPattern;
+		}
+		SimpleDateFormat sDFormat = new SimpleDateFormat(pattern);
+		Date parsedDate = sDFormat.parse(date);
+		return parsedDate;
 	}
 
 }

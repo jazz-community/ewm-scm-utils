@@ -41,6 +41,9 @@ public class PrintUtil {
 	 */
 	public static String asBinaryMagnitude(Double size) {
 		Double adjusted;
+		if(size==null){
+			size=new Double(0);
+		}
 		if (size > TERABYTE) {
 			adjusted = CalcUtil.divide(size, TERABYTE);
 			return CalcUtil.roundPrecision2(adjusted).toString() + " " + TERABYTE_STRING;

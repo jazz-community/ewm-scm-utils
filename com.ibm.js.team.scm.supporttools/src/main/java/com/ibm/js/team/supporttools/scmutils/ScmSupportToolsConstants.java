@@ -145,4 +145,7 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
 	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
+	public static final String ANALYZE_SPECIAL_FOLDERSTRUCTURE = "analyzeSpecialFolderStructure";
+	public static final String PARAMETER_LATESTONLY_FLAG = "latestOnly";
+	public static final String PARAMETER_LATESTONLY_FLAG_DESCRIPTION = "";
 }
