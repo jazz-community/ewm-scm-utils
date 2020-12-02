@@ -3,7 +3,7 @@ package com.ibm.js.team.supporttools.scmutils.statistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scmutils.SupplierExportTool;
+import com.ibm.js.team.supporttools.scmutils.FileAnalysisCommandTool;
 
 public class ExportInformation {
 	public static final Logger logger = LoggerFactory.getLogger(ExportInformation.class);

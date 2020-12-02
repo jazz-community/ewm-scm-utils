@@ -20,7 +20,7 @@ import com.ibm.js.team.supporttools.framework.SupportToolsFrameworkConstants;
 import com.ibm.js.team.supporttools.framework.framework.AbstractCommand;
 import com.ibm.js.team.supporttools.framework.framework.ICommand;
 import com.ibm.js.team.supporttools.scmutils.ScmSupportToolsConstants;
-import com.ibm.js.team.supporttools.scmutils.statistics.PrefIDAnalyzer;
+import com.ibm.js.team.supporttools.scmutils.statistics.SpecialFolderStructureAnalyzer;
 import com.ibm.js.team.supporttools.scmutils.statistics.SandboxAnalyzer;
 import com.ibm.js.team.supporttools.scmutils.utils.SheetUtils;
 
@@ -29,15 +29,15 @@ import com.ibm.js.team.supporttools.scmutils.utils.SheetUtils;
  * names ".git", ".jazz5", ".metadata".
  * 
  */
-public class ExtractPreferredIDs extends AbstractCommand implements ICommand {
+public class AnalyzeSpecialFolderStructure extends AbstractCommand implements ICommand {
 
-	public static final Logger logger = LoggerFactory.getLogger(ExtractPreferredIDs.class);
+	public static final Logger logger = LoggerFactory.getLogger(AnalyzeSpecialFolderStructure.class);
 	/**
 	 * Constructor, set the command name which will be used as option value for
 	 * the command option. The name is used in the UIs and the option parser.
 	 */
-	public ExtractPreferredIDs() {
-		super(ScmSupportToolsConstants.EXTRACT_PREFERRED_IDS);
+	public AnalyzeSpecialFolderStructure() {
+		super(ScmSupportToolsConstants.ANALYZE_SPECIAL_FOLDERSTRUCTURE);
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class ExtractPreferredIDs extends AbstractCommand implements ICommand {
 		}
 		
 		boolean latestOnly=getCmd().hasOption(ScmSupportToolsConstants.PARAMETER_LATESTONLY_FLAG);
-		PrefIDAnalyzer sandboxAnalyzer = new PrefIDAnalyzer(sandboxFolderPath,latestOnly);
+		SpecialFolderStructureAnalyzer sandboxAnalyzer = new SpecialFolderStructureAnalyzer(sandboxFolderPath,latestOnly);
 	
 		sandboxAnalyzer.analyze(sandboxFolder);
 //		String workbookName = sandboxFolder.getName() + ".xls";

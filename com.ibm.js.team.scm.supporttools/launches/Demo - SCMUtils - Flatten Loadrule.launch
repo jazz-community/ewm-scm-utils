@@ -11,7 +11,7 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.ibm.js.team.supporttools.scmutils.ScmSupportTools"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command flattenLoadrule -sourceLoadruleFile &quot;C:\Temp\LoadRule\converted_test.loadrule&quot; -targetLoadruleFile &quot;C:\Temp\LoadRule\flattened_converted_test.loadrule&quot;"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command flattenLoadrule -sourceLoadruleFile &quot;C:\Temp\LoadRule\converted_test.loadrule&quot; -targetLoadruleFile &quot;C:\aTemp\LoadRule\flattened_converted_test.loadrule&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.ibm.js.team.supporttools.scmutils"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

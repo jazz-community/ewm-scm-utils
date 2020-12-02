@@ -18,17 +18,20 @@ import org.apache.poi.ss.util.WorkbookUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.js.team.supporttools.scmutils.SupplierExportTool;
+import com.ibm.js.team.supporttools.scmutils.FileAnalysisCommandTool;
 import com.ibm.js.team.supporttools.scmutils.statistics.sizerange.RangeStats;
 import com.ibm.js.team.supporttools.scmutils.utils.CalcUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.POICellHelper;
 
 	
 /**
+ * 
+ * Assumes a very special folder structure where it collects information such as folder names.
+ * Calls a special class that runs some automation on the files found in the leaf folders. 
  *
  */
-public class PrefIDAnalyzer {
-	public static final Logger logger = LoggerFactory.getLogger(PrefIDAnalyzer.class);
+public class SpecialFolderStructureAnalyzer {
+	public static final Logger logger = LoggerFactory.getLogger(SpecialFolderStructureAnalyzer.class);
 	private int fProgress = 0;
 	private HashSet<String> ignoreFolderSet = new HashSet<String>(20);
 	private HashSet<String> ignoreFileSet = new HashSet<String>(20);
@@ -41,7 +44,7 @@ public class PrefIDAnalyzer {
 	 * 
 	 * @param sandboxFolderPath
 	 */
-	public PrefIDAnalyzer(String sandboxFolderPath, boolean latestOnly) {
+	public SpecialFolderStructureAnalyzer(String sandboxFolderPath, boolean latestOnly) {
 		comp = new ComponentStat(sandboxFolderPath);
 		fLatestOnly = latestOnly;
 	}
@@ -181,7 +184,7 @@ public class PrefIDAnalyzer {
 	private void analyzeSupplierFolder(File supplierFolder, String absolutePath, ExportInformation exportInformation, ComponentStat compStat, int depth) {
 		logger.info("\nAnalyzing supplierFolder '{}'",supplierFolder.getAbsolutePath());
 		File[] contents = supplierFolder.listFiles();
-		SupplierExportTool supExpTool = new SupplierExportTool(exportInformation);
+		FileAnalysisCommandTool analysisCommand = new FileAnalysisCommandTool(exportInformation);
 		long folders = 0;
 		long files = 0;
 		for (File file : contents) {
@@ -200,7 +203,7 @@ public class PrefIDAnalyzer {
 					FileInfo fInfo = FileInfo.getFileInfo(file);
 					compStat.addFileStat(fInfo, depth);
 					rangeStats.analyze(fInfo);
-					supExpTool.analyze(file);
+					analysisCommand.analyze(file);
 				} else {
 					logger.info("\nIgnoring file '{}'", file.getAbsolutePath());
 				}
@@ -209,7 +212,7 @@ public class PrefIDAnalyzer {
 		}
 		compStat.addFolderStats(folders, files, depth);
 		logger.info("\nExecute mapping...");
-		supExpTool.execute(fLatestOnly);
+		analysisCommand.execute(fLatestOnly);
 	}
 
 	/**

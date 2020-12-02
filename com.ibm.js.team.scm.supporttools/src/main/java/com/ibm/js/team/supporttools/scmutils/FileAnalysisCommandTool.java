@@ -17,7 +17,7 @@ import com.ibm.js.team.supporttools.framework.util.FileUtil;
 //import com.daimler.rm.reqif.correction2.ReqIFCorrectionCommand;
 import com.ibm.js.team.supporttools.framework.util.TimeStampUtil;
 import com.ibm.js.team.supporttools.scmutils.statistics.ExportInformation;
-import com.ibm.js.team.supporttools.scmutils.statistics.PrefIDAnalyzer;
+import com.ibm.js.team.supporttools.scmutils.statistics.SpecialFolderStructureAnalyzer;
 import com.ibm.js.team.supporttools.scmutils.utils.AppLauncherUtil;
 import com.ibm.team.repository.common.serialize.internal.message.Request;
 
@@ -25,7 +25,7 @@ import com.ibm.team.repository.common.serialize.internal.message.Request;
  * 
  *
  */
-public class SupplierExportTool {
+public class FileAnalysisCommandTool {
 
 	private static final String DASH_FIXED = "-Fixed";
 	private static final String _FIXED = "_Fixed";
@@ -42,7 +42,7 @@ public class SupplierExportTool {
 	private static final String OUTPUT_FOLDER = "C:\\d_test_data\\processingTemp\\output";
 	private static final String EXTRACT_FOLDER = "C:\\d_test_data\\processingTemp\\extract";
 
-	public static final Logger logger = LoggerFactory.getLogger(SupplierExportTool.class);
+	public static final Logger logger = LoggerFactory.getLogger(FileAnalysisCommandTool.class);
 	private ExportInformation fExportInformation;
 	private List<ReqIfElement> reqIfs = new ArrayList<ReqIfElement>(20);
 
@@ -110,7 +110,7 @@ public class SupplierExportTool {
 		}
 	}
 
-	public SupplierExportTool(ExportInformation exportInformation) {
+	public FileAnalysisCommandTool(ExportInformation exportInformation) {
 		fExportInformation = exportInformation;
 	}
 

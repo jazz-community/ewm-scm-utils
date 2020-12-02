@@ -11,7 +11,7 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.ibm.js.team.supporttools.scmutils.ScmSupportTools"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command importScmWorkspace -url &quot;https://clm.example.com:9443/ccm/&quot; -user ralph -password ralph -projectarea &quot;GC Example (Change Management)&quot; -workspaceConnection &quot;Imported Hierarchical JKE Banking Stream Workspace&quot; -inputFolder &quot;C:\aTemp\ScmExportRandomize&quot; -componentNameModifier=&quot;IBMTestDefault_&quot; -reuseExistingWorkspace"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-command analyzeScmRepository -url &quot;https://localhost:9443/ccm/&quot; -user ralph -password ralph  -outputFolder=&quot;C:/aTemp/ScmAnalyzeRepository&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.ibm.js.team.supporttools.scmutils"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
 </launchConfiguration>

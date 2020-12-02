@@ -34,71 +34,11 @@ public class AppLauncherUtil {
 		if(synchronous){
 			return executeBatchSynchronous(executable, args, environment, workingDir);			
 		} else {
-			return executeAsynchronous(executable, workingDir, args);
-		}
-	}
-
-	private static int executeAsynchronous(File executable, File workingDir, String[] args) {
-
-		try {
-
-			ProcessBuilder builder = new ProcessBuilder();
-			builder.directory(workingDir);
-
-			ArrayList<String> command = new ArrayList<String>();
-
-			command.add("cmd.exe");
-			command.add("/K");
-			command.add("call");
-			/**
-			 * Add the Executable
-			 */
-			String commandFile = executable.getAbsolutePath().toString();
-
-			/**
-			 * Add the additional parameters to the command. Split by
-			 * whitespace.
-			 * 
-			 * TODO: support blanks in paths and parameters using quotes on
-			 * windows
-			 */
-			command.add(commandFile);
-			String output = "";
-			for (int i = 0; i < args.length; i++) {
-				command.add(args[i]);
-				output += (String) args[i] + " ";
-			}
-			logger.info("Launching: " + commandFile);
-			logger.info("Using: " + output);
-
-			/**
-			 * Launch the command
-			 */
-			builder.command(command);
-			builder.directory(workingDir);
-
-			/**
-			 * Use the builder to run the process.
-			 * 
-			 * @see com.ibm.team.filesystem.client.restproxy.Discovery2
-			 */
-			Process proc = null;
-			try {
-				builder.redirectErrorStream(true);
-				proc = builder.start();
-				return proc.waitFor();
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getLocalizedMessage());
-				return -1;
-			}
-			//proc.destroyForcibly();
-
-		} catch (Exception e) {
-			logger.error("Exception Executing:", e);
 			return -1;
+			// TODO
 		}
 	}
+
 	
 	public static int  executeBatchSynchronous(File executable, String[] args,
 			String[] environment, File workingDir) {
