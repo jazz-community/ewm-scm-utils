@@ -14,4 +14,4 @@ SCMUtils -command importScmWorkspace -url "https://localhost:9443/ccm/" -user my
 
 Convert LoadRule
 
-SCMUtils -command convertLoadrule -inputFolder  "C:\temp\ScmExport" -sourceLoadruleFile "C:\Temp\LoadRule\myadmin.loadrule" -targetLoadruleFile "C:\Temp\LoadRule\converted_myadmin.loadrule"
+SCMUtils -command convertLoadrule -inputFolder  "C:\Temp\ScmExport" -sourceLoadruleFile "C:\Temp\LoadRule\myadmin.loadrule" -targetLoadruleFile "C:\Temp\LoadRule\converted_myadmin.loadrule"
