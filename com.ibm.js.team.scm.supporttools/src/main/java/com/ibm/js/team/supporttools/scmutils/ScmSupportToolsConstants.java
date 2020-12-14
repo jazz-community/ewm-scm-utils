@@ -14,7 +14,7 @@ package com.ibm.js.team.supporttools.scmutils;
 public interface ScmSupportToolsConstants {
 
 	public static final Object SCMTOOLS = "SCMUtils";
-	public static final String SCMTOOLS_VERSION = "2.6";
+	public static final String SCMTOOLS_VERSION = "2.7";
 
 	public static final String EXPENSIVESCENARIO_SCMTOOLS = SCMTOOLS + "_" + SCMTOOLS_VERSION + "_";
 
@@ -145,5 +145,4 @@ public interface ScmSupportToolsConstants {
 	public static final Object JSON_TARGET_COMPONENT_NAME = "TargetName";
 	public static final Object JSON_TARGET_COMPONENT_UUID = "TargetUUID";
 	public static final String COMPONENT_MAPPING_JSON_FILE = "UUIDMapping.json";
-
 }
