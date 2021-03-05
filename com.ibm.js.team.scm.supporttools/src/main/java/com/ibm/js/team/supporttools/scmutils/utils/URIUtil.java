@@ -31,14 +31,16 @@ public class URIUtil {
 	}
 
 	public static URI getURIForItem(IItemHandle item) {
-		// CopyBaselineWebURLAction
-		// Location.itemLocation(item, repoUrl, query, serviceName)
 		Location location = Location.itemLocation(item, getPublicURI(item));
 		return location.toAbsoluteUri();
 	}
 
+	/**
+	 * @param item
+	 * @return
+	 */
 	public static String getPublicURI(IItemHandle item) {
-		return getPublicURI(((ITeamRepository) item.getOrigin()));
+		return getPublicURI((ITeamRepository) item.getOrigin());
 	}
 
 	/**
