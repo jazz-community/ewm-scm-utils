@@ -1,5 +1,19 @@
 SCMUtils Version: 2.7
 
+Prerequisite
+
+- The EWM SCM Utils require a up to date working Java 8.  
+- The EWM SCM Utils require the RTC/EWM Plain Java client libraries. 
+
+Download the Plain Java Cleint Libraries from the 'All Downloads' tab of the download page for your version of EWM.
+Unzip the Plain Java Client Libraries into a folder on your local disc for example C:\ELM702\PlainJavaAPI.  
+
+To run the EWM SCM Utils, edit the SCMUtils.bat or SCMUtils.sh and change the environment variables JAVA_HOME and PLAIN_JAVA to your Java JRE 
+and the Plain Java Client Libraries you installed e.g. our values e.g.
+
+PLAIN_JAVA=C:\ELM702\PlainJavaAPI
+
+
 See https://github.com/jazz-community/ewm-scm-utils#readme
 
 Syntax: -command commandName {[-parameter] [parameterValue]}
