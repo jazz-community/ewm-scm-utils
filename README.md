@@ -6,7 +6,20 @@ Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SC
 - Another group of operations helps analyzing SCM Workspaces, Streams and sandboxes and generate sizing statistics. Includdes a framework that allows to implement own commands.
 - A third group allows to share and update data in components in a stream as well as download component data into the local file system. A temporary repository workspace will be used for upload. The local data will not be a sandbox connected to Jazz SCM but remain disconnected. 
 
-SCMUtils Version: 2.6
+SCMUtils Version: 2.7
+
+## prerequisite
+
+- The EWM SCM Utils require a up to date working Java 8.  
+- The EWM SCM Utils require the RTC/EWM Plain Java client libraries.
+
+Download the Plain Java Cleint Libraries from the 'All Downloads' tab of the download page for your version of EWM.
+Unzip the Plain Java Client Libraries into a folder on your local disc for example C:\ELM702\PlainJavaAPI.  
+
+To run the EWM SCM Utils, edit the SCMUtils.bat or SCMUtils.sh and change the environment variables JAVA_HOME and PLAIN_JAVA to your Java JRE 
+and the Plain Java Client Libraries you installed e.g. our values e.g.
+
+PLAIN_JAVA=C:\ELM702\PlainJavaAPI
 
 ## Usage 
 `-command commandName {[-parameter] [parameterValue]}`
