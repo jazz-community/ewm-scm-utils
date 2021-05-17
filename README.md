@@ -8,13 +8,14 @@ Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SC
 
 SCMUtils Version: 2.7
 
-## prerequisite
+## Prerequisite
 
-- The EWM SCM Utils require a up to date working Java 8.  
-- The EWM SCM Utils require the RTC/EWM Plain Java client libraries.
+- The EWM SCM Utils require an up to date working Java 8.  
+- The EWM SCM Utils require the RTC/EWM Plain Java Client Libraries.
 
-Download the Plain Java Cleint Libraries from the 'All Downloads' tab of the download page for your version of EWM.
-Unzip the Plain Java Client Libraries into a folder on your local disc for example C:\ELM702\PlainJavaAPI.  
+Download the Plain Java Client Libraries from the 'All Downloads' tab of the download page for your version of EWM.
+Unzip the Plain Java Client Libraries into a folder on your local disc for example C:\ELM702\PlainJavaAPI. 
+The JAR files are supposed to be in this specific folder.  
 
 To run the EWM SCM Utils, edit the SCMUtils.bat or SCMUtils.sh and change the environment variables JAVA_HOME and PLAIN_JAVA to your Java JRE 
 and the Plain Java Client Libraries you installed e.g. our values e.g.
