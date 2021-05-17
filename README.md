@@ -8,7 +8,7 @@ Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SC
 
 SCMUtils Version: 2.7
 
-## prerequisite
+## Prerequisite
 
 - The EWM SCM Utils require a up to date working Java 8.  
 - The EWM SCM Utils require the RTC/EWM Plain Java client libraries.
