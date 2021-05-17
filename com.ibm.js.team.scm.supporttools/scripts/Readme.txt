@@ -1,4 +1,6 @@
-SCMUtils Version: 2.5
+SCMUtils Version: 2.7
+
+See https://github.com/jazz-community/ewm-scm-utils#readme
 
 Syntax: -command commandName {[-parameter] [parameterValue]}
 Available commands: 

@@ -1,3 +1,5 @@
+See https://github.com/jazz-community/ewm-scm-utils#readme
+
 To start developing
 1. Import the projects of the local GIT repository into Eclipse. You should see the Eclipse projects 
 	- com.ibm.js.team.supporttools.scmutils
@@ -28,15 +30,15 @@ To start developing
 To Build for usage
 
 1. Open the project com.ibm.js.team.supporttools.scmutils in Eclipse. See details above. If not done already follow the steps above. 
-2. Right click the project com.ibm.rm.typemanagement
+2. Right click the project com.ibm.js.team.supporttools.framework
    - Select 'Project>Clean'
    - Right click on the file pom.xml in the project folder and select 'Run as>Maven clean' 
    - Right click on the file pom.xml in the project folder and select 'Run as>Maven install' 
-3. Right click the project com.ibm.rm.typemanagement
+3. Right click the project com.ibm.js.team.supporttools.scmutils
 4. Select Export
 5. Select Java>Runnable Jar File 
 6. In the wizard 
-   - For 'Launch Configuration' select 'DNGTypeSystemManagement - runnable jar'
+   - For 'Launch Configuration' select 'SCMUtils - runnable jar'
    - In 'Export Location' select " a path e.g. 'C:\temp\SCMUtils\SCMUtils.jar' 
      You can change the root for the export if needed but keep the top folder name 
      SCMUtils and don't modify the name of the JAR file; 
