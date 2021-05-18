@@ -28,7 +28,7 @@ Unzip the Plain Java Client Libraries into a folder on your local disc for examp
 The JAR files are supposed to be in this specific folder.  
 
 To run the EWM SCM Utils, edit the SCMUtils.bat or SCMUtils.sh and change the environment variables JAVA_HOME and PLAIN_JAVA to your Java JRE 
-and the Plain Java Client Libraries you installed e.g. our values e.g.
+and the Plain Java Client Libraries you installed your values e.g.
 
 PLAIN_JAVA=C:\ELM702\PlainJavaAPI
 
