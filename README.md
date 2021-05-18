@@ -8,7 +8,17 @@ Engineering Workflow Management (EWM) SCM Utils / Rational Team Concert (RTC) SC
 
 SCMUtils Version: 2.7
 
-## Prerequisite
+## License
+
+This software is licensed under the MIT license which is as follows: [MIT License](com.ibm.js.team.workitem.commandline/LICENSE.txt)
+
+All content is provided "as is" and without warranties. I am not responsible for any harm or damage caused by this material to you, your computer, your software, or anything else.
+
+## Disclaimer
+
+This software is open source and not supported by IBM. Do not open support cases at IBM against this software. If you have questions open an issue here and/or ask a question in the [Jazz.net Forum](https://jazz.net/forum/questions/).
+
+## Prerequisites
 
 - The EWM SCM Utils require an up to date working Java 8.  
 - The EWM SCM Utils require the RTC/EWM Plain Java Client Libraries.
