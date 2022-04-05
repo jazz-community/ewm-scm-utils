@@ -156,6 +156,8 @@ public class ConvertLoadrule extends AbstractCommand implements ICommand {
 					String sourceUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_SOURCE_COMPONENT_UUID);
 					String targetUUID = (String) jsonMap.get(ScmSupportToolsConstants.JSON_TARGET_COMPONENT_UUID);
 					source2TargetUUIDMap.put(sourceUUID, targetUUID);
+				} else {
+					logger.info("Unrecognizeable MAP detected...");
 				}
 			}
 			Path sourcePath = Paths.get(sourceLoadrulePath);
