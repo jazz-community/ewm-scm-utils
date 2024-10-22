@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ibm.js.team.supporttools.scmutils.statistics.sizerange.RangeStats;
+import com.ibm.js.team.supporttools.scmutils.utils.ComponentUtil;
 import com.ibm.js.team.supporttools.scmutils.utils.POICellHelper;
 import com.ibm.js.team.supporttools.scmutils.utils.SheetUtils;
 import com.ibm.team.repository.client.ITeamRepository;
@@ -31,6 +32,14 @@ import com.ibm.team.scm.client.IWorkspaceConnection;
  *
  */
 public class RepositoryAnalyzer {
+
+	private static final int COL_CONNS = 1;
+	private static final int COL_CONN = 2;
+	private static final int COL_COMP_STATS = 5;
+	private static final int COL_FOLDERS = 9;
+	private static final int COL_FOLDER_STATS = 12;
+	private static final int COL_FOLDER_DEPTH_STATS = 16;
+	private static final int COL_FILE_STATS = 19;
 
 	public static final Logger logger = LoggerFactory.getLogger(RepositoryAnalyzer.class);
 	private ITeamRepository teamRepository = null;
@@ -55,69 +64,73 @@ public class RepositoryAnalyzer {
 
 		POICellHelper rch = new POICellHelper(repositoryWorkBook);
 		Row groupheader = sheet.createRow(getActiveRow());
+		// Top grouping
+		groupheader.createCell(COL_COMP_STATS).setCellValue(rch.boldFace("Component Stats"));
+		//groupheader.createCell(COL_FOLDERS).setCellValue(rch.boldFace("Folders"));
+		groupheader.createCell(COL_FOLDER_STATS).setCellValue(rch.boldFace("Folder Stats"));
+		groupheader.createCell(COL_FOLDER_DEPTH_STATS).setCellValue(rch.boldFace("Folder Depth Limits"));
+		groupheader.createCell(COL_FILE_STATS).setCellValue(rch.boldFace("File Stats"));
 
-		groupheader.createCell(5).setCellValue(rch.boldFace("Component Stats"));
-		groupheader.createCell(11).setCellValue(rch.boldFace("Folder Stats"));
-		groupheader.createCell(15).setCellValue(rch.boldFace("Folder Depth Limits"));
-		groupheader.createCell(18).setCellValue(rch.boldFace("File Stats"));
-
+		// 2nd grouping
 		Row header = sheet.createRow(getNextActiveRow());
-		header.createCell(1).setCellValue(rch.boldFace("Connections"));
-		header.createCell(2).setCellValue(rch.boldFace("Connection"));
-		header.createCell(3).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header.createCell(4).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header.createCell(5).setCellValue(rch.boldFace("Hierarchy Depth (avg)"));
-		header.createCell(6).setCellValue(rch.boldFace("Hierarchy Depth (max)"));
-		header.createCell(7).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header.createCell(8).setCellValue(rch.boldFace("Folders (sum)"));
-		header.createCell(9).setCellValue(rch.boldFace("Files (sum)"));
-		header.createCell(10).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header.createCell(11).setCellValue(rch.boldFace("Files/Folder"));
-		header.createCell(12).setCellValue(rch.boldFace("Folder Depth(avg)"));
-		header.createCell(13).setCellValue(rch.boldFace("Folder Depth(sum)"));
-		header.createCell(14).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header.createCell(15).setCellValue(rch.boldFace("log(e)"));
-		header.createCell(16).setCellValue(rch.boldFace("Folder Depth(max)"));
-		header.createCell(17).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header.createCell(18).setCellValue(rch.boldFace("File Size (avg)"));
-		header.createCell(19).setCellValue(rch.boldFace("File Size (max)"));
-		header.createCell(20).setCellValue(rch.boldFace("File Size (sum)"));
-		header.createCell(21).setCellValue(rch.boldFace("File depth (avg)"));
-		header.createCell(22).setCellValue(rch.boldFace("File depth (max)"));
+		header.createCell(COL_CONNS).setCellValue(rch.boldFace("Connections"));
+		//header.createCell(COL_CONN).setCellValue(rch.boldFace("Connection"));
+		header.createCell(COL_CONN+1).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header.createCell(COL_CONN+2).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header.createCell(COL_COMP_STATS).setCellValue(rch.boldFace("Components"));
+		header.createCell(COL_COMP_STATS+1).setCellValue(rch.boldFace("Hierarchy Depth (avg)"));
+		header.createCell(COL_COMP_STATS+2).setCellValue(rch.boldFace("Hierarchy Depth (max)"));
+		header.createCell(COL_COMP_STATS+3).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header.createCell(COL_FOLDERS).setCellValue(rch.boldFace("Folders (sum)"));
+		header.createCell(COL_FOLDERS+1).setCellValue(rch.boldFace("Files (sum)"));
+		header.createCell(COL_FOLDERS+2).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header.createCell(COL_FOLDER_STATS).setCellValue(rch.boldFace("Files/Folder"));
+		header.createCell(COL_FOLDER_STATS+1).setCellValue(rch.boldFace("Folder Depth(avg)"));
+		header.createCell(COL_FOLDER_STATS+2).setCellValue(rch.boldFace("Folder Depth(sum)"));
+		header.createCell(COL_FOLDER_STATS+3).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header.createCell(COL_FOLDER_DEPTH_STATS).setCellValue(rch.boldFace("log(e)"));
+		header.createCell(COL_FOLDER_DEPTH_STATS+1).setCellValue(rch.boldFace("Folder Depth(max)"));
+		header.createCell(COL_FOLDER_DEPTH_STATS+2).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header.createCell(COL_FILE_STATS).setCellValue(rch.boldFace("File Size (avg)"));
+		header.createCell(COL_FILE_STATS+1).setCellValue(rch.boldFace("File Size (max)"));
+		header.createCell(COL_FILE_STATS+2).setCellValue(rch.boldFace("File Size (sum)"));
+		header.createCell(COL_FILE_STATS+3).setCellValue(rch.boldFace("File depth (avg)"));
+		header.createCell(COL_FILE_STATS+4).setCellValue(rch.boldFace("File depth (max)"));
 
 		Row summaryRow = sheet.createRow(getNextActiveRow());
-		summaryRow.createCell(1).setCellValue(new Double(connections.size()));
+		summaryRow.createCell(COL_CONNS).setCellValue(new Double(connections.size()));
 		sheet.createRow(getNextActiveRow());
 		sheet.createRow(getNextActiveRow());
 		Row groupheader2 = sheet.createRow(getNextActiveRow());
 
-		groupheader2.createCell(5).setCellValue(rch.boldFace("Component Stats"));
-		groupheader2.createCell(11).setCellValue(rch.boldFace("Folder Stats"));
-		groupheader2.createCell(15).setCellValue(rch.boldFace("Folder Depth Limits"));
-		groupheader2.createCell(18).setCellValue(rch.boldFace("File Stats"));
+		groupheader2.createCell(COL_COMP_STATS).setCellValue(rch.boldFace("Component Stats"));
+		groupheader2.createCell(COL_FOLDER_STATS).setCellValue(rch.boldFace("Folder Stats"));
+		groupheader2.createCell(COL_FOLDER_DEPTH_STATS).setCellValue(rch.boldFace("Folder Depth Limits"));
+		groupheader2.createCell(COL_FILE_STATS).setCellValue(rch.boldFace("File Stats"));
 
 		Row header2 = sheet.createRow(getNextActiveRow());
-		header2.createCell(2).setCellValue(rch.boldFace("Connection"));
-		header2.createCell(3).setCellValue(rch.boldFace("Connection Details"));
-		header2.createCell(4).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(5).setCellValue(rch.boldFace("Hierarchy Depth (avg)"));
-		header2.createCell(6).setCellValue(rch.boldFace("Hierarchy Depth (max)"));
-		header2.createCell(7).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(8).setCellValue(rch.boldFace("Folders (sum)"));
-		header2.createCell(9).setCellValue(rch.boldFace("Files (sum)"));
-		header2.createCell(10).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(11).setCellValue(rch.boldFace("Files/Folder"));
-		header2.createCell(12).setCellValue(rch.boldFace("Folder Depth(avg)"));
-		header2.createCell(13).setCellValue(rch.boldFace("Folder Depth(sum)"));
-		header2.createCell(14).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(15).setCellValue(rch.boldFace("log(e)"));
-		header2.createCell(16).setCellValue(rch.boldFace("Folder Depth(max)"));
-		header2.createCell(17).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
-		header2.createCell(18).setCellValue(rch.boldFace("File Size (avg)"));
-		header2.createCell(19).setCellValue(rch.boldFace("File Size (max)"));
-		header2.createCell(20).setCellValue(rch.boldFace("File Size (sum)"));
-		header2.createCell(21).setCellValue(rch.boldFace("File depth (avg)"));
-		header2.createCell(22).setCellValue(rch.boldFace("File depth (max)"));
+		header2.createCell(COL_CONN).setCellValue(rch.boldFace("Connection"));
+		header2.createCell(COL_CONN+1).setCellValue(rch.boldFace("Connection Details"));
+		header2.createCell(COL_CONN+2).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header2.createCell(COL_COMP_STATS).setCellValue(rch.boldFace("Components"));
+		header2.createCell(COL_COMP_STATS+1).setCellValue(rch.boldFace("Hierarchy Depth (avg)"));
+		header2.createCell(COL_COMP_STATS+2).setCellValue(rch.boldFace("Hierarchy Depth (max)"));
+		header2.createCell(COL_COMP_STATS+3).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header2.createCell(COL_FOLDERS).setCellValue(rch.boldFace("Folders (sum)"));
+		header2.createCell(COL_FOLDERS+1).setCellValue(rch.boldFace("Files (sum)"));
+		header2.createCell(COL_FOLDERS+2).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header2.createCell(COL_FOLDER_STATS).setCellValue(rch.boldFace("Files/Folder"));
+		header2.createCell(COL_FOLDER_STATS+1).setCellValue(rch.boldFace("Folder Depth(avg)"));
+		header2.createCell(COL_FOLDER_STATS+2).setCellValue(rch.boldFace("Folder Depth(sum)"));
+		header2.createCell(COL_FOLDER_STATS+3).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header2.createCell(COL_FOLDER_DEPTH_STATS).setCellValue(rch.boldFace("log(e)"));
+		header2.createCell(COL_FOLDER_DEPTH_STATS+1).setCellValue(rch.boldFace("Folder Depth(max)"));
+		header2.createCell(COL_FOLDER_DEPTH_STATS+2).setCellValue(rch.boldFace(POICellHelper.XLS_COLUMN_SEPARATOR));
+		header2.createCell(COL_FILE_STATS).setCellValue(rch.boldFace("File Size (avg)"));
+		header2.createCell(COL_FILE_STATS+1).setCellValue(rch.boldFace("File Size (max)"));
+		header2.createCell(COL_FILE_STATS+2).setCellValue(rch.boldFace("File Size (sum)"));
+		header2.createCell(COL_FILE_STATS+3).setCellValue(rch.boldFace("File depth (avg)"));
+		header2.createCell(COL_FILE_STATS+4).setCellValue(rch.boldFace("File depth (max)"));
 
 		for (Iterator<? extends IWorkspaceConnection> iterator = connections.iterator(); iterator.hasNext();) {
 			IWorkspaceConnection workspaceConnection = (IWorkspaceConnection) iterator.next();
@@ -134,27 +147,28 @@ public class RepositoryAnalyzer {
 				repoStat.addConnectionStats(connectionStats);
 
 				Row activeRow = sheet.createRow(getNextActiveRow());
-				rch.setText(activeRow.createCell(2), workspaceConnectionName);
-				rch.setFileHyperLink(activeRow.createCell(3), workbookFileName, workbookFileName);
-				rch.setURLHyperLink(activeRow.createCell(3), workbookFileName, workbookFileName);
-				rch.setNumberP2(activeRow.createCell(5), connectionStats.getAverageHierarchyDepth());
-				rch.setNumber(activeRow.createCell(6), connectionStats.getMaxHierarchyDepth());
+				rch.setText(activeRow.createCell(COL_CONN), workspaceConnectionName);
+				rch.setFileHyperLink(activeRow.createCell(COL_CONN+1), workbookFileName, workbookFileName);
+				// 
+				rch.setNumber(activeRow.createCell(COL_COMP_STATS), connectionStats.getNoComponents());
+				rch.setNumber(activeRow.createCell(COL_COMP_STATS+1), connectionStats.getAverageHierarchyDepth());
+				rch.setNumber(activeRow.createCell(COL_COMP_STATS+2), connectionStats.getMaxHierarchyDepth());
 				//
-				rch.setNumber(activeRow.createCell(8), connectionStats.getCumulatedFolders());
-				rch.setNumber(activeRow.createCell(9), connectionStats.getCumulatedFiles());
+				rch.setNumber(activeRow.createCell(COL_FOLDERS), connectionStats.getCumulatedFolders());
+				rch.setNumber(activeRow.createCell(COL_FOLDERS+1), connectionStats.getCumulatedFiles());
 				//
-				rch.setNumberP2(activeRow.createCell(11), connectionStats.getAverageFilesPerFolder());
-				rch.setNumberP2(activeRow.createCell(12), connectionStats.getAverageFolderDepth());
-				rch.setNumber(activeRow.createCell(13), connectionStats.getCumulatedFolderDepth());
+				rch.setNumberP2(activeRow.createCell(COL_FOLDER_STATS), connectionStats.getAverageFilesPerFolder());
+				rch.setNumberP2(activeRow.createCell(COL_FOLDER_STATS+1), connectionStats.getAverageFolderDepth());
+				rch.setNumber(activeRow.createCell(COL_FOLDER_STATS+2), connectionStats.getCumulatedFolderDepth());
 				//
-				rch.setNumberP2(activeRow.createCell(15), Math.log(connectionStats.getCumulatedFolders()));
-				rch.setNumber(activeRow.createCell(16), connectionStats.getMaxFolderDepth());
+				rch.setNumberP2(activeRow.createCell(COL_FOLDER_DEPTH_STATS), Math.log(connectionStats.getCumulatedFolders()));
+				rch.setNumber(activeRow.createCell(COL_FOLDER_DEPTH_STATS+1), connectionStats.getMaxFolderDepth());
 				//
-				rch.setNumberP2(activeRow.createCell(18), connectionStats.getAverageFileSize());
-				rch.setNumber(activeRow.createCell(19), connectionStats.getMaxFileSize());
-				rch.setNumber(activeRow.createCell(20), connectionStats.getCumulatedFileSize());
-				rch.setNumberP2(activeRow.createCell(21), connectionStats.getAverageFileDepth());
-				rch.setNumber(activeRow.createCell(22), connectionStats.getMaxFileDepth());
+				rch.setNumberP2(activeRow.createCell(COL_FILE_STATS), connectionStats.getAverageFileSize());
+				rch.setNumber(activeRow.createCell(COL_FILE_STATS+1), connectionStats.getMaxFileSize());
+				rch.setNumber(activeRow.createCell(COL_FILE_STATS+2), connectionStats.getCumulatedFileSize());
+				rch.setNumberP2(activeRow.createCell(COL_FILE_STATS+3), connectionStats.getAverageFileDepth());
+				rch.setNumber(activeRow.createCell(COL_FILE_STATS+4), connectionStats.getMaxFileDepth());
 
 				// Add the range statistics
 				analyzer.getConnectionRangeStats().updateWorkBook(workBook);
@@ -165,24 +179,28 @@ public class RepositoryAnalyzer {
 				return result;
 			}
 		}
-		rch.setNumberP2(summaryRow.createCell(5), repoStat.getAverageHierarchyDepth());
-		rch.setNumber(summaryRow.createCell(6), repoStat.getMaxHierarchyDepth());
+		
+
+		int totalComponents = ComponentUtil.getComponentCount(teamRepository, monitor);
+		rch.setNumberP2(summaryRow.createCell(COL_COMP_STATS), totalComponents);
+		rch.setNumber(summaryRow.createCell(COL_COMP_STATS+1), repoStat.getAverageHierarchyDepth());
+		rch.setNumber(summaryRow.createCell(COL_COMP_STATS+2), repoStat.getMaxHierarchyDepth());
 		//
-		rch.setNumber(summaryRow.createCell(8), repoStat.getCumulatedFolders());
-		rch.setNumber(summaryRow.createCell(9), repoStat.getCumulatedFiles());
+		rch.setNumber(summaryRow.createCell(COL_FOLDERS), repoStat.getCumulatedFolders());
+		rch.setNumber(summaryRow.createCell(COL_FOLDERS+1), repoStat.getCumulatedFiles());
 		//
-		rch.setNumberP2(summaryRow.createCell(11), repoStat.getCumulatedFilesPerFolder());
-		rch.setNumberP2(summaryRow.createCell(12), repoStat.getAverageFolderDepth());
-		rch.setNumber(summaryRow.createCell(13), repoStat.getCumulatedFolderDepth());
+		rch.setNumberP2(summaryRow.createCell(COL_FOLDER_STATS), repoStat.getCumulatedFilesPerFolder());
+		rch.setNumberP2(summaryRow.createCell(COL_FOLDER_STATS+1), repoStat.getAverageFolderDepth());
+		rch.setNumber(summaryRow.createCell(COL_FOLDER_STATS+2), repoStat.getCumulatedFolderDepth());
 		//
-		rch.setNumberP2(summaryRow.createCell(15), Math.log(repoStat.getCumulatedFolderDepth()));
-		rch.setNumber(summaryRow.createCell(16), repoStat.getMaxFolderDepth());
+		rch.setNumberP2(summaryRow.createCell(COL_FOLDER_DEPTH_STATS), Math.log(repoStat.getCumulatedFolderDepth()));
+		rch.setNumber(summaryRow.createCell(COL_FOLDER_DEPTH_STATS+1), repoStat.getMaxFolderDepth());
 		//
-		rch.setNumberP2(summaryRow.createCell(18), repoStat.getAverageFileSize());
-		rch.setNumber(summaryRow.createCell(19), repoStat.getMaxFileSize());
-		rch.setNumber(summaryRow.createCell(20), repoStat.getCumulatedFileSize());
-		rch.setNumberP2(summaryRow.createCell(21), repoStat.getAverageFileDepth());
-		rch.setNumber(summaryRow.createCell(22), repoStat.getMaxFileDepth());
+		rch.setNumberP2(summaryRow.createCell(COL_FILE_STATS), repoStat.getAverageFileSize());
+		rch.setNumber(summaryRow.createCell(COL_FILE_STATS+1), repoStat.getMaxFileSize());
+		rch.setNumber(summaryRow.createCell(COL_FILE_STATS+2), repoStat.getCumulatedFileSize());
+		rch.setNumberP2(summaryRow.createCell(COL_FILE_STATS+3), repoStat.getAverageFileDepth());
+		rch.setNumber(summaryRow.createCell(COL_FILE_STATS+4), repoStat.getMaxFileDepth());
 
 		for (int i = 0; i < 26; i++) {
 			sheet.autoSizeColumn(i);

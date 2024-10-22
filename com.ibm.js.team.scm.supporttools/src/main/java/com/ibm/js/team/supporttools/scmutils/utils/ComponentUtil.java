@@ -21,6 +21,7 @@ import com.ibm.team.repository.common.IAuditableHandle;
 import com.ibm.team.repository.common.TeamRepositoryException;
 import com.ibm.team.scm.client.IWorkspaceConnection;
 import com.ibm.team.scm.client.IWorkspaceManager;
+import com.ibm.team.scm.client.SCMPlatform;
 import com.ibm.team.scm.common.IComponent;
 import com.ibm.team.scm.common.IComponentHandle;
 import com.ibm.team.scm.common.dto.IComponentSearchCriteria;
@@ -134,6 +135,13 @@ public class ComponentUtil {
 
 	}
 
+	public static int getComponentCount(ITeamRepository teamRepository, IProgressMonitor monitor) throws TeamRepositoryException {
+		IWorkspaceManager wm = SCMPlatform.getWorkspaceManager(teamRepository);
+		// Try to find all components
+		Set<String> components = wm.findAllComponentNames(monitor);
+		return components.size();
+	}
+	
 	/**
 	 * Gets all existing components and puts them in a map for easier usage.
 	 * 

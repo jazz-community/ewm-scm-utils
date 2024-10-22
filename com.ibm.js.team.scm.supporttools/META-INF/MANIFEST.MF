@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: IBM
 Automatic-Module-Name: com.ibm.js.team.scm.supporttools
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8,
- JavaSE-1.7
+ JavaSE-1.7,
+ JavaSE-11
 Require-Bundle: org.eclipse.core.runtime,
  com.ibm.team.scm.common,
  com.ibm.team.scm.client,
